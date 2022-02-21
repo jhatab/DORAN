@@ -1,0 +1,11 @@
+.container {
+    margin-top:100px;
+    width:874px;
+}
+
+.login {
+    width:450px;
+    height:650px;
+    display:flex;
+    justify-content: center;
+}
