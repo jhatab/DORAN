@@ -1,0 +1,7 @@
+.groupWrapper {
+    width: 1320px;
+    margin: 0 auto;
+    margin-top: 85px;
+    display: flex;
+    justify-content: space-between;
+}
