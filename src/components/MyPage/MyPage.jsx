@@ -4,7 +4,7 @@ const MyPage = () => {
 
     return(
         <>
-            <div className='myPage'>
+            <div className="myPage">
                 <MyLeft />
             </div>
         </>

@@ -1,6 +1,6 @@
 .myWrapper {
     width: 1320px;
-    height: 500px;
+    height: auto;
 
     margin: 0 auto;
     margin-top: 50px;
@@ -17,13 +17,110 @@
     align-items: center;
 }
 
+.myTitle h3 {
+    margin: 20px 0;
+}
+
 .myTopics {
+    margin-top: 20px;
+    padding: 30px 100px;
+
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
+    flex-direction: row;
+    flex-wrap: wrap;
 }
 
 .myTopics button{
     background-color: #FFC900;
+    width: auto;
+    height: 50px;
+    margin: 20px;
+    padding: 10px 20px;
+    border-radius: 5em;
+    box-shadow: 0px 2px 6px #00000029;
+    cursor: pointer;
+    transform: translateY(0);
+    transition-duration: 1s;
+}
 
-    border: 2px solid black;
+.myTopics button:hover,
+.myTopics button:focus,
+.myTopics button:active {
+    transform: translateY(-0.5em);
+    transition-duration: 1s;
+}
+
+
+
+
+/* MyMain CSS 적용 */
+.myMain {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 50px;
+}
+
+.myMain h1 {
+    margin: 50px 0;
+}
+
+.myCard {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.myProfile {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    /* margin-right: 100px; */
+}
+
+.myProfile p {
+    margin: 20px 0;
+}
+
+.myProfile img {
+    width: 100px;
+    height: 100px;
+
+    text-align: center;
+    object-fit: cover;
+
+    border-radius: 50%;
+}
+
+.myHistory {
+    display: none;
+}
+
+
+/* MyTopic css 적용 */
+
+.chosenTopic {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-top: 30px;
+}
+
+.chosenTopic > div {
+    background-color: #FFC900;
+    width: auto;
+    height: 25px;
+    line-height: 25px;
+
+    margin: 20px;
+
+    padding: 10px 20px;
+
+    border-radius: 5em;
+
+    box-shadow: 0px 2px 6px #00000029;
+    cursor: pointer;
 }

@@ -7,6 +7,7 @@ import Header from './components/Header';
 import Group from './components/GroupPage/Group';
 import SignUp from './components/SignUp/SignUp';
 import MainHeader from 'components/Main/MainHeader';
+import MyPage from 'components/MyPage/MyPage';
 
 const App = () => {
   return(
@@ -30,6 +31,10 @@ const App = () => {
           path="/Group"
           element={<Group />}  
         />
+        <Route
+          path="/MyPage"
+          element={<MyPage />}
+          />
       </Routes>
     </Router>
     </div>

@@ -8,7 +8,6 @@ const MyLeft = () => {
     const [group, setGroup] = useState(false);
     const [info, setInfo] = useState(false);
 
-
     return (
         <>
             <div className="myPageWrapper">
@@ -17,9 +16,9 @@ const MyLeft = () => {
                 </div>
 
                 <div className="myPageList">
-                    <button onClick={() => setTopic(!topic)}><li>관심 주제</li></button>
-                    <button onClick={() => setGroup(!group)}><li>가입한 그룹</li></button>
-                    <button onClick={() => setInfo(!info)}><li>회원 정보</li></button>
+                    <button onClick={() => {setTopic(!topic); setGroup(false); setInfo(false)}}>관심 주제</button>
+                    <button onClick={() => {setGroup(!group); setTopic(false); setInfo(false)}}>가입한 그룹</button>
+                    <button onClick={() => {setInfo(!info); setTopic(false); setGroup(false)}}>회원 정보</button>
                 </div>
             </div>
 
