@@ -7,7 +7,7 @@ const Main = () => {
     return(
         <div>
             <MainHeader />
-            <Subnav />
+            {/* <Subnav /> */}
             <ContentNav />
         </div>
     )
