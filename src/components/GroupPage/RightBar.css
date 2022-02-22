@@ -1,0 +1,46 @@
+.rightWrapper {
+    display: flex;
+    flex-direction: column;
+
+    text-align: left;
+
+    width: 300px;
+    height: 400px;
+    position: relative;
+    margin-top: 42px;
+    border-radius: 10px;
+    box-shadow: 2px 2px 5px 1px #d2d2d2;
+}
+
+.rightWrapper > p{
+    font-weight: bold;
+    text-align: center; 
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+
+.groupPopPhoto {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+
+    margin: 15px;
+}
+
+.groupPopPhoto img{
+    width: 80px;
+    height: 80px;
+    text-align: center;
+    object-fit: cover;
+
+    margin-right: 10px;
+}
+
+.PopContents h4{
+    font-size: 15px;
+}
+
+.PopContents p{
+    font-size: 14px;
+}

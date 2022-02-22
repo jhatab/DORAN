@@ -1,0 +1,215 @@
+.groupFeed {
+    width: 600px;
+    margin: 0 auto;
+    margin-bottom: 40px;
+    padding: 30px 30px 10px 30px;
+
+    height: auto;
+
+    border-radius: 10px;
+    box-shadow: 2px 2px 5px 1px #d2d2d2;
+}
+
+/* Search.jsx */ 
+.searchWrite {
+    width: 660px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 0 auto;
+    margin-bottom: 15px;
+}
+
+.searchWrite img {
+    width: 15px;
+    height: 15px;
+    position: absolute;
+    margin-left: 5px;
+}
+
+.searchWrite input {
+    width: 250px;
+    height: 25px;
+    padding-left: 25px;
+    font-size: 15px;
+
+    border-radius: 5px;
+    border: none;
+    outline: none;
+
+    background-color: #d2d2d2;
+}
+
+.searchWrite input:focus {
+    box-shadow: 2px 2px 5px 1px gray;
+}
+
+
+.searchWrite button {
+    background-color: #FFC900;
+    border-radius: 5em;
+    border: none;
+
+    width: 80px;
+    height: 25px;
+    line-height: 25px;
+
+    cursor: pointer;
+}
+
+/*///////////////////////////////////////////////*/
+
+.groupId {
+    display: flex;
+    align-items: center;
+}
+
+.groupId img {
+    width: 50px;
+    height: 50px;
+    text-align: center;
+    object-fit: cover;
+
+    margin-right: 10px;
+
+    border-radius: 50%;
+}
+
+.groupFeedUpper {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.groupId p {
+    font-weight: bold;
+    font-size: 18px;
+    margin-right: 20px;
+}
+
+.groupId span {
+    color: gray;
+    font-size: 14px;
+}
+
+
+.groupFeedMenu img {
+    width: 25px;
+    cursor: pointer;
+}
+
+.middleContents {
+    margin-bottom: 30px;
+}
+
+.groupFeedLower {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.groupHash span{
+    color: gray;
+    margin-right: 10px;
+}
+
+.groupHash span:hover,
+.groupHash span:focus,
+.groupHash span:active {
+    color: #FFC900;
+    cursor: pointer;
+}
+
+.groupLike {
+    display: flex;
+    align-items: center;
+}
+
+.groupLike img{
+    width: 20px;
+    height: 20px;
+    margin-right: 8px;
+}
+
+.groupLike img:hover,
+.groupLike img:focus,
+.groupLike img:active {
+    cursor: pointer;
+}
+
+.groupFeedImg {
+    display: flex;
+    justify-content: space-between;
+
+    margin-bottom: 30px;
+}
+
+.groupFeedImg img{
+    width: 165px;
+    height: 165px;
+    border-radius: 10px;
+    box-shadow: 1px 1px 5px 1px #d2d2d2;
+
+    text-align: center;
+    object-fit: cover;
+
+    cursor: pointer;
+}
+
+.groupComment {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.groupComment span:nth-of-type(1) {
+    font-weight: bold;
+    margin-right: 10px;
+}
+
+.groupComment span:nth-of-type(2) {
+    font-weight: bold;
+    margin-left: 10px;
+}
+
+.groupReadMore {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    margin-top: 10px;
+
+    cursor: pointer;
+}
+
+.groupReadMore img{
+    width: 20px;
+    height: 20px;
+}
+
+
+/* 작은 피드 형태 */
+
+.groupId_small {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.groupFeedName {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+}
+
+.groupFeed_small {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+}
+
+.middleWrapper_small {
+    padding-left: 20px;
+}
