@@ -7,6 +7,7 @@ import Header from './components/Header';
 import Group from './components/GroupPage/Group';
 import SignUp from './components/SignUp/SignUp';
 import MainHeader from 'components/Main/MainHeader';
+import Footer from 'components/Footer';
 
 const App = () => {
   return(
@@ -31,6 +32,8 @@ const App = () => {
           element={<Group />}  
         />
       </Routes>
+
+      <Footer />
     </Router>
     </div>
   );

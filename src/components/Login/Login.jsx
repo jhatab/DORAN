@@ -7,9 +7,6 @@ const Login = () =>{
 
     return (
         <div className="container">
-        <div>
-            <Header />
-        </div>
         <div className="login_wrapper">
             <div className="login">
             <div className="login_logo">

@@ -1,9 +1,17 @@
+@font-face {
+    font-family: "appleM";
+    src: url("./fonts/AppleSDGothicNeoM.ttf") format("truetype");
+  }
+  
+
 * {
     margin: 0;
     padding: 0;
     border: 0;
+    font-family:'appleM';
+    
 }
 
-.container {
-    background-color: #FAFAFA;
+body {
+    background-color:#FAFAFA;
 }
