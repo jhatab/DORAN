@@ -1,0 +1,33 @@
+.sub {
+    margin-top:65px;
+    width:100%;
+    text-align: center;
+    box-shadow: 0px 1px 6px #00000029;
+}
+
+.sub_nav {
+    position:relative;
+    width:850px;
+    height:65px;
+    display:inline-block;
+    
+}
+
+.list_btn {
+    position: absolute;
+    top:70%;
+    vertical-align:bottom;
+    list-style:none;
+}
+
+.list_btn li {
+    float:left;
+    margin-right:15px;
+}
+
+.is-active {
+    width:42px;
+    display: inline-block;
+    text-align: center;
+    border-bottom:3px solid #FFC900;
+}

@@ -1,0 +1,19 @@
+.sub {
+    margin-top:65px;
+    width:100%;
+    text-align: center;
+}
+
+.sub_nav {
+    position:relative;
+    width:1320px;
+    height:65px;
+    display:inline-block;
+}
+
+.list_btn {
+    position: absolute;
+    top:100%;
+    vertical-align:bottom;
+    float:left;
+}

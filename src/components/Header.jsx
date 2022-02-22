@@ -3,13 +3,12 @@ import React from 'react';
 import { Link } from "react-router-dom"
 
 
-function Header() {
+const Header = () => {
   return (
-    <div className="container">
       <div className="header_box">
         <div className="header_bar">
           <div className="logo">
-            <a href="#"><img className="logo_img" src="images/logo.png" /></a>
+            <Link to="/"><img className="logo_img" src="images/logo.png" /></Link>
           </div>
           <div className="search_bar">
             <img className="search_icon" src="images/search.png"/>
@@ -18,11 +17,10 @@ function Header() {
           <div className="menu">
             <ul className="menu_btn">
               <li ><img className="alarm_btn" src="images/bell.png" /></li>
-              <Link to="./Login"><li className="login_btn">로그인</li></Link>
+              <Link to="/Login"><li className="login_btn">로그인</li></Link>
             </ul>
           </div>
         </div>
-    </div>
     </div>
   );
 }
