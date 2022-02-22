@@ -1,0 +1,32 @@
+.myPageWrapper {
+    margin: 0 auto;
+    margin-top: 120px;
+    
+    width: 1320px;
+}
+
+.myPageTitle {
+    margin-bottom: 50px;
+}
+
+.myPageTitle h2{
+    text-align: center;
+}
+
+.myPageList {
+    margin: 0 400px 0 400px;
+    list-style: none;
+
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.myPageList button {
+    background-color: #FFC900;
+    width: 100px;
+    height: 30px;
+
+    border-radius: 5em;
+    box-shadow: 0px 2px 6px #00000029;
+    cursor: pointer;
+}
