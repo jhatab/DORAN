@@ -25,6 +25,8 @@ dependencies {
 	implementation 'org.apache.tiles:tiles-api:3.0.5'
 	implementation 'org.apache.tiles:tiles-el:3.0.5'
 	
+	runtimeOnly 'mysql:mysql-connector-java'
+	
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 }
 
