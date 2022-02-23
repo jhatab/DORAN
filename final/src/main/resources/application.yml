@@ -7,10 +7,16 @@ server:
       enabled: true
       force: true
 
+<<<<<<< HEAD
 spring:  
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://localhost:3306/dorandb?&serverTimezone=UTC&autoReconnect=true&allowMultiQueries=true&characterEncoding=UTF-8
+=======
+#MySql
+spring:  datasource:    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/mydb?&serverTimezone=UTC&autoReconnect=true&allowMultiQueries=true&characterEncoding=UTF-8
+>>>>>>> branch 'jungin' of https://github.com/jhatab/DORAN.git
     username: root
     password: 1234
 #View
@@ -25,9 +31,13 @@ spring:
 
 
 #mybatis  
+<<<<<<< HEAD
 mybatis: 
   mapper-locations:
   - classpath:/mapper/**/mapper.xml  
   type-aliases-package: com.project.doran.**.vo
 
   
+=======
+#mybatis:#  mapper-locations:#  - classpath:/mapper/mapper.xml#  type-aliases-package: com.project.doran.**.vo
+>>>>>>> branch 'jungin' of https://github.com/jhatab/DORAN.git

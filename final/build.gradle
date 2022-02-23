@@ -28,8 +28,11 @@ dependencies {
 	
 	runtimeOnly 'mysql:mysql-connector-java'
 	
+<<<<<<< HEAD
 	developmentOnly 'org.springframework.boot:spring-boot-devtools'
 	
+=======
+>>>>>>> branch 'jungin' of https://github.com/jhatab/DORAN.git
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	
 	compileOnly 'org.projectlombok:lombok:1.18.22'
