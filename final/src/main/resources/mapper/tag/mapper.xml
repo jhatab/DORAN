@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.project.doran.tag.dao.TagDAO">
+
+	<!-- tag -->
+	<resultMap id="tag" type="tagVO">
+		<result property="tagId" column="tagId" />
+		<result property="tagName" column="tagName" />
+	</resultMap>
+	
+	<insert id="tagInsert" parameterType="tagVO">
+		INSERT INTO tagTbl(tagName)
+		VALUES(#{tagName})
+	</insert>
+	
+	<delete id="tagDelete" parameterType="Integer">
+		DELETE FROM tagTbl 
+		WHERE tagId=#{tagId} 
+	</delete>
+</mapper>

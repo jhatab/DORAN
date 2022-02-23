@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+      PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.project.doran.user.dao.UserDAO">
+
+	<!-- User -->
+	<resultMap id="user" type="userVO">
+		<result property="uid" column="uid" />
+		<result property="upass" column="upass" />
+		<result property="name" column="name" />
+		<result property="birthDate" column="birthDate" />
+		<result property="gender" column="gender" />
+		<result property="nickname" column="nickname" />
+		<result property="email" column="email" />
+		<result property="address" column="address" />
+		<result property="authority" column="authority" />
+	</resultMap>
+	
+	<update id="updateUser" parameterType="userVO">
+		UPDATE userTbl 
+		SET upass = #{upass}, name = #{name}, birthDate = #{birthDate}, gender = #{gender}, 
+			nickname = #{nickname}, email = #{email}, address = #{address}
+		WHERE uid = #{uid} 
+	</update>
+	
+	<!-- searchList -->
+	<resultMap id="search" type="userVO">
+		<!-- userTbl -->
+		<result property="nickname" column="nickname" />
+		<!-- postTbl(게시물 테이블) -->
+		<result property="content" column="content" />
+		<result property="postedDate" column="postedDate" />
+		<!-- categoryTbl(카테고리 테이블) -->
+		<result property="categoryName" column="categoryName" />
+		<!-- tagTbl(태그 테이블) -->
+		<result property="tagName" column="tagName" />
+	</resultMap>
+	
+	<select id="selectSearchAllList" parameterType="userVO" resultType="userVO">
+		SELECT userTbl.nickname, postTbl.content, postTbl.postedDate, categoryTbl.categoryName, tagTbl.tagName
+		FROM userTbl, postTbl, categoryTbl, tagTbl
+		<!-- 이곳에 조건을 사용 -->
+		<include refid="search" />
+		ORDER BY postedDate DESC
+	</select>
+	
+	<sql id="search">
+		<!-- 검색어가 존재 하는 경우에만 검색을 실행 -->
+		<if test="keyword != null and keyword != ''.toString() ">
+			or nickname like '%' || #{nickname} || '%'
+			or content like '%' || #{content} || '%'
+			or categoryName like '%' || #{categoryName} || '%'
+			or tagName like '%' || #{tagName} || '%'
+		</if>
+	</sql>
+	
+	<select id="selectTagList" resultMap="search">
+		SELECT tagName
+		FROM tagTbl
+	</select>
+</mapper>
