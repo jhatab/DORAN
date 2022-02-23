@@ -47,8 +47,8 @@ public class GroupController {
 		logger.info("그룹 목록 페이지입니다.");
 		
 		model.addAttribute("categoryList", categoryService.categoryList());
-//		model.addAttribute("cList", groupService.categoryList());
-//		model.addAttribute("gList", groupService.groupList());
+		
+		model.addAttribute("groupList", groupService.groupList());
 	}
 
 
