@@ -28,7 +28,7 @@
 	</update>
 	
 	<!-- 그룹 삭제 -->
-	<update id="groupDelete">
+	<update id="groupRemove">
 		update groupTbl 
 		set isDeleted = 1, deletedDate = now()
 		where groupId = #{groupId}
