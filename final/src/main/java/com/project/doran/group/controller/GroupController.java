@@ -7,6 +7,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.project.doran.category.service.CategoryService;
 import com.project.doran.group.service.GroupService;
@@ -50,6 +52,68 @@ public class GroupController {
 		
 		model.addAttribute("groupList", groupService.groupList());
 	}
+	
+	/* 그룹 생성 페이지 */
+	@RequestMapping(value = "/create", method = RequestMethod.GET)
+	public void groupCreateGET(Model model) throws Exception {
+		logger.info("그룹 생성 페이지입니다.");
+		
+		model.addAttribute("categoryList", categoryService.categoryList());
+	}
+	
+	/* 그룹 생성 */
+	@RequestMapping(value = "/create.do", method = RequestMethod.POST)
+	public String groupCreatePost(GroupVO groupVO, RedirectAttributes rttr, MultipartFile file) throws Exception {
+		logger.info("그룹 생성");
+		
+		groupService.groupCreate(groupVO, file);
+		
+		rttr.addFlashAttribute("result", "group create success");
 
+		return "redirect:/group/list";
+	}
+	
+	/* 그룹 수정 페이지 */
+	@RequestMapping(value = "/update", method = RequestMethod.GET)
+	public void groupUpdateGet(int groupId, Model model) throws Exception {
+		logger.info("그룹 수정 페이지입니다.");
+
+		model.addAttribute("categoryList", categoryService.categoryList());
+		
+		model.addAttribute("groupInfo", groupService.groupHome(groupId));
+	}
+	
+	/* 그룹 수정 */
+	@RequestMapping(value = "/update.do", method = RequestMethod.POST)
+	public String groupUpdatePost(GroupVO groupVO, RedirectAttributes rttr, MultipartFile file) throws Exception {
+		logger.info("그룹 수정");
+		
+		groupService.groupUpdate(groupVO, file);
+		
+		rttr.addFlashAttribute("result", "group update success");
+		
+		return "redirect:/group/home?groupId=" + Integer.toString(groupVO.getGroupId());
+	}
+	
+	/* 그룹 삭제 */
+	@RequestMapping(value = "/remove.do", method = RequestMethod.POST)
+	public String groupRemovePost(GroupVO groupVO, RedirectAttributes rttr) throws Exception {
+		logger.info("그룹 삭제");
+		
+		groupService.groupRemove(groupVO);
+		
+		rttr.addFlashAttribute("result", "group delete success");
+	
+		return "redirect:/group/list";
+	}
+	
+	/* 그룹 페이지 */
+	@RequestMapping(value = "/home", method = RequestMethod.GET)
+	public void groupHomeGet(int groupId, Model model, RedirectAttributes rttr) throws Exception {
+		logger.info("그룹 페이지입니다. : " + groupId);
+		
+		// 그룹 정보
+		model.addAttribute("groupInfo", groupService.groupHome(groupId));
+	}
 
 }
