@@ -1,0 +1,26 @@
+.FindID_wrapper{
+    width:880px;
+    height:555px;
+    margin:125px auto;
+    display: flex;
+    align-items: center;
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0px 1px 6px #00000029;
+}
+
+.FindID {
+    width:450px;
+    margin:0 auto;
+
+}
+
+.FindID_logo {
+    width:150px;
+    margin:0 auto;
+}
+
+.FindID_logo_img {
+    width:150px;
+    height:100px;
+}

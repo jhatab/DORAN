@@ -16,19 +16,21 @@
 
 .list_btn {
     position: absolute;
-    top:70%;
+    top:59%;
     vertical-align:bottom;
     list-style:none;
     cursor:Pointer;
 }
 
 .list_btn li {
+   width:60px;
     float:left;
     margin-right:15px;
+    padding-bottom:7px;
 }
 
 .is-active {
-    width:42px;
+    width:60px;
     display: inline-block;
     text-align: center;
     border-bottom:3px solid #FFC900;

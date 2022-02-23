@@ -82,7 +82,7 @@ cursor:Pointer;
 }
 
 .text_box {
-    padding:20px 20px 0 20px;
+    padding:15px 20px 0 20px;
     width:375px;
     color:#707070;
 }
@@ -99,7 +99,7 @@ cursor:Pointer;
 
 .like_view {
     position:absolute;
-    top:20px;
+    top:15px;
     right:20px;
     color:#707070;
 }

@@ -2,6 +2,11 @@
     font-family: "appleM";
     src: url("./fonts/AppleSDGothicNeoM.ttf") format("truetype");
   }
+
+  @font-face {
+    font-family: "appleL";
+    src: url("./fonts/AppleSDGothicNeoL.ttf") format("truetype");
+  }
   
 
 * {
