@@ -11,6 +11,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -144,4 +145,23 @@ public class GroupController {
 		String referer = request.getHeader("Referer");	// 헤더에서 이전 페이지를 읽는다.
 		return "redirect:" + referer; 					// 이전 페이지
 	}
+	
+	/* 게시물 삭제 */
+	@ResponseBody
+	@RequestMapping(value = "/postDelete.do", method = RequestMethod.POST)
+	public void postDeletePost(PostVO postVO) throws Exception {
+		logger.info("게시물 삭제");
+		
+		postService.postDelete(postVO);
+	}
+	
+	/* 게시물 수정 */
+	@ResponseBody
+	@RequestMapping(value = "/postUpdate.do", method = RequestMethod.POST)
+	public void postUpdatePost(PostVO postVO) throws Exception {
+		logger.info("게시물 수정");
+		
+		postService.postUpdate(postVO);
+	}
+	
 }

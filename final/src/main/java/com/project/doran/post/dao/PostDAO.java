@@ -24,4 +24,10 @@ public interface PostDAO {
 	/* 이미지 파일 등록 */
 	public void postImageUpload(AttchVO attchVO) throws Exception;
 	
+	/* 게시물 수정 */
+	public void postUpdate(PostVO postVO) throws Exception;
+	
+	/* 게시물 삭제 */
+	public void postDelete(PostVO postVO) throws Exception;
+	
 }

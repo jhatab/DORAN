@@ -34,4 +34,23 @@
 		values (#{attchId}, #{postId}, #{srvFileName}, #{localFileName}, #{filePath})
 	</insert>
 	
+	<!-- 게시물 수정 -->
+	<update id="postUpdate">
+		update postTbl 
+		set content = #{content}, openness = #{openness}, isRevised = 1, revisedDate = now()
+		where postId = #{postId}
+	</update>
+	
+	<!-- 이미지 파일 수정 : 기존 이미지 파일 삭제 후 이미지 파일 등록 -->
+	<delete id="postImageDelete">
+		delete attchTbl where postId = #{postId}
+	</delete>
+	
+	<!-- 게시물 삭제 -->
+	<update id="postDelete">
+		update postTbl 
+		set isDeleted = 1, deletedDate = now()
+		where postId = #{postId}
+	</update>
+	
 </mapper>

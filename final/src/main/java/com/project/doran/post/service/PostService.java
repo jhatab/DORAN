@@ -18,4 +18,10 @@ public interface PostService {
 	/* 이미지 파일 목록*/
 	public List<AttchVO> postImageList(int groupId) throws Exception;
 	
+	/* 게시물 수정 */
+	public void postUpdate(PostVO postVO) throws Exception;
+	
+	/* 게시물 삭제 */
+	public void postDelete(PostVO postVO) throws Exception;
+	
 }

@@ -33,13 +33,57 @@
 	background: #fff;
 	vertical-align: middle;
 }
-.postWrite_modal .postWriteBtn_wrap {
+.postWrite_modal .postWriteBtn_wrap, .postUpdate_modal .postUpdateBtn_wrap {
 	position: absolute;
 	bottom: 30px;
 	left: 50%;
 	transform: translate(-50%, 0%);
 }
+/* 게시물 수정 모달창 */
+.postUpdate_modal {
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background: rgba(0, 0, 0, 0.5);
+	z-index: 99;
+	display: none;
+}
+.postUpdate_modal .postUpdate_content {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	width: 600px;
+	height: 500px;
+	padding: 30px;
+	text-align: center;
+	background: #fff;
+	vertical-align: middle;
+}
 /* 이미지 파일 업로드 */
+label.inputFilesBtn {
+	display: inline-block;
+	width: 50px;
+	height: 50px;
+	line-height: 50px;
+	text-align: center;
+	background-color: #eee;
+	cursor: pointer;
+	background-color: #eee;
+	text-align: center;
+}
+
+input[type="file"] {
+	position: absolute;
+	width: 0;
+	height: 0;
+	padding: 0;
+	overflow: hidden;
+	border: 0;
+}
+/* 모달창 */
 .show_modal {
 	display: block
 }
@@ -81,7 +125,7 @@
 	
 	<hr>
 	
-	<!-- 게시물 작성 모달 -->
+	<!-- 게시물 작성 모달창 -->
 	<div class="postWrite_modal">
 		<div class="postWrite_content">
 			<form id="postWriteForm" method="post" enctype="multipart/form-data">
@@ -94,16 +138,13 @@
 				<label><input type="radio" name="openness" value="1">회원</label>
 				<label><input type="radio" name="openness" value="2">그룹</label>
 				<label><input type="radio" name="openness" value="3">나만</label><br>
-				해시태그<br>
 				<!-- 이미지 파일 업로드 -->
 				<hr>
 				<div class="attach_wrap">
+					<label for="files" class="inputFilesBtn">+</label>
+					<input type="file" name="files" id="files" multiple accept=".jpg, .png">
 					<ul class="attachView_wrap">
 					</ul>
-					<span>
-						<label for="files">이미지 선택</label>
-						<input type="file" name="files" id="input_files" multiple accept=".jpg, .png">
-					</span>
 				</div>
 				<div class="postWriteBtn_wrap">
 					<button type="button" class="postWriteCancleBtn">취소</button>
@@ -117,7 +158,7 @@
 	<!-- 게시물 목록 -->
 	<div class="post_wrap">
 		<c:forEach items="${postList}" var="postList">
-			<div class="post_info${postList.postId}">
+			<div class="post_info">
 				<span>게시물 식별자 : ${postList.postId}</span><br>
 				<span>게시물 작성자 아이디 : ${postList.uid}</span><br>
 				<span>게시물 작성자 닉네임 : ${postList.nickname}</span><br>
@@ -135,6 +176,35 @@
 					</c:forEach>
 				</div>
 			</div>
+			<div class="postBtn_wrap">
+				<button type="button" class="postUpdateBtn" post-idx="${postList.postId}">게시물 수정</button>
+				<button type="button" class="postDeleteBtn" post-idx="${postList.postId}">게시물 삭제</button>
+			</div>
+			<!-- 게시물 수정 모달창 -->
+			<div class="postUpdate_modal">
+				<div class="postUpdate_content">
+					<h3>게시물 수정</h3>
+					<textarea name="content" class="content" placeholder="내용">${postList.content}</textarea><br>
+					해시태그<br>
+					<label><input type="radio" name="openness" class="openness" value="0" <c:if test="${postList.openness == 0}">checked</c:if>/>전체</label>
+					<label><input type="radio" name="openness" class="openness" value="1" <c:if test="${postList.openness == 1}">checked</c:if>/>회원</label>
+					<label><input type="radio" name="openness" class="openness" value="2" <c:if test="${postList.openness == 2}">checked</c:if>/>그룹</label>
+					<label><input type="radio" name="openness" class="openness" value="3" <c:if test="${postList.openness == 3}">checked</c:if>/>나만</label><br>
+					이미지 파일 업로드
+					<hr>
+					<div class="attach_wrap">
+						<label for="files" class="inputFilesBtn">+</label>
+						<input type="file" name="files" id="files" multiple accept=".jpg, .png">
+						<ul class="attachView_wrap">
+						</ul>
+					</div>
+					<div class="postUpdateBtn_wrap">
+						<button type="button" class="postUpdateCancleBtn">취소</button>
+						<button type="button" class="postUpdateFinBtn" post-idx="${postList.postId}">작성</button>
+					</div>
+				</div>
+			</div>
+			<!-- // 게시물 수정 모달창 -->
 			<hr>
 		</c:forEach>
 	</div>
@@ -159,13 +229,13 @@
 	
 	/*////////// 그룹 ////////// */
 	
-	/* 그룹 수정 버튼 */
+	/* 그룹 수정 */
 	$(".groupUpdateBtn").on("click", function() {
 		$("#groupForm").attr("action", "/group/update");
 		$("#groupForm").submit();
 	});
 	
-	/* 그룹 삭제 버튼 */
+	/* 그룹 삭제 */
 	$(".groupDeleteBtn").on("click", function() {
 		if (confirm("정말 삭제하시겠습니까?") == true){
 			$("#groupForm").attr("action", "/group/remove.do");
@@ -199,7 +269,7 @@
 	postWriteModal_open.addEventListener("click", postWriteModalToggle);
 	postWriteModal_close.addEventListener("click", postWriteModalToggle);
 	
-	/* 이미지 파일 업로드 */
+	/* 이미지 파일 미리보기 */
 	let select_files = [];
 	
 	function handleImgsFilesSelect(e) {
@@ -217,7 +287,7 @@
 				var attach_html = '';
 				attach_html += "<li>";
 				attach_html += "<img src=\"" + e.target.result + "\" style='width: 50px; height: 50px'>";
-				attach_html += "<button type='button' class='' onClick=''>삭제</button>";
+// 				attach_html += "<button type='button'>삭제</button>";
 				attach_html += "</li>";
 				
 				$(".attachView_wrap").append(attach_html);
@@ -226,15 +296,85 @@
 		});
 	}
 	
-	$("#input_files").on("change", handleImgsFilesSelect);
+	$("#files").on("change", handleImgsFilesSelect);
 	
-	/* 게시물 작성 버튼 */
+	/* 게시물 작성 */
 	const postWriteForm = $("#postWriteForm");
 		
 	$(".postWriteFinBtn").on("click", function() {
 		postWriteForm.attr("action", "/group/postWrite.do");
 		postWriteForm.submit();
 	});
+	
+	/*////////// 게시물 수정 및 삭제 ////////// */
+	
+	const postCount = document.querySelectorAll(".post_wrap .post_info"); // 게시물 수
+
+	/* 게시물 수정 모달창 */
+	const postUpdateModal = document.querySelectorAll(".postUpdate_modal");
+	const postUpdateModal_open = document.querySelectorAll(".postUpdateBtn");
+	const postUpdateModal_close = document.querySelectorAll(".postUpdateCancleBtn");
+	
+	function postUpdateModalToggle(i) {
+		if(postUpdateModal[i].classList.contains("show_modal")) {
+			if (confirm("게시물 수정을 취소하시겠습니까?") == true) {
+				postUpdateModal[i].classList.remove("show_modal");
+				window.location.reload()
+			} else {
+				return false;
+			}
+		} else {
+			postUpdateModal[i].className += " show_modal";
+		}
+	}
+	
+	/* 게시물 수정 */
+	const postUpdateData = {
+		postId : '',
+		content : '',
+		openness : '',
+	}
+	
+	for (let i = 0; i < postCount.length; i++) {
+		$(".postUpdateFinBtn").eq(i).on("click", function() {
+			postUpdateData.postId = $(this).attr("post-idx");
+			postUpdateData.content = $(".postUpdate_content .content").eq(i).val();
+			postUpdateData.openness = $(".postUpdate_content .openness:checked").eq(i).val();
+			
+			$.ajax({
+				url: '/group/postUpdate.do',
+				type: 'post',
+				data: postUpdateData,
+				success: function(result){
+					alert("피드 수정이 완료되었습니다.");
+					window.location.reload();
+				}
+			});
+		});
+	}
+	
+	/* 게시물 삭제 */
+	const postDeleteData = {
+		postId : '',
+	}
+	
+	for (let i = 0; i < postCount.length; i++) {
+		$(".postDeleteBtn").eq(i).on("click", function() {
+			if (confirm("정말 삭제하시겠습니까?") == true) {
+				postDeleteData.postId = $(this).attr("post-idx");
+				
+				$.ajax({
+					url: '/group/postDelete.do',
+					type: 'post',
+					data: postDeleteData,
+					success: function(result){
+						alert("피드가 삭제되었습니다.");
+						window.location.reload();
+					}
+				});
+			}
+		});
+	}
 
 	</script>
 </body>

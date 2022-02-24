@@ -58,5 +58,17 @@ public class PostServiceImpl implements PostService {
 	public List<AttchVO> postImageList(int groupId) throws Exception {
 		return postDAO.postImageList(groupId);
 	}
+	
+	/* 게시물 수정 */
+	@Override
+	public void postUpdate(PostVO postVO) throws Exception {
+		postDAO.postUpdate(postVO);
+	}
+	
+	/* 게시물 삭제 */
+	@Override
+	public void postDelete(PostVO postVO) throws Exception {
+		postDAO.postDelete(postVO);
+	}
 
 }
