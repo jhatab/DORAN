@@ -21,6 +21,8 @@ import com.project.doran.group.service.GroupService;
 import com.project.doran.group.vo.GroupVO;
 import com.project.doran.post.service.PostService;
 import com.project.doran.post.vo.PostVO;
+import com.project.doran.reply.service.ReplyService;
+import com.project.doran.reply.vo.ReplyVO;
 
 @Controller("groupController")
 @RequestMapping(value = "/group")
@@ -36,6 +38,9 @@ public class GroupController {
 	
 	@Autowired
 	private PostService postService;
+	
+	@Autowired
+	private ReplyService replyService;
 	
 	@RequestMapping(value = "/insert", method = RequestMethod.GET)
 	public String groupInsertForm() throws Exception {
@@ -131,6 +136,9 @@ public class GroupController {
 		
 		// 이미지 파일 목록
 		model.addAttribute("postImageList", postService.postImageList(groupId));
+		
+		// 댓글 목록
+		model.addAttribute("replyList", replyService.replyList(groupId));
 	}
 	
 	/* 게시물 작성 + 이미지 파일 등록 */
@@ -146,6 +154,15 @@ public class GroupController {
 		return "redirect:" + referer; 					// 이전 페이지
 	}
 	
+	/* 게시물 수정 */
+	@ResponseBody
+	@RequestMapping(value = "/postUpdate.do", method = RequestMethod.POST)
+	public void postUpdatePost(PostVO postVO) throws Exception {
+		logger.info("게시물 수정");
+		
+		postService.postUpdate(postVO);
+	}
+	
 	/* 게시물 삭제 */
 	@ResponseBody
 	@RequestMapping(value = "/postDelete.do", method = RequestMethod.POST)
@@ -155,13 +172,31 @@ public class GroupController {
 		postService.postDelete(postVO);
 	}
 	
-	/* 게시물 수정 */
+	/* 댓글 작성 */
 	@ResponseBody
-	@RequestMapping(value = "/postUpdate.do", method = RequestMethod.POST)
-	public void postUpdatePost(PostVO postVO) throws Exception {
-		logger.info("게시물 수정");
+	@RequestMapping(value = "/replyWrite.do", method = RequestMethod.POST)
+	public void replyWritePost(ReplyVO replyVO) throws Exception {
+		logger.info("댓글 작성");
 		
-		postService.postUpdate(postVO);
+		replyService.replyWrite(replyVO);
+	}
+	
+	/* 댓글 수정 */
+	@ResponseBody
+	@RequestMapping(value = "/replyUpdate.do", method = RequestMethod.POST)
+	public void replyUpdatePost(ReplyVO replyVO) throws Exception {
+		logger.info("댓글 수정");
+		
+		replyService.replyUpdate(replyVO);
+	}
+	
+	/* 댓글 삭제 */
+	@ResponseBody
+	@RequestMapping(value = "/replyDelete.do", method = RequestMethod.POST)
+	public void replyDeletePost(ReplyVO replyVO) throws Exception {
+		logger.info("댓글 삭제");
+		
+		replyService.replyDelete(replyVO);
 	}
 	
 }
