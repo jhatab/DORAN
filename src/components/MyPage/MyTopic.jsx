@@ -1,4 +1,4 @@
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import "./MyMain.css";
 
 const MyTopic = () => {
@@ -13,21 +13,23 @@ const MyTopic = () => {
 
     const chosen = useRef();
 
+    const [chosenD,setChosenD] = useState([""]);
+
     const picked = (e) => {
+        console.dir(chosenD);
 
-        const child = document.createElement("div");
-        const childText = document.createTextNode(e.target.value);
-        child.className = e.target.value;
-        child.appendChild(childText);
-        chosen.current.appendChild(child);
-
-        child.addEventListener('click', () => cancled(e))
+        for (let i=0; i<chosenD.length; i++) {
+            if(chosenD[i] == e.target.value)
+                setChosenD([...chosenD]);
+            else if(chosenD.length === 0)
+            chosenD.concat(e.targe.value);
+            else setChosenD([...chosenD, e.target.value]);
+        }
     }
 
     const cancled = (e) => {
-        const child = document.getElementsByClassName(e.target.value);
-        console.dir(document.getElementsByClassName(e.target.value));
-        chosen.removeChild(child);
+        console.dir(e.target.innerText);
+        setChosenD(chosenD.filter(data => data !== e.target.innerText));
     }
 
     return (
@@ -39,7 +41,7 @@ const MyTopic = () => {
                 
 
                 <div className="chosenTopic" ref={chosen}>
-                    
+                    {chosenD.map((data,index) => (<div key={index} onClick={e => cancled(e)} value={data}>{data}</div>))}
                 </div>
 
                 <div className="myTopics" >

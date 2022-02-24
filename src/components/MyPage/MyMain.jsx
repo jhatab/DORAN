@@ -7,8 +7,9 @@ const MyMain = ({topic, group, info}) => {
 
     return(
         <>
-            <div className="myWrapper">
+            
                 { !topic && !group && !info &&
+                    <div className="myWrapper small">
                     <div className="myMain"> 
                         <h1>오늘은 00님이 도란도란을 시작한지 25일!</h1>
 
@@ -23,12 +24,25 @@ const MyMain = ({topic, group, info}) => {
                             </div>
                         </div>
                     </div>
-
+                    </div>
                 }
-                { topic && <MyTopic />}
-                { group && <MyGroup />}
-                { info && <MyInfo />}
-            </div>
+                { topic && 
+                    <div className="myWrapper small">
+                    <MyTopic />
+                    </div>
+                }
+
+                { group && 
+                    <div className="myWrapper">
+                    <MyGroup />
+                    </div>
+                }
+                { info && 
+                    <div className="myWrapper small">
+                    <MyInfo />
+                    </div>
+                }
+            
         </>
     );
 }

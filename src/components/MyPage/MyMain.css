@@ -10,6 +10,9 @@
     box-shadow: 2px 2px 5px 1px #d2d2d2;
 }
 
+.myWrapper.small {
+    width: 880px;
+}
 
 .myTitle {
     display: flex;
@@ -123,4 +126,233 @@
 
     box-shadow: 0px 2px 6px #00000029;
     cursor: pointer;
+}
+
+.chosenTopic div:first-child {
+    display: none;
+}
+
+.cancled {
+    display: none;
+}
+
+
+/* 가입한 그룹 css */
+.myGroupBox {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.myGroupWrapper {
+    margin: 0 auto;
+    margin-top: 50px;
+    margin-bottom: 50px;
+}
+
+.myGroup {
+    position: relative;
+    width: 285px; 
+    height:380px; 
+}
+
+.myGroup img{
+    object-fit: cover; 
+    width: 285px; 
+    height:380px; 
+    outline:none;
+    transition-duration: 1s;
+}
+
+.myGroup img:hover{
+    background-color: white; 
+    opacity: 50%;
+    transition-duration: 1s;
+}
+
+.myGroup:hover .groupChoice{
+    visibility: visible;
+    transition-duration: 1s;
+}
+
+.myGroupText {
+    position: absolute;
+    width:285px;
+    height:50px;
+    background: rgb(0, 0, 0, 0.5);
+    display: flex;
+    text-align:center;
+    align-items: center;
+
+    z-index: 5;
+
+    margin-top: 327px;
+}
+
+.myGroupText P{
+    color:white;
+    margin:auto;
+}
+
+.test {
+    position: absolute;
+    width: 285px; 
+    height:380px; 
+}
+
+.box {
+    position: relative;
+    width:285px;
+    height:50px;
+    bottom:3px;
+}
+
+.groupVisit, .groupExit {
+    width: 80px;
+    height: 50px;
+    line-height: 53px;
+    text-align: center;
+
+    border-radius: 5em;
+
+    
+    box-shadow: 0px 2px 6px #00000029;
+    cursor: pointer;
+
+    margin-top: 160px;
+}
+
+.groupVisit:hover, .groupExit:hover {
+    transform: translateY(-0.5em);
+    transition-duration: 1s;
+}
+
+.groupChoice:hover + img{
+    background-color: white; 
+    opacity: 50%;
+    transition-duration: 1s;
+}
+
+.groupVisit {
+    background-color: #FFC900;
+}
+
+.groupExit {
+    background-color: red;
+}
+
+.groupChoice {
+    width: 285px;
+    display: flex;
+    justify-content: space-evenly;
+    position: absolute;
+    z-index: 1000;
+
+    margin-bottom: 1000px;
+    
+    visibility: hidden;
+    transition-duration: 0.2s;
+}
+
+.groupVisit:focus,
+.groupVisit:active {
+    text-decoration: none;
+    color: black;
+}
+
+
+/* MyInfo 적용 css */
+
+.infoWrapper {
+    margin-top: 50px;
+    justify-content: center;
+
+    display: grid;
+
+    grid-template-columns: 120px 230px;
+    gap: 50px;
+    grid-template-areas: 
+        "idInfo idVal"
+        "pwdInfo pwdVal"
+        "nameInfo nameVal"
+        "emailInfo emailVal"
+        "addrInfo addrVal"
+        "birthInfo birthVal"
+        ;
+}
+
+.idInfo {
+    grid-area: idInfo;
+}
+
+.idVal {
+    grid-area:idVal;
+}
+
+.pwdInfo {
+    grid-area: pwdInfo;
+}
+
+.pwdVal {
+    grid-area: pwdVal;
+}
+
+.nameInfo {
+    grid-area: nameInfo;
+}
+
+.nameVal {
+    grid-area:nameVal;
+}
+
+.emailInfo {
+    grid-area:emailInfo;
+}
+
+.emailVal {
+    grid-area: emailVal;
+}
+
+.addrInfo {
+    grid-area: addrInfo;
+}
+
+.addrVal {
+    grid-area: addrVal;
+}
+
+.birthInfo {
+    grid-area: birthInfo;
+}
+
+.birthVal {
+    grid-area: birthVal;
+}
+
+
+.modifyBtn {
+    width: 880px;
+    display: flex;
+    justify-content: center;
+
+    margin: 50px 0;
+}
+
+
+.modifyBtn button {
+    background-color: #FFC900;
+    height: 50px;
+    width: 100px;
+
+    border-radius: 5em;
+    box-shadow: 0px 2px 6px #00000029;
+    cursor: pointer;
+
+    transform: translateY(0);
+    transition-duration: 1s;
+}
+
+.modifyBtn button:hover {
+    transform: translateY(-0.5em);
+    transition-duration: 1s;
 }
