@@ -6,9 +6,6 @@ const SignUp = () =>{
 
     return (
         <div className="container">
-        <div>
-            <Header />
-        </div>
         <div className="sign_wrapper">
             <div className="sign">
             <div className="sign_logo">

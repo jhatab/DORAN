@@ -6,37 +6,57 @@ import Main from './components/Main/Main';
 import Header from './components/Header';
 import Group from './components/GroupPage/Group';
 import SignUp from './components/SignUp/SignUp';
+import FindID from './components/FindID/FindId';
 import MainHeader from 'components/Main/MainHeader';
+
+import Footer from 'components/Footer';
+import SearchPage from 'components/SearchPage/SearchPage';
 import MyPage from 'components/MyPage/MyPage';
+import FindPwd from 'components/FindPwd/FindPwd';
 
 const App = () => {
-  return(
+  return (
     <div>
-    <Router>
-                  <MainHeader />
-      <Routes>
-        <Route 
-          path="/" 
-          element={<Main />}  
-        />
-        <Route 
-          path="/Login" 
-          element={<Login />}
+      <Router>
+        <MainHeader />
+        <Routes>
+          <Route
+            path="/"
+            element={<Main />}
           />
-           <Route 
-          path="/SignUp" 
-          element={<SignUp />}
+          <Route
+            path="/Login"
+            element={<Login />}
           />
-        <Route
-          path="/Group"
-          element={<Group />}  
-        />
-        <Route
-          path="/MyPage"
-          element={<MyPage />}
+          <Route
+            path="/SignUp"
+            element={<SignUp />}
           />
-      </Routes>
-    </Router>
+           <Route
+            path="/FindID"
+            element={<FindID />}
+          />
+          <Route
+            path="/FindPwd"
+            element={<FindPwd />}
+          />
+          <Route
+            path="/Group"
+            element={<Group />}
+          />
+          <Route
+            path="/SearchPage"
+            element={<SearchPage />}
+          />
+
+          <Route
+            path="/MyPage"
+            element={<MyPage />}
+          />
+        </Routes>
+
+        <Footer />
+      </Router>
     </div>
   );
 };

@@ -1,13 +1,9 @@
 .sub {
-    /* margin-top:65px; */
+    margin-top:65px;
     width:100%;
     text-align: center;
-    /* box-shadow: 0px 1px 6px #00000029; */
-    
-    /* 지혜 코드 작성 */
-    margin-top: 0px;
-    box-shadow: 0px 5px 6px 0px #00000029;
-    transition-duration: 0.3s;
+    background-color: white;;
+    box-shadow: 0px 1px 6px #00000029;
 }
 
 .sub_nav {
@@ -20,18 +16,21 @@
 
 .list_btn {
     position: absolute;
-    top:70%;
+    top:59%;
     vertical-align:bottom;
     list-style:none;
+    cursor:Pointer;
 }
 
 .list_btn li {
+   width:60px;
     float:left;
     margin-right:15px;
+    padding-bottom:7px;
 }
 
 .is-active {
-    width:42px;
+    width:60px;
     display: inline-block;
     text-align: center;
     border-bottom:3px solid #FFC900;

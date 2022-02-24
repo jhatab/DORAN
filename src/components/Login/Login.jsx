@@ -7,9 +7,6 @@ const Login = () =>{
 
     return (
         <div className="container">
-        <div>
-            <Header />
-        </div>
         <div className="login_wrapper">
             <div className="login">
             <div className="login_logo">
@@ -25,9 +22,9 @@ const Login = () =>{
                 </div>
                 
                 
-                <div className="find_btn"><span><a href="#">아이디 찾기&nbsp;</a></span>
+                <div className="find_btn"><Link to="/FindID"><span>아이디 찾기&nbsp;</span></Link>
                 <span>/&nbsp;</span>
-                <span><a href="#">비밀번호 찾기</a></span></div>
+                <Link to="/FindPwd"><span>비밀번호 찾기</span></Link></div>
                 <div className="sign_btn">
                 <input className="btn_style" type="submit" value="로그인" />
                 </div>
