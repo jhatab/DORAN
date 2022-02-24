@@ -441,6 +441,32 @@ input[type="file"] {
 			});
 		});
 	}
+	
+	/* 댓글 삭제 */
+	const replyDeleteData = {
+		replyId : '',
+	}
+	
+	for (let i = 0; i < postCount.length; i++) {
+		$(".replyDeleteBtn").eq(i).on("click", function() {
+			
+			if (confirm("정말 삭제하시겠습니까?") == true){
+				replyDeleteData.replyId = $(".reply_wrap .replyList .replyId").eq(i).val();
+				
+				$.ajax({
+					url: '/group/replyDelete.do',
+					type: 'post',
+					data: replyDeleteData,
+					success: function(result){
+						window.location.reload();
+					}
+				});
+			} else {
+				return false;
+			}
+			
+		});
+	}
 
 	</script>
 </body>
