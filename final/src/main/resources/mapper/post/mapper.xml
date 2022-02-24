@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+      PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.project.doran.post.dao.PostDAO">
+
+	<!-- 게시물 목록 -->
+	<select id="postList" resultType="com.project.doran.post.vo.PostVO">
+		select p.*, u.nickname
+		from postTbl p
+			left outer join userTbl u on p.uid = u.uid
+		where groupId = #{groupId} and p.isDeleted = 0
+		order by postedDate desc;
+	</select>
+	
+	<!-- 게시물 작성 -->
+	<insert id="postWrite" useGeneratedKeys="true" keyProperty="postId">
+		insert into postTbl(groupId, uid, content, openness) values (#{groupId}, #{uid}, #{content}, #{openness})
+	</insert>
+	
+	<!-- 이미지 파일 목록 -->
+	<select id="postImageList" resultType="com.project.doran.attch.vo.AttchVO">
+		select a.*
+		from attchTbl a
+			left outer join postTbl p on a.postId = p.postId
+		    left outer join groupTbl g on p.groupId = g.groupId
+		    where p.groupId = #{groupId} and p.isDeleted = 0
+	</select>
+	
+	<!-- 이미지 파일 등록 -->
+	<insert id="postImageUpload">
+		insert into attchTbl(attchId, postId, srvFileName, localFileName, filePath)
+		values (#{attchId}, #{postId}, #{srvFileName}, #{localFileName}, #{filePath})
+	</insert>
+	
+</mapper>

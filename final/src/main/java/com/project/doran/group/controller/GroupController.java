@@ -1,5 +1,9 @@
 package com.project.doran.group.controller;
 
+import java.util.List;
+
+import javax.servlet.http.HttpServletRequest;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,9 +14,12 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.project.doran.attch.vo.AttchVO;
 import com.project.doran.category.service.CategoryService;
 import com.project.doran.group.service.GroupService;
 import com.project.doran.group.vo.GroupVO;
+import com.project.doran.post.service.PostService;
+import com.project.doran.post.vo.PostVO;
 
 @Controller("groupController")
 @RequestMapping(value = "/group")
@@ -25,6 +32,9 @@ public class GroupController {
 	
 	@Autowired
 	private GroupService groupService;
+	
+	@Autowired
+	private PostService postService;
 	
 	@RequestMapping(value = "/insert", method = RequestMethod.GET)
 	public String groupInsertForm() throws Exception {
@@ -114,6 +124,24 @@ public class GroupController {
 		
 		// 그룹 정보
 		model.addAttribute("groupInfo", groupService.groupHome(groupId));
+		
+		// 게시물 목록
+		model.addAttribute("postList", postService.postList(groupId));
+		
+		// 이미지 파일 목록
+		model.addAttribute("postImageList", postService.postImageList(groupId));
 	}
+	
+	/* 게시물 작성 + 이미지 파일 등록 */
+	@RequestMapping(value = "/postWrite.do", method = RequestMethod.POST)
+	public String postWritePost(PostVO postVO, AttchVO attchVO, List<MultipartFile> files, RedirectAttributes rttr, HttpServletRequest request) throws Exception {
+		logger.info("게시물 작성");
+		
+		postService.postWrite(postVO, attchVO, files);
+		
+		rttr.addFlashAttribute("result", "feed create success");
 
+		String referer = request.getHeader("Referer");	// 헤더에서 이전 페이지를 읽는다.
+		return "redirect:" + referer; 					// 이전 페이지
+	}
 }
