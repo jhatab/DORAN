@@ -101,6 +101,8 @@
 
 .middleContents {
     margin-bottom: 30px;
+    word-break: break-all;
+    text-overflow:ellipsis;
 }
 
 .groupFeedLower {
@@ -128,9 +130,10 @@
 }
 
 .groupLike img{
-    width: 20px;
-    height: 20px;
+    width: 15px;
+    height: 15px;
     margin-right: 8px;
+    margin-bottom: 1px;
 }
 
 .groupLike img:hover,
@@ -162,6 +165,12 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
+}
+
+.groupComment p {
+    width: 400px;
+    word-break: break-all;
+    text-overflow:ellipsis;
 }
 
 .groupComment span:nth-of-type(1) {

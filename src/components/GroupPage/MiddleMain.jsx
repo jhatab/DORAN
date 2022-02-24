@@ -47,7 +47,7 @@ Proin vulputate et quam non euismod. Pellentesque quis augue lacus. Aliquam susc
             <div className="groupComment">
                 <span>Lorem Ipsum</span>
                 <p>orem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-                <span>댓글</span>
+                <span>comment</span>
                 <span>15</span>
             </div>
             <div className="groupReadMore">
