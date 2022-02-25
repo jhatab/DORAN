@@ -21,6 +21,7 @@ import com.project.doran.group.service.GroupService;
 import com.project.doran.group.vo.GroupVO;
 import com.project.doran.post.service.PostService;
 import com.project.doran.post.vo.PostVO;
+import com.project.doran.postLike.service.PostLikeService;
 import com.project.doran.reply.service.ReplyService;
 import com.project.doran.reply.vo.ReplyVO;
 
@@ -41,6 +42,9 @@ public class GroupController {
 	
 	@Autowired
 	private ReplyService replyService;
+	
+	@Autowired
+	private PostLikeService postLikeService;
 	
 	@RequestMapping(value = "/insert", method = RequestMethod.GET)
 	public String groupInsertForm() throws Exception {
@@ -204,5 +208,6 @@ public class GroupController {
 		// 댓글 수 업데이트
 		replyService.replyCountUpdate(postId);
 	}
+	
 	
 }

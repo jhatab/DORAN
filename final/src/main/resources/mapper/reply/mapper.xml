@@ -17,7 +17,7 @@
 	</select>
 	
 	<!-- 댓글 작성 -->
-	<insert id="replyWrite" useGeneratedKeys="true" keyProperty="postId">
+	<insert id="replyWrite">
 		insert into replyTbl(postId, uid, replyContent) values (#{postId}, #{uid}, #{replyContent})
 	</insert>
 	
@@ -29,7 +29,7 @@
 	</update>
 	
 	<!-- 댓글 삭제 -->
-	<update id="replyDelete" useGeneratedKeys="true" keyProperty="postId">
+	<update id="replyDelete">
 		update replyTbl 
 		set isDeleted = 1, deletedDate = now()
 		where replyId = #{replyId}

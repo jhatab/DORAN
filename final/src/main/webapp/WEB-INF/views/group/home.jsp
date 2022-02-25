@@ -164,7 +164,10 @@ input[type="file"] {
 				<span>게시물 작성자 닉네임 : ${pList.nickname}</span><br>
 				<span>게시물 내용: ${pList.content}</span><br>
 				<span>게시물 공개수준: ${pList.openness}</span><br>
-				<span>게시물 좋아요 수: ${pList.likeCount}</span><button type="button" class="likeBtn">추천</button><br>
+				<span>
+					게시물 좋아요 수: ${pList.likeCount}
+					<button type="button" class="likeAddBtn">추천</button>
+				</span><br>
 				<span>게시물 작성날짜: ${pList.postedDate}</span><br>
 				<span>댓글수 : ${pList.replyCount}</span><br>
 				<span>해시태그 : </span><br>
@@ -202,7 +205,7 @@ input[type="file"] {
 						</div>
 						<div class="postUpdateBtn_wrap">
 							<button type="button" class="postUpdateCancleBtn">취소</button>
-							<button type="button" class="postUpdateFinBtn" post-idx="${pList.postId}">작성</button>
+							<button type="button" class="postUpdateFinBtn">작성</button>
 						</div>
 					</form>
 				</div>
@@ -231,12 +234,10 @@ input[type="file"] {
 				</ul>
 				<!-- 댓글 작성 -->
 				<div class="replyWrite_wrap">
-					<form>
-						<input type="hidden" name="postId" class="postId" value="${pList.postId}">
-						<input type="text" name="uid" class="uid" placeholder="작성자">
-						<input type="text" name="replyContent" class="replyContent" placeholder="댓글을 입력해주세요.">
-						<button class="replyWriteBtn">등록</button>
-					</form>
+					<input type="hidden" name="postId" class="postId" value="${pList.postId}">
+					<input type="text" name="uid" class="uid" placeholder="작성자">
+					<input type="text" name="replyContent" class="replyContent" placeholder="댓글을 입력해주세요.">
+					<button type="button" class="replyWriteBtn">등록</button>
 				</div>
 				<!-- // 댓글 작성 -->
 			</div>
@@ -426,20 +427,30 @@ input[type="file"] {
 		postId : '',
 	}
 	
+	function replyWriteFunc(i) {
+		replyWriteData.replyContent = $(".replyWrite_wrap .replyContent").eq(i).val();
+		replyWriteData.uid = $(".replyWrite_wrap .uid").eq(i).val();
+		replyWriteData.postId = $(".replyWrite_wrap .postId").eq(i).val();
+		
+		$.ajax({
+			url: '/group/replyWrite.do',
+			type: 'post',
+			data: replyWriteData,
+			success: function(result){
+				window.location.reload();
+			}
+		});
+	}
+	
 	for (let i = 0; i < postCount.length; i++) {
-		$(".replyWriteBtn").eq(i).on("click", function() {
-			replyWriteData.replyContent = $(".replyWrite_wrap .replyContent").eq(i).val();
-			replyWriteData.uid = $(".replyWrite_wrap .uid").eq(i).val();
-			replyWriteData.postId = $(".replyWrite_wrap .postId").eq(i).val();
-			
-			$.ajax({
-				url: '/group/replyWrite.do',
-				type: 'post',
-				data: replyWriteData,
-				success: function(result){
-					window.location.reload();
-				}
-			});
+		$('.replyWriteBtn').eq(i).on('click', function() {    
+			replyWriteFunc(i)
+		});
+		
+		$(".replyWrite_wrap .replyContent").eq(i).keydown(function(key) {
+			if(key.keyCode == 13) {
+				replyWriteFunc(i)
+			}
 		});
 	}
 	
@@ -509,6 +520,7 @@ input[type="file"] {
 					type: 'post',
 					data: replyDeleteData,
 					success: function(result){
+						alert("댓글이 삭제되었습니다.");
 						window.location.reload();
 					}
 				});
