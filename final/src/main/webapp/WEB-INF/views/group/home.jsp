@@ -210,7 +210,7 @@ input[type="file"] {
 			<!-- // 게시물 수정 모달창 -->
 			
 			<!-- 댓글 목록 -->
-			<div class="reply_wrap">
+			<div class="reply_wrap" id="reply${pList.postId}">
 				<ul class="replyList">
 					<c:forEach items="${replyList}" var="rList">
 						<c:if test="${rList.postId == pList.postId}">
@@ -442,12 +442,60 @@ input[type="file"] {
 		});
 	}
 	
+	/* 댓글 수정 시 css 변경 */
+	const replyCount = document.querySelectorAll(".reply_wrap ul li");					// 댓글 수
+	const replyUpdateBtn = document.querySelectorAll(".replyUpdateBtn");
+	const replyUpdateInput = document.querySelectorAll(".replyInfo textarea");
+	const replyUpdateBtnWrap = document.querySelectorAll(".replyUpdateBtn_wrap");
+	const replyUpdateCancleBtn = document.querySelectorAll(".replyUpdateCancleBtn");	// 댓글 수정 취소 버튼
+	const replyUpdateFinBtn = document.querySelectorAll(".replyUpdateFinBtn");			// 댓글 수정 완료 버튼
+
+	function replyUpdateBtnFunc(i) {
+		replyUpdateInput[i].readOnly = false;			// input readyOnly 해제
+		replyUpdateBtnWrap[i].style.display = "";		// 수정 취소, 완료 버튼 표시
+	}
+	
+	function replyUpdateCancleFunc(i) {
+		replyUpdateInput[i].readOnly = "readOnly";		// inut readOnly 설정
+		replyUpdateBtnWrap[i].style.display = "none";	// 수정 취소, 완료 버튼 제거
+		window.location.reload();						// 새로고침
+	}
+	
+	for (let i = 0; i < replyCount.length; i++) {
+		replyUpdateBtn[i].addEventListener("click", event => replyUpdateBtnFunc(i));	// 댓글 수정 버튼
+		replyUpdateCancleBtn[i].addEventListener("click", event => replyUpdateCancleFunc(i));	// 댓글 수정 취소 버튼
+	}
+	
+	/* 댓글 수정 */
+	const replyUpdateData = {
+		replyId : '',
+		replyContent : '',
+	}
+	
+	for (let i = 0; i < replyCount.length; i++) {
+		$(".replyUpdateFinBtn").eq(i).on("click", function() {
+			
+			replyUpdateData.replyId = $(".reply_wrap .replyList .replyId").eq(i).val();
+			replyUpdateData.replyContent = $(replyUpdateInput).eq(i).val();
+			
+			$.ajax({
+				url: '/group/replyUpdate.do',
+				type: 'post',
+				data: replyUpdateData,
+				success: function(result){
+					replyUpdateCancleFunc(i);
+				}
+			});
+			
+		});
+	}
+	
 	/* 댓글 삭제 */
 	const replyDeleteData = {
 		replyId : '',
 	}
 	
-	for (let i = 0; i < postCount.length; i++) {
+	for (let i = 0; i < replyCount.length; i++) {
 		$(".replyDeleteBtn").eq(i).on("click", function() {
 			
 			if (confirm("정말 삭제하시겠습니까?") == true){
