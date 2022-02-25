@@ -3,19 +3,57 @@
 
 <mapper namespace="com.project.doran.tag.dao.TagDAO">
 
-	<!-- tag -->
-	<resultMap id="tag" type="tagVO">
-		<result property="tagId" column="tagId" />
-		<result property="tagName" column="tagName" />
+	<!-- Tag -->
+	<resultMap  id="tagResult" type="tagVO">
+	  <result property="tagId" column="tagId" />
+      <result property="tagName" column="tagName" />
 	</resultMap>
-	
+
+	<!-- 삽입 -->
 	<insert id="tagInsert" parameterType="tagVO">
 		INSERT INTO tagTbl(tagName)
 		VALUES(#{tagName})
 	</insert>
-	
-	<delete id="tagDelete" parameterType="Integer">
-		DELETE FROM tagTbl 
-		WHERE tagId=#{tagId} 
+
+	<!-- 삭제 -->
+	<delete id="tagDelete" parameterType="int">
+		DELETE FROM tagTbl
+		WHERE tagId=#{tagId}
 	</delete>
+
+	<!-- 태그 총 갯수 -->
+	<!-- <select id="tagListCount" resultType="int">
+		SELECT count(tagName) 
+		FROM tagtbl
+	</select> -->
+	
+	<select id="tagListCount" resultType="int" parameterType="searchCriteriaVO">
+		SELECT count(*) 
+		FROM tagtbl
+		WHERE 1=1
+		<if test="keyword != null">
+			AND tagName LIKE CONCAT('%', #{keyword}, '%')
+		</if>
+	</select>
+
+	<!-- 태그 목록 + 페이징 -->
+<!-- 	<select id="tagList" resultMap="tagResult">
+		SELECT tagId, tagName
+		FROM tagTbl
+		ORDER BY tagId desc
+		LIMIT #{pageStart}, #{perPageNum}
+	</select> -->
+	
+	<select id="tagList" resultType="tagVO" parameterType="searchCriteriaVO">
+		SELECT tagId, tagName
+		FROM tagTbl
+		WHERE 1=1
+		<if test="keyword != null">
+			AND tagName LIKE CONCAT('%', #{keyword}, '%')
+		</if>
+		ORDER BY tagId desc
+		LIMIT #{pageStart}, #{perPageNum}
+	</select>
+
+
 </mapper>
