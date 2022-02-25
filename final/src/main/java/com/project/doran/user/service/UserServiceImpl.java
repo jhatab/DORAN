@@ -7,7 +7,7 @@ import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Service;
 
 import com.project.doran.search.vo.PagingVO;
-import com.project.doran.search.vo.SearchVO;
+import com.project.doran.search.vo.CriteriaVO;
 import com.project.doran.user.dao.UserDAO;
 import com.project.doran.user.vo.UserVO;
 
@@ -30,13 +30,13 @@ public class UserServiceImpl implements UserService {
 	
 	// SearchList
 	@Override
-	public List<UserVO> getSearchList(SearchVO searchVO) throws Exception {
+	public List<UserVO> getSearchList(CriteriaVO searchVO) throws Exception {
 		return userDAO.getSearchList(searchVO);
 	}
 	
 	// SearchListCnt
 	@Override
-	public int getSearchListCnt(SearchVO searchVO) throws Exception {
+	public int getSearchListCnt(CriteriaVO searchVO) throws Exception {
 		return userDAO.getSearchListCnt(searchVO);
 	}
 	

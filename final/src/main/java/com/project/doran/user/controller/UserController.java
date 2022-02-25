@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.project.doran.search.vo.SearchVO;
+import com.project.doran.search.vo.CriteriaVO;
 import com.project.doran.user.service.UserService;
 import com.project.doran.user.vo.UserVO;
 
@@ -35,40 +35,4 @@ public class UserController {
 		return "redirect:/";
 	}
 	
-	@RequestMapping(value = "/tagList", method = RequestMethod.GET)
-	public String selectTagList(Model model) throws Exception {
-		List<UserVO> tagList = userService.selectTagList();
-		model.addAttribute("tagList", tagList);
-		return "user/index";
-
-	}
-
-
-	@RequestMapping(value = "/getSearchList", method = RequestMethod.GET)
-	public String getBoardList(Model model
-			, @RequestParam(required = false, defaultValue = "1") int page
-			, @RequestParam(required = false, defaultValue = "1") int range
-			, @RequestParam(required = false) String keyword
-			, @ModelAttribute("searchVO") SearchVO searchVO
-	) throws Exception {
-
-		//검색
-		model.addAttribute("searchVO", searchVO);
-		searchVO.setKeyword(keyword);
-
-		//전체 게시글 개수
-		int listCnt = userService.getSearchListCnt(searchVO);
-
-		//검색 
-		searchVO.pageInfo(page, range, listCnt);
-
-		//페이징
-		model.addAttribute("pagination", searchVO);
-		
-		//게시글 화면 출력
-		model.addAttribute("searchList", userService.getSearchList(searchVO));
-		
-		return "user/(게시판)";
-	}
-
 }

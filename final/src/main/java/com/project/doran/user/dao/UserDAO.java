@@ -7,7 +7,7 @@ import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Repository;
 
 import com.project.doran.search.vo.PagingVO;
-import com.project.doran.search.vo.SearchVO;
+import com.project.doran.search.vo.CriteriaVO;
 import com.project.doran.user.vo.UserVO;
 
 @Mapper
@@ -21,10 +21,10 @@ public interface UserDAO{
 	public List<UserVO> selectTagList() throws DataAccessException;
 	
 	// 검색
-	public List<UserVO> getSearchList(SearchVO searchVO) throws DataAccessException; 
+	public List<UserVO> getSearchList(CriteriaVO searchVO) throws DataAccessException; 
 	
 	// 전체 게시글 수
-	public int getSearchListCnt(SearchVO searchVO) throws DataAccessException; 
+	public int getSearchListCnt(CriteriaVO searchVO) throws DataAccessException; 
 	
 	// paging(페이지)
 	public List<UserVO> getSearchList(PagingVO pagingVO) throws DataAccessException;
