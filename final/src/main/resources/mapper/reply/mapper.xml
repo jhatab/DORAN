@@ -17,7 +17,7 @@
 	</select>
 	
 	<!-- 댓글 작성 -->
-	<insert id="replyWrite">
+	<insert id="replyWrite" useGeneratedKeys="true" keyProperty="postId">
 		insert into replyTbl(postId, uid, replyContent) values (#{postId}, #{uid}, #{replyContent})
 	</insert>
 	
@@ -29,7 +29,7 @@
 	</update>
 	
 	<!-- 댓글 삭제 -->
-	<update id="replyDelete">
+	<update id="replyDelete" useGeneratedKeys="true" keyProperty="postId">
 		update replyTbl 
 		set isDeleted = 1, deletedDate = now()
 		where replyId = #{replyId}
@@ -39,8 +39,8 @@
 	<update id="replyCountUpdate">
 		UPDATE postTbl
 		SET postTbl.replyCount = (SELECT count(replyId)
-								FROM replyTbl
-								WHERE postId = #{postId} AND isDeleted = 0)
+									FROM replyTbl
+									WHERE postId = #{postId} AND isDeleted = 0)
 		WHERE postTbl.postId = #{postId};
 	</update>
 	

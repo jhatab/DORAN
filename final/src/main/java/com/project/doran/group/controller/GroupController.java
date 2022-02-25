@@ -175,10 +175,13 @@ public class GroupController {
 	/* 댓글 작성 */
 	@ResponseBody
 	@RequestMapping(value = "/replyWrite.do", method = RequestMethod.POST)
-	public void replyWritePost(ReplyVO replyVO) throws Exception {
+	public void replyWritePost(ReplyVO replyVO, int postId) throws Exception {
 		logger.info("댓글 작성");
 		
 		replyService.replyWrite(replyVO);
+		
+		// 댓글 수 업데이트
+		replyService.replyCountUpdate(postId);
 	}
 	
 	/* 댓글 수정 */
@@ -193,10 +196,13 @@ public class GroupController {
 	/* 댓글 삭제 */
 	@ResponseBody
 	@RequestMapping(value = "/replyDelete.do", method = RequestMethod.POST)
-	public void replyDeletePost(ReplyVO replyVO) throws Exception {
+	public void replyDeletePost(ReplyVO replyVO, int postId) throws Exception {
 		logger.info("댓글 삭제");
 		
 		replyService.replyDelete(replyVO);
+		
+		// 댓글 수 업데이트
+		replyService.replyCountUpdate(postId);
 	}
 	
 }

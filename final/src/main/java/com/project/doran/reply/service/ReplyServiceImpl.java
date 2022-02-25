@@ -37,5 +37,11 @@ public class ReplyServiceImpl implements ReplyService {
 	public int replyDelete(ReplyVO replyVO) throws Exception {
 		return replyDAO.replyDelete(replyVO);
 	}
+
+	/* 댓글 수 업데이트 */
+	@Override
+	public void replyCountUpdate(int postId) throws Exception {
+		replyDAO.replyCountUpdate(postId);
+	}
 	
 }

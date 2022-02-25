@@ -166,7 +166,7 @@ input[type="file"] {
 				<span>게시물 공개수준: ${pList.openness}</span><br>
 				<span>게시물 좋아요 수: ${pList.likeCount}</span><button type="button" class="likeBtn">추천</button><br>
 				<span>게시물 작성날짜: ${pList.postedDate}</span><br>
-				<span>댓글수 : </span><br>
+				<span>댓글수 : ${pList.replyCount}</span><br>
 				<span>해시태그 : </span><br>
 				<div class="postAttach_info">
 					<c:forEach items="${postImageList}" var="pIList">
@@ -210,11 +210,12 @@ input[type="file"] {
 			<!-- // 게시물 수정 모달창 -->
 			
 			<!-- 댓글 목록 -->
-			<div class="reply_wrap" id="reply${pList.postId}">
+			<div class="reply_wrap">
 				<ul class="replyList">
 					<c:forEach items="${replyList}" var="rList">
 						<c:if test="${rList.postId == pList.postId}">
 							<li class="replyInfo">
+								<input type="hidden" name="postId" class="postId" value="${rList.postId}">
 								<input type="hidden" name="replyId" class="replyId" value="${rList.replyId}">
 								<span>${rList.nickname}</span><br>
 								<textarea name=replyContent class="replyContent" readonly>${rList.replyContent}</textarea>
@@ -493,6 +494,7 @@ input[type="file"] {
 	/* 댓글 삭제 */
 	const replyDeleteData = {
 		replyId : '',
+		postId : '',
 	}
 	
 	for (let i = 0; i < replyCount.length; i++) {
@@ -500,6 +502,7 @@ input[type="file"] {
 			
 			if (confirm("정말 삭제하시겠습니까?") == true){
 				replyDeleteData.replyId = $(".reply_wrap .replyList .replyId").eq(i).val();
+				replyDeleteData.postId = $(".reply_wrap .replyList .postId").eq(i).val();
 				
 				$.ajax({
 					url: '/group/replyDelete.do',

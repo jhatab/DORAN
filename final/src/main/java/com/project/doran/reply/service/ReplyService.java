@@ -18,4 +18,7 @@ public interface ReplyService {
 	/* 댓글 삭제 */
 	public int replyDelete(ReplyVO replyVO) throws Exception;
 	
+	/* 댓글 수 업데이트 */
+	public void replyCountUpdate(int postId) throws Exception;
+	
 }
