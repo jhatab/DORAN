@@ -24,6 +24,6 @@ public class PostVO {
 	private int replyCount;		// 게시물 댓글 수
 
 	/* userTbl에서 가져옴 */
-	private String nickname; // 게시물 작성자 닉네임
-
+	private String nickname;	// 게시물 작성자 닉네임
+	
 }

@@ -14,11 +14,6 @@
 		order by postedDate desc;
 	</select>
 	
-	<!-- 게시물 작성 -->
-	<insert id="postWrite" useGeneratedKeys="true" keyProperty="postId">
-		insert into postTbl(groupId, uid, content, openness) values (#{groupId}, #{uid}, #{content}, #{openness})
-	</insert>
-	
 	<!-- 이미지 파일 목록 -->
 	<select id="postImageList" resultType="com.project.doran.attch.vo.AttchVO">
 		select a.*
@@ -28,10 +23,41 @@
 		    where p.groupId = #{groupId} and p.isDeleted = 0
 	</select>
 	
+	<!-- 태그 목록 -->
+	<select id="tagList" resultType="com.project.doran.tag.vo.TagVO">
+		select p.groupId, p.postId, t.tagId, t.tagName
+		from tagTbl t
+			left outer join postTagMappingTbl pt on t.tagId = pt.tagId
+		    left outer join postTbl p on pt.postId = p.postId
+		where p.groupId = #{groupId} and p.isDeleted = 0;
+	</select>
+	
+	<!-- 게시물 작성 -->
+	<insert id="postWrite" useGeneratedKeys="true" keyProperty="postId">
+		insert into postTbl(groupId, uid, content, openness) values (#{groupId}, #{uid}, #{content}, #{openness})
+	</insert>
+	
 	<!-- 이미지 파일 등록 -->
 	<insert id="postImageUpload">
 		insert into attchTbl(attchId, postId, srvFileName, localFileName, filePath)
 		values (#{attchId}, #{postId}, #{srvFileName}, #{localFileName}, #{filePath})
+	</insert>
+		
+	<!-- 태그 등록 -->
+	<insert id="tagUpload" useGeneratedKeys="true" keyProperty="tagId">
+		insert into tagTbl(tagName) values (#{tagName})
+	</insert>
+<!-- 	<insert id="tagUpload" useGeneratedKeys="true" keyProperty="tagId"> -->
+<!-- 		insert into tagTbl(tagName)  -->
+<!-- 		values  -->
+<!-- 		<foreach collection="list" item="item" separator=","> -->
+<!-- 			(#{item.tagName}) -->
+<!-- 		</foreach> -->
+<!-- 	</insert> -->
+	
+	<!-- 게시물-태그 매핑 -->
+	<insert id="postTagMapping">
+		insert into postTagMappingTbl(postId, tagId) values (#{postId}, #{tagId})
 	</insert>
 	
 	<!-- 게시물 수정 -->
@@ -53,4 +79,14 @@
 		where postId = #{postId}
 	</update>
 	
+	<!-- 인기 게시물 목록 -->
+	<select id="hotPostList" resultType="com.project.doran.post.vo.PostVO">
+		<![CDATA[
+		select * from postTbl
+		WHERE groupId = #{groupId} AND isDeleted = 0 AND postedDate BETWEEN DATE_ADD(NOW(),INTERVAL -1 WEEK ) AND NOW()
+		order by replyCount desc, postedDate desc
+		limit 5
+		]]>
+	</select>
+
 </mapper>

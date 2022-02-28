@@ -87,6 +87,13 @@ input[type="file"] {
 .show_modal {
 	display: block
 }
+/* 인기 게시물 */
+.hotList_wrap {
+	position: absolute;
+	top: 0;
+	right: 0;
+	border: 1px solid #000;
+}
 </style>
 </head>
 
@@ -121,6 +128,14 @@ input[type="file"] {
 	
 	<hr>
 	
+	<div class="search_wrap">
+		<form action="/group/home">
+			<input type="text" name="keyword" placeholder="검색" value="${pageMaker.cri.keyword}">
+			<input type="hidden" name="groupId" value="${groupInfo.groupId}">
+<%-- 			<input type="hidden" name="keyword" value="${pageMaker.cri.keyword}"> --%>
+			<button>검색</button>
+		</form>
+	</div>
 	<button type="button" class="postWriteBtn">게시물 작성</button>
 	
 	<hr>
@@ -133,7 +148,8 @@ input[type="file"] {
 				<input type="text" name="groupId" value="${groupInfo.groupId}" placeholder="그룹식별자" readonly><br>
 				<input type="text" name="uid" placeholder="작성자"><br>
 				<textarea name="content" placeholder="내용"></textarea><br>
-				해시태그<br>
+				<input type="text" name="tagName" placeholder="해시태그"><br>
+				<input type="text" name="tagName" placeholder="해시태그"><br>
 				<label><input type="radio" name="openness" value="0" checked="checked">전체</label>
 				<label><input type="radio" name="openness" value="1">회원</label>
 				<label><input type="radio" name="openness" value="2">그룹</label>
@@ -170,7 +186,14 @@ input[type="file"] {
 				</span><br>
 				<span>게시물 작성날짜: ${pList.postedDate}</span><br>
 				<span>댓글수 : ${pList.replyCount}</span><br>
-				<span>해시태그 : </span><br>
+				<span>
+					해시태그 : 
+					<c:forEach items="${tagList}" var="tList">
+						<c:if test="${tList.postId == pList.postId}">
+							<span>${tList.tagName}</span>
+						</c:if>
+					</c:forEach>
+				</span><br>
 				<div class="postAttach_info">
 					<c:forEach items="${postImageList}" var="pIList">
 						<c:if test="${pIList.postId == pList.postId}">
@@ -246,6 +269,21 @@ input[type="file"] {
 		</c:forEach>
 	</div>
 	<!-- // 게시물 목록 -->
+	
+	<!-- 인기 게시물 목록 -->
+	<div class="hotList_wrap">
+		<h3>인기 게시물</h3>
+		<ul>
+			<c:forEach items="${hotList}" var="hList" varStatus="status">
+				<li>
+					<a href="#">
+						<span>${status.count}. </span>${hList.content} [${hList.replyCount}]
+					</a>
+				</li>
+			</c:forEach>
+		</ul>
+	</div>
+	<!-- // 인기 게시물 목록 -->
 	
 	<!-- script -->
 	<script>

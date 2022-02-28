@@ -21,9 +21,10 @@ import com.project.doran.group.service.GroupService;
 import com.project.doran.group.vo.GroupVO;
 import com.project.doran.post.service.PostService;
 import com.project.doran.post.vo.PostVO;
-import com.project.doran.postLike.service.PostLikeService;
 import com.project.doran.reply.service.ReplyService;
 import com.project.doran.reply.vo.ReplyVO;
+import com.project.doran.tag.vo.PostTagVO;
+import com.project.doran.tag.vo.TagVO;
 
 @Controller("groupController")
 @RequestMapping(value = "/group")
@@ -44,7 +45,7 @@ public class GroupController {
 	private ReplyService replyService;
 	
 	@Autowired
-	private PostLikeService postLikeService;
+//	private PostLikeService postLikeService;
 	
 	@RequestMapping(value = "/insert", method = RequestMethod.GET)
 	public String groupInsertForm() throws Exception {
@@ -129,7 +130,7 @@ public class GroupController {
 	
 	/* 그룹 페이지 */
 	@RequestMapping(value = "/home", method = RequestMethod.GET)
-	public void groupHomeGet(int groupId, Model model, RedirectAttributes rttr) throws Exception {
+	public void groupHomeGet(int groupId, Model model) throws Exception {
 		logger.info("그룹 페이지입니다. : " + groupId);
 		
 		// 그룹 정보
@@ -141,16 +142,22 @@ public class GroupController {
 		// 이미지 파일 목록
 		model.addAttribute("postImageList", postService.postImageList(groupId));
 		
+		// 태그 목록
+		model.addAttribute("tagList", postService.tagList(groupId));
+		
 		// 댓글 목록
 		model.addAttribute("replyList", replyService.replyList(groupId));
+		
+		// 인기 게시물 목록
+		model.addAttribute("hotList", postService.hotPostList(groupId));
 	}
 	
-	/* 게시물 작성 + 이미지 파일 등록 */
+	/* 게시물 작성 + 이미지 파일 등록 + 태그 등록 */
 	@RequestMapping(value = "/postWrite.do", method = RequestMethod.POST)
-	public String postWritePost(PostVO postVO, AttchVO attchVO, List<MultipartFile> files, RedirectAttributes rttr, HttpServletRequest request) throws Exception {
+	public String postWritePost(PostVO postVO, AttchVO attchVO, TagVO tagVO, PostTagVO postTagVO, List<MultipartFile> files, RedirectAttributes rttr, HttpServletRequest request) throws Exception {
 		logger.info("게시물 작성");
 		
-		postService.postWrite(postVO, attchVO, files);
+		postService.postWrite(postVO, attchVO, tagVO, postTagVO, files);
 		
 		rttr.addFlashAttribute("result", "feed create success");
 
