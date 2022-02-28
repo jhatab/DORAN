@@ -13,27 +13,33 @@ import com.project.doran.user.vo.UserVO;
 
 @Service("userService")
 public class UserServiceImpl implements UserService {
-	
+
 	@Autowired
 	private UserDAO userDAO;
 
-	@Override
+	// 태그 리스트
 	public List<UserVO> userList() throws Exception {
 		return userDAO.userList();
 	}
-	
-	// User(회원정보)
-	@Override
-	public int userUpdate(UserVO userVO) throws Exception {
-		return userDAO.userUpdate(userVO);
+
+	// 검색
+	public List<UserVO> getSearchList(CriteriaVO searchVO) throws Exception {
+		return userDAO.getSearchList(searchVO);
 	}
 
-	@Override
-	public UserVO userInfo(String uid) throws Exception {
-		return userDAO.userInfo(uid);
+	// 전체 게시글 수
+	public int getSearchListCnt(CriteriaVO searchVO) throws Exception {
+		return userDAO.getSearchListCnt(searchVO);
 	}
 
-	
-	
+	// paging(페이지)
+	public List<UserVO> getSearchList(PagingVO pagingVO) throws Exception {
+		return userDAO.getSearchList(pagingVO);
+	}
+
+	// 회원정보 수정
+	public void userUpdate(UserVO userVO) throws Exception {
+		userDAO.userUpdate(userVO);
+	}
 
 }

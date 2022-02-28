@@ -3,22 +3,7 @@
 
 <mapper namespace="com.project.doran.board.dao.BoardDAO">
 
-	<!-- Board -->
-	<resultMap id="boardResult" type="boardVO">
-		<result property="postId" column="postId" />
-		<result property="uid" column="uid" />
-		<result property="content" column="content" />
-		<result property="postedDate" column="postedDate" />
-		<result property="isRevised" column="isRevised" />
-		<result property="revisedDate" column="revisedDate" />
-		<result property="isDeleted" column="isDeleted" />
-		<result property="deletedDate" column="deletedDate" />
-		<result property="openness" column="openness" />
-		<result property="viewCount" column="viewCount" />
-		<result property="likeCount" column="likeCount" />
-	</resultMap>
-	
-	<select id="listBoard" resultType="boardVO" parameterType="searchCriteriaVO">
+	<select id="listBoard" parameterType="searchCriteriaVO">
 		SELECT p.postId, u.uid, p.content, p.postedDate, p.viewCount, p.likeCount
 		FROM postTbl p
 			INNER JOIN userTbl u ON p.uid = u.uid 

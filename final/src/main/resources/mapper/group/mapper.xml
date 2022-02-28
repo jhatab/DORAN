@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+      PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.project.doran.group.dao.GroupDAO">
+	
+	<!-- 그룹 목록 -->
+	<select id="groupList" resultType="com.project.doran.group.vo.GroupVO">
+		select * from groupTbl where isDeleted = 0 order by createdDate desc;
+	</select>
+	
+	<!-- 그룹 생성 -->
+	<insert id="groupCreate">
+		insert into groupTbl(categoryId, groupName, groupIntro, groupImagePath, uid) 
+		values (#{categoryId}, #{groupName}, #{groupIntro}, #{groupImagePath}, #{uid})
+	</insert>
+	
+	<!-- 그룹 페이지 -->
+	<select id="groupHome" resultType="com.project.doran.group.vo.GroupVO">
+		select * from groupTbl where groupId = #{groupId}
+	</select>
+	
+	<!-- 그룹 수정 -->
+	<update id="groupUpdate">
+		update groupTbl
+		set categoryId = #{categoryId}, groupName = #{groupName}, groupIntro = #{groupIntro}, groupImagePath = #{groupImagePath}, isRevised = 1, revisedDate = now()
+		where groupId = #{groupId}
+	</update>
+	
+	<!-- 그룹 삭제 -->
+	<update id="groupRemove">
+		update groupTbl 
+		set isDeleted = 1, deletedDate = now()
+		where groupId = #{groupId}
+	</update>
+	
+</mapper>

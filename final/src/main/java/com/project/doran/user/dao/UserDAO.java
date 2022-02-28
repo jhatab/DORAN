@@ -6,18 +6,26 @@ import org.apache.ibatis.annotations.Mapper;
 import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Repository;
 
+import com.project.doran.search.vo.PagingVO;
+import com.project.doran.search.vo.CriteriaVO;
 import com.project.doran.user.vo.UserVO;
 
 @Mapper
 @Repository("userDAO")
-public interface UserDAO{
-	
-	// 회원리스트
-	public List<UserVO> userList() throws DataAccessException;
-	public UserVO userInfo(String uid) throws DataAccessException;// 회원정보 불러오기
-	
-	// 회원정보
-	public int userUpdate(UserVO userVO) throws DataAccessException; // 회원정보 수정
-	
-	
+public interface UserDAO {
+
+	// 태그 리스트
+	public List<UserVO> userList() throws Exception;
+
+	// 검색
+	public List<UserVO> getSearchList(CriteriaVO searchVO) throws DataAccessException;
+
+	// 전체 게시글 수
+	public int getSearchListCnt(CriteriaVO searchVO) throws DataAccessException;
+
+	// paging(페이지)
+	public List<UserVO> getSearchList(PagingVO pagingVO) throws DataAccessException;
+
+	// 회원정보 수정
+	public void userUpdate(UserVO userVO) throws DataAccessException; 
 }

@@ -15,9 +15,6 @@ public class TagServiceImpl implements TagService {
 	@Autowired
 	private TagDAO tagDAO;
 
-	@Autowired
-	private TagVO tagVO;
-
 	@Override
 	public void tagInsert(TagVO tagVO) throws Exception {
 		tagDAO.tagInsert(tagVO);

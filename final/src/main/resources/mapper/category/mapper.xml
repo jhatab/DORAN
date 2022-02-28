@@ -1,21 +1,25 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.project.doran.category.dao.CateforyDAO">
-
-	<!-- category -->
-	<resultMap id="category" type="categoryVO">
-		<result property="categoryId" column="categoryId" />
-		<result property="categoryName" column="categoryName" />
-	</resultMap>
+<mapper namespace="com.project.doran.category.dao.CategoryDAO">
 	
-	<insert id="categoryInsert" parameterType="categoryVO">
+	<!-- 카테고리 목록 -->
+	<select id="categoryList" resultType="com.project.doran.category.vo.CategoryVO">
+		select * from categoryTbl
+	</select>
+	
+	<!-- 카테고리 생성 -->
+	<insert id="categoryInsert">
 		INSERT INTO categoryTbl(categoryName)
 		VALUES(#{categoryName})
 	</insert>
 	
-	<delete id="categoryDelete" parameterType="Integer">
+	<!-- 카테고리 삭제 -->
+	<delete id="categoryRemove">
 		DELETE FROM categoryTbl 
 		WHERE categoryId=#{categoryId} 
 	</delete>
+	
+	
+	
 </mapper>
