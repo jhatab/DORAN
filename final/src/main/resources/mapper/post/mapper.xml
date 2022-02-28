@@ -7,12 +7,14 @@
 	
 	<!-- 게시물 목록 -->
 	<select id="postList" resultType="com.project.doran.post.vo.PostVO">
-		select p.*, u.nickname
+		select distinct p.*, u.nickname
 		from postTbl p
 			left outer join userTbl u on p.uid = u.uid
+			left outer join posttagmappingtbl pt on pt.postId = p.postId
+   			left outer join tagTbl t on t.tagId = pt.tagId
 		where groupId = #{groupId} and p.isDeleted = 0
 		<if test="keyword != null and keyword != ''">
-			and (content like concat('%',#{keyword},'%') OR u.nickname like concat('%',#{keyword},'%'))
+			and (content like concat('%',#{keyword},'%') OR u.nickname like concat('%',#{keyword},'%') OR t.tagName like concat('%',#{keyword},'%'))
 		</if>
 		order by postedDate desc;
 	</select>
