@@ -22,9 +22,10 @@ public class PostServiceImpl implements PostService {
 	
 	/* 게시물 목록 */
 	@Override
-	public List<PostVO> postList(int groupId) throws Exception {
-		return postDAO.postList(groupId);
+	public List<PostVO> postList(PostVO postVO) throws Exception {
+		return postDAO.postList(postVO);
 	}
+	
 
 	/* 이미지 파일 목록 */
 	@Override

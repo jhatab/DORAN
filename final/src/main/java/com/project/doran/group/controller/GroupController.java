@@ -11,6 +11,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -130,14 +131,14 @@ public class GroupController {
 	
 	/* 그룹 페이지 */
 	@RequestMapping(value = "/home", method = RequestMethod.GET)
-	public void groupHomeGet(int groupId, Model model) throws Exception {
+	public void groupHomeGet(@RequestParam("groupId") int groupId, PostVO postVO, Model model) throws Exception {
 		logger.info("그룹 페이지입니다. : " + groupId);
 		
 		// 그룹 정보
 		model.addAttribute("groupInfo", groupService.groupHome(groupId));
 		
 		// 게시물 목록
-		model.addAttribute("postList", postService.postList(groupId));
+		model.addAttribute("postList", postService.postList(postVO));
 		
 		// 이미지 파일 목록
 		model.addAttribute("postImageList", postService.postImageList(groupId));

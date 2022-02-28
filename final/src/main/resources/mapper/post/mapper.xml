@@ -4,13 +4,16 @@
    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.project.doran.post.dao.PostDAO">
-
+	
 	<!-- 게시물 목록 -->
 	<select id="postList" resultType="com.project.doran.post.vo.PostVO">
 		select p.*, u.nickname
 		from postTbl p
 			left outer join userTbl u on p.uid = u.uid
 		where groupId = #{groupId} and p.isDeleted = 0
+		<if test="keyword != null and keyword != ''">
+			and (content like concat('%',#{keyword},'%') OR u.nickname like concat('%',#{keyword},'%'))
+		</if>
 		order by postedDate desc;
 	</select>
 	

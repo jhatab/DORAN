@@ -26,4 +26,6 @@ public class PostVO {
 	/* userTbl에서 가져옴 */
 	private String nickname;	// 게시물 작성자 닉네임
 	
+	private String keyword;		// 검색 키워드
+	
 }

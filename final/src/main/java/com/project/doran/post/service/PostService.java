@@ -12,7 +12,7 @@ import com.project.doran.tag.vo.TagVO;
 public interface PostService {
 	
 	/* 게시물 목록 */
-	public List<PostVO> postList(int groupId) throws Exception;
+	public List<PostVO> postList(PostVO postVO) throws Exception;
 	
 	/* 이미지 파일 목록 */
 	public List<AttchVO> postImageList(int groupId) throws Exception;

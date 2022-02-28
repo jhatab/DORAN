@@ -128,14 +128,15 @@ input[type="file"] {
 	
 	<hr>
 	
+	<!-- 검색 -->
 	<div class="search_wrap">
-		<form action="/group/home">
-			<input type="text" name="keyword" placeholder="검색" value="${pageMaker.cri.keyword}">
+		<form name="searchForm" action="/group/home">
 			<input type="hidden" name="groupId" value="${groupInfo.groupId}">
-<%-- 			<input type="hidden" name="keyword" value="${pageMaker.cri.keyword}"> --%>
+			<input type="text" name="keyword" placeholder="검색">
 			<button>검색</button>
 		</form>
 	</div>
+	<!-- // 검색 -->
 	<button type="button" class="postWriteBtn">게시물 작성</button>
 	
 	<hr>
@@ -287,6 +288,7 @@ input[type="file"] {
 	
 	<!-- script -->
 	<script>
+	
 	$(document).ready(function() {
 		
 		/* ALERT */
