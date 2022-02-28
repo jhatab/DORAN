@@ -66,10 +66,7 @@
 	</insert>
 	
 	<!-- 태그 중복 체크 -->
-<!-- 	<select id="tagCheck" resultType="int"> -->
-<!-- 	<select id="tagCheck" resultType="com.project.doran.tag.vo.TagVO"> -->
 	<select id="tagCheck" resultType="Integer">
-<!-- 		select count(*) from tagTbl where tagName = #{tagName} -->
 		select tagId from tagTbl where tagName = #{tagName}
 	</select>
 	
