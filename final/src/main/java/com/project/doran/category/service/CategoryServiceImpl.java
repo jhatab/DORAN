@@ -1,5 +1,7 @@
 package com.project.doran.category.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,7 +17,6 @@ public class CategoryServiceImpl implements CategoryService {
 	@Override
 	public void categoryInsert(CategoryVO categoryVO) throws Exception {
 		categoryDAO.categoryInsert(categoryVO);
-		
 	}
 
 	@Override
@@ -23,8 +24,11 @@ public class CategoryServiceImpl implements CategoryService {
 		categoryDAO.categoryDelete(categoryVO);
 	}
 
-
-
+	/* 카테고리 목록 */
+	@Override
+	public List<CategoryVO> categoryList() throws Exception {
+		return categoryDAO.categoryList();
+	}
 	
 
 }
