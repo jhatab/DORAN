@@ -18,46 +18,22 @@
 		<result property="authority" column="authority" />
 	</resultMap>
 	
-	<update id="updateUser" parameterType="userVO">
+	<select id="userList" resultMap="user">
+		SELECT uid, upass, name, birthDate, gender, nickname, email, address
+		FROM userTbl
+	</select>
+	
+	<update id="userUpdate" parameterType="userVO">
 		UPDATE userTbl 
 		SET upass = #{upass}, name = #{name}, birthDate = #{birthDate}, gender = #{gender}, 
 			nickname = #{nickname}, email = #{email}, address = #{address}
 		WHERE uid = #{uid} 
 	</update>
 	
-	<!-- searchList -->
-	<resultMap id="search" type="userVO">
-		<!-- userTbl -->
-		<result property="nickname" column="nickname" />
-		<!-- postTbl(게시물 테이블) -->
-		<result property="content" column="content" />
-		<result property="postedDate" column="postedDate" />
-		<!-- categoryTbl(카테고리 테이블) -->
-		<result property="categoryName" column="categoryName" />
-		<!-- tagTbl(태그 테이블) -->
-		<result property="tagName" column="tagName" />
-	</resultMap>
-	
-	<select id="selectSearchAllList" parameterType="userVO" resultType="userVO">
-		SELECT userTbl.nickname, postTbl.content, postTbl.postedDate, categoryTbl.categoryName, tagTbl.tagName
-		FROM userTbl, postTbl, categoryTbl, tagTbl
-		<!-- 이곳에 조건을 사용 -->
-		<include refid="search" />
-		ORDER BY postedDate DESC
+	<select id="userInfo" resultType="userVO">
+		SELECT uid, upass, name, birthDate, gender, nickname, email, address
+		FROM userTbl
+		WHERE uid = #{uid} 
 	</select>
 	
-	<sql id="search">
-		<!-- 검색어가 존재 하는 경우에만 검색을 실행 -->
-		<if test="keyword != null and keyword != ''.toString() ">
-			or nickname like '%' || #{nickname} || '%'
-			or content like '%' || #{content} || '%'
-			or categoryName like '%' || #{categoryName} || '%'
-			or tagName like '%' || #{tagName} || '%'
-		</if>
-	</sql>
-	
-	<select id="selectTagList" resultMap="search">
-		SELECT tagName
-		FROM tagTbl
-	</select>
 </mapper>

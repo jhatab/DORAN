@@ -5,16 +5,15 @@ import org.springframework.stereotype.Component;
 @Component("criteriaVO")
 public class CriteriaVO {
 
-	private int page; // 현재 페이지 번호
-	private int perPageNum; // 페이지당 보여줄 게시글 수
+	private int page; 			// 현재 페이지 번호
+	private int perPageNum; 	// 페이지당 보여줄 게시글 수
 
 	public CriteriaVO() {
 		this.page = 1;
 		this.perPageNum = 10;
 	}
 
-	public int getPageStart() {
-		// 특정 페이지의 범위를 정하는 구간, 현재 페이지의 게시글 시작 번호
+	public int getPageStart() {	// 특정 페이지의 범위를 정하는 구간, 현재 페이지의 게시글 시작 번호
 		return (this.page - 1) * perPageNum;
 	}
 
@@ -30,8 +29,7 @@ public class CriteriaVO {
 		}
 	}
 
-	// 페이지 당 보여줄 게시글의 개수
-	public int getPerPageNum() {
+	public int getPerPageNum() {// 페이지 당 보여줄 게시글의 개수
 		return perPageNum;
 	}
 

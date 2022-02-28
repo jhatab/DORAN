@@ -17,34 +17,23 @@ public class UserServiceImpl implements UserService {
 	@Autowired
 	private UserDAO userDAO;
 
+	@Override
+	public List<UserVO> userList() throws Exception {
+		return userDAO.userList();
+	}
+	
 	// User(회원정보)
 	@Override
-	public void userUpdate(UserVO userVO) throws Exception {
-		userDAO.userUpdate(userVO);
-	}
-	
-	@Override
-	public List<UserVO> selectTagList() throws Exception {
-		return userDAO.selectTagList();
-	}
-	
-	// SearchList
-	@Override
-	public List<UserVO> getSearchList(CriteriaVO searchVO) throws Exception {
-		return userDAO.getSearchList(searchVO);
-	}
-	
-	// SearchListCnt
-	@Override
-	public int getSearchListCnt(CriteriaVO searchVO) throws Exception {
-		return userDAO.getSearchListCnt(searchVO);
-	}
-	
-	// Paging
-	@Override
-	public List<UserVO> getSearchList(PagingVO pagingVO) throws Exception {
-		return userDAO.getSearchList(pagingVO);
+	public int userUpdate(UserVO userVO) throws Exception {
+		return userDAO.userUpdate(userVO);
 	}
 
+	@Override
+	public UserVO userInfo(String uid) throws Exception {
+		return userDAO.userInfo(uid);
+	}
+
+	
+	
 
 }

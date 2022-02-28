@@ -2,9 +2,6 @@ package com.project.doran.category.vo;
 
 import org.springframework.stereotype.Component;
 
-import lombok.Data;
-
-@Data // @Getter, @Setter, @RequiredArgsConstructor, @ToString, @EqualsAndHashCode
 @Component("categoryVO")
 public class CategoryVO {
 
