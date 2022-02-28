@@ -90,9 +90,12 @@ input[type="file"] {
 /* 인기 게시물 */
 .hotList_wrap {
 	position: absolute;
-	top: 0;
-	right: 0;
-	border: 1px solid #000;
+	top: 10px;
+	right: 10px;
+	width: 250px;
+	height: 250px;
+	text-align: center;
+	background: #ddd;
 }
 </style>
 </head>
@@ -130,10 +133,11 @@ input[type="file"] {
 	
 	<!-- 검색 -->
 	<div class="search_wrap">
-		<form name="searchForm" action="/group/home">
+		<form class="searchForm" action="/group/home">
 			<input type="hidden" name="groupId" value="${groupInfo.groupId}">
 			<input type="text" name="keyword" placeholder="검색">
 			<button>검색</button>
+			<a href="/group/home?groupId=${groupInfo.groupId}" class="searchReset" style="display:none">취소</a>
 		</form>
 	</div>
 	<!-- // 검색 -->
@@ -268,6 +272,14 @@ input[type="file"] {
 			<!-- // 댓글 목록 -->
 			<hr>
 		</c:forEach>
+		<!-- 검색 결과 X -->
+		<div class="postSearchNone" style="display: none;">
+			<span>검색 결과가 없습니다.</span>
+		</div>
+		<!-- 게시물 X -->
+		<div class="postNone" style="display: none;">
+			<span>게시물이 없습니다.</span>
+		</div>
 	</div>
 	<!-- // 게시물 목록 -->
 	
@@ -276,13 +288,16 @@ input[type="file"] {
 		<h3>인기 게시물</h3>
 		<ul>
 			<c:forEach items="${hotList}" var="hList" varStatus="status">
-				<li>
+				<li class="hotPost_info">
 					<a href="#">
 						<span>${status.count}. </span>${hList.content} [${hList.replyCount}]
 					</a>
 				</li>
 			</c:forEach>
 		</ul>
+		<div class="hotPostNone" style="display: none;">
+			<span>게시물이 없습니다.</span>
+		</div>
 	</div>
 	<!-- // 인기 게시물 목록 -->
 	
@@ -303,6 +318,37 @@ input[type="file"] {
 		}
 		
 	});
+	
+	/* ========== 검색 ========== */
+	
+	/* 검색값 유지 */
+	let param = new URLSearchParams(location.search);
+	let getParam = param.get('keyword');
+	$(".searchForm").find("input[name='keyword']").val(getParam);
+	
+	/* 취소 버튼 표시 */
+	let keyword = $(".searchForm").find("input[name='keyword']").val();
+	if (keyword == null || keyword == '') {
+			document.querySelector(".searchReset").style.display = 'none';
+	} else {
+			document.querySelector(".searchReset").style.display = '';
+	}
+	
+	/* 게시물이 없을 경우 */
+	const isPostInfo = document.querySelectorAll('.post_info');
+	const isHotPostInfo = document.querySelectorAll('.hotPost_info');
+	
+	if(isPostInfo.length <= 0) {
+		if (keyword) { // 검색 결과가 없을 경우
+			document.querySelector(".postSearchNone").style.display = '';
+		} else {
+			document.querySelector(".postNone").style.display = '';
+		}
+	}
+	
+	if(isHotPostInfo.length <= 0) {
+		document.querySelector(".hotPostNone").style.display = '';
+	}
 	
 	/*========== 그룹 ==========/ */
 	
