@@ -1,11 +1,8 @@
 package com.project.doran.attch.vo;
 
-import org.springframework.stereotype.Component;
-
 import lombok.Data;
 
 @Data // @Getter, @Setter, @RequiredArgsConstructor, @ToString, @EqualsAndHashCode
-@Component("attchVO")
 public class AttchVO {
 	
 	private int attchId;			// 파일 식별자

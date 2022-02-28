@@ -3,30 +3,19 @@
 
 <mapper namespace="com.project.doran.tag.dao.TagDAO">
 
-	<!-- Tag -->
-	<resultMap  id="tagResult" type="tagVO">
-	  <result property="tagId" column="tagId" />
-      <result property="tagName" column="tagName" />
-	</resultMap>
 
 	<!-- 삽입 -->
-	<insert id="tagInsert" parameterType="tagVO">
+	<insert id="tagInsert">
 		INSERT INTO tagTbl(tagName)
 		VALUES(#{tagName})
 	</insert>
 
 	<!-- 삭제 -->
-	<delete id="tagDelete" parameterType="int">
+	<delete id="tagDelete">
 		DELETE FROM tagTbl
 		WHERE tagId=#{tagId}
 	</delete>
 
-	<!-- 태그 총 갯수 -->
-	<!-- <select id="tagListCount" resultType="int">
-		SELECT count(tagName) 
-		FROM tagtbl
-	</select> -->
-	
 	<select id="tagListCount" resultType="int" parameterType="searchCriteriaVO">
 		SELECT count(*) 
 		FROM tagtbl
@@ -36,15 +25,8 @@
 		</if>
 	</select>
 
-	<!-- 태그 목록 + 페이징 -->
-<!-- 	<select id="tagList" resultMap="tagResult">
-		SELECT tagId, tagName
-		FROM tagTbl
-		ORDER BY tagId desc
-		LIMIT #{pageStart}, #{perPageNum}
-	</select> -->
 	
-	<select id="tagList" resultType="tagVO" parameterType="searchCriteriaVO">
+	<select id="tagList" resultType="com.project.doran.tag.vo.TagVO" parameterType="searchCriteriaVO">
 		SELECT tagId, tagName
 		FROM tagTbl
 		WHERE 1=1

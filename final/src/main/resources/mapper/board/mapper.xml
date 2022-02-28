@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.project.doran.board.dao.BoardDAO">
+
+	<select id="listBoard" parameterType="searchCriteriaVO">
+		SELECT p.postId, u.uid, p.content, p.postedDate, p.viewCount, p.likeCount
+		FROM postTbl p
+			INNER JOIN userTbl u ON p.uid = u.uid 
+		WHERE 1=1
+		<if test="keyword != null">
+			AND u.uid LIKE CONCAT('%', #{keyword}, '%')
+			OR p.content LIKE CONCAT('%', #{keyword}, '%')
+			OR p.postedDate LIKE CONCAT('%', #{keyword}, '%')
+		</if>
+		ORDER BY p.postedDate desc
+		LIMIT #{pageStart}, #{perPageNum}
+	</select>
+	
+	<select id="listBoardCount" resultType="int" parameterType="searchCriteriaVO">
+		SELECT count(*)
+		FROM postTbl p
+			INNER JOIN userTbl u ON p.uid = u.uid 
+		WHERE 1=1
+		<if test="keyword != null">
+			AND u.uid LIKE CONCAT('%', #{keyword}, '%')
+			OR p.content LIKE CONCAT('%', #{keyword}, '%')
+			OR p.postedDate LIKE CONCAT('%', #{keyword}, '%')
+		</if>
+	</select>
+
+	<!-- 삽입 -->
+	<insert id="insertBoard" parameterType="boardVO">
+		INSERT INTO postTbl(postId,	uid, content, postedDate, openness)
+		VALUES(#{postId}, #{uid}, #{content}, #{postedDate}, #{openness})
+	</insert>
+	
+	<!-- 수정 -->
+	<!-- <update id="updateBoard" parameterType="boardVO">
+		UPDATE postTbl 
+		SET content = #{content}, revisedDate = #{revisedDate}, openness = #{openness}, 
+	</update> -->
+
+	<!-- 삭제 -->
+<!-- 	<delete id="deleteBoard" parameterType="int">
+		DELETE FROM postTbl
+		WHERE postId=#{postId}
+	</delete> -->
+
+
+	
+
+
+	
+</mapper>

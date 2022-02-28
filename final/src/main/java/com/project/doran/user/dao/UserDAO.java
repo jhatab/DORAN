@@ -12,21 +12,20 @@ import com.project.doran.user.vo.UserVO;
 
 @Mapper
 @Repository("userDAO")
-public interface UserDAO{
-	
-	// 회원정보
-	public void userUpdate(UserVO userVO) throws DataAccessException; // 회원정보 수정
-	
+public interface UserDAO {
+
 	// 태그 리스트
-	public List<UserVO> selectTagList() throws DataAccessException;
-	
+	public List<UserVO> userList() throws Exception;
+
 	// 검색
-	public List<UserVO> getSearchList(CriteriaVO searchVO) throws DataAccessException; 
-	
+	public List<UserVO> getSearchList(CriteriaVO searchVO) throws DataAccessException;
+
 	// 전체 게시글 수
-	public int getSearchListCnt(CriteriaVO searchVO) throws DataAccessException; 
-	
+	public int getSearchListCnt(CriteriaVO searchVO) throws DataAccessException;
+
 	// paging(페이지)
 	public List<UserVO> getSearchList(PagingVO pagingVO) throws DataAccessException;
 
+	// 회원정보 수정
+	public void userUpdate(UserVO userVO) throws DataAccessException; 
 }

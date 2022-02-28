@@ -2,12 +2,9 @@ package com.project.doran.user.vo;
 
 import java.sql.Date;
 
-import org.springframework.stereotype.Component;
-
 import lombok.Data;
 
 @Data // @Getter, @Setter, @RequiredArgsConstructor, @ToString, @EqualsAndHashCode
-@Component("userVO")
 public class UserVO {
 	
 	// user
@@ -31,110 +28,5 @@ public class UserVO {
 	// tagTbl(태그 테이블)
 	private String tagName;			// 태그 명칭
 
-	public String getUid() {
-		return uid;
-	}
-
-	public void setUid(String uid) {
-		this.uid = uid;
-	}
-
-	public String getUpass() {
-		return upass;
-	}
-
-	public void setUpass(String upass) {
-		this.upass = upass;
-	}
-
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
-	}
-
-	public Date getBirthDate() {
-		return birthDate;
-	}
-
-	public void setBirthDate(Date birthDate) {
-		this.birthDate = birthDate;
-	}
-
-	public int getGender() {
-		return gender;
-	}
-
-	public void setGender(int gender) {
-		this.gender = gender;
-	}
-
-	public String getNickname() {
-		return nickname;
-	}
-
-	public void setNickname(String nickname) {
-		this.nickname = nickname;
-	}
-
-	public String getEmail() {
-		return email;
-	}
-
-	public void setEmail(String email) {
-		this.email = email;
-	}
-
-	public String getAddress() {
-		return address;
-	}
-
-	public void setAddress(String address) {
-		this.address = address;
-	}
-
-	public int getAuthority() {
-		return authority;
-	}
-
-	public void setAuthority(int authority) {
-		this.authority = authority;
-	}
-
-	public String getContent() {
-		return content;
-	}
-
-	public void setContent(String content) {
-		this.content = content;
-	}
-
-	public Date getPostedDate() {
-		return postedDate;
-	}
-
-	public void setPostedDate(Date postedDate) {
-		this.postedDate = postedDate;
-	}
-
-	public String getCategoryName() {
-		return categoryName;
-	}
-
-	public void setCategoryName(String categoryName) {
-		this.categoryName = categoryName;
-	}
-
-	public String getTagName() {
-		return tagName;
-	}
-
-	public void setTagName(String tagName) {
-		this.tagName = tagName;
-	}
-	
-	
 	
 }

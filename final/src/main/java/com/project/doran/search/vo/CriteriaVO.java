@@ -2,6 +2,9 @@ package com.project.doran.search.vo;
 
 import org.springframework.stereotype.Component;
 
+import lombok.Data;
+
+@Data // @Getter, @Setter, @RequiredArgsConstructor, @ToString, @EqualsAndHashCode
 @Component("criteriaVO")
 public class CriteriaVO {
 
@@ -16,10 +19,6 @@ public class CriteriaVO {
 	public int getPageStart() {
 		// 특정 페이지의 범위를 정하는 구간, 현재 페이지의 게시글 시작 번호
 		return (this.page - 1) * perPageNum;
-	}
-
-	public int getPage() {
-		return page;
 	}
 
 	public void setPage(int page) {
@@ -43,11 +42,6 @@ public class CriteriaVO {
 		} else {
 			this.perPageNum = perPageNum;
 		}
-	}
-
-	@Override
-	public String toString() {
-		return "CriteriaVO [page=" + page + ", perPageNum=" + perPageNum + "]";
 	}
 
 }

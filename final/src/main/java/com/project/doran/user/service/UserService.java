@@ -2,17 +2,16 @@ package com.project.doran.user.service;
 
 import java.util.List;
 
+import org.springframework.dao.DataAccessException;
+
 import com.project.doran.search.vo.PagingVO;
 import com.project.doran.search.vo.CriteriaVO;
 import com.project.doran.user.vo.UserVO;
 
 public interface UserService {
 
-	// 회원정보
-	public void userUpdate(UserVO userVO) throws Exception; // 회원정보 수정
-
 	// 태그 리스트
-	public List<UserVO> selectTagList() throws Exception;
+	public List<UserVO> userList() throws Exception;
 
 	// 검색
 	public List<UserVO> getSearchList(CriteriaVO searchVO) throws Exception;
@@ -22,4 +21,7 @@ public interface UserService {
 
 	// paging(페이지)
 	public List<UserVO> getSearchList(PagingVO pagingVO) throws Exception;
+
+	// 회원정보 수정
+	public void userUpdate(UserVO userVO) throws Exception;
 }

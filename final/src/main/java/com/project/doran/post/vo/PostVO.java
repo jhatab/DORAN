@@ -2,14 +2,11 @@ package com.project.doran.post.vo;
 
 import java.sql.Date;
 
-import org.springframework.stereotype.Component;
-
 import lombok.Data;
 
 @Data // @Getter, @Setter, @RequiredArgsConstructor, @ToString, @EqualsAndHashCode
-@Component("postVO")
 public class PostVO {
-	
+
 	private int groupId;		// 그룹 식별자
 	private int postId;			// 게시물 식별자
 	private String uid;			// 게시물 작성자 아이디
@@ -27,5 +24,5 @@ public class PostVO {
 	private String nickname;	// 게시물 작성자 닉네임
 	
 	private String keyword;		// 검색 키워드
-	
+
 }

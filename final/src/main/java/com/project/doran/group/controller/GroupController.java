@@ -59,11 +59,6 @@ public class GroupController {
 		return "redirect:/tagMain";
 	}
 	
-	@RequestMapping(value = "/delete", method = RequestMethod.POST)
-	public String groupDelete(GroupVO groupVO) throws Exception {
-		groupService.groupDelete(groupVO);
-		return "redirect:/tagMain";
-	}
 	
 	/* 그룹 목록 페이지 */
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
@@ -74,7 +69,7 @@ public class GroupController {
 		
 		model.addAttribute("groupList", groupService.groupList());
 	}
-	
+
 	/* 그룹 생성 페이지 */
 	@RequestMapping(value = "/create", method = RequestMethod.GET)
 	public void groupCreateGET(Model model) throws Exception {

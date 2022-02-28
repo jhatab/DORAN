@@ -32,11 +32,11 @@ public interface PostDAO {
 	/* 태그 등록 */
 	public void tagUpload(TagVO tagVO) throws Exception;
 	
-	/* 게시물-태그 매핑 */
-	public void postTagMapping(PostTagVO postTagVO) throws Exception;
-	
 	/* 태그 중복 체크 */
 	public Integer tagCheck(TagVO tagVO) throws Exception;
+	
+	/* 게시물-태그 매핑 */
+	public void postTagMapping(PostTagVO postTagVO) throws Exception;
 	
 	/* 게시물 수정 */
 	public void postUpdate(PostVO postVO) throws Exception;

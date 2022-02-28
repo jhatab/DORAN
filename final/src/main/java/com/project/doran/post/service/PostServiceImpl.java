@@ -81,7 +81,6 @@ public class PostServiceImpl implements PostService {
 			postTagVO.setTagId(tagCheck);
 			postDAO.postTagMapping(postTagVO);
 		}
-
 	}
 
 	/* 태그 등록 */

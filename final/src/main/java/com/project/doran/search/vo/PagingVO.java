@@ -7,6 +7,9 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.util.UriComponents;
 import org.springframework.web.util.UriComponentsBuilder;
 
+import lombok.Data;
+
+@Data // @Getter, @Setter, @RequiredArgsConstructor, @ToString, @EqualsAndHashCode
 @Component("pagingVO")
 public class PagingVO {
 
@@ -19,10 +22,6 @@ public class PagingVO {
 	private boolean next; // 페이징 다음 버튼 활성화 여부
 
 	private CriteriaVO cri;
-
-	public int getTotalCount() {
-		return totalCount;
-	}
 
 	public void setTotalCount(int totalCount) {
 		this.totalCount = totalCount;
@@ -82,60 +81,6 @@ public class PagingVO {
 		} catch(UnsupportedEncodingException e) { 
 			return ""; 
 		}
-	}
-
-	public int getDisplayPageNum() {
-		return displayPageNum;
-	}
-
-	public void setDisplayPageNum(int displayPageNum) {
-		this.displayPageNum = displayPageNum;
-	}
-
-	public int getStartPage() {
-		return startPage;
-	}
-
-	public void setStartPage(int startPage) {
-		this.startPage = startPage;
-	}
-
-	public int getEndPage() {
-		return endPage;
-	}
-
-	public void setEndPage(int endPage) {
-		this.endPage = endPage;
-	}
-
-	public boolean isPrev() {
-		return prev;
-	}
-
-	public void setPrev(boolean prev) {
-		this.prev = prev;
-	}
-
-	public boolean isNext() {
-		return next;
-	}
-
-	public void setNext(boolean next) {
-		this.next = next;
-	}
-
-	public CriteriaVO getCri() {
-		return cri;
-	}
-
-	public void setCri(CriteriaVO cri) {
-		this.cri = cri;
-	}
-
-	@Override
-	public String toString() {
-		return "PageMaker [totalCount=" + totalCount + ", startPage=" + startPage + ", endPage=" + endPage + ", prev="
-				+ prev + ", next=" + next + ", displayPageNum=" + displayPageNum + ", cri=" + cri + "]";
 	}
 
 }

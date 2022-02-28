@@ -1,8 +1,5 @@
 package com.project.doran.tag.vo;
 
-import org.springframework.stereotype.Component;
-
-@Component("tagVO")
 public class TagVO {
 
 	private int tagId; // 태그 식별자
