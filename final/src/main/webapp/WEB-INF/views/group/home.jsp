@@ -116,11 +116,11 @@ input[type="file"] {
 	
 	<hr>
 	
-	<!-- 그룹 정보 -->
+	<!-- 그룹 정보 -->	
 	<div class="groip_info">
 		<c:choose>
 			<c:when test="${groupInfo.groupImagePath == null or groupInfo.groupImagePath == ''}">
-				<img src="${contextPath}/resources/group_image_file/basic.png" style="width: 100px; height: 100px">
+				<img src="${contextPath}/resources/images/group_image_file/basic.png" style="width: 100px; height: 100px">
 			</c:when>
 			<c:otherwise>
 				<img src="${contextPath}/resources/${groupInfo.groupImagePath}" style="width: 100px; height: 100px">
@@ -137,7 +137,7 @@ input[type="file"] {
 		</div>
 		<form id="groupForm" method="get">
 			<input type="hidden" name="groupId" value="${groupInfo.groupId}">
-			<input type="text" name="uid" value="${member.uid}">
+			<input type="hidden" name="uid" value="${member.uid}">
 		</form>
 	</div>
 	<!-- // 그룹 정보 -->

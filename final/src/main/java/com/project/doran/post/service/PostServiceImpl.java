@@ -44,7 +44,7 @@ public class PostServiceImpl implements PostService {
 		postDAO.postWrite(postVO);
 
 		// 이미지 파일 등록
-		String filePath = System.getProperty("user.dir") + "\\\\src\\\\main\\\\webapp\\\\resources\\\\post_image_file";
+		String filePath = System.getProperty("user.dir") + "\\src\\main\\webapp\\resources\\images\\post_image_file";
 
 		for (MultipartFile file : files) {
 
@@ -58,7 +58,7 @@ public class PostServiceImpl implements PostService {
 
 				attchVO.setSrvFileName(fileName);
 				attchVO.setLocalFileName(file.getOriginalFilename());
-				attchVO.setFilePath("/post_image_file/" + fileName);
+				attchVO.setFilePath("/images/post_image_file/" + fileName);
 				attchVO.setPostId(postVO.getPostId());
 
 				postDAO.postImageUpload(attchVO);

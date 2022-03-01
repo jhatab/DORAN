@@ -33,7 +33,7 @@ public class GroupServiceImpl implements GroupService {
 	/* 그룹 생성 + 생성자-그룹 매핑 */
 	@Override
 	public void groupCreate(GroupVO groupVO, UserGroupVO userGroupVO, MultipartFile file) throws Exception {
-		String groupImagePath = System.getProperty("user.dir") + "\\src\\main\\webapp\\resources\\group_image_file";
+		String groupImagePath = System.getProperty("user.dir") + "\\src\\main\\webapp\\resources\\images\\group_image_file";
 
 		if(!file.isEmpty()){
 			UUID uuid = UUID.randomUUID();
@@ -44,7 +44,7 @@ public class GroupServiceImpl implements GroupService {
 
 			file.transferTo(saveFile);
 
-			groupVO.setGroupImagePath("/group_image_file/" + fileName);
+			groupVO.setGroupImagePath("/images/group_image_file/" + fileName);
 		}
 
 		groupDAO.groupCreate(groupVO);
