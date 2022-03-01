@@ -28,4 +28,8 @@ public interface UserDAO {
 
 	// 회원정보 수정
 	public void userUpdate(UserVO userVO) throws DataAccessException; 
+	
+	/* 로그인 */
+	public UserVO userLogin(UserVO userVO) throws Exception;
+	
 }

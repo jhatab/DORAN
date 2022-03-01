@@ -36,4 +36,11 @@
 			nickname = #{nickname}, email = #{email}, address = #{address}
 		WHERE uid = #{uid} 
 	</update>
+	
+	<!-- 로그인 -->
+	<select id="userLogin" resultType="com.project.doran.user.vo.UserVO">
+    	select uid, nickname
+    	from userTbl
+    	where uid = #{uid} and upass = #{upass}
+	</select>
 </mapper>

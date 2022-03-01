@@ -76,11 +76,13 @@
 		set content = #{content}, openness = #{openness}, isRevised = 1, revisedDate = now()
 		where postId = #{postId}
 	</update>
-
+	
 	<!-- 이미지 파일 수정 : 기존 이미지 파일 삭제 후 이미지 파일 등록 -->
 	<delete id="postImageDelete">
 		delete attchTbl where postId = #{postId}
 	</delete>
+	
+	<!-- 태그 수정 -->
 
 	<!-- 게시물 삭제 -->
 	<update id="postDelete">
@@ -94,7 +96,7 @@
 		<![CDATA[
 		select * from postTbl
 		WHERE groupId = #{groupId} AND isDeleted = 0 AND postedDate BETWEEN DATE_ADD(NOW(),INTERVAL -1 WEEK ) AND NOW()
-		order by replyCount desc, postedDate desc
+		order by likeCount desc, postedDate desc
 		limit 5
 		]]>
 	</select>
