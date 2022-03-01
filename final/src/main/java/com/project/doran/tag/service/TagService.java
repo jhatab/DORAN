@@ -2,8 +2,6 @@ package com.project.doran.tag.service;
 
 import java.util.List;
 
-import org.springframework.dao.DataAccessException;
-
 import com.project.doran.search.vo.SearchCriteriaVO;
 import com.project.doran.tag.vo.TagVO;
 

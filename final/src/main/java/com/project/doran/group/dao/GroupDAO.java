@@ -6,6 +6,7 @@ import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Repository;
 
 import com.project.doran.group.vo.GroupVO;
+import com.project.doran.group.vo.UserGroupVO;
 @Mapper
 @Repository("groupDAO")
 public interface GroupDAO{
@@ -15,6 +16,9 @@ public interface GroupDAO{
 
 	/* 그룹 생성 */
 	public void groupCreate(GroupVO groupVO) throws Exception;
+	
+	/* 생성자-그룹 매핑 */
+	public void userGroupMapping(UserGroupVO userGroupVO) throws Exception;
 
 	/* 그룹 페이지 */
 	public GroupVO groupHome(int groupId) throws Exception; 
@@ -27,5 +31,14 @@ public interface GroupDAO{
 
 	/* 그룹 삭제 */
 	public void groupRemove(GroupVO groupVO) throws Exception;
+	
+	/* 그룹 가입 신청 */
+	public int groupJoin(UserGroupVO userGroupVO) throws Exception;
+	
+	/* 그룹 가입 신청 여부 체크 */
+	public int groupJoinCheck(UserGroupVO userGroupVO) throws Exception;
+	
+	/* 그룹 가입 승인 체크 */
+	public int isApproval(UserGroupVO userGroupVO) throws Exception;
 
 }

@@ -95,7 +95,7 @@
 	<select id="hotPostList" resultType="com.project.doran.post.vo.PostVO">
 		<![CDATA[
 		select * from postTbl
-		WHERE groupId = #{groupId} AND isDeleted = 0 AND postedDate BETWEEN DATE_ADD(NOW(),INTERVAL -1 WEEK ) AND NOW()
+		WHERE groupId = #{groupId} AND openness != 3 AND isDeleted = 0 AND postedDate BETWEEN DATE_ADD(NOW(),INTERVAL -1 WEEK ) AND NOW()
 		order by likeCount desc, postedDate desc
 		limit 5
 		]]>

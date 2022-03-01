@@ -11,9 +11,14 @@
 	</select>
 
 	<!-- 그룹 생성 -->
-	<insert id="groupCreate">
+	<insert id="groupCreate" useGeneratedKeys="true" keyProperty="groupId">
 		insert into groupTbl(categoryId, groupName, groupIntro, groupImagePath, uid) 
 		values (#{categoryId}, #{groupName}, #{groupIntro}, #{groupImagePath}, #{uid})
+	</insert>
+	
+	<!-- 생성자-그룹 매핑 -->
+	<insert id="userGroupMapping">
+		insert into userGroupMappingTbl(groupId, uid, isApproval) values (#{groupId}, #{uid}, 2)
 	</insert>
 
 	<!-- 그룹 페이지 -->
@@ -34,5 +39,22 @@
 		set isDeleted = 1, deletedDate = now()
 		where groupId = #{groupId}
 	</update>
+	
+	<!-- 그룹 가입 신청 -->
+	<insert id="groupJoin">
+		insert into userGroupMappingTbl(groupId, uid) values (#{groupId}, #{uid})
+	</insert>
+	
+	<!-- 그룹 가입 신청 여부 체크 -->
+	<select id="groupJoinCheck" resultType="int">
+		select count(*) from userGroupMappingTbl where groupId = #{groupId} and uid = #{uid}
+	</select>
+	
+	<!-- 그룹 가입 승인 체크 -->
+	<select id="isApproval" resultType="int">
+		select count(*)
+		from userGroupMappingTbl
+		where groupId = #{groupId} and uid = #{uid} and isApproval > 0
+	</select>
 
 </mapper>

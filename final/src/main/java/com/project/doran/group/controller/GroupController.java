@@ -20,8 +20,11 @@ import com.project.doran.attch.vo.AttchVO;
 import com.project.doran.category.service.CategoryService;
 import com.project.doran.group.service.GroupService;
 import com.project.doran.group.vo.GroupVO;
+import com.project.doran.group.vo.UserGroupVO;
 import com.project.doran.post.service.PostService;
 import com.project.doran.post.vo.PostVO;
+import com.project.doran.postLike.service.PostLikeService;
+import com.project.doran.postLike.vo.PostLikeVO;
 import com.project.doran.reply.service.ReplyService;
 import com.project.doran.reply.vo.ReplyVO;
 import com.project.doran.tag.vo.PostTagVO;
@@ -46,7 +49,7 @@ public class GroupController {
 	private ReplyService replyService;
 	
 	@Autowired
-//	private PostLikeService postLikeService;
+	private PostLikeService postLikeService;
 	
 	@RequestMapping(value = "/insert", method = RequestMethod.GET)
 	public String groupInsertForm() throws Exception {
@@ -80,10 +83,10 @@ public class GroupController {
 	
 	/* 그룹 생성 */
 	@RequestMapping(value = "/create.do", method = RequestMethod.POST)
-	public String groupCreatePost(GroupVO groupVO, RedirectAttributes rttr, MultipartFile file) throws Exception {
+	public String groupCreatePost(GroupVO groupVO, UserGroupVO userGroupVO, RedirectAttributes rttr, MultipartFile file) throws Exception {
 		logger.info("그룹 생성");
 		
-		groupService.groupCreate(groupVO, file);
+		groupService.groupCreate(groupVO, userGroupVO, file);
 		
 		rttr.addFlashAttribute("result", "group create success");
 
@@ -124,9 +127,26 @@ public class GroupController {
 		return "redirect:/group/list";
 	}
 	
+	/* 그룹 가입 신청 */
+	@RequestMapping(value = "/join.do", method = RequestMethod.POST)
+	public String groupJoinPost(UserGroupVO userGroupVO, RedirectAttributes rttr) throws Exception {
+		logger.info("그룹 가입 신청");
+		
+		int groupJoinCheck = groupService.groupJoinCheck(userGroupVO);
+
+		if(groupJoinCheck == -1) {
+			rttr.addFlashAttribute("result", "group join done");
+		} else {
+			rttr.addFlashAttribute("result", "group join success");
+		}
+		
+	
+		return "redirect:/group/home?groupId=" + Integer.toString(userGroupVO.getGroupId());
+	}
+	
 	/* 그룹 페이지 */
 	@RequestMapping(value = "/home", method = RequestMethod.GET)
-	public void groupHomeGet(@RequestParam("groupId") int groupId, PostVO postVO, Model model) throws Exception {
+	public void groupHomeGet(@RequestParam("groupId") int groupId, PostVO postVO, UserGroupVO userGroupVO, Model model, HttpServletRequest request, RedirectAttributes rttr) throws Exception {
 		logger.info("그룹 페이지입니다. : " + groupId);
 		
 		// 그룹 정보
@@ -146,7 +166,53 @@ public class GroupController {
 		
 		// 인기 게시물 목록
 		model.addAttribute("hotList", postService.hotPostList(groupId));
+		
+		// 그룹 가입 확인
+		int isApproval = groupService.isApproval(userGroupVO, request);
+
+		if(isApproval == 0) {	// 가입X
+			model.addAttribute("isApproval", "0");
+//			rttr.addFlashAttribute("isApproval", "0");
+		} else {	// 가입O
+			model.addAttribute("isApproval", "1");
+//			rttr.addFlashAttribute("isApproval", "1");
+		}
 	}
+	
+	/* 그룹 페이지 */
+	@RequestMapping(value = "/post", method = RequestMethod.GET)
+	public void groupPostGet(@RequestParam("groupId") int groupId, PostVO postVO, UserGroupVO userGroupVO, Model model, HttpServletRequest request) throws Exception {
+		logger.info("그룹 페이지입니다. : " + groupId);
+		
+		// 그룹 정보
+		model.addAttribute("groupInfo", groupService.groupHome(groupId));
+		
+		// 게시물 목록
+		model.addAttribute("postList", postService.postList(postVO));
+		
+		// 이미지 파일 목록
+		model.addAttribute("postImageList", postService.postImageList(groupId));
+		
+		// 태그 목록
+		model.addAttribute("tagList", postService.tagList(groupId));
+		
+		// 댓글 목록
+		model.addAttribute("replyList", replyService.replyList(groupId));
+		
+		// 인기 게시물 목록
+		model.addAttribute("hotList", postService.hotPostList(groupId));
+		
+		// 그룹 가입 승인 체크
+		int isApproval = groupService.isApproval(userGroupVO, request);
+
+		if(isApproval == 0) {	// 가입X
+			model.addAttribute("isApproval", "0");
+		} else {	// 가입O
+			model.addAttribute("isApproval", "1");
+		}
+	}
+	
+	
 	
 	/* 게시물 작성 + 이미지 파일 등록 + 태그 등록 */
 	@RequestMapping(value = "/postWrite.do", method = RequestMethod.POST)
@@ -212,5 +278,16 @@ public class GroupController {
 		replyService.replyCountUpdate(postId);
 	}
 	
+	/* 게시물 좋아요 추가/취소 */
+	@ResponseBody
+	@RequestMapping(value = "/postLike.do", method = RequestMethod.POST)
+	public void postLikePost(PostLikeVO postLikeVO, int postId) throws Exception {
+		logger.info("게시물 좋아요 추가/취소");
+		
+		postLikeService.likeCheck(postLikeVO);
+		
+		// 좋아요 수 업데이트
+		postLikeService.likeCountUpdate(postId);
+	}
 	
 }
