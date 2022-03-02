@@ -37,7 +37,7 @@ public class PostServiceImpl implements PostService {
 		return postDAO.tagList(groupId);
 	}
 
-	/* 게시물 작성 + 이미지 파일 등록 + 태그 등록 + 게시물-태그 매핑 */
+	/* 게시물 작성 + 이미지 파일 등록 */
 	@Override
 	public void postWrite(PostVO postVO, AttchVO attchVO, List<MultipartFile> files) throws Exception {
 		postDAO.postWrite(postVO);
@@ -63,25 +63,7 @@ public class PostServiceImpl implements PostService {
 				postDAO.postImageUpload(attchVO);
 			}
 		}
-
-		// 태그 중복 체크
-		Integer tagCheck = postDAO.tagCheck(postVO);
-
-		if (tagCheck == null) { 						// 태그가 없으면
-			// 태그 등록
-			postDAO.tagUpload(postVO);
-			// 게시물-태그 매핑
-			postVO.getPostId();
-			postVO.getTagId();
-			postDAO.postTagMapping(postVO);
-		} else { 										// 태그가 있으면
-			// 게시물-태그 매핑
-			postVO.setPostId(postVO.getPostId());
-			postVO.setTagId(tagCheck);
-			postDAO.postTagMapping(postVO);
-		}
 	}
-
 
 	/* 게시물 수정 */
 	@Override

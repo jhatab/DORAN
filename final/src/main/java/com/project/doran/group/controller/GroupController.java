@@ -169,14 +169,12 @@ public class GroupController {
 
 		if(isApproval == 0) {	// 가입X
 			model.addAttribute("isApproval", "0");
-//			rttr.addFlashAttribute("isApproval", "0");
 		} else {	// 가입O
 			model.addAttribute("isApproval", "1");
-//			rttr.addFlashAttribute("isApproval", "1");
 		}
 	}
 	
-	/* 게시물 작성 + 이미지 파일 등록 + 태그 등록 */
+	/* 게시물 작성 + 이미지 파일 등록 */
 	@RequestMapping(value = "/postWrite.do", method = RequestMethod.POST)
 	public String postWritePost(PostVO postVO, AttchVO attchVO, List<MultipartFile> files, RedirectAttributes rttr, HttpServletRequest request) throws Exception {
 		logger.info("게시물 작성");

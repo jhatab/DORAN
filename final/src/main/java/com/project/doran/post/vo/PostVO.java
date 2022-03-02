@@ -11,6 +11,7 @@ public class PostVO {
 	private int postId;			// 게시물 식별자
 	private String uid;			// 게시물 작성자 아이디
 	private String content;		// 게시물 내용
+	private String tag;			// 게시물 태그
 	private String postedDate;	// 게시물 작성일시
 	private int isRevised;		// 게시물 수정여부
 	private Date revisedDate;	// 게시물 수정일시

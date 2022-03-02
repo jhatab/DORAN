@@ -165,8 +165,7 @@ input[type="file"] {
 				<input type="text" name="groupId" value="${groupInfo.groupId}" placeholder="그룹식별자" readonly><br>
 				<input type="text" name="uid" placeholder="작성자"><br>
 				<textarea name="content" placeholder="내용"></textarea><br>
-				<input type="text" name="tagName" placeholder="해시태그"><br>
-				<input type="text" name="tagName" placeholder="해시태그"><br>
+				<input type="text" name="tag" placeholder="해시태그"><br>
 				<label><input type="radio" name="openness" value="0" checked="checked">전체</label>
 				<label><input type="radio" name="openness" value="1">회원</label>
 				<label><input type="radio" name="openness" value="2">그룹</label>
@@ -501,14 +500,17 @@ input[type="file"] {
 						</span><br>
 						<span>게시물 작성날짜: ${pList.postedDate}</span><br>
 						<span>댓글수 : ${pList.replyCount}</span><br>
-						<span>
-							해시태그 : 
-							<c:forEach items="${tagList}" var="tList">
-								<c:if test="${tList.postId == pList.postId}">
-									<span>${tList.tagName}</span>
-								</c:if>
-							</c:forEach>
-						</span><br>
+						<form action="/group/home">
+							<span>
+								해시태그 : 
+								<c:forEach items="${tagList}" var="tList">
+									<c:if test="${tList.postId == pList.postId}">
+										<input type="hidden" name="groupId" value="${groupInfo.groupId}">
+										<button type="submit" name="keyword" value="${tList.tag}">#${tList.tag}</button>
+									</c:if>
+								</c:forEach>
+							</span>
+						</form>
 						<div class="postAttach_info">
 							<c:forEach items="${postImageList}" var="pIList">
 								<c:if test="${pIList.postId == pList.postId}">

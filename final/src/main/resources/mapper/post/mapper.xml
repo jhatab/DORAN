@@ -10,14 +10,12 @@
 		SELECT distinct p.*, u.nickname
 		FROM postTbl p
 			LEFT OUTER JOIN userTbl u ON p.uid = u.uid
-			LEFT OUTER JOIN postTagMappingTbl pt ON pt.postId = p.postId
-   			LEFT OUTER JOIN tagTbl t ON t.tagId = pt.tagId
 		WHERE groupId = #{groupId} 
 			AND p.isDeleted = 0
 		<if test="keyword != null and keyword != ''">
-			AND (content LIKE CONCAT('%',#{keyword},'%') 
+			AND (p.content LIKE CONCAT('%',#{keyword},'%') 
 			OR u.nickname LIKE CONCAT('%',#{keyword},'%') 
-			OR t.tagName LIKE CONCAT('%',#{keyword},'%'))
+			OR p.tag LIKE CONCAT('%',#{keyword},'%'))
 		</if>
 		ORDER BY postedDate DESC;
 	</select>
@@ -33,44 +31,28 @@
 	</select>
 
 	<!-- 태그 목록 -->
-	<select id="tagList" resultType="com.project.doran.tag.vo.TagVO">
-		SELECT p.groupId, p.postId, t.tagId, t.tagName
-		FROM tagTbl t
-			LEFT OUTER JOIN postTagMappingTbl pt ON t.tagId = pt.tagId
-		    LEFT OUTER JOIN postTbl p ON pt.postId = p.postId
-		WHERE p.groupId = #{groupId}
-			AND p.isDeleted = 0;
+	<select id="tagList" resultType="com.project.doran.post.vo.PostVO">
+		SELECT p.groupId, p.postId, REPLACE(SUBSTRING_INDEX (SUBSTRING_INDEX(p.tag,'#',numbers.n),'#',-1), ' ', '') tag
+		FROM ( 
+			SELECT 2 n UNION ALL SELECT 3 
+						UNION ALL SELECT 4
+						UNION ALL SELECT 5
+		                UNION ALL SELECT 6 ) numbers INNER JOIN postTbl p
+		ON CHAR_LENGTH( p.tag ) - CHAR_LENGTH(REPLACE(p.tag , '#' , ''))>= numbers.n - 1
+		WHERE p.groupId = #{groupId} AND p.isDeleted = 0
+		ORDER BY p.tag
 	</select>
 
 	<!-- 게시물 작성 -->
 	<insert id="postWrite" useGeneratedKeys="true" keyProperty="postId">
-		INSERT INTO postTbl(groupId, uid, content, openness) 
-		VALUES (#{groupId}, #{uid}, #{content}, #{openness})
+		INSERT INTO postTbl(groupId, uid, content, tag, openness) 
+		VALUES (#{groupId}, #{uid}, #{content}, #{tag}, #{openness})
 	</insert>
 
 	<!-- 이미지 파일 등록 -->
 	<insert id="postImageUpload">
 		INSERT INTO attchTbl(attchId, postId, srvFileName, localFileName, filePath)
 		VALUES (#{attchId}, #{postId}, #{srvFileName}, #{localFileName}, #{filePath})
-	</insert>
-
-	<!-- 태그 등록 -->
-	<insert id="tagUpload" useGeneratedKeys="true" keyProperty="tagId">
-		INSERT INTO tagTbl(tagName) '
-		VALUES (#{tagName})
-	</insert>
-
-	<!-- 태그 중복 체크 -->
-	<select id="tagCheck" resultType="Integer">
-		SELECT tagId 
-		FROM tagTbl
-		WHERE tagName = #{tagName}
-	</select>
-	
-	<!-- 게시물-태그 매핑 -->
-	<insert id="postTagMapping">
-		INSERT INTO postTagMappingTbl(postId, tagId) 
-		VALUES (#{postId}, #{tagId})
 	</insert>
 
 	<!-- 게시물 수정 -->

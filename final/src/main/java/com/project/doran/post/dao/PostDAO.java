@@ -28,15 +28,6 @@ public interface PostDAO {
 	/* 이미지 파일 등록 */
 	public void postImageUpload(AttchVO attchVO) throws Exception;
 	
-	/* 태그 등록 */
-	public void tagUpload(PostVO postVO) throws Exception;
-	
-	/* 태그 중복 체크 */
-	public Integer tagCheck(PostVO postVO) throws Exception;
-	
-	/* 게시물-태그 매핑 */
-	public void postTagMapping(PostVO postVO) throws Exception;
-	
 	/* 게시물 수정 */
 	public void postUpdate(PostVO postVO) throws Exception;
 	

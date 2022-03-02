@@ -19,7 +19,7 @@ public interface PostService {
 	/* 태그 목록 */
 	public List<TagVO> tagList(int groupId) throws Exception;
 	
-	/* 게시물 작성 + 이미지 파일 등록 + 태그 등록 + 게시물-태그 매핑 */
+	/* 게시물 작성 + 이미지 파일 등록 */
 	public void postWrite(PostVO postVO, AttchVO attchVO, List<MultipartFile> files) throws Exception;
 	
 	/* 게시물 수정 */
