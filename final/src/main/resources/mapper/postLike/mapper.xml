@@ -7,17 +7,23 @@
 
 	<!-- 좋아요 체크 -->
 	<select id="likeCheck" resultType="int">
-		select count(*) from postLikeTbl where uid = #{uid} and postId = #{postId}
+		SELECT count(*) 
+		FROM postLikeTbl 
+		WHERE uid = #{uid} 
+			AND postId = #{postId}
 	</select>
 	
 	<!-- 좋아요 추가 -->
 	<insert id="likeAdd">
-		insert into postLikeTbl(postId, uid) values (#{postId}, #{uid}) 
+		INSERT INTO postLikeTbl(postId, uid) 
+		VALUES (#{postId}, #{uid}) 
 	</insert>
 	
 	<!-- 좋아요 취소 -->
 	<delete id="likeCancle">
-		delete from postLikeTbl where postId = #{postId} and uid = #{uid}
+		DELETE FROM postLikeTbl 
+		WHERE postId = #{postId} 
+			AND uid = #{uid}
 	</delete>
 	
 	<!-- 좋아요 수 업데이트 -->

@@ -7,32 +7,34 @@
 
 	<!-- 댓글 목록 -->
 	<select id="replyList" resultType="com.project.doran.reply.vo.ReplyVO">
-		select r.replyId, r.postId, r.uid, r.replyContent, r.repliedDate, u.nickname
-		from replyTbl r
-			left outer join userTbl u on r.uid = u.uid
-			left outer join postTbl p on r.postId = p.postId
-			left outer join groupTbl g on p.groupId = g.groupId
-		where p.groupId = #{groupId} and r.isDeleted = 0
-		order by r.repliedDate;
+		SELECT r.replyId, r.postId, r.uid, r.replyContent, r.repliedDate, u.nickname
+		FROM replyTbl r
+			LEFT OUTER JOIN userTbl u ON r.uid = u.uid
+			LEFT OUTER JOIN postTbl p ON r.postId = p.postId
+			LEFT OUTER JOIN groupTbl g ON p.groupId = g.groupId
+		WHERE p.groupId = #{groupId} 
+			AND r.isDeleted = 0
+		ORDER BY r.repliedDate;
 	</select>
 	
 	<!-- 댓글 작성 -->
 	<insert id="replyWrite">
-		insert into replyTbl(postId, uid, replyContent) values (#{postId}, #{uid}, #{replyContent})
+		INSERT INTO replyTbl(postId, uid, replyContent) 
+		VALUES (#{postId}, #{uid}, #{replyContent})
 	</insert>
 	
 	<!-- 댓글 수정 -->
 	<update id="replyUpdate">
-		update replyTbl
-		set replyContent = #{replyContent}, isRevised = 1, revisedDate = now()
-		where replyId = #{replyId}
+		UPDATE replyTbl
+		SET replyContent = #{replyContent}, isRevised = 1, revisedDate = now()
+		WHERE replyId = #{replyId}
 	</update>
 	
 	<!-- 댓글 삭제 -->
 	<update id="replyDelete">
-		update replyTbl 
-		set isDeleted = 1, deletedDate = now()
-		where replyId = #{replyId}
+		UPDATE replyTbl 
+		SET isDeleted = 1, deletedDate = now()
+		WHERE replyId = #{replyId}
 	</update>
 	
 	<!-- 댓글 수 업데이트 -->

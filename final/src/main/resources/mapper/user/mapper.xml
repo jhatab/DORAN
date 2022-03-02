@@ -17,17 +17,12 @@
 	<sql id="search">
 		<!-- 검색어가 존재 하는 경우에만 검색을 실행 -->
 		<if test="keyword != null and keyword != ''.toString() ">
-			or nickname like '%' || #{nickname} || '%'
-			or content like '%' || #{content} || '%'
-			or categoryName like '%' || #{categoryName} || '%'
-			or tagName like '%' || #{tagName} || '%'
+			OR nickname LIKE CONCAT('%',#{keyword},'%') 
+			OR content LIKE CONCAT('%',#{keyword},'%') 
+			OR categoryName LIKE CONCAT('%',#{keyword},'%') 
+			OR tagName LIKE CONCAT('%',#{keyword},'%') 
 		</if>
 	</sql>
-	
-<!-- 	<select id="selectTagList" resultMap="search"> -->
-<!-- 		SELECT tagName -->
-<!-- 		FROM tagTbl -->
-<!-- 	</select> -->
 	
 	<!-- 회원 수정 -->
 	<update id="updateUser">

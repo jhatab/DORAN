@@ -7,54 +7,67 @@
 
 	<!-- 그룹 목록 -->
 	<select id="groupList" resultType="com.project.doran.group.vo.GroupVO">
-		select * from groupTbl where isDeleted = 0 order by createdDate desc;
+		SELECT * 
+		FROM groupTbl 
+		WHERE isDeleted = 0 
+		ORDER BY createdDate DESC;
 	</select>
-
-	<!-- 그룹 생성 -->
-	<insert id="groupCreate" useGeneratedKeys="true" keyProperty="groupId">
-		insert into groupTbl(categoryId, groupName, groupIntro, groupImagePath, uid) 
-		values (#{categoryId}, #{groupName}, #{groupIntro}, #{groupImagePath}, #{uid})
-	</insert>
 	
 	<!-- 생성자-그룹 매핑 -->
 	<insert id="userGroupMapping">
-		insert into userGroupMappingTbl(groupId, uid, isApproval) values (#{groupId}, #{uid}, 2)
+		INSERT INTO userGroupMappingTbl(groupId, uid, isApproval)
+		VALUES (#{groupId}, #{uid}, 2)
 	</insert>
 
 	<!-- 그룹 페이지 -->
 	<select id="groupHome" resultType="com.project.doran.group.vo.GroupVO">
-		select * from groupTbl where groupId = #{groupId}
+		SELECT * 
+		FROM groupTbl 
+		WHERE groupId = #{groupId}
 	</select>
+	
+	<!-- 그룹 생성 -->
+	<insert id="groupCreate" useGeneratedKeys="true" keyProperty="groupId">
+		INSERT INTO groupTbl(categoryId, groupName, groupIntro, groupImagePath, uid) 
+		VALUES (#{categoryId}, #{groupName}, #{groupIntro}, #{groupImagePath}, #{uid})
+	</insert>
 
 	<!-- 그룹 수정 -->
 	<update id="groupUpdate">
-		update groupTbl
-		set categoryId = #{categoryId}, groupName = #{groupName}, groupIntro = #{groupIntro}, groupImagePath = #{groupImagePath}, isRevised = 1, revisedDate = now()
-		where groupId = #{groupId}
+		UPDATE groupTbl
+		SET categoryId = #{categoryId}, groupName = #{groupName}, groupIntro = #{groupIntro}, 
+			groupImagePath = #{groupImagePath}, isRevised = 1, revisedDate = now()
+		WHERE groupId = #{groupId}
 	</update>
 
 	<!-- 그룹 삭제 -->
 	<update id="groupRemove">
-		update groupTbl 
-		set isDeleted = 1, deletedDate = now()
-		where groupId = #{groupId}
+		UPDATE groupTbl 
+		SET isDeleted = 1, deletedDate = now()
+		WHERE groupId = #{groupId}
 	</update>
 	
 	<!-- 그룹 가입 신청 -->
 	<insert id="groupJoin">
-		insert into userGroupMappingTbl(groupId, uid) values (#{groupId}, #{uid})
+		INSERT INTO userGroupMappingTbl(groupId, uid) 
+		VALUES (#{groupId}, #{uid})
 	</insert>
 	
 	<!-- 그룹 가입 신청 여부 체크 -->
 	<select id="groupJoinCheck" resultType="int">
-		select count(*) from userGroupMappingTbl where groupId = #{groupId} and uid = #{uid}
+		SELECT count(*) 
+		FROM userGroupMappingTbl 
+		WHERE groupId = #{groupId} 
+			AND uid = #{uid}
 	</select>
 	
 	<!-- 그룹 가입 승인 체크 -->
 	<select id="isApproval" resultType="int">
-		select count(*)
-		from userGroupMappingTbl
-		where groupId = #{groupId} and uid = #{uid} and isApproval > 0
+		SELECT count(*)
+		FROM userGroupMappingTbl
+		WHERE groupId = #{groupId} 
+			AND uid = #{uid} 
+			AND isApproval > 0
 	</select>
 
 </mapper>

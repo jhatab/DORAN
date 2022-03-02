@@ -18,7 +18,7 @@
 
 	<select id="tagListCount" resultType="int" parameterType="searchCriteriaVO">
 		SELECT count(*) 
-		FROM tagtbl
+		FROM tagTbl
 		WHERE 1=1
 		<if test="keyword != null">
 			AND tagName LIKE CONCAT('%', #{keyword}, '%')
@@ -33,7 +33,7 @@
 		<if test="keyword != null">
 			AND tagName LIKE CONCAT('%', #{keyword}, '%')
 		</if>
-		ORDER BY tagId desc
+		ORDER BY tagId DESC
 		LIMIT #{pageStart}, #{perPageNum}
 	</select>
 

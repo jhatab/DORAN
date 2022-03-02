@@ -3,10 +3,10 @@
 
 <mapper namespace="com.project.doran.category.dao.CategoryDAO">
 
-
 	<!-- 카테고리 목록 -->
 	<select id="categoryList" resultType="com.project.doran.category.vo.CategoryVO">
-		select * from categoryTbl
+		SELECT * 
+		FROM categoryTbl
 	</select>
 
 	<!-- 카테고리 생성 -->

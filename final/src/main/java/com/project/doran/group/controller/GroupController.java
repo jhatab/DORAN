@@ -176,41 +176,6 @@ public class GroupController {
 		}
 	}
 	
-	/* 그룹 페이지 */
-	@RequestMapping(value = "/post", method = RequestMethod.GET)
-	public void groupPostGet(@RequestParam("groupId") int groupId, PostVO postVO, GroupVO groupVO, Model model, HttpServletRequest request) throws Exception {
-		logger.info("그룹 페이지입니다. : " + groupId);
-		
-		// 그룹 정보
-		model.addAttribute("groupInfo", groupService.groupHome(groupId));
-		
-		// 게시물 목록
-		model.addAttribute("postList", postService.postList(postVO));
-		
-		// 이미지 파일 목록
-		model.addAttribute("postImageList", postService.postImageList(groupId));
-		
-		// 태그 목록
-		model.addAttribute("tagList", postService.tagList(groupId));
-		
-		// 댓글 목록
-		model.addAttribute("replyList", replyService.replyList(groupId));
-		
-		// 인기 게시물 목록
-		model.addAttribute("hotList", postService.hotPostList(groupId));
-		
-		// 그룹 가입 승인 체크
-		int isApproval = groupService.isApproval(groupVO, request);
-
-		if(isApproval == 0) {	// 가입X
-			model.addAttribute("isApproval", "0");
-		} else {	// 가입O
-			model.addAttribute("isApproval", "1");
-		}
-	}
-	
-	
-	
 	/* 게시물 작성 + 이미지 파일 등록 + 태그 등록 */
 	@RequestMapping(value = "/postWrite.do", method = RequestMethod.POST)
 	public String postWritePost(PostVO postVO, AttchVO attchVO, List<MultipartFile> files, RedirectAttributes rttr, HttpServletRequest request) throws Exception {
