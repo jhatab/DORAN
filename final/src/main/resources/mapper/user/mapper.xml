@@ -5,15 +5,6 @@
 
 <mapper namespace="com.project.doran.user.dao.UserDAO">
 
-	<!-- 회원 목록 -->
-	<select id="userList" resultType="com.project.doran.user.vo.UserVO">
-		SELECT userTbl.nickname, postTbl.content, postTbl.postedDate, categoryTbl.categoryName, tagTbl.tagName
-		FROM userTbl, postTbl, categoryTbl, tagTbl
-		<!-- 이곳에 조건을 사용 -->
-		<include refid="search" />
-		ORDER BY postedDate DESC
-	</select>
-	
 	<sql id="search">
 		<!-- 검색어가 존재 하는 경우에만 검색을 실행 -->
 		<if test="keyword != null and keyword != ''.toString() ">
@@ -24,8 +15,14 @@
 		</if>
 	</sql>
 	
+	<select id="userInfo" resultType="com.project.doran.user.vo.UserVO">
+		select *
+		from userTbl
+		where uid=#{uid}
+	</select>
+	
 	<!-- 회원 수정 -->
-	<update id="updateUser">
+	<update id="userUpdate">
 		UPDATE userTbl 
 		SET upass = #{upass}, name = #{name}, birthDate = #{birthDate}, gender = #{gender}, 
 			nickname = #{nickname}, email = #{email}, address = #{address}

@@ -27,7 +27,4 @@ public class PostVO {
 	/* SearchCriteriaVO */
 	private String keyword;		// 검색 키워드
 
-	/* TagVO */
-	private int tagId; // 태그 식별자
-	private String tagName; // 태그 명칭
 }

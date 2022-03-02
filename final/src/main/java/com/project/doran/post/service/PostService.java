@@ -6,7 +6,6 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.project.doran.attch.vo.AttchVO;
 import com.project.doran.post.vo.PostVO;
-import com.project.doran.tag.vo.TagVO;
 
 public interface PostService {
 	
@@ -17,7 +16,7 @@ public interface PostService {
 	public List<AttchVO> postImageList(int groupId) throws Exception;
 	
 	/* 태그 목록 */
-	public List<TagVO> tagList(int groupId) throws Exception;
+	public List<PostVO> tagList(int groupId) throws Exception;
 	
 	/* 게시물 작성 + 이미지 파일 등록 */
 	public void postWrite(PostVO postVO, AttchVO attchVO, List<MultipartFile> files) throws Exception;

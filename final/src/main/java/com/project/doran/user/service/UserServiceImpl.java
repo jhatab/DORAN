@@ -16,11 +16,6 @@ public class UserServiceImpl implements UserService {
 	@Autowired
 	private UserDAO userDAO;
 
-	// 태그 리스트
-	public List<UserVO> userList() throws Exception {
-		return userDAO.userList();
-	}
-
 	// 검색
 	public List<UserVO> getSearchList(CriteriaVO searchVO) throws Exception {
 		return userDAO.getSearchList(searchVO);
@@ -41,8 +36,15 @@ public class UserServiceImpl implements UserService {
 		return userDAO.userLogin(userVO);
 	}
 
+	// 회원정보 보기
+	@Override
+	public UserVO userInfo(String uid) throws Exception {
+		return userDAO.userInfo(uid);
+	}
+
 	// 회원정보 수정
 	public void userUpdate(UserVO userVO) throws Exception {
 		userDAO.userUpdate(userVO);
 	}
+
 }

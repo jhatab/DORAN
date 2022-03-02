@@ -108,6 +108,7 @@ input[type="file"] {
 		<c:if test = "${member != null }">
 			<div class="login_button">
 				<span>${member.nickname}</span>
+				<a href="/user/update.do">정보수정</a>
 				<a href="/user/logout.do">로그아웃</a>
 			</div>
 		</c:if>  
@@ -207,14 +208,16 @@ input[type="file"] {
 							</span><br>
 							<span>게시물 작성날짜: ${pList.postedDate}</span><br>
 							<span>댓글수 : ${pList.replyCount}</span><br>
-							<span>
-								해시태그 : 
-								<c:forEach items="${tagList}" var="tList">
-									<c:if test="${tList.postId == pList.postId}">
-										<span>${tList.tagName}</span>
-									</c:if>
-								</c:forEach>
-							</span><br>
+							<form action="/group/home">
+								<span>
+									해시태그 : 
+									<c:forEach items="${tagList}" var="tList">
+										<c:if test="${tList.postId == pList.postId}">
+											<span>${tList.tagName}</span>
+										</c:if>
+									</c:forEach>
+								</span>
+							</form>
 							<div class="postAttach_info">
 								<c:forEach items="${postImageList}" var="pIList">
 									<c:if test="${pIList.postId == pList.postId}">
@@ -305,14 +308,16 @@ input[type="file"] {
 							</span><br>
 							<span>게시물 작성날짜: ${pList.postedDate}</span><br>
 							<span>댓글수 : ${pList.replyCount}</span><br>
-							<span>
-								해시태그 : 
-								<c:forEach items="${tagList}" var="tList">
-									<c:if test="${tList.postId == pList.postId}">
-										<span>${tList.tagName}</span>
-									</c:if>
-								</c:forEach>
-							</span><br>
+							<form action="/group/home">
+								<span>
+									해시태그 : 
+									<c:forEach items="${tagList}" var="tList">
+										<c:if test="${tList.postId == pList.postId}">
+											<span>${tList.tagName}</span>
+										</c:if>
+									</c:forEach>
+								</span>
+							</form>
 							<div class="postAttach_info">
 								<c:forEach items="${postImageList}" var="pIList">
 									<c:if test="${pIList.postId == pList.postId}">
@@ -403,14 +408,16 @@ input[type="file"] {
 							</span><br>
 							<span>게시물 작성날짜: ${pList.postedDate}</span><br>
 							<span>댓글수 : ${pList.replyCount}</span><br>
-							<span>
-								해시태그 : 
-								<c:forEach items="${tagList}" var="tList">
-									<c:if test="${tList.postId == pList.postId}">
-										<span>${tList.tagName}</span>
-									</c:if>
-								</c:forEach>
-							</span><br>
+							<form action="/group/home">
+								<span>
+									해시태그 : 
+									<c:forEach items="${tagList}" var="tList">
+										<c:if test="${tList.postId == pList.postId}">
+											<span>${tList.tagName}</span>
+										</c:if>
+									</c:forEach>
+								</span>
+							</form>
 							<div class="postAttach_info">
 								<c:forEach items="${postImageList}" var="pIList">
 									<c:if test="${pIList.postId == pList.postId}">
@@ -530,6 +537,7 @@ input[type="file"] {
 								<h3>게시물 수정</h3>
 								<input type="hidden" name="postId" class="postId" value="${pList.postId}">
 								<textarea name="content" class="content" placeholder="내용">${pList.content}</textarea><br>
+								
 								해시태그<br>
 								<label><input type="radio" name="openness" class="openness" value="0" <c:if test="${pList.openness == 0}">checked</c:if>/>전체</label>
 								<label><input type="radio" name="openness" class="openness" value="1" <c:if test="${pList.openness == 1}">checked</c:if>/>회원</label>

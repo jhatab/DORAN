@@ -1,5 +1,7 @@
 package com.project.doran.user.controller;
 
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -7,6 +9,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -23,7 +26,7 @@ public class UserController {
 
 	@Autowired
 	private UserService userService;
-
+	
 	/* 로그인 페이지 */
 	@RequestMapping(value = "/login", method = RequestMethod.GET)
 	public void groupListGET() throws Exception {
@@ -62,4 +65,23 @@ public class UserController {
 		return "redirect:/user/login";
 	}
 
+	/* 정보 수정 */
+	@RequestMapping(value = "update.do", method = RequestMethod.GET)
+	public String userUpdateForm(HttpSession session, Model model) throws Exception {
+		logger.info("정보 수정");
+		
+		model.addAttribute("member", userService.userInfo((String) session.getAttribute("uid")));
+		
+		return "/user/update";
+	}
+	
+	@RequestMapping(value = "update.do", method = RequestMethod.POST)
+	public String userUpdate(UserVO userVO) throws Exception {
+		
+		userService.userUpdate(userVO);
+		
+		
+		
+		return "/group/home";
+	}
 }

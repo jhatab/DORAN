@@ -13,9 +13,6 @@ import com.project.doran.user.vo.UserVO;
 @Repository("userDAO")
 public interface UserDAO {
 
-	// 태그 리스트
-	public List<UserVO> userList() throws Exception;
-
 	// 검색
 	public List<UserVO> getSearchList(CriteriaVO searchVO) throws Exception;
 
@@ -25,12 +22,13 @@ public interface UserDAO {
 	// paging(페이지)
 	public List<UserVO> getSearchList(PagingVO pagingVO) throws Exception;
 
-
-	
 	// 로그인
 	public UserVO userLogin(UserVO userVO) throws Exception;
-	
+
+	// 회원정보 보기
+	public UserVO userInfo(String uid) throws Exception;
+
 	// 회원정보 수정
-	public void userUpdate(UserVO userVO) throws Exception; 
-	
+	public void userUpdate(UserVO userVO) throws Exception;
+
 }
