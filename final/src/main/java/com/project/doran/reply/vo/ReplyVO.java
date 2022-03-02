@@ -11,7 +11,9 @@ import lombok.Data;
 public class ReplyVO {
 
 	private int replyId;			// 그룹 식별자
+	/* postTbl */
 	private int postId;				// 게시물 식별자
+	/* userTbl */
 	private String uid;				// 게시물 작성자 아이디
 	private String replyContent;	// 게시물 내용
 	private String repliedDate;		// 게시물 작성일시

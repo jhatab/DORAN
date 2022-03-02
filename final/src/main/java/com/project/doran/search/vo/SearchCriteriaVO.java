@@ -8,7 +8,6 @@ import lombok.Data;
 @Component("searchCriteriaVO")
 public class SearchCriteriaVO extends CriteriaVO {
 
-	// 검색 필터
-	private String keyword = "";
+	private String keyword = ""; // 검색 필터
 
 }

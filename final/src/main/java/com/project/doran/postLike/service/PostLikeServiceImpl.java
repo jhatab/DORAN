@@ -11,17 +11,25 @@ public class PostLikeServiceImpl implements PostLikeService {
 	
 	@Autowired
 	private PostLikeDAO postLikeDAO;
-
-	/* 좋아요 추가 */
+	
+	/* 좋아요 체크 */
 	@Override
-	public int likeAdd(PostLikeVO postLikeVO) throws Exception {
-		return postLikeDAO.likeAdd(postLikeVO);
+	public int likeCheck(PostLikeVO postLikeVO) throws Exception {
+		int likeCheck = postLikeDAO.likeCheck(postLikeVO);
+		
+		// 좋아요 추가
+		if(likeCheck == 0) {
+			return postLikeDAO.likeAdd(postLikeVO);
+		}
+		// 좋아요 취소
+		else {
+			return postLikeDAO.likeCancle(postLikeVO);
+		}
 	}
-
-	/* 좋아요 취소 */
-	@Override
-	public int likeCancle(PostLikeVO postLikeVO) throws Exception {
-		return postLikeDAO.likeCancle(postLikeVO);
+	
+	/* 좋아요 수 업데이트 */
+	public void likeCountUpdate(int postId) throws Exception {
+		postLikeDAO.likeCountUpdate(postId);
 	}
 
 }

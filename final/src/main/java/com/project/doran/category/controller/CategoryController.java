@@ -11,7 +11,6 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.project.doran.category.service.CategoryService;
 import com.project.doran.category.vo.CategoryVO;
-import com.project.doran.group.controller.GroupController;
 
 @Controller("categoryController")
 @RequestMapping(value = "/category")
@@ -34,7 +33,7 @@ public class CategoryController {
 	@RequestMapping(value = "/create", method = RequestMethod.GET)
 	public String categoryCreateGET(CategoryVO categoryVO) throws Exception {
 		logger.info("카테고리 생성 페이지입니다.");
-		
+
 		return "category/create";
 	}
 
@@ -42,19 +41,19 @@ public class CategoryController {
 	@RequestMapping(value = "/create.do", method = RequestMethod.POST)
 	public String categoryCreatePost(CategoryVO categoryVO, RedirectAttributes rttr) throws Exception {
 		logger.info("카테고리 생성");
-		
+
 		categoryService.categoryInsert(categoryVO);
-		
+
 		rttr.addFlashAttribute("result", "category create success");
-		
+
 		return "redirect:/category/list";
 	}
-	
+
 	/* 카테고리 생성 페이지 */
 	@RequestMapping(value = "/remove", method = RequestMethod.GET)
 	public String categoryRemoveGET(CategoryVO categoryVO) throws Exception {
 		logger.info("카테고리 삭제 페이지입니다.");
-		
+
 		return "category/remove";
 	}
 
@@ -62,11 +61,11 @@ public class CategoryController {
 	@RequestMapping(value = "/remove.do")
 	public String categoryRemovePost(int categoryId, RedirectAttributes rttr) throws Exception {
 		logger.info("카테고리 삭제");
-		
+
 		categoryService.categoryRemove(categoryId);
-		
+
 		rttr.addFlashAttribute("result", "category delete success");
-		
+
 		return "redirect:/category/list";
 	}
 }

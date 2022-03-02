@@ -19,40 +19,7 @@ public class TagController {
 	@Autowired
 	private TagService tagService;
 
-	// 태그
-	@RequestMapping(value = "/insert", method = RequestMethod.GET)
-	public String tagInsertForm(TagVO tagVO) throws Exception {
-		return "tag/insert";
-	}
-
-	@RequestMapping(value = "/insert", method = RequestMethod.POST)
-	public String tagInsert(TagVO tagVO) throws Exception {
-		tagService.tagInsert(tagVO);
-		return "redirect:/tagMain";
-	}
-
-	@RequestMapping(value = "/delete", method = RequestMethod.POST)
-	public String tagDelete(TagVO tagVO) throws Exception {
-		tagService.tagDelete(tagVO);
-		return "redirect:/tagMain";
-	}
-
-	// 태그 목록 + 페이징 추가
-	/*
-	 * @RequestMapping(value = "/tagList", method = RequestMethod.GET) public String
-	 * tagList(CriteriaVO cri, Model model) throws Exception {
-	 * 
-	 * 
-	 * // 페이징 객체 PagingVO paging = new PagingVO(); paging.setCri(cri);
-	 * paging.setTotalCount(tagService.tagListCount());
-	 * 
-	 * model.addAttribute("tagList", tagService.tagList(cri));
-	 * model.addAttribute("paging", paging); model.addAttribute("tagListCount",
-	 * tagService.tagListCount());
-	 * 
-	 * return "tag/index"; }
-	 */
-
+	// 태그 리스트(검색, 페이징)
 	@RequestMapping(value = "/tagList", method = RequestMethod.GET)
 	public String tagList(@ModelAttribute("scri") SearchCriteriaVO scri, Model model) throws Exception {
 
@@ -67,6 +34,26 @@ public class TagController {
 		model.addAttribute("tagListCount", tagService.tagListCount(scri));
 
 		return "tag/index";
+	}
+
+	// 태그 입력폼
+	@RequestMapping(value = "/insert", method = RequestMethod.GET)
+	public String tagInsertForm(TagVO tagVO) throws Exception {
+		return "tag/insert";
+	}
+
+	// 태그 입력
+	@RequestMapping(value = "/insert", method = RequestMethod.POST)
+	public String tagInsert(TagVO tagVO) throws Exception {
+		tagService.tagInsert(tagVO);
+		return "redirect:/tagMain";
+	}
+
+	// 태그 삭제
+	@RequestMapping(value = "/delete", method = RequestMethod.POST)
+	public String tagDelete(TagVO tagVO) throws Exception {
+		tagService.tagDelete(tagVO);
+		return "redirect:/tagMain";
 	}
 
 }

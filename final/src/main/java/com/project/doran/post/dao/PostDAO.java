@@ -7,7 +7,6 @@ import org.springframework.stereotype.Repository;
 
 import com.project.doran.attch.vo.AttchVO;
 import com.project.doran.post.vo.PostVO;
-import com.project.doran.tag.vo.PostTagVO;
 import com.project.doran.tag.vo.TagVO;
 
 @Mapper
@@ -15,7 +14,7 @@ import com.project.doran.tag.vo.TagVO;
 public interface PostDAO {
 	
 	/* 게시물 목록 */
-	public List<PostVO> postList(int groupId) throws Exception;
+	public List<PostVO> postList(PostVO postVO) throws Exception;
 	
 	/* 이미지 파일 목록 */
 	public List<AttchVO> postImageList(int groupId) throws Exception;
@@ -30,10 +29,13 @@ public interface PostDAO {
 	public void postImageUpload(AttchVO attchVO) throws Exception;
 	
 	/* 태그 등록 */
-	public void tagUpload(TagVO tagVO) throws Exception;
+	public void tagUpload(PostVO postVO) throws Exception;
+	
+	/* 태그 중복 체크 */
+	public Integer tagCheck(PostVO postVO) throws Exception;
 	
 	/* 게시물-태그 매핑 */
-	public void postTagMapping(PostTagVO postTagVO) throws Exception;
+	public void postTagMapping(PostVO postVO) throws Exception;
 	
 	/* 게시물 수정 */
 	public void postUpdate(PostVO postVO) throws Exception;

@@ -6,7 +6,7 @@ import lombok.Data;
 
 @Data // @Getter, @Setter, @RequiredArgsConstructor, @ToString, @EqualsAndHashCode
 public class PostVO {
-	
+
 	private int groupId;		// 그룹 식별자
 	private int postId;			// 게시물 식별자
 	private String uid;			// 게시물 작성자 아이디
@@ -20,7 +20,13 @@ public class PostVO {
 	private int likeCount;		// 게시물 좋아요 수
 	private int replyCount;		// 게시물 댓글 수
 
-	/* userTbl에서 가져옴 */
+	/* UserVO */
 	private String nickname;	// 게시물 작성자 닉네임
 	
+	/* SearchCriteriaVO */
+	private String keyword;		// 검색 키워드
+
+	/* TagVO */
+	private int tagId; // 태그 식별자
+	private String tagName; // 태그 명칭
 }

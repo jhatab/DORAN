@@ -6,13 +6,12 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.project.doran.attch.vo.AttchVO;
 import com.project.doran.post.vo.PostVO;
-import com.project.doran.tag.vo.PostTagVO;
 import com.project.doran.tag.vo.TagVO;
 
 public interface PostService {
 	
 	/* 게시물 목록 */
-	public List<PostVO> postList(int groupId) throws Exception;
+	public List<PostVO> postList(PostVO postVO) throws Exception;
 	
 	/* 이미지 파일 목록 */
 	public List<AttchVO> postImageList(int groupId) throws Exception;
@@ -20,8 +19,8 @@ public interface PostService {
 	/* 태그 목록 */
 	public List<TagVO> tagList(int groupId) throws Exception;
 	
-	/* 게시물 작성 + 이미지 파일 등록 + 태그 등록 + 게시물-태그 매핑*/
-	public void postWrite(PostVO postVO, AttchVO attchVO, TagVO tagVO, PostTagVO postTagVO, List<MultipartFile> files) throws Exception;
+	/* 게시물 작성 + 이미지 파일 등록 + 태그 등록 + 게시물-태그 매핑 */
+	public void postWrite(PostVO postVO, AttchVO attchVO, List<MultipartFile> files) throws Exception;
 	
 	/* 게시물 수정 */
 	public void postUpdate(PostVO postVO) throws Exception;

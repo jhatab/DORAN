@@ -5,6 +5,11 @@
 
 <mapper namespace="com.project.doran.postLike.dao.PostLikeDAO">
 
+	<!-- 좋아요 체크 -->
+	<select id="likeCheck" resultType="int">
+		select count(*) from postLikeTbl where uid = #{uid} and postId = #{postId}
+	</select>
+	
 	<!-- 좋아요 추가 -->
 	<insert id="likeAdd">
 		insert into postLikeTbl(postId, uid) values (#{postId}, #{uid}) 
@@ -16,5 +21,12 @@
 	</delete>
 	
 	<!-- 좋아요 수 업데이트 -->
+	<update id="likeCountUpdate">
+		UPDATE postTbl
+		SET postTbl.likeCount = (SELECT count(postId)
+									FROM postLikeTbl
+									WHERE postId = #{postId})
+		WHERE postTbl.postId = #{postId};
+	</update>
 	
 </mapper>

@@ -24,10 +24,10 @@
 		</if>
 	</sql>
 	
-	<select id="selectTagList" resultMap="search">
-		SELECT tagName
-		FROM tagTbl
-	</select>
+<!-- 	<select id="selectTagList" resultMap="search"> -->
+<!-- 		SELECT tagName -->
+<!-- 		FROM tagTbl -->
+<!-- 	</select> -->
 	
 	<!-- 회원 수정 -->
 	<update id="updateUser">
@@ -36,4 +36,11 @@
 			nickname = #{nickname}, email = #{email}, address = #{address}
 		WHERE uid = #{uid} 
 	</update>
+	
+	<!-- 로그인 -->
+	<select id="userLogin" resultType="com.project.doran.user.vo.UserVO">
+    	select uid, nickname
+    	from userTbl
+    	where uid = #{uid} and upass = #{upass}
+	</select>
 </mapper>

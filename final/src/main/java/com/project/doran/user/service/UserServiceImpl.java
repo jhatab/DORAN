@@ -3,11 +3,10 @@ package com.project.doran.user.service;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Service;
 
-import com.project.doran.search.vo.PagingVO;
 import com.project.doran.search.vo.CriteriaVO;
+import com.project.doran.search.vo.PagingVO;
 import com.project.doran.user.dao.UserDAO;
 import com.project.doran.user.vo.UserVO;
 
@@ -37,9 +36,13 @@ public class UserServiceImpl implements UserService {
 		return userDAO.getSearchList(pagingVO);
 	}
 
+	// 로그인
+	public UserVO userLogin(UserVO userVO) throws Exception {
+		return userDAO.userLogin(userVO);
+	}
+
 	// 회원정보 수정
 	public void userUpdate(UserVO userVO) throws Exception {
 		userDAO.userUpdate(userVO);
 	}
-
 }

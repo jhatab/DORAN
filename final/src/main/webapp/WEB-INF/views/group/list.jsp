@@ -38,7 +38,7 @@
 					<a href="/group/home?groupId=${gList.groupId}">
 						<c:choose>
 							<c:when test="${gList.groupImagePath == null or gList.groupImagePath == ''}">
-								<img src="${contextPath}/resources/group_image_file/basic.png" style="width: 100px; height: 100px">
+								<img src="${contextPath}/resources/images/group_image_file/basic.png" style="width: 100px; height: 100px">
 							</c:when>
 							<c:otherwise>
 								<img src="${contextPath}/resources/${gList.groupImagePath}" style="width: 100px; height: 100px">

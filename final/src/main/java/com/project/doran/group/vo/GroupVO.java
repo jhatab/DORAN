@@ -22,4 +22,6 @@ public class GroupVO {
 	private boolean isDeleted;		// 그룹 삭제여부
 	private Date deletedDate;		// 그룹 삭제일
 	
+	/* userGroupMappingTbl */
+	private int isApproval;	// 그룹 가입 승인 여부 (0-승인X, 1-승인O, 2-생성자)
 }

@@ -15,16 +15,10 @@ public class TagServiceImpl implements TagService {
 	@Autowired
 	private TagDAO tagDAO;
 
+	// 태그 목록
 	@Override
-	public void tagInsert(TagVO tagVO) throws Exception {
-		tagDAO.tagInsert(tagVO);
-
-	}
-
-	@Override
-	public void tagDelete(TagVO tagVO) throws Exception {
-		tagDAO.tagDelete(tagVO);
-
+	public List<TagVO> tagList(SearchCriteriaVO scri) throws Exception {
+		return tagDAO.tagList(scri);
 	}
 
 	// 태그 총 갯수
@@ -33,10 +27,18 @@ public class TagServiceImpl implements TagService {
 		return tagDAO.tagListCount(scri);
 	}
 
-	// 태그 목록
+	// 태그 추가
 	@Override
-	public List<TagVO> tagList(SearchCriteriaVO scri) throws Exception {
-		return tagDAO.tagList(scri);
+	public void tagInsert(TagVO tagVO) throws Exception {
+		tagDAO.tagInsert(tagVO);
+
+	}
+
+	// 태그 삭제
+	@Override
+	public void tagDelete(TagVO tagVO) throws Exception {
+		tagDAO.tagDelete(tagVO);
+
 	}
 
 }

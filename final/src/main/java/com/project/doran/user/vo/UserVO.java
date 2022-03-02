@@ -18,15 +18,4 @@ public class UserVO {
 	private String address;			// 회원 거주지 주소
 	private int authority;			// 0-회원, 1-관리자
 	
-	// postTbl(게시물 테이블)
-	private String content;			// 게시물 내용
-	private Date postedDate;		// 작성일시
-	
-	// categoryTbl(카테고리 테이블)
-	private String categoryName;	// 카테고리 명칭
-	
-	// tagTbl(태그 테이블)
-	private String tagName;			// 태그 명칭
-
-	
 }
