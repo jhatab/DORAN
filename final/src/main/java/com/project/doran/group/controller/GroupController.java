@@ -90,6 +90,14 @@ public class GroupController {
 		return "redirect:/group/list";
 	}
 	
+	/* 그룹 설정 페이지 */
+	@RequestMapping(value = "/setting", method = RequestMethod.GET)
+	public void groupSettingGet(int groupId, Model model) throws Exception {
+		logger.info("그룹 설정 페이지입니다.");
+
+		model.addAttribute("groupInfo", groupService.groupHome(groupId));
+	}
+	
 	/* 그룹 수정 페이지 */
 	@RequestMapping(value = "/update", method = RequestMethod.GET)
 	public void groupUpdateGet(int groupId, Model model) throws Exception {

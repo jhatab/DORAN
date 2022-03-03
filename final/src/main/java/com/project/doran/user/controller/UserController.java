@@ -1,7 +1,5 @@
 package com.project.doran.user.controller;
 
-import java.util.List;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -50,7 +48,7 @@ public class UserController {
 		session.setAttribute("member", uvo);
 		session.setAttribute("uid", uvo.getUid());	// 그룹 페이지에서 사용 (게시물 공개 수준)
 
-		return "redirect:/group/list";
+		return "redirect:/main";
 	}
 
 	/* 로그아웃 */
@@ -80,8 +78,6 @@ public class UserController {
 		
 		userService.userUpdate(userVO);
 		
-		
-		
-		return "/group/home";
+		return "redirect:/main";
 	}
 }

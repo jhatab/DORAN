@@ -52,8 +52,8 @@ input[type="file"] {
 			</c:forEach>
 		</select>
 		<input type="text" name="groupName" placeholder="그룹명" maxlength="20">
-		<input type="text" name="groupIntro" placeholder="그룹 소개글" maxlength="100">
-		<input type="text" name="uid" placeholder="그룹 생성자(관리자)" maxlength="10">
+		<input type="text" name="groupIntro" placeholder="그룹 소개글" maxlength="50">
+		<input type="hidden" name="uid" value="${member.uid}" placeholder="그룹 생성자(관리자)" maxlength="10">
 		<div>
 			<button type="button" onclick="location.href='/group/list'">취소</button>
 			<button type="submit">완료</button>

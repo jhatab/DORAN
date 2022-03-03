@@ -7,7 +7,9 @@
 
 <head>
 <meta charset="UTF-8">
-<title>그룹 페이지</title>
+<title>${groupInfo.groupName}</title>
+<link rel="stylesheet" href="/resources/css/common/reset.css">
+<link rel="stylesheet" href="/resources/css/group/home.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <style>
 /* 게시물 작성 모달 */
@@ -102,10 +104,10 @@ input[type="file"] {
 
 <body>
 	<header>
-		<c:if test = "${member == null }">
+		<c:if test = "${member == null}">
 			<div class="login_button"><a href="/user/login">로그인</a></div>
 		</c:if>  
-		<c:if test = "${member != null }">
+		<c:if test = "${member != null}">
 			<div class="login_button">
 				<span>${member.nickname}</span>
 				<a href="/user/update.do">정보수정</a>
@@ -113,516 +115,680 @@ input[type="file"] {
 			</div>
 		</c:if>  
 	</header>
+	
+	<hr>
+	
 	<h1>그룹 페이지</h1>
 	
 	<hr>
 	
-	<!-- 그룹 정보 -->	
-	<div class="groip_info">
-		<c:choose>
-			<c:when test="${groupInfo.groupImagePath == null or groupInfo.groupImagePath == ''}">
-				<img src="${contextPath}/resources/images/group_image_file/basic.png" style="width: 100px; height: 100px">
-			</c:when>
-			<c:otherwise>
-				<img src="${contextPath}/resources/${groupInfo.groupImagePath}" style="width: 100px; height: 100px">
-			</c:otherwise>
-		</c:choose>
-		<span>그룹 식별자 : ${groupInfo.groupId}</span><br>
-		<span>그룹명 : ${groupInfo.groupName}</span><br>
-		<span>그룹소개 : ${groupInfo.groupIntro}</span><br>
-		<span>그룹 관리자 : ${groupInfo.uid}</span>
-		<div class="groupBtn_wrap">
-			<button type="button" class="groupUpdateBtn">그룹 수정</button>
-			<button type="button" class="groupDeleteBtn">그룹 삭제</button>
-			<button type="button" class="groupJoinBtn">그룹 가입</button>
+	<div class="groupWrapper">
+	
+		<!-- Left Bar -->
+		<div class="leftWrapper">
+			<div class="groupPhoto">
+				<c:choose>
+					<c:when test="${groupInfo.groupImagePath == null or groupInfo.groupImagePath == ''}">
+						<img src="${contextPath}/resources/images/group_image_file/basic.png">
+					</c:when>
+					<c:otherwise>
+						<img src="${contextPath}/resources/${groupInfo.groupImagePath}">
+					</c:otherwise>
+				</c:choose>
+			</div>
+			<div class="contents">
+				<h3>${groupInfo.groupName}</h3>
+				<p>${groupInfo.groupIntro}</p>
+				<c:choose>
+					<c:when test="${isApproval == '1'}">
+						<c:choose>
+							<%-- 그룹 관리자 --%>
+							<c:when test="${groupInfo.uid == member.uid}">
+								<a href="/group/setting?groupId=${groupInfo.groupId}" class="groupSetBtn">그룹 설정</a>
+							</c:when>
+							<%-- 그룹원 --%>
+							<c:otherwise>
+								<a href="/group/setting?groupId=${groupInfo.groupId}" class="groupSetBtn">그룹 설정~</a>
+							</c:otherwise>
+						</c:choose>
+					</c:when>
+					<c:otherwise>
+						<c:choose>
+							<%-- 일반회원 --%>
+							<c:when test="${member != null}">
+								<button class="groupJoinBtn">가입하기</button>
+							</c:when>
+							<%-- 비회원 --%>
+							<c:otherwise>
+								<button class="groupNoneBtn">가입하기</button>
+							</c:otherwise>
+						</c:choose>
+					</c:otherwise>
+				</c:choose>
+			</div>
 		</div>
 		<form id="groupForm" method="get">
 			<input type="hidden" name="groupId" value="${groupInfo.groupId}">
 			<input type="hidden" name="uid" value="${member.uid}">
 		</form>
-	</div>
-	<!-- // 그룹 정보 -->
-	
-	<hr>
-	<!-- 검색 -->
-	<div class="search_wrap">
-		<form class="searchForm" action="/group/home">
-			<input type="hidden" name="groupId" value="${groupInfo.groupId}">
-			<input type="text" name="keyword" placeholder="검색">
-			<button>검색</button>
-			<a href="/group/home?groupId=${groupInfo.groupId}" class="searchReset" style="display:none">취소</a>
-		</form>
-	</div>
-	<!-- // 검색 -->
-	<button type="button" class="postWriteBtn">게시물 작성</button>
-	
-	<hr>
-	
-	<!-- 게시물 작성 모달창 -->
-	<div class="postWrite_modal">
-		<div class="postWrite_content">
-			<form id="postWriteForm" method="post" enctype="multipart/form-data">
-				<h3>게시물 작성</h3>
-				<input type="text" name="groupId" value="${groupInfo.groupId}" placeholder="그룹식별자" readonly><br>
-				<input type="text" name="uid" placeholder="작성자"><br>
-				<textarea name="content" placeholder="내용"></textarea><br>
-				<input type="text" name="tag" placeholder="해시태그"><br>
-				<label><input type="radio" name="openness" value="0" checked="checked">전체</label>
-				<label><input type="radio" name="openness" value="1">회원</label>
-				<label><input type="radio" name="openness" value="2">그룹</label>
-				<label><input type="radio" name="openness" value="3">나만</label><br>
-				<!-- 이미지 파일 업로드 -->
-				<hr>
-				<div class="attach_wrap">
-					<label for="files" class="inputFilesBtn">+</label>
-					<input type="file" name="files" id="files" multiple accept=".jpg, .png">
-					<ul class="attachView_wrap">
-					</ul>
-				</div>
-				<div class="postWriteBtn_wrap">
-					<button type="button" class="postWriteCancleBtn">취소</button>
-					<button type="button" class="postWriteFinBtn">작성</button>
-				</div>
-			</form>			
-		</div>
-	</div>
-	<!-- // 게시물 작성 모달 -->
-	
-	<!-- 게시물 목록 -->
-	<div class="post_wrap">
-		<c:forEach items="${postList}" var="pList">
-			
+		<!-- // Left Bar -->
+		
+		<!-- 그룹 정보 -->	
+		<%-- <div class="groip_info">
 			<c:choose>
-				<%-- 게시물 공개수준 : 비공개(나만) --%>
-				<c:when test="${pList.openness == 3}">
-					<c:if test="${pList.uid == member.uid || groupInfo.uid == member.uid}">
-						<div class="post_info">
-							<span>게시물 식별자 : ${pList.postId}</span><br>
-							<span>게시물 작성자 아이디 : ${pList.uid}</span><br>
-							<span>게시물 작성자 닉네임 : ${pList.nickname}</span><br>
-							<span>게시물 내용: ${pList.content}</span><br>
-							<span>게시물 공개수준: ${pList.openness}</span><br>
-							<span>
-								게시물 좋아요 수: ${pList.likeCount}
-								<button type="button" class="likeBtn" post-idx="${pList.postId}">추천</button>
-							</span><br>
-							<span>게시물 작성날짜: ${pList.postedDate}</span><br>
-							<span>댓글수 : ${pList.replyCount}</span><br>
-							<form action="/group/home">
-								<span>
-									해시태그 : 
-									<c:forEach items="${tagList}" var="tList">
-										<c:if test="${tList.postId == pList.postId}">
-											<span>${tList.tagName}</span>
-										</c:if>
-									</c:forEach>
-								</span>
-							</form>
-							<div class="postAttach_info">
-								<c:forEach items="${postImageList}" var="pIList">
-									<c:if test="${pIList.postId == pList.postId}">
-										<img src="${contextPath}/resources/${pIList.filePath}" style="width: 100px; height: 100px">
-									</c:if>
-								</c:forEach>
-							</div>
-						</div>
-						<div class="postBtn_wrap">
-							<button type="button" class="postUpdateBtn">게시물 수정</button>
-							<button type="button" class="postDeleteBtn" post-idx="${pList.postId}">게시물 삭제</button>
-						</div>
-						<!-- 게시물 수정 모달창 -->
-						<div class="postUpdate_modal">
-							<div class="postUpdate_content">
-								<form class="postUpdateForm" method="post">
-									<h3>게시물 수정</h3>
-									<input type="hidden" name="postId" class="postId" value="${pList.postId}">
-									<textarea name="content" class="content" placeholder="내용">${pList.content}</textarea><br>
-									해시태그<br>
-									<label><input type="radio" name="openness" class="openness" value="0" <c:if test="${pList.openness == 0}">checked</c:if>/>전체</label>
-									<label><input type="radio" name="openness" class="openness" value="1" <c:if test="${pList.openness == 1}">checked</c:if>/>회원</label>
-									<label><input type="radio" name="openness" class="openness" value="2" <c:if test="${pList.openness == 2}">checked</c:if>/>그룹</label>
-									<label><input type="radio" name="openness" class="openness" value="3" <c:if test="${pList.openness == 3}">checked</c:if>/>나만</label><br>
-									이미지 파일 업로드
-									<hr>
-									<div class="attach_wrap">
-										<label for="files" class="inputFilesBtn">+</label>
-										<input type="file" name="files" id="files" multiple accept=".jpg, .png">
-										<ul class="attachView_wrap">
-										</ul>
-									</div>
-									<div class="postUpdateBtn_wrap">
-										<button type="button" class="postUpdateCancleBtn">취소</button>
-										<button type="button" class="postUpdateFinBtn">작성</button>
-									</div>
-								</form>
-							</div>
-						</div>
-						<!-- // 게시물 수정 모달창 -->
-						
-						<!-- 댓글 목록 -->
-						<div class="reply_wrap">
-							<ul class="replyList">
-								<c:forEach items="${replyList}" var="rList">
-									<c:if test="${rList.postId == pList.postId}">
-										<li class="replyInfo">
-											<input type="hidden" name="postId" class="postId" value="${rList.postId}">
-											<input type="hidden" name="replyId" class="replyId" value="${rList.replyId}">
-											<span>${rList.nickname}</span><br>
-											<textarea name=replyContent class="replyContent" readonly>${rList.replyContent}</textarea>
-											<button type="button" class="replyUpdateBtn">댓글 수정</button>
-											<button type="button" class="replyDeleteBtn">댓글 삭제</button>
-											<div class="replyUpdateBtn_wrap" style="display:none">
-												<button type="button" class="replyUpdateCancleBtn">취소</button>
-												<button type="button" class="replyUpdateFinBtn">완료</button>
-											</div>
-										</li>
-									</c:if>
-								</c:forEach>
-							</ul>
-							<!-- 댓글 작성 -->
-							<div class="replyWrite_wrap">
-								<input type="hidden" name="postId" class="postId" value="${pList.postId}">
-								<input type="text" name="uid" class="uid" placeholder="작성자">
-								<input type="text" name="replyContent" class="replyContent" placeholder="댓글을 입력해주세요.">
-								<button type="button" class="replyWriteBtn">등록</button>
-							</div>
-							<!-- // 댓글 작성 -->
-						</div>
-						<!-- // 댓글 목록 -->
-						<hr>
-					</c:if>
+				<c:when test="${groupInfo.groupImagePath == null or groupInfo.groupImagePath == ''}">
+					<img src="${contextPath}/resources/images/group_image_file/basic.png" style="width: 100px; height: 100px">
 				</c:when>
-				<%-- // 게시물 공개수준 : 비공개(나만) --%>
-				<%-- 게시물 공개수준 : 그룹 공개 --%>
-				<c:when test="${pList.openness == 2}">
-					<c:if test="${isApproval == '1'}">
-						<div class="post_info">
-							<span>게시물 식별자 : ${pList.postId}</span><br>
-							<span>게시물 작성자 아이디 : ${pList.uid}</span><br>
-							<span>게시물 작성자 닉네임 : ${pList.nickname}</span><br>
-							<span>게시물 내용: ${pList.content}</span><br>
-							<span>게시물 공개수준: ${pList.openness}</span><br>
-							<span>
-								게시물 좋아요 수: ${pList.likeCount}
-								<button type="button" class="likeBtn" post-idx="${pList.postId}">추천</button>
-							</span><br>
-							<span>게시물 작성날짜: ${pList.postedDate}</span><br>
-							<span>댓글수 : ${pList.replyCount}</span><br>
-							<form action="/group/home">
-								<span>
-									해시태그 : 
-									<c:forEach items="${tagList}" var="tList">
-										<c:if test="${tList.postId == pList.postId}">
-											<span>${tList.tagName}</span>
-										</c:if>
-									</c:forEach>
-								</span>
-							</form>
-							<div class="postAttach_info">
-								<c:forEach items="${postImageList}" var="pIList">
-									<c:if test="${pIList.postId == pList.postId}">
-										<img src="${contextPath}/resources/${pIList.filePath}" style="width: 100px; height: 100px">
-									</c:if>
-								</c:forEach>
-							</div>
-						</div>
-						<div class="postBtn_wrap">
-							<button type="button" class="postUpdateBtn">게시물 수정</button>
-							<button type="button" class="postDeleteBtn" post-idx="${pList.postId}">게시물 삭제</button>
-						</div>
-						<!-- 게시물 수정 모달창 -->
-						<div class="postUpdate_modal">
-							<div class="postUpdate_content">
-								<form class="postUpdateForm" method="post">
-									<h3>게시물 수정</h3>
-									<input type="hidden" name="postId" class="postId" value="${pList.postId}">
-									<textarea name="content" class="content" placeholder="내용">${pList.content}</textarea><br>
-									해시태그<br>
-									<label><input type="radio" name="openness" class="openness" value="0" <c:if test="${pList.openness == 0}">checked</c:if>/>전체</label>
-									<label><input type="radio" name="openness" class="openness" value="1" <c:if test="${pList.openness == 1}">checked</c:if>/>회원</label>
-									<label><input type="radio" name="openness" class="openness" value="2" <c:if test="${pList.openness == 2}">checked</c:if>/>그룹</label>
-									<label><input type="radio" name="openness" class="openness" value="3" <c:if test="${pList.openness == 3}">checked</c:if>/>나만</label><br>
-									이미지 파일 업로드
-									<hr>
-									<div class="attach_wrap">
-										<label for="files" class="inputFilesBtn">+</label>
-										<input type="file" name="files" id="files" multiple accept=".jpg, .png">
-										<ul class="attachView_wrap">
-										</ul>
-									</div>
-									<div class="postUpdateBtn_wrap">
-										<button type="button" class="postUpdateCancleBtn">취소</button>
-										<button type="button" class="postUpdateFinBtn">작성</button>
-									</div>
-								</form>
-							</div>
-						</div>
-						<!-- // 게시물 수정 모달창 -->
-						
-						<!-- 댓글 목록 -->
-						<div class="reply_wrap">
-							<ul class="replyList">
-								<c:forEach items="${replyList}" var="rList">
-									<c:if test="${rList.postId == pList.postId}">
-										<li class="replyInfo">
-											<input type="hidden" name="postId" class="postId" value="${rList.postId}">
-											<input type="hidden" name="replyId" class="replyId" value="${rList.replyId}">
-											<span>${rList.nickname}</span><br>
-											<textarea name=replyContent class="replyContent" readonly>${rList.replyContent}</textarea>
-											<button type="button" class="replyUpdateBtn">댓글 수정</button>
-											<button type="button" class="replyDeleteBtn">댓글 삭제</button>
-											<div class="replyUpdateBtn_wrap" style="display:none">
-												<button type="button" class="replyUpdateCancleBtn">취소</button>
-												<button type="button" class="replyUpdateFinBtn">완료</button>
-											</div>
-										</li>
-									</c:if>
-								</c:forEach>
-							</ul>
-							<!-- 댓글 작성 -->
-							<div class="replyWrite_wrap">
-								<input type="hidden" name="postId" class="postId" value="${pList.postId}">
-								<input type="text" name="uid" class="uid" placeholder="작성자">
-								<input type="text" name="replyContent" class="replyContent" placeholder="댓글을 입력해주세요.">
-								<button type="button" class="replyWriteBtn">등록</button>
-							</div>
-							<!-- // 댓글 작성 -->
-						</div>
-						<!-- // 댓글 목록 -->
-						<hr>
-					</c:if>
-				</c:when>
-				<%-- // 게시물 공개수준 : 그룹 공개 --%>
-				<%-- 게시물 공개수준 : 회원 공개 --%>
-				<c:when test="${pList.openness == 1}">
-					<c:if test="${member != null}">
-						<div class="post_info">
-							<span>게시물 식별자 : ${pList.postId}</span><br>
-							<span>게시물 작성자 아이디 : ${pList.uid}</span><br>
-							<span>게시물 작성자 닉네임 : ${pList.nickname}</span><br>
-							<span>게시물 내용: ${pList.content}</span><br>
-							<span>게시물 공개수준: ${pList.openness}</span><br>
-							<span>
-								게시물 좋아요 수: ${pList.likeCount}
-								<button type="button" class="likeBtn" post-idx="${pList.postId}">추천</button>
-							</span><br>
-							<span>게시물 작성날짜: ${pList.postedDate}</span><br>
-							<span>댓글수 : ${pList.replyCount}</span><br>
-							<form action="/group/home">
-								<span>
-									해시태그 : 
-									<c:forEach items="${tagList}" var="tList">
-										<c:if test="${tList.postId == pList.postId}">
-											<span>${tList.tagName}</span>
-										</c:if>
-									</c:forEach>
-								</span>
-							</form>
-							<div class="postAttach_info">
-								<c:forEach items="${postImageList}" var="pIList">
-									<c:if test="${pIList.postId == pList.postId}">
-										<img src="${contextPath}/resources/${pIList.filePath}" style="width: 100px; height: 100px">
-									</c:if>
-								</c:forEach>
-							</div>
-						</div>
-						<div class="postBtn_wrap">
-							<button type="button" class="postUpdateBtn">게시물 수정</button>
-							<button type="button" class="postDeleteBtn" post-idx="${pList.postId}">게시물 삭제</button>
-						</div>
-						<!-- 게시물 수정 모달창 -->
-						<div class="postUpdate_modal">
-							<div class="postUpdate_content">
-								<form class="postUpdateForm" method="post">
-									<h3>게시물 수정</h3>
-									<input type="hidden" name="postId" class="postId" value="${pList.postId}">
-									<textarea name="content" class="content" placeholder="내용">${pList.content}</textarea><br>
-									해시태그<br>
-									<label><input type="radio" name="openness" class="openness" value="0" <c:if test="${pList.openness == 0}">checked</c:if>/>전체</label>
-									<label><input type="radio" name="openness" class="openness" value="1" <c:if test="${pList.openness == 1}">checked</c:if>/>회원</label>
-									<label><input type="radio" name="openness" class="openness" value="2" <c:if test="${pList.openness == 2}">checked</c:if>/>그룹</label>
-									<label><input type="radio" name="openness" class="openness" value="3" <c:if test="${pList.openness == 3}">checked</c:if>/>나만</label><br>
-									이미지 파일 업로드
-									<hr>
-									<div class="attach_wrap">
-										<label for="files" class="inputFilesBtn">+</label>
-										<input type="file" name="files" id="files" multiple accept=".jpg, .png">
-										<ul class="attachView_wrap">
-										</ul>
-									</div>
-									<div class="postUpdateBtn_wrap">
-										<button type="button" class="postUpdateCancleBtn">취소</button>
-										<button type="button" class="postUpdateFinBtn">작성</button>
-									</div>
-								</form>
-							</div>
-						</div>
-						<!-- // 게시물 수정 모달창 -->
-						
-						<!-- 댓글 목록 -->
-						<div class="reply_wrap">
-							<ul class="replyList">
-								<c:forEach items="${replyList}" var="rList">
-									<c:if test="${rList.postId == pList.postId}">
-										<li class="replyInfo">
-											<input type="hidden" name="postId" class="postId" value="${rList.postId}">
-											<input type="hidden" name="replyId" class="replyId" value="${rList.replyId}">
-											<span>${rList.nickname}</span><br>
-											<textarea name=replyContent class="replyContent" readonly>${rList.replyContent}</textarea>
-											<button type="button" class="replyUpdateBtn">댓글 수정</button>
-											<button type="button" class="replyDeleteBtn">댓글 삭제</button>
-											<div class="replyUpdateBtn_wrap" style="display:none">
-												<button type="button" class="replyUpdateCancleBtn">취소</button>
-												<button type="button" class="replyUpdateFinBtn">완료</button>
-											</div>
-										</li>
-									</c:if>
-								</c:forEach>
-							</ul>
-							<!-- 댓글 작성 -->
-							<div class="replyWrite_wrap">
-								<input type="hidden" name="postId" class="postId" value="${pList.postId}">
-								<input type="text" name="uid" class="uid" placeholder="작성자">
-								<input type="text" name="replyContent" class="replyContent" placeholder="댓글을 입력해주세요.">
-								<button type="button" class="replyWriteBtn">등록</button>
-							</div>
-							<!-- // 댓글 작성 -->
-						</div>
-						<!-- // 댓글 목록 -->
-						<hr>
-					</c:if>
-				</c:when>
-				<%-- // 게시물 공개수준 : 회원 공개 --%>
-				<%-- 게시물 공개수준 : 전체 공개 --%>
 				<c:otherwise>
-					<div class="post_info">
-						<span>게시물 식별자 : ${pList.postId}</span><br>
-						<span>게시물 작성자 아이디 : ${pList.uid}</span><br>
-						<span>게시물 작성자 닉네임 : ${pList.nickname}</span><br>
-						<span>게시물 내용: ${pList.content}</span><br>
-						<span>게시물 공개수준: ${pList.openness}</span><br>
-						<span>
-							게시물 좋아요 수: ${pList.likeCount}
-							<button type="button" class="likeBtn" post-idx="${pList.postId}">추천</button>
-						</span><br>
-						<span>게시물 작성날짜: ${pList.postedDate}</span><br>
-						<span>댓글수 : ${pList.replyCount}</span><br>
-						<form action="/group/home">
-							<span>
-								해시태그 : 
-								<c:forEach items="${tagList}" var="tList">
-									<c:if test="${tList.postId == pList.postId}">
-										<input type="hidden" name="groupId" value="${groupInfo.groupId}">
-										<button type="submit" name="keyword" value="${tList.tag}">#${tList.tag}</button>
-									</c:if>
-								</c:forEach>
-							</span>
-						</form>
-						<div class="postAttach_info">
-							<c:forEach items="${postImageList}" var="pIList">
-								<c:if test="${pIList.postId == pList.postId}">
-									<img src="${contextPath}/resources/${pIList.filePath}" style="width: 100px; height: 100px">
-								</c:if>
-							</c:forEach>
-						</div>
-					</div>
-					<div class="postBtn_wrap">
-						<button type="button" class="postUpdateBtn">게시물 수정</button>
-						<button type="button" class="postDeleteBtn" post-idx="${pList.postId}">게시물 삭제</button>
-					</div>
-					<!-- 게시물 수정 모달창 -->
-					<div class="postUpdate_modal">
-						<div class="postUpdate_content">
-							<form class="postUpdateForm" method="post">
-								<h3>게시물 수정</h3>
-								<input type="hidden" name="postId" class="postId" value="${pList.postId}">
-								<textarea name="content" class="content" placeholder="내용">${pList.content}</textarea><br>
-								
-								해시태그<br>
-								<label><input type="radio" name="openness" class="openness" value="0" <c:if test="${pList.openness == 0}">checked</c:if>/>전체</label>
-								<label><input type="radio" name="openness" class="openness" value="1" <c:if test="${pList.openness == 1}">checked</c:if>/>회원</label>
-								<label><input type="radio" name="openness" class="openness" value="2" <c:if test="${pList.openness == 2}">checked</c:if>/>그룹</label>
-								<label><input type="radio" name="openness" class="openness" value="3" <c:if test="${pList.openness == 3}">checked</c:if>/>나만</label><br>
-								이미지 파일 업로드
-								<hr>
-								<div class="attach_wrap">
-									<label for="files" class="inputFilesBtn">+</label>
-									<input type="file" name="files" id="files" multiple accept=".jpg, .png">
-									<ul class="attachView_wrap">
-									</ul>
-								</div>
-								<div class="postUpdateBtn_wrap">
-									<button type="button" class="postUpdateCancleBtn">취소</button>
-									<button type="button" class="postUpdateFinBtn">작성</button>
-								</div>
-							</form>
-						</div>
-					</div>
-					<!-- // 게시물 수정 모달창 -->
-					
-					<!-- 댓글 목록 -->
-					<div class="reply_wrap">
-						<ul class="replyList">
-							<c:forEach items="${replyList}" var="rList">
-								<c:if test="${rList.postId == pList.postId}">
-									<li class="replyInfo">
-										<input type="hidden" name="postId" class="postId" value="${rList.postId}">
-										<input type="hidden" name="replyId" class="replyId" value="${rList.replyId}">
-										<span>${rList.nickname}</span><br>
-										<textarea name=replyContent class="replyContent" readonly>${rList.replyContent}</textarea>
-										<button type="button" class="replyUpdateBtn">댓글 수정</button>
-										<button type="button" class="replyDeleteBtn">댓글 삭제</button>
-										<div class="replyUpdateBtn_wrap" style="display:none">
-											<button type="button" class="replyUpdateCancleBtn">취소</button>
-											<button type="button" class="replyUpdateFinBtn">완료</button>
-										</div>
-									</li>
-								</c:if>
-							</c:forEach>
-						</ul>
-						<!-- 댓글 작성 -->
-						<div class="replyWrite_wrap">
-							<input type="hidden" name="postId" class="postId" value="${pList.postId}">
-							<input type="text" name="uid" class="uid" placeholder="작성자">
-							<input type="text" name="replyContent" class="replyContent" placeholder="댓글을 입력해주세요.">
-							<button type="button" class="replyWriteBtn">등록</button>
-						</div>
-						<!-- // 댓글 작성 -->
-					</div>
-					<!-- // 댓글 목록 -->
-					<hr>
+					<img src="${contextPath}/resources/${groupInfo.groupImagePath}" style="width: 100px; height: 100px">
 				</c:otherwise>
-				<%-- // 게시물 공개수준 : 전체 공개 --%>
 			</c:choose>
-		</c:forEach>
-		<!-- 검색 결과 X -->
-		<div class="postSearchNone" style="display: none;">
-			<span>검색 결과가 없습니다.</span>
+			<span>그룹 식별자 : ${groupInfo.groupId}</span><br>
+			<span>그룹명 : ${groupInfo.groupName}</span><br>
+			<span>그룹소개 : ${groupInfo.groupIntro}</span><br>
+			<span>그룹 관리자 : ${groupInfo.uid}</span>
+			<div class="groupBtn_wrap">
+				<button type="button" class="groupUpdateBtn">그룹 수정</button>
+				<button type="button" class="groupDeleteBtn">그룹 삭제</button>
+				<button type="button" class="groupJoinBtn">그룹 가입</button>
+			</div>
+			<form id="groupForm" method="get">
+				<input type="hidden" name="groupId" value="${groupInfo.groupId}">
+				<input type="hidden" name="uid" value="${member.uid}">
+			</form>
+		</div> --%>
+		<!-- // 그룹 정보 -->
+		
+		<!-- Middle Main -->
+		<div>
+			<!-- Search -->
+			<div class="search_wrap">
+				<form class="searchForm searchWrite" action="/group/home">
+					<div>
+						<img alt="search in Group" src="/resources/images/search.png" />
+						<input type="text" name="keyword" placeholder="그룹 내 게시글을 검색해보세요.">
+						<input type="hidden" name="groupId" value="${groupInfo.groupId}">
+						<a href="/group/home?groupId=${groupInfo.groupId}" class="searchReset" style="display:none">취소</a>
+					</div>
+					<button type="button" class="postWriteBtn">피드 작성</button>
+				</form>
+			</div>
+			<!-- //Search -->
+			
+			<!-- 피드 작성 모달창 -->
+			<div class="postWrite_modal">
+				<div class="postWrite_content">
+					<form id="postWriteForm" method="post" enctype="multipart/form-data">
+						<h3>게시물 작성</h3>
+						<input type="text" name="groupId" value="${groupInfo.groupId}" placeholder="그룹식별자" readonly><br>
+						<input type="text" name="uid" value="${member.uid}" placeholder="작성자"><br>
+						<textarea name="content" placeholder="내용"></textarea><br>
+						<input type="text" name="tag" placeholder="해시태그"><br>
+						<label><input type="radio" name="openness" value="0" checked="checked">전체</label>
+						<label><input type="radio" name="openness" value="1">회원</label>
+						<label><input type="radio" name="openness" value="2">그룹</label>
+						<label><input type="radio" name="openness" value="3">나만</label><br>
+						<!-- 이미지 파일 업로드 -->
+						<hr>
+						<div class="attach_wrap">
+							<label for="files" class="inputFilesBtn">+</label>
+							<input type="file" name="files" id="files" multiple accept=".jpg, .png">
+							<ul class="attachView_wrap">
+							</ul>
+						</div>
+						<div class="postWriteBtn_wrap">
+							<button type="button" class="postWriteCancleBtn">취소</button>
+							<button type="button" class="postWriteFinBtn">작성</button>
+						</div>
+					</form>			
+				</div>
+			</div>
+			<!-- //피드 작성 모달창 -->
+			
+			<!-- Post List -->
+			<div class="post_wrap">
+				<c:forEach items="${postList}" var="pList">
+					<c:choose>
+						<%-- 게시물 공개수준 : 비공개(나만) --%>
+						<c:when test="${pList.openness == 3}">
+							<c:if test="${pList.uid == member.uid || groupInfo.uid == member.uid}">
+								<div class="groupFeed post_info">
+									<div class="middleWrapper">
+										<div class="groupFeedUpper">
+											<div class="userId">
+												<img alt="groupIdImg" src="/resources/images/groupImg.jpeg" />
+												<p>${pList.nickname}</p>
+												<p class="uid" style="display: none;">${pList.uid}</p>
+												<fmt:parseDate var="dateString" value="${pList.postedDate}" pattern="yyyy-MM-dd HH:mm:ss" />
+												<span><fmt:formatDate value="${dateString}" pattern="yyyy/MM/dd HH:mm" /></span>
+											</div>
+											<div class="groupFeedMenu">
+												<img alt="feed menu" src="/resources/images/dots.png" />
+												<div class="toggleMenu" style="display: none;">
+													<button type="button" class="postUpdateBtn">수정</button>
+													<button type="button" class="postDeleteBtn" post-idx="${pList.postId}">삭제</button>
+												</div>
+											</div>
+										</div>
+										
+										<div class="middleContents">
+											<p>${pList.content}</p>
+										</div>
+										
+										<div class="groupFeedLower">
+											<div class="groupHash">
+												<form action="/group/home">
+													<c:forEach items="${tagList}" var="tList">
+														<c:if test="${tList.postId == pList.postId}">
+															<input type="hidden" name="groupId" value="${groupInfo.groupId}">
+															<button type="submit" name="keyword" value="#${tList.tag}">#${tList.tag}</button>
+														</c:if>
+													</c:forEach>
+												</form>
+											</div>
+											<div>
+												<span class="groupReply">
+													<img alt="like" src="/resources/images/reply.png" />
+													<span>${pList.replyCount}</span>
+												</span>
+												<span class="groupLike">
+													<img alt="like" src="/resources/images/like.png" class="likeBtn" post-idx="${pList.postId}" />
+													<span>${pList.likeCount}</span>
+												</span>
+											</div>
+										</div>
+										
+										<div class="groupFeedImg">
+											<c:forEach items="${postImageList}" var="pIList">
+												<c:if test="${pIList.postId == pList.postId}">
+													<img src="${contextPath}/resources/${pIList.filePath}">
+												</c:if>
+											</c:forEach>
+										</div>
+									</div>
+									
+									<div class="reply_wrap">
+										<c:forEach items="${replyList}" var="rList">
+											<c:if test="${rList.postId == pList.postId}">
+												<div class="groupComment replyInfo">
+													<input type="hidden" name="postId" class="postId" value="${rList.postId}">
+													<input type="hidden" name="replyId" class="replyId" value="${rList.replyId}">
+													<span class="uid" style="display: none;">${rList.uid}</span>
+													<span>${rList.nickname}</span>
+													<textarea name=replyContent class="replyContent readonlyF" readonly>${rList.replyContent}</textarea>
+													<div class="groupReplyMenu">
+														<img alt="reply menu" src="/resources/images/dots.png" />
+														<div class="toggleMenu" style="display: none;">
+															<button type="button" class="replyUpdateBtn">수정</button>
+															<button type="button" class="replyDeleteBtn">삭제</button>
+															<div class="replyUpdateBtn_wrap" style="display:none">
+																<button type="button" class="replyUpdateCancleBtn">취소</button>
+																<button type="button" class="replyUpdateFinBtn">완료</button>
+															</div>
+														</div>
+													</div>
+												</div>
+											</c:if>
+										</c:forEach>
+										<!-- 댓글 작성 -->
+										<div class="replyWrite_wrap">
+											<input type="hidden" name="postId" class="postId" value="${pList.postId}">
+											<input type="hidden" name="uid" class="uid" value="${member.uid}" placeholder="작성자">
+											<input type="text" name="replyContent" class="replyContent" placeholder="댓글을 입력해주세요.">
+											<button type="button" class="replyWriteBtn">등록</button>
+										</div>
+										<!-- // 댓글 작성 -->
+									</div>
+								</div>
+								<!-- 게시물 수정 모달창 -->
+								<div class="postUpdate_modal">
+									<div class="postUpdate_content">
+										<form class="postUpdateForm" method="post">
+											<h3>게시물 수정</h3>
+											<input type="hidden" name="postId" class="postId" value="${pList.postId}">
+											<textarea name="content" class="content" placeholder="내용">${pList.content}</textarea><br>
+											
+											해시태그<br>
+											<label><input type="radio" name="openness" class="openness" value="0" <c:if test="${pList.openness == 0}">checked</c:if>/>전체</label>
+											<label><input type="radio" name="openness" class="openness" value="1" <c:if test="${pList.openness == 1}">checked</c:if>/>회원</label>
+											<label><input type="radio" name="openness" class="openness" value="2" <c:if test="${pList.openness == 2}">checked</c:if>/>그룹</label>
+											<label><input type="radio" name="openness" class="openness" value="3" <c:if test="${pList.openness == 3}">checked</c:if>/>나만</label><br>
+											이미지 파일 업로드
+											<hr>
+											<div class="attach_wrap">
+												<label for="files" class="inputFilesBtn">+</label>
+												<input type="file" name="files" id="files" multiple accept=".jpg, .png">
+												<ul class="attachView_wrap">
+												</ul>
+											</div>
+											<div class="postUpdateBtn_wrap">
+												<button type="button" class="postUpdateCancleBtn">취소</button>
+												<button type="button" class="postUpdateFinBtn">작성</button>
+											</div>
+										</form>
+									</div>
+								</div>
+								<!-- // 게시물 수정 모달창 -->
+							</c:if>
+						</c:when>
+						<%-- 게시물 공개수준 : 그룹 공개 --%>
+						<c:when test="${pList.openness == 2}">
+							<c:if test="${isApproval == '1'}">
+								<div class="groupFeed post_info">
+									<div class="middleWrapper">
+										<div class="groupFeedUpper">
+											<div class="userId">
+												<img alt="groupIdImg" src="/resources/images/groupImg.jpeg" />
+												<p>${pList.nickname}</p>
+												<p class="uid" style="display: none;">${pList.uid}</p>
+												<fmt:parseDate var="dateString" value="${pList.postedDate}" pattern="yyyy-MM-dd HH:mm:ss" />
+												<span><fmt:formatDate value="${dateString}" pattern="yyyy/MM/dd HH:mm" /></span>
+											</div>
+											<div class="groupFeedMenu">
+												<img alt="feed menu" src="/resources/images/dots.png" />
+												<div class="toggleMenu" style="display: none;">
+													<button type="button" class="postUpdateBtn">수정</button>
+													<button type="button" class="postDeleteBtn" post-idx="${pList.postId}">삭제</button>
+												</div>
+											</div>
+										</div>
+										
+										<div class="middleContents">
+											<p>${pList.content}</p>
+										</div>
+										
+										<div class="groupFeedLower">
+											<div class="groupHash">
+												<form action="/group/home">
+													<c:forEach items="${tagList}" var="tList">
+														<c:if test="${tList.postId == pList.postId}">
+															<input type="hidden" name="groupId" value="${groupInfo.groupId}">
+															<button type="submit" name="keyword" value="#${tList.tag}">#${tList.tag}</button>
+														</c:if>
+													</c:forEach>
+												</form>
+											</div>
+											<div>
+												<span class="groupReply">
+													<img alt="like" src="/resources/images/reply.png" />
+													<span>${pList.replyCount}</span>
+												</span>
+												<span class="groupLike">
+													<img alt="like" src="/resources/images/like.png" class="likeBtn" post-idx="${pList.postId}" />
+													<span>${pList.likeCount}</span>
+												</span>
+											</div>
+										</div>
+										
+										<div class="groupFeedImg">
+											<c:forEach items="${postImageList}" var="pIList">
+												<c:if test="${pIList.postId == pList.postId}">
+													<img src="${contextPath}/resources/${pIList.filePath}">
+												</c:if>
+											</c:forEach>
+										</div>
+									</div>
+									
+									<div class="reply_wrap">
+										<c:forEach items="${replyList}" var="rList">
+											<c:if test="${rList.postId == pList.postId}">
+												<div class="groupComment replyInfo">
+													<input type="hidden" name="postId" class="postId" value="${rList.postId}">
+													<input type="hidden" name="replyId" class="replyId" value="${rList.replyId}">
+													<span class="uid" style="display: none;">${rList.uid}</span>
+													<span>${rList.nickname}</span>
+													<textarea name=replyContent class="replyContent readonlyF" readonly>${rList.replyContent}</textarea>
+													<div class="groupReplyMenu">
+														<img alt="reply menu" src="/resources/images/dots.png" />
+														<div class="toggleMenu" style="display: none;">
+															<button type="button" class="replyUpdateBtn">수정</button>
+															<button type="button" class="replyDeleteBtn">삭제</button>
+															<div class="replyUpdateBtn_wrap" style="display:none">
+																<button type="button" class="replyUpdateCancleBtn">취소</button>
+																<button type="button" class="replyUpdateFinBtn">완료</button>
+															</div>
+														</div>
+													</div>
+												</div>
+											</c:if>
+										</c:forEach>
+										<!-- 댓글 작성 -->
+										<div class="replyWrite_wrap">
+											<input type="hidden" name="postId" class="postId" value="${pList.postId}">
+											<input type="hidden" name="uid" class="uid" value="${member.uid}" placeholder="작성자">
+											<input type="text" name="replyContent" class="replyContent" placeholder="댓글을 입력해주세요.">
+											<button type="button" class="replyWriteBtn">등록</button>
+										</div>
+										<!-- // 댓글 작성 -->
+									</div>
+								</div>
+								<!-- 게시물 수정 모달창 -->
+								<div class="postUpdate_modal">
+									<div class="postUpdate_content">
+										<form class="postUpdateForm" method="post">
+											<h3>게시물 수정</h3>
+											<input type="hidden" name="postId" class="postId" value="${pList.postId}">
+											<textarea name="content" class="content" placeholder="내용">${pList.content}</textarea><br>
+											
+											해시태그<br>
+											<label><input type="radio" name="openness" class="openness" value="0" <c:if test="${pList.openness == 0}">checked</c:if>/>전체</label>
+											<label><input type="radio" name="openness" class="openness" value="1" <c:if test="${pList.openness == 1}">checked</c:if>/>회원</label>
+											<label><input type="radio" name="openness" class="openness" value="2" <c:if test="${pList.openness == 2}">checked</c:if>/>그룹</label>
+											<label><input type="radio" name="openness" class="openness" value="3" <c:if test="${pList.openness == 3}">checked</c:if>/>나만</label><br>
+											이미지 파일 업로드
+											<hr>
+											<div class="attach_wrap">
+												<label for="files" class="inputFilesBtn">+</label>
+												<input type="file" name="files" id="files" multiple accept=".jpg, .png">
+												<ul class="attachView_wrap">
+												</ul>
+											</div>
+											<div class="postUpdateBtn_wrap">
+												<button type="button" class="postUpdateCancleBtn">취소</button>
+												<button type="button" class="postUpdateFinBtn">작성</button>
+											</div>
+										</form>
+									</div>
+								</div>
+								<!-- // 게시물 수정 모달창 -->
+							</c:if>
+						</c:when>
+						<%-- 게시물 공개수준 : 회원 공개 --%>
+						<c:when test="${pList.openness == 1}">
+							<c:if test="${member != null}">
+								<div class="groupFeed post_info">
+									<div class="middleWrapper">
+										<div class="groupFeedUpper">
+											<div class="userId">
+												<img alt="groupIdImg" src="/resources/images/groupImg.jpeg" />
+												<p>${pList.nickname}</p>
+												<p class="uid" style="display: none;">${pList.uid}</p>
+												<fmt:parseDate var="dateString" value="${pList.postedDate}" pattern="yyyy-MM-dd HH:mm:ss" />
+												<span><fmt:formatDate value="${dateString}" pattern="yyyy/MM/dd HH:mm" /></span>
+											</div>
+											<div class="groupFeedMenu">
+												<img alt="feed menu" src="/resources/images/dots.png" />
+												<div class="toggleMenu" style="display: none;">
+													<button type="button" class="postUpdateBtn">수정</button>
+													<button type="button" class="postDeleteBtn" post-idx="${pList.postId}">삭제</button>
+												</div>
+											</div>
+										</div>
+										
+										<div class="middleContents">
+											<p>${pList.content}</p>
+										</div>
+										
+										<div class="groupFeedLower">
+											<div class="groupHash">
+												<form action="/group/home">
+													<c:forEach items="${tagList}" var="tList">
+														<c:if test="${tList.postId == pList.postId}">
+															<input type="hidden" name="groupId" value="${groupInfo.groupId}">
+															<button type="submit" name="keyword" value="#${tList.tag}">#${tList.tag}</button>
+														</c:if>
+													</c:forEach>
+												</form>
+											</div>
+											<div>
+												<span class="groupReply">
+													<img alt="like" src="/resources/images/reply.png" />
+													<span>${pList.replyCount}</span>
+												</span>
+												<span class="groupLike">
+													<img alt="like" src="/resources/images/like.png" class="likeBtn" post-idx="${pList.postId}" />
+													<span>${pList.likeCount}</span>
+												</span>
+											</div>
+										</div>
+										
+										<div class="groupFeedImg">
+											<c:forEach items="${postImageList}" var="pIList">
+												<c:if test="${pIList.postId == pList.postId}">
+													<img src="${contextPath}/resources/${pIList.filePath}">
+												</c:if>
+											</c:forEach>
+										</div>
+									</div>
+									
+									<div class="reply_wrap">
+										<c:forEach items="${replyList}" var="rList">
+											<c:if test="${rList.postId == pList.postId}">
+												<div class="groupComment replyInfo">
+													<input type="hidden" name="postId" class="postId" value="${rList.postId}">
+													<input type="hidden" name="replyId" class="replyId" value="${rList.replyId}">
+													<span class="uid" style="display: none;">${rList.uid}</span>
+													<span>${rList.nickname}</span>
+													<textarea name=replyContent class="replyContent readonlyF" readonly>${rList.replyContent}</textarea>
+													<div class="groupReplyMenu">
+														<img alt="reply menu" src="/resources/images/dots.png" />
+														<div class="toggleMenu" style="display: none;">
+															<button type="button" class="replyUpdateBtn">수정</button>
+															<button type="button" class="replyDeleteBtn">삭제</button>
+															<div class="replyUpdateBtn_wrap" style="display:none">
+																<button type="button" class="replyUpdateCancleBtn">취소</button>
+																<button type="button" class="replyUpdateFinBtn">완료</button>
+															</div>
+														</div>
+													</div>
+												</div>
+											</c:if>
+										</c:forEach>
+										<!-- 댓글 작성 -->
+										<div class="replyWrite_wrap">
+											<input type="hidden" name="postId" class="postId" value="${pList.postId}">
+											<input type="hidden" name="uid" class="uid" value="${member.uid}" placeholder="작성자">
+											<input type="text" name="replyContent" class="replyContent" placeholder="댓글을 입력해주세요.">
+											<button type="button" class="replyWriteBtn">등록</button>
+										</div>
+										<!-- // 댓글 작성 -->
+									</div>
+								</div>
+								<!-- 게시물 수정 모달창 -->
+								<div class="postUpdate_modal">
+									<div class="postUpdate_content">
+										<form class="postUpdateForm" method="post">
+											<h3>게시물 수정</h3>
+											<input type="hidden" name="postId" class="postId" value="${pList.postId}">
+											<textarea name="content" class="content" placeholder="내용">${pList.content}</textarea><br>
+											
+											해시태그<br>
+											<label><input type="radio" name="openness" class="openness" value="0" <c:if test="${pList.openness == 0}">checked</c:if>/>전체</label>
+											<label><input type="radio" name="openness" class="openness" value="1" <c:if test="${pList.openness == 1}">checked</c:if>/>회원</label>
+											<label><input type="radio" name="openness" class="openness" value="2" <c:if test="${pList.openness == 2}">checked</c:if>/>그룹</label>
+											<label><input type="radio" name="openness" class="openness" value="3" <c:if test="${pList.openness == 3}">checked</c:if>/>나만</label><br>
+											이미지 파일 업로드
+											<hr>
+											<div class="attach_wrap">
+												<label for="files" class="inputFilesBtn">+</label>
+												<input type="file" name="files" id="files" multiple accept=".jpg, .png">
+												<ul class="attachView_wrap">
+												</ul>
+											</div>
+											<div class="postUpdateBtn_wrap">
+												<button type="button" class="postUpdateCancleBtn">취소</button>
+												<button type="button" class="postUpdateFinBtn">작성</button>
+											</div>
+										</form>
+									</div>
+								</div>
+								<!-- // 게시물 수정 모달창 -->
+							</c:if>
+						</c:when>
+						<%-- 게시물 공개수준 : 전체 공개 --%>
+						<c:otherwise>
+							<div class="groupFeed post_info">
+								<div class="middleWrapper">
+									<div class="groupFeedUpper">
+										<div class="userId">
+											<img alt="groupIdImg" src="/resources/images/groupImg.jpeg" />
+											<p>${pList.nickname}</p>
+											<p class="uid" style="display: none;">${pList.uid}</p>
+											<fmt:parseDate var="dateString" value="${pList.postedDate}" pattern="yyyy-MM-dd HH:mm:ss" />
+											<span><fmt:formatDate value="${dateString}" pattern="yyyy/MM/dd HH:mm" /></span>
+										</div>
+										<div class="groupFeedMenu">
+											<img alt="feed menu" src="/resources/images/dots.png" />
+											<div class="toggleMenu" style="display: none;">
+												<button type="button" class="postUpdateBtn">수정</button>
+												<button type="button" class="postDeleteBtn" post-idx="${pList.postId}">삭제</button>
+											</div>
+										</div>
+									</div>
+									
+									<div class="middleContents">
+										<p>${pList.content}</p>
+									</div>
+									
+									<div class="groupFeedLower">
+										<div class="groupHash">
+											<form action="/group/home">
+												<c:forEach items="${tagList}" var="tList">
+													<c:if test="${tList.postId == pList.postId}">
+														<input type="hidden" name="groupId" value="${groupInfo.groupId}">
+														<button type="submit" name="keyword" value="#${tList.tag}">#${tList.tag}</button>
+													</c:if>
+												</c:forEach>
+											</form>
+										</div>
+										<div>
+											<span class="groupReply">
+												<img alt="like" src="/resources/images/reply.png" />
+												<span>${pList.replyCount}</span>
+											</span>
+											<span class="groupLike">
+												<img alt="like" src="/resources/images/like.png" class="likeBtn" post-idx="${pList.postId}" />
+												<span>${pList.likeCount}</span>
+											</span>
+										</div>
+									</div>
+									
+									<div class="groupFeedImg">
+										<c:forEach items="${postImageList}" var="pIList">
+											<c:if test="${pIList.postId == pList.postId}">
+												<img src="${contextPath}/resources/${pIList.filePath}">
+											</c:if>
+										</c:forEach>
+									</div>
+								</div>
+								
+								<div class="reply_wrap">
+									<c:forEach items="${replyList}" var="rList">
+										<c:if test="${rList.postId == pList.postId}">
+											<div class="groupComment replyInfo">
+												<input type="hidden" name="postId" class="postId" value="${rList.postId}">
+												<input type="hidden" name="replyId" class="replyId" value="${rList.replyId}">
+												<span class="uid" style="display: none;">${rList.uid}</span>
+												<span>${rList.nickname}</span>
+												<textarea name=replyContent class="replyContent readonlyF" readonly>${rList.replyContent}</textarea>
+												<div class="groupReplyMenu">
+													<img alt="reply menu" src="/resources/images/dots.png" />
+													<div class="toggleMenu" style="display: none;">
+														<button type="button" class="replyUpdateBtn">수정</button>
+														<button type="button" class="replyDeleteBtn">삭제</button>
+														<div class="replyUpdateBtn_wrap" style="display:none">
+															<button type="button" class="replyUpdateCancleBtn">취소</button>
+															<button type="button" class="replyUpdateFinBtn">완료</button>
+														</div>
+													</div>
+												</div>
+											</div>
+										</c:if>
+									</c:forEach>
+									<!-- 댓글 작성 -->
+									<div class="replyWrite_wrap">
+										<input type="hidden" name="postId" class="postId" value="${pList.postId}">
+										<input type="hidden" name="uid" class="uid" value="${member.uid}" placeholder="작성자">
+										<input type="text" name="replyContent" class="replyContent" placeholder="댓글을 입력해주세요.">
+										<button type="button" class="replyWriteBtn">등록</button>
+									</div>
+									<!-- // 댓글 작성 -->
+								</div>
+							</div>
+							<!-- 게시물 수정 모달창 -->
+							<div class="postUpdate_modal">
+								<div class="postUpdate_content">
+									<form class="postUpdateForm" method="post">
+										<h3>게시물 수정</h3>
+										<input type="hidden" name="postId" class="postId" value="${pList.postId}">
+										<textarea name="content" class="content" placeholder="내용">${pList.content}</textarea><br>
+										
+										해시태그<br>
+										<label><input type="radio" name="openness" class="openness" value="0" <c:if test="${pList.openness == 0}">checked</c:if>/>전체</label>
+										<label><input type="radio" name="openness" class="openness" value="1" <c:if test="${pList.openness == 1}">checked</c:if>/>회원</label>
+										<label><input type="radio" name="openness" class="openness" value="2" <c:if test="${pList.openness == 2}">checked</c:if>/>그룹</label>
+										<label><input type="radio" name="openness" class="openness" value="3" <c:if test="${pList.openness == 3}">checked</c:if>/>나만</label><br>
+										이미지 파일 업로드
+										<hr>
+										<div class="attach_wrap">
+											<label for="files" class="inputFilesBtn">+</label>
+											<input type="file" name="files" id="files" multiple accept=".jpg, .png">
+											<ul class="attachView_wrap">
+											</ul>
+										</div>
+										<div class="postUpdateBtn_wrap">
+											<button type="button" class="postUpdateCancleBtn">취소</button>
+											<button type="button" class="postUpdateFinBtn">작성</button>
+										</div>
+									</form>
+								</div>
+							</div>
+							<!-- // 게시물 수정 모달창 -->
+						</c:otherwise>
+					</c:choose>
+				</c:forEach>
+				<!-- 검색 결과 X -->
+				<div class="postSearchNone" style="display: none;">
+					<span>검색 결과가 없습니다.</span>
+				</div>
+				<!-- 게시물 X -->
+				<div class="postNone" style="display: none;">
+					<span>게시물이 없습니다.</span>
+				</div>
+			</div>
+			<!-- //Post List -->
 		</div>
-		<!-- 게시물 X -->
-		<div class="postNone" style="display: none;">
-			<span>게시물이 없습니다.</span>
-		</div>
-	</div>
-	<!-- // 게시물 목록 -->
-	
-	<!-- 인기 게시물 목록 -->
-	<div class="hotList_wrap">
-		<h3>인기 게시물</h3>
-		<ul>
+		<!-- //Middle Main -->
+		
+		<!-- 인기 게시물 목록 -->
+		<%-- <div class="hotList_wrap">
+			<h3>인기 게시물</h3>
+			<ul>
+				<c:forEach items="${hotList}" var="hList" varStatus="status">
+					<li class="hotPost_info">
+						<a href="#">
+							<span>${status.count}. </span>${hList.content} [${hList.likeCount}]
+						</a>
+					</li>
+				</c:forEach>
+			</ul>
+			<div class="hotPostNone" style="display: none;">
+				<span>게시물이 없습니다.</span>
+			</div>
+		</div> --%>
+		<!-- // 인기 게시물 목록 -->
+		
+		<!-- Right Bar -->
+		<div class="rightWrapper">
+			<p>인기 게시물</p>
 			<c:forEach items="${hotList}" var="hList" varStatus="status">
-				<li class="hotPost_info">
-					<a href="#">
-						<span>${status.count}. </span>${hList.content} [${hList.likeCount}]
-					</a>
-				</li>
+				<div class="hotPost_info PopContents">
+					<p><a href="#">${status.count}.${hList.content}[${hList.likeCount}]</a></p>
+				</div>
 			</c:forEach>
-		</ul>
-		<div class="hotPostNone" style="display: none;">
-			<span>게시물이 없습니다.</span>
+			<!-- <div class="groupPopPhoto">
+				<img alt="groupPopImg" src="/resources/images/groupImg.jpeg" />
+				<div class="PopContents">
+					<h4>날이 많이 따뜻해졌는데...</h4>
+					<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+				</div>
+			</div> -->
+			<div class="hotPostNone" style="display: none;">
+				<span>게시물이 없습니다.</span>
+			</div>
 		</div>
+		<!-- //Right Bar -->
 	</div>
-	<!-- // 인기 게시물 목록 -->
 	
 	<!-- script -->
 	<script>
@@ -639,7 +805,7 @@ input[type="file"] {
 		} else if (result === "feed delete success") {
 			alert("피드가 삭제되었습니다.");
 		} else if (result === "group join done") {
-			alert("이미 가입");
+			alert("이미 가입 신청");
 		} else if (result === "group join success") {
 			alert("그룹 가입 신청");
 		}
@@ -679,28 +845,15 @@ input[type="file"] {
 	
 	/*========== 그룹 ==========/ */
 	
-	/* 그룹 수정 */
-	$(".groupUpdateBtn").on("click", function() {
-		$("#groupForm").attr("action", "/group/update");
-		$("#groupForm").submit();
-	});
-	
-	/* 그룹 삭제 */
-	$(".groupDeleteBtn").on("click", function() {
-		if (confirm("정말 삭제하시겠습니까?") == true){
-			$("#groupForm").attr("action", "/group/remove.do");
-			$("#groupForm").attr("method", "post");
-			$("#groupForm").submit();
-		} else {
-			return false;
-		}
-	});
-	
 	/* 그룹 가입 */
 	$(".groupJoinBtn").on("click", function() {
 		$("#groupForm").attr("action", "/group/join.do");
 		$("#groupForm").attr("method", "post");
 		$("#groupForm").submit();
+	});
+	
+	$(".groupNoneBtn").on("click", function() {
+		alert("로그인 후 이용해 주세요.");
 	});
 	
 	/*========== 게시물 작성 ========== */
@@ -766,7 +919,31 @@ input[type="file"] {
 	/*========== 게시물 수정 및 삭제 ========== */
 	
 	const postCount = document.querySelectorAll(".post_wrap .post_info"); // 게시물 수
+	
+	/* 게시물 토글 버튼 표시 */
+	for (let i = 0; i < postCount.length; i++) {
+		if("${member.uid}" != $(".userId p.uid").eq(i).text()) {
+			$(".groupFeedMenu").eq(i).css("display", "none");
+		}
+	}
 
+	/* 게시물 버튼 토글 */
+	const postDropBtn = document.querySelectorAll(".groupFeedMenu img");
+	const postToggleMenu = document.querySelectorAll(".groupFeedMenu .toggleMenu");
+	
+	function postBtnShowFunc(i) {
+		if (postToggleMenu[i].style.display == "none") {
+			postToggleMenu[i].style.display = "";
+		} else {
+			postToggleMenu[i].style.display = "none";
+		}
+		return false;
+	}
+	
+	for (let i = 0; i < postCount.length; i++) {
+		postDropBtn[i].addEventListener("click", event => postBtnShowFunc(i));
+	}
+	
 	/* 게시물 수정 모달창 */
 	const postUpdateModal = document.querySelectorAll(".postUpdate_modal");
 	const postUpdateModal_open = document.querySelectorAll(".postUpdateBtn");
@@ -838,6 +1015,29 @@ input[type="file"] {
 		});
 	}
 	
+	/* ========== 게시물 추천 ========== */
+	
+	/* 좋아요 추가/취소 */
+	const likeAddData = {
+		uid : '${member.uid}',
+		postId : '',
+	}
+	
+	for (let i = 0; i < postCount.length; i++) {
+		$(".likeBtn").eq(i).on("click", function() {
+			likeAddData.postId = $(this).attr("post-idx");			
+			
+			$.ajax({
+				url: '/group/postLike.do',
+				type: 'post',
+				data: likeAddData,
+				success: function(result){
+					window.location.reload();
+				}
+			});
+		});
+	}
+	
 	/* ========== 댓글 ========== */
 	
 	/* 댓글 작성 */
@@ -874,8 +1074,33 @@ input[type="file"] {
 		});
 	}
 	
+	/* 댓글 토글 버튼 표시 */
+	const replyCount = document.querySelectorAll(".reply_wrap .replyInfo");					// 댓글 수
+	
+	for (let i = 0; i < replyCount.length; i++) {
+		if("${member.uid}" != $(".replyInfo span.uid").eq(i).text()) {
+			$(".groupReplyMenu").eq(i).css("display", "none");
+		}
+	}
+
+	/* 댓글 버튼 토글 */
+	const replyDropBtn = document.querySelectorAll(".groupReplyMenu img");
+	const replyToggleMenu = document.querySelectorAll(".groupReplyMenu .toggleMenu");
+	
+	function replyBtnShowFunc(i) {
+		if (replyToggleMenu[i].style.display == "none") {
+			replyToggleMenu[i].style.display = "";
+		} else {
+			replyToggleMenu[i].style.display = "none";
+		}
+		return false;
+	}
+	
+	for (let i = 0; i < replyCount.length; i++) {
+		replyDropBtn[i].addEventListener("click", event => replyBtnShowFunc(i));
+	}
+	
 	/* 댓글 수정 시 css 변경 */
-	const replyCount = document.querySelectorAll(".reply_wrap ul li");					// 댓글 수
 	const replyUpdateBtn = document.querySelectorAll(".replyUpdateBtn");
 	const replyUpdateInput = document.querySelectorAll(".replyInfo textarea");
 	const replyUpdateBtnWrap = document.querySelectorAll(".replyUpdateBtn_wrap");
@@ -907,7 +1132,7 @@ input[type="file"] {
 	for (let i = 0; i < replyCount.length; i++) {
 		$(".replyUpdateFinBtn").eq(i).on("click", function() {
 			
-			replyUpdateData.replyId = $(".reply_wrap .replyList .replyId").eq(i).val();
+			replyUpdateData.replyId = $(".reply_wrap .replyId").eq(i).val();
 			replyUpdateData.replyContent = $(replyUpdateInput).eq(i).val();
 			
 			$.ajax({
@@ -932,8 +1157,8 @@ input[type="file"] {
 		$(".replyDeleteBtn").eq(i).on("click", function() {
 			
 			if (confirm("정말 삭제하시겠습니까?") == true){
-				replyDeleteData.replyId = $(".reply_wrap .replyList .replyId").eq(i).val();
-				replyDeleteData.postId = $(".reply_wrap .replyList .postId").eq(i).val();
+				replyDeleteData.replyId = $(".reply_wrap .replyId").eq(i).val();
+				replyDeleteData.postId = $(".reply_wrap .postId").eq(i).val();
 				
 				$.ajax({
 					url: '/group/replyDelete.do',
@@ -948,29 +1173,6 @@ input[type="file"] {
 				return false;
 			}
 			
-		});
-	}
-	
-	/* ========== 게시물 추천 ========== */
-	
-	/* 좋아요 추가/취소 */
-	const likeAddData = {
-		uid : '${member.uid}',
-		postId : '',
-	}
-	
-	for (let i = 0; i < postCount.length; i++) {
-		$(".likeBtn").eq(i).on("click", function() {
-			likeAddData.postId = $(this).attr("post-idx");			
-			
-			$.ajax({
-				url: '/group/postLike.do',
-				type: 'post',
-				data: likeAddData,
-				success: function(result){
-					window.location.reload();
-				}
-			});
 		});
 	}
 	

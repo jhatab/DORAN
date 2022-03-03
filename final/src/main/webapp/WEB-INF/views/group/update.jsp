@@ -61,7 +61,7 @@ input[type="file"] {
 		</select>
 		<input type="text" name="groupName" value="${groupInfo.groupName}" placeholder="그룹명" maxlength="20">
 		<input type="text" name="groupIntro" value="${groupInfo.groupIntro}" placeholder="그룹 소개글" maxlength="100">
-		<input type="text" name="uid" value="${groupInfo.uid}" placeholder="그룹 생성자(관리자)" readonly maxlength="10">
+		<input type="hidden" name="uid" value="${groupInfo.uid}" placeholder="그룹 생성자(관리자)" readonly maxlength="10">
 		<div>
 			<button type="button" onclick="window.history.back()">취소</button>
 			<button type="submit">완료</button>
