@@ -507,6 +507,7 @@ input[type="file"] {
 	const postUpdateData = {
 		postId : '',
 		content : '',
+		tag : '',
 		openness : '',
 	}
 	
@@ -514,6 +515,7 @@ input[type="file"] {
 		$(".postUpdateFinBtn").eq(i).on("click", function() {
 			postUpdateData.postId = $(".postUpdate_content .postId").eq(i).val();
 			postUpdateData.content = $(".postUpdate_content .content").eq(i).val();
+			postUpdateData.tag = $(".postUpdate_content .tag").eq(i).val();
 			postUpdateData.openness = $(".postUpdate_content .openness:checked").eq(i).val();
 			
 			$.ajax({
