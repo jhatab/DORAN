@@ -12,7 +12,7 @@ public interface GroupDAO{
 
 	/* 그룹 목록 */
 	public List<GroupVO> groupList() throws Exception;
-
+	
 	/* 그룹 생성 */
 	public void groupCreate(GroupVO groupVO) throws Exception;
 	

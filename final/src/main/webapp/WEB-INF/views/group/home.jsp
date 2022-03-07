@@ -568,7 +568,7 @@ input[type="file"] {
 				type: 'post',
 				data: likeAddData,
 				success: function(result){
-					window.location.reload();
+					location.reload();
 				}
 			});
 		});

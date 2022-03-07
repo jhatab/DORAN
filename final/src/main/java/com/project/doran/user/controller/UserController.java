@@ -62,6 +62,23 @@ public class UserController {
 	    
 		return "redirect:/user/login";
 	}
+	
+	/* 회원정보 페이지 */
+	@RequestMapping(value = "/list.do", method = RequestMethod.GET)
+	public void userListGET(HttpSession session, Model model) throws Exception {
+		logger.info("회원정보 페이지입니다.");
+		
+		model.addAttribute("member", userService.userInfo((String) session.getAttribute("uid")));
+		
+	}
+	
+	@RequestMapping(value = "list.do", method = RequestMethod.POST)
+	public String userListPOST(UserVO userVO) throws Exception {
+		
+		userService.userUpdate(userVO);
+		
+		return "redirect:/user/update";
+	}
 
 	/* 정보 수정 */
 	@RequestMapping(value = "update.do", method = RequestMethod.GET)
@@ -80,4 +97,5 @@ public class UserController {
 		
 		return "redirect:/main";
 	}
+	
 }

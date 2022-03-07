@@ -44,12 +44,11 @@
 						</c:forEach>
 					</form>
 				</div>
-				<div>
-					<span class="groupReply"> <img alt="like"
-						src="/resources/images/reply.png" /> <span>${pList.replyCount}</span>
-					</span> <span class="groupLike"> <img alt="like"
-						src="/resources/images/like.png" class="likeBtn"
-						post-idx="${pList.postId}" /> <span>${pList.likeCount}</span>
+				<div id="content">
+					<span class="groupReply"> <img alt="like" src="/resources/images/reply.png" /> 	
+					<span>${pList.replyCount}</span></span> 
+					<span class="groupLike"> <img alt="like" src="/resources/images/like.png" class="likeBtn" post-idx="${pList.postId}" /> 
+					<span id="likeResult">${pList.likeCount}</span>
 					</span>
 				</div>
 			</div>
