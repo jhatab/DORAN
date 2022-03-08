@@ -11,19 +11,18 @@
 		SELECT *
 		FROM groupTbl
 		WHERE isDeleted = 0
-		ORDER BY createdDate DESC;
+		ORDER BY
+		createdDate DESC;
 	</select>
-
-	<!-- 그룹 목록 -->
-	<select id="groupListApproval"
-		resultType="com.project.doran.group.vo.GroupVO">
-		SELECT *
-		FROM groupTbl g, userGroupMappingTbl ug
-		WHERE g.isDeleted = 0
-		AND g.groupId = #{groupId}
-		AND g.uid = #{uid}
-		AND ug.isApproval > 0
-		ORDER BY g.createdDate DESC;
+	
+	<!-- 가입한 그룹 목록 -->
+	<select id="userGroupMappingList" resultType="com.project.doran.group.vo.GroupVO">
+		SELECT ug.groupId, ug.uid, ug.joinDate, ug.isApproval, g.groupName
+		FROM userGroupMappingTbl ug
+			LEFT OUTER JOIN groupTbl g ON g.groupId = ug.groupId
+		WHERE ug.uid = #{uid}
+			AND ug.isApproval > 0
+		ORDER BY ug.joinDate ASC
 	</select>
 
 	<!-- 생성자-그룹 매핑 -->
@@ -46,7 +45,8 @@
 		keyProperty="groupId">
 		INSERT INTO groupTbl(categoryId, groupName, groupIntro,
 		groupImagePath, uid)
-		VALUES (#{categoryId}, #{groupName}, #{groupIntro}, #{groupImagePath},
+		VALUES (#{categoryId}, #{groupName},
+		#{groupIntro}, #{groupImagePath},
 		#{uid})
 	</insert>
 
@@ -55,9 +55,11 @@
 		UPDATE groupTbl
 		SET categoryId = #{categoryId},
 		groupName = #{groupName}, groupIntro = #{groupIntro},
-		groupImagePath = #{groupImagePath}, isRevised = 1, revisedDate = now()
+		groupImagePath =
+		#{groupImagePath}, isRevised = 1, revisedDate = now()
 		WHERE groupId
-		= #{groupId}
+		=
+		#{groupId}
 	</update>
 
 	<!-- 그룹 삭제 -->
@@ -70,13 +72,15 @@
 	<!-- 그룹 가입 신청 -->
 	<insert id="groupJoin">
 		INSERT INTO userGroupMappingTbl(groupId, uid)
-		VALUES (#{groupId}, #{uid})
+		VALUES
+		(#{groupId}, #{uid})
 	</insert>
 
 	<!-- 그룹 가입 신청 여부 체크 -->
 	<select id="groupJoinCheck" resultType="int">
 		SELECT count(*)
-		FROM userGroupMappingTbl
+		FROM
+		userGroupMappingTbl
 		WHERE groupId = #{groupId}
 		AND uid = #{uid}
 	</select>
@@ -88,31 +92,34 @@
 		userGroupMappingTbl
 		WHERE groupId = #{groupId}
 		AND uid = #{uid}
-		AND isApproval > 0
+		AND
+		isApproval > 0
 	</select>
-	
+
 	<!-- 그룹 가입 회원 리스트 -->
-	<select id="groupMemberList" resultType="com.project.doran.group.vo.GroupVO">
-		SELECT * 
+	<select id="groupMemberList"
+		resultType="com.project.doran.group.vo.GroupVO">
+		SELECT *
 		FROM userGroupMappingTbl ug
-			LEFT OUTER JOIN userTbl u on u.uid = ug.uid
+		LEFT OUTER JOIN userTbl u on u.uid = ug.uid
 		WHERE groupId = #{groupId}
 		ORDER BY isApproval DESC, joinDate ASC
 	</select>
-	
+
 	<!-- 그룹 가입 승인 -->
 	<update id="groupMemberApproval">
-		UPDATE userGroupMappingTbl 
+		UPDATE userGroupMappingTbl
 		SET isApproval = 1
 		WHERE groupId = #{groupId}
-			AND uid = #{uid}
+		AND uid = #{uid}
 	</update>
-	
+
 	<!-- 그룹 가입 취소, 퇴출, 탈퇴 -->
 	<delete id="groupMemberCancle">
 		DELETE from userGroupMappingTbl
-		WHERE groupId = #{groupId}
-			AND uid = #{uid}
+		WHERE groupId =
+		#{groupId}
+		AND uid = #{uid}
 	</delete>
-	
+
 </mapper>

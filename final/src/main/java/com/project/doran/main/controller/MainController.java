@@ -1,5 +1,7 @@
 package com.project.doran.main.controller;
 
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -39,22 +41,14 @@ public class MainController {
 	}
 
 	@RequestMapping(value = "/myPage", method = RequestMethod.GET)
-	public void myPageGET(HttpSession session, Model model, GroupVO groupVO, 
+	public void myPageGET(HttpSession session, Model model, GroupVO groupVO,
 			HttpServletRequest request) throws Exception {
 		logger.info("마이 페이지");
+		
 
 		model.addAttribute("categoryList", categoryService.categoryList());
-
-		model.addAttribute("groupList", groupService.groupList());
 		
-		// 그룹 가입 확인
-		int isApproval = groupService.isApproval(groupVO, request);
-
-		if (isApproval == 0) { // 가입X
-			model.addAttribute("isApproval", "0");
-		} else { // 가입O
-			model.addAttribute("isApproval", "1");
-		}
+		model.addAttribute("groupList", groupService.userGroupMappingList(groupVO, request));
 		
 		model.addAttribute("member", userService.userInfo((String) session.getAttribute("uid")));
 	}

@@ -34,8 +34,7 @@
 			<div>
 				<%-- <%@ include file="category/list.jsp"%> --%>
 				<c:forEach items="${categoryList}" var="cList">
-					<input type="button" value="${cList.categoryName}"
-						onclick="categoryDeleteBtn(${cList.categoryId})" />
+					<input type="button" value="${cList.categoryName}" />
 				</c:forEach>
 			</div>
 		</div>
@@ -43,29 +42,15 @@
 		<div id="groupList">
 			<span>가입한 그룹</span>
 			<c:forEach items="${groupList}" var="gList">
-				<a href="/group/home?groupId=${gList.groupId}">
-					<c:if test="${isApproval == '1'}">
-						<input type="button" value="${gList.groupName}" />
-					</c:if>
-				</a>
-			</c:forEach>
-			
-			<br>
-
-			<span>생성한 그룹</span>
-			<c:forEach items="${groupList}" var="gList">
-				<div>
-					<a href="/group/home?groupId=${gList.groupId}"> <c:if
-							test="${isApproval == '2'}">
-							<input type="button" value="${gList.groupName}" />
-						</c:if>
+				<div>${gList.groupName}
+					<a href="/group/home?groupId=${gList.groupId}"> 
+						<input type="button" value="들어가기" />
 					</a>
 				</div>
 			</c:forEach>
-			<form id="groupForm" method="get">
-				<input type="hidden" name="groupId" value="${gList.groupId}">
-				<input type="hidden" name="uid" value="${member.uid}">
-			</form>
+
+			<br>
+
 		</div>
 
 		<div id="userList">
@@ -75,41 +60,33 @@
 
 	<script type="text/javascript">
 		$(document).ready(function() {
-			
+
 			$("#userInfo").show();
 			$("#categoryList").hide();
 			$("#groupList").hide();
 			$("#userList").hide();
-			
+
 			$("#category").click(function() {
 				$("#userInfo").hide();
 				$("#categoryList").show();
 				$("#groupList").hide();
 				$("#userList").hide();
 			});
-			
+
 			$("#group").click(function() {
 				$("#userInfo").hide();
 				$("#categoryList").hide();
 				$("#groupList").show();
 				$("#userList").hide();
 			});
-			
+
 			$("#user").click(function() {
 				$("#userInfo").hide();
 				$("#categoryList").hide();
 				$("#groupList").hide();
 				$("#userList").show();
 			});
-			
-			/* 카테고리 삭제 */
-			function categoryDeleteBtn(categoryId) {
-				var chk = confirm("정말 삭제하시겠습니까?");
-				if (chk) {
-					location.href='/category/remove.do?categoryId='+ categoryId;
-				}
-			};
-			
+
 
 		});
 	</script>

@@ -13,6 +13,8 @@ public interface GroupService {
 	/* 그룹 목록 */
 	public List<GroupVO> groupList() throws Exception;
 	
+	public List<GroupVO> userGroupMappingList(GroupVO groupVO, HttpServletRequest request) throws Exception;
+	
 	/* 그룹 생성 + 생성자-그룹 매핑 */
 	public void groupCreate(GroupVO groupVO, MultipartFile file) throws Exception;
 
