@@ -43,29 +43,29 @@
 		<div id="groupList">
 			<span>가입한 그룹</span>
 			<c:forEach items="${groupList}" var="gList">
-				<div>
-					<a href="/group/home?groupId=${gList.groupId}">
+				<a href="/group/home?groupId=${gList.groupId}">
 					<c:if test="${isApproval == '1'}">
 						<input type="button" value="${gList.groupName}" />
 					</c:if>
+				</a>
+			</c:forEach>
+			
+			<br>
+
+			<span>생성한 그룹</span>
+			<c:forEach items="${groupList}" var="gList">
+				<div>
+					<a href="/group/home?groupId=${gList.groupId}"> <c:if
+							test="${isApproval == '2'}">
+							<input type="button" value="${gList.groupName}" />
+						</c:if>
 					</a>
 				</div>
 			</c:forEach>
-			
-			<span>생성한 그룹</span>	
-			<c:forEach items="${groupList}" var="gList">
-				<div>
-					<a href="/group/home?groupId=${gList.groupId}">
-					<c:if test="${isApproval == '2'}">
-						<input type="button" value="${gList.groupName}" />
-					</c:if>
-					</a>
-				</div>
-			</c:forEach>	
 			<form id="groupForm" method="get">
-			<input type="hidden" name="groupId" value="${gList.groupId}">
-			<input type="hidden" name="uid" value="${member.uid}">
-		</form>
+				<input type="hidden" name="groupId" value="${gList.groupId}">
+				<input type="hidden" name="uid" value="${member.uid}">
+			</form>
 		</div>
 
 		<div id="userList">
