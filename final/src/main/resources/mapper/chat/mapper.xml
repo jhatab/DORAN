@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+      PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.project.doran.chat.dao.ChatDAO">
+	
+	<!-- 채팅방 목록 -->
+	<select id="roomList" resultType="com.project.doran.chat.vo.ChatRoomVO">
+		SELECT * 
+		FROM chatRoomTbl 
+		WHERE uid1 = #{uid1} OR uid2 = #{uid2} 
+	</select>
+	
+	<!-- 채팅방 유무 확인 -->
+	<select id="roomCheck" resultType="int">
+		SELECT count(*) 
+		FROM chatRoomTbl 
+		WHERE (uid1 = #{uid1} AND uid2 = #{uid2}) 
+			OR (uid1 = #{uid1} AND uid2 = #{uid2})
+	</select>
+	
+	<!-- 채팅방 생성 -->
+	<insert id="roomCreate">
+		INSERT INTO chatRoomTbl(uid1, uid2)
+		VALUES (#{uid1}, #{uid2})
+	</insert>
+	
+	<!-- 채팅 메시지 목록 -->
+	<select id="messageList" resultType="com.project.doran.chat.vo.ChatMessageVO">
+		SELECT *
+		FROM chatMessageTbl cm
+			LEFT OUTER JOIN userTbl u on u.uid = cm.uid
+		WHERE roomId = #{roomId}
+	</select>
+	
+	<!-- 채팅 메시지 저장 -->
+	<insert id="messageInsert">
+		INSERT INTO chatMessageTbl(roomId, uid, message)
+		VALUES(#{roomId}, #{uid}, #{message})
+	</insert>
+	
+	<!-- 채팅방 정보 -->
+	<select id="roomSelect" resultType="com.project.doran.chat.vo.ChatRoomVO">
+		SELECT *
+		FROM chatRoomTbl
+		WHERE roomId = #{roomId}
+	</select>
+	
+	<!-- 읽지 않은 메시지 수 출력 -->
+	<!-- 읽지 않은 메시지 숫자 0으로 바꾸기 -->
+	
+</mapper>
