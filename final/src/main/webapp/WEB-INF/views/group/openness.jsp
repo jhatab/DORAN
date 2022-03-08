@@ -4,6 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
+<!-- HTTP-EQUIV="refresh" CONTENT="15" -->
 <title>그룹 목록</title>
 </head>
 <body>
@@ -103,18 +104,13 @@
 		<div class="postUpdate_content">
 			<form class="postUpdateForm" method="post">
 				<h3>게시물 수정</h3>
-				<input type="hidden" name="postId" class="postId"
-					value="${pList.postId}">
-				<textarea name="content" class="content" placeholder="내용">${pList.content}</textarea>
-				<br> 해시태그<br> <label><input type="radio"
-					name="openness" class="openness" value="0"
-					<c:if test="${pList.openness == 0}">checked</c:if> />전체</label> <label><input
-					type="radio" name="openness" class="openness" value="1"
-					<c:if test="${pList.openness == 1}">checked</c:if> />회원</label> <label><input
-					type="radio" name="openness" class="openness" value="2"
-					<c:if test="${pList.openness == 2}">checked</c:if> />그룹</label> <label><input
-					type="radio" name="openness" class="openness" value="3"
-					<c:if test="${pList.openness == 3}">checked</c:if> />나만</label><br>
+				<input type="hidden" name="postId" class="postId" value="${pList.postId}" readonly>
+				<textarea name="content" class="content" placeholder="내용">${pList.content}</textarea><br>
+				<input type="text" name="tag" class="tag" value="${pList.tag}" placeholder="해시태그"><br>
+				<label><input type="radio" name="openness" class="openness" value="0" <c:if test="${pList.openness == 0}">checked</c:if> />전체</label>
+				<label><input type="radio" name="openness" class="openness" value="1" <c:if test="${pList.openness == 1}">checked</c:if> />회원</label>
+				<label><input type="radio" name="openness" class="openness" value="2" <c:if test="${pList.openness == 2}">checked</c:if> />그룹</label>
+				<label><input type="radio" name="openness" class="openness" value="3" <c:if test="${pList.openness == 3}">checked</c:if> />나만</label><br>
 				이미지 파일 업로드
 				<hr>
 				<div class="attach_wrap">

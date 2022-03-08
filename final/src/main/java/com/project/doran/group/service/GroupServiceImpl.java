@@ -118,7 +118,21 @@ public class GroupServiceImpl implements GroupService {
 			return 1;
 		}
 	}
-
 	
+	/* 그룹 가입 회원 리스트 */
+	public List<GroupVO> groupMemberList(int groupId) throws Exception {
+		return groupDAO.groupMemberList(groupId);
+	}
 
+
+	/* 그룹 가입 승인 */
+	public void groupMemberApproval(GroupVO groupVO) throws Exception {
+		groupDAO.groupMemberApproval(groupVO);
+	}
+	
+	/* 그룹 가입 취소, 퇴출, 탈퇴 */
+	public void groupMemberCancle(GroupVO groupVO) throws Exception {
+		groupDAO.groupMemberCancle(groupVO);
+	}
+	
 }

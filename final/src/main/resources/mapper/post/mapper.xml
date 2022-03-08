@@ -58,7 +58,7 @@
 	<!-- 게시물 수정 -->
 	<update id="postUpdate">
 		UPDATE postTbl 
-		SET content = #{content}, openness = #{openness}, isRevised = 1, revisedDate = now()
+		SET content = #{content}, tag = #{tag}, openness = #{openness}, isRevised = 1, revisedDate = now()
 		WHERE postId = #{postId}
 	</update>
 	

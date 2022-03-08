@@ -95,7 +95,11 @@ public class GroupController {
 	public void groupSettingGet(int groupId, Model model) throws Exception {
 		logger.info("그룹 설정 페이지입니다.");
 
+		// 그룹 정보
 		model.addAttribute("groupInfo", groupService.groupHome(groupId));
+		
+		// 그룹 가입 회원 리스트
+		model.addAttribute("groupMemberList", groupService.groupMemberList(groupId));
 	}
 	
 	/* 그룹 수정 페이지 */
@@ -147,6 +151,24 @@ public class GroupController {
 		
 	
 		return "redirect:/group/home?groupId=" + Integer.toString(groupVO.getGroupId());
+	}
+	
+	/* 그룹 가입 승인 */
+	@ResponseBody
+	@RequestMapping(value = "/memberApproval.do", method = RequestMethod.POST)
+	public void memberApprovalPost(GroupVO groupVO) throws Exception {
+		logger.info("그룹 가입 승인");
+		
+		groupService.groupMemberApproval(groupVO);
+	}
+	
+	/* 그룹 가입 취소, 퇴출, 탈퇴 */
+	@ResponseBody
+	@RequestMapping(value = "/memberCancle.do", method = RequestMethod.POST)
+	public void memberCanclePost(GroupVO groupVO) throws Exception {
+		logger.info("그룹 가입 취소, 퇴출, 탈퇴");
+		
+		groupService.groupMemberCancle(groupVO);
 	}
 	
 	/* 그룹 페이지 */
