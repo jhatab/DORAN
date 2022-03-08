@@ -7,90 +7,139 @@
 
 <head>
 <meta charset="UTF-8">
-<title>그룹설정</title>
+<title>${groupInfo.groupName}</title>
+<link rel="stylesheet" href="/resources/css/common/reset.css">
+<link rel="stylesheet" href="/resources/css/group/setting.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 </head>
 
 <body>
-	<h1>그룹 설정</h1>
-	<hr>
-	<c:if test="${member.uid == groupInfo.uid}">
-		<div class="groupBtn_wrap">
-			<button type="button" class="groupUpdateBtn">그룹 수정</button>
-			<button type="button" class="groupDeleteBtn">그룹 삭제</button>
+	<div class="groupWrapper">
+	
+		<!-- Left Bar -->
+		<div class="leftWrapper">
+			<div class="groupPhoto">
+				<c:choose>
+					<c:when test="${groupInfo.groupImagePath == null or groupInfo.groupImagePath == ''}">
+						<img src="${contextPath}/resources/images/group_image_file/basic.png">
+					</c:when>
+					<c:otherwise>
+						<img src="${contextPath}/resources/${groupInfo.groupImagePath}">
+					</c:otherwise>
+				</c:choose>
+			</div>
+			<div class="contents">
+				<h3>${groupInfo.groupName}</h3>
+				<p>${groupInfo.groupIntro}</p>
+				<a href="${context}/group/home?groupId=${groupInfo.groupId}" id="groupBtn">돌아가기</a>
+			</div>
 		</div>
-		<form id="groupForm" method="get">
-			<input type="hidden" name="groupId" value="${groupInfo.groupId}">
-		</form>
-	</c:if>
-	
-	<!-- 가입 회원 목록 -->
-	<c:choose>
-		<%-- 관리자 --%>
-		<c:when test="${member.uid == groupInfo.uid}">
-			<table border="1">
-				<tr>
-					<th>번호</th>
-					<th>닉네임</th>
-					<th>가입일</th>
-					<th>가입상태</th>
-					<th>*</th>
-				</tr>
-				<c:forEach items="${groupMemberList}" var="mList" varStatus="status">
-					<tr class="member_Info">
-						<td><c:out value="${status.index + 1}" /></td>
-						<td class="nickname"><c:out value="${mList.nickname}" /></td>
-						<td><c:out value="${mList.joinDate}" /></td>
-						<td>
-							<c:if test="${mList.isApproval == 2}">관리자</c:if>
-							<c:if test="${mList.isApproval == 1}">회원</c:if>
-							<c:if test="${mList.isApproval == 0}">가입대기</c:if>
-						</td>
-						<td>
-							<c:if test="${mList.isApproval == 2}">-</c:if>
-							<c:if test="${mList.isApproval == 1}">
-								<button class="joinKickBtn" member-id="${mList.uid}">퇴출</button>
-							</c:if>
-							<c:if test="${mList.isApproval == 0}">
-								<button class="joinApprovalBtn" member-id="${mList.uid}">승인</button>
-								<button class="joinCancleBtn" member-id="${mList.uid}">취소</button>
-							</c:if>
-						</td>
+		<!-- //Left Bar -->
+		
+		<!-- Main Contents -->
+		<div class="mainWrap">
+			<div class="btnWrap">
+				<button type="button" class="groupUpdateBtn">수정하기</button>
+				<button type="button" class="groupDeleteBtn">삭제하기</button>
+			</div>
+			<form id="groupForm" method="get">
+				<input type="hidden" name="groupId" value="${groupInfo.groupId}">
+			</form>
+			
+			<div class="memberWrap">
+				<div class="upperWrap">
+					<c:choose>
+						<c:when test="${member.uid == groupInfo.uid}">
+							<span>${groupMemberCnt} Members</span>
+						</c:when>
+						<c:otherwise>
+							<span>${groupMemberCntB} Members</span>
+						</c:otherwise>
+					</c:choose>
+				</div>
+				<table>
+					<tr>
+						<th>#</th>
+						<th>멤버</th>
+						<th>활동</th>
+						<th>가입일</th>
 					</tr>
-				</c:forEach>
-			</table>
-		</c:when>
-		<%-- 그룹원 --%>
-		<c:otherwise>
-			<table border="1">
-				<tr>
-					<th>번호</th>
-					<th>닉네임</th>
-					<th>가입일</th>
-					<th>가입상태</th>
-				</tr>
-				<c:forEach items="${groupMemberList}" var="mList" varStatus="status">
-					<c:if test="${mList.isApproval != 0}">
-						<tr class="member_Info">
-							<td><c:out value="${status.index + 1}" /></td>
-							<td class="nickname"><c:out value="${mList.nickname}" /></td>
-							<td><c:out value="${mList.joinDate}" /></td>
-							<td>
-								<c:if test="${mList.isApproval == 2}">관리자</c:if>
-								<c:if test="${mList.isApproval == 1}">회원</c:if>
-								<c:if test="${mList.isApproval == 0}">가입대기</c:if>
-							</td>
-						</tr>
-					</c:if>
-				</c:forEach>
-			</table>
-		</c:otherwise>
-	</c:choose>
-	
-	<!-- 그룹 탈퇴 (관리자는 X) -->
-	<c:if test="${member.uid != groupInfo.uid}">
-		<button class="groupResignBtn" member-id="${member.uid}">탈퇴하기</button>
-	</c:if>
+					<c:forEach items="${groupMemberList}" var="mList" varStatus="status">
+						<c:choose>
+							<c:when test="${member.uid == groupInfo.uid}">
+								<tr class="member_Info">
+									<td class="num"><c:out value="${status.index + 1}" /></td>
+									<td class="user">
+										<img src="/resources/images/groupImg.jpeg">
+										<span class="nickname"><c:out value="${mList.nickname}" /></span>
+									</td>
+									<td class="activity">
+										<span>피드<em>${mList.postCnt}</em></span>
+										<span>댓글<em>${mList.replyCnt}</em></span>
+									</td>
+									<fmt:parseDate var="dateString" value="${mList.joinDate}" pattern="yyyy-MM-dd HH:mm:ss" />
+									<td class="date"><fmt:formatDate value="${dateString}" pattern="yyyy-MM-dd HH:mm"/></td>
+									<td class="chat">
+										<c:if test="${member.uid != mList.uid}">
+											<button class="chatRoomBtn" member-id="${mList.uid}"><img src="/resources/images/icon-chat.png">채팅</button>
+										</c:if>
+									</td>
+									<td class="action">
+										<c:if test="${member.uid == groupInfo.uid}">
+											<c:if test="${mList.isApproval == 1}">
+												<button class="joinKickBtn" member-id="${mList.uid}"><img src="/resources/images/icon-cancle.png">퇴출</button>
+											</c:if>
+											<c:if test="${mList.isApproval == 0}">
+												<button class="joinApprovalBtn" member-id="${mList.uid}"><img src="/resources/images/icon-approved.png">승인</button>
+												<button class="joinCancleBtn" member-id="${mList.uid}"><img src="/resources/images/icon-cancle.png">취소</button>
+											</c:if>
+										</c:if>
+									</td>
+								</tr>
+							</c:when>
+							<c:otherwise>
+								<c:if test="${mList.isApproval != 0}">
+									<tr class="member_Info">
+										<td class="num"><c:out value="${status.index + 1}" /></td>
+										<td class="user">
+											<img src="/resources/images/groupImg.jpeg">
+											<span class="nickname"><c:out value="${mList.nickname}" /></span>
+										</td>
+										<td class="activity">
+											<span>피드<em>${mList.postCnt}</em></span>
+											<span>댓글<em>${mList.replyCnt}</em></span>
+										</td>
+										<fmt:parseDate var="dateString" value="${mList.joinDate}" pattern="yyyy-MM-dd HH:mm:ss" />
+										<td class="date"><fmt:formatDate value="${dateString}" pattern="yyyy-MM-dd HH:mm"/></td>
+										<td class="chat">
+											<c:if test="${member.uid != mList.uid}">
+												<button class="chatRoomBtn" member-id="${mList.uid}"><img src="/resources/images/icon-chat.png">채팅</button>
+											</c:if>
+										</td>
+										<td class="action">
+											<c:if test="${member.uid == groupInfo.uid}">
+												<c:if test="${mList.isApproval == 1}">
+													<button class="joinKickBtn" member-id="${mList.uid}"><img src="/resources/images/icon-cancle.png">퇴출</button>
+												</c:if>
+												<c:if test="${mList.isApproval == 0}">
+													<button class="joinApprovalBtn" member-id="${mList.uid}"><img src="/resources/images/icon-approved.png">승인</button>
+													<button class="joinCancleBtn" member-id="${mList.uid}"><img src="/resources/images/icon-cancle.png">취소</button>
+												</c:if>
+											</c:if>
+										</td>
+									</tr>
+								</c:if>
+							</c:otherwise>
+						</c:choose>
+					</c:forEach>
+				</table>
+				<c:if test="${member.uid != groupInfo.uid}">
+					<button class="groupResignBtn" member-id="${member.uid}">탈퇴하기</button>
+				</c:if>
+			</div>
+		</div>
+		<!-- //Main Contents -->
+	</div>
 	
 	<script>
 		$(document).ready(function() {
@@ -171,18 +220,22 @@
 		/* 가입 퇴출 */
 		for (let i = 0; i < memberCount.length; i++) {
 			$(".joinKickBtn").eq(i).on("click", function() {
-				memberJoinData.groupId = ${groupInfo.groupId};
-				memberJoinData.uid = $(this).attr("member-id");
-				
-				$.ajax({
-					url: '/group/memberCancle.do',
-					type: 'post',
-					data: memberJoinData,
-					success: function(result){
-						alert("회원이 퇴출되었습니다.");
-						window.location.reload();
-					}
-				});
+				if (confirm("회원을 퇴출하시겠습니까?") == true) {
+					memberJoinData.groupId = ${groupInfo.groupId};
+					memberJoinData.uid = $(this).attr("member-id");
+					
+					$.ajax({
+						url: '/group/memberCancle.do',
+						type: 'post',
+						data: memberJoinData,
+						success: function(result){
+							alert("회원이 퇴출되었습니다.");
+							window.location.reload();
+						}
+					});
+				} else {
+					return false;
+				}
 			});
 		}
 		
@@ -201,6 +254,33 @@
 				}
 			});
 		});
+		
+		/* ========== 채팅 ========== */
+		
+		/* 채팅방 생성 */
+		const chatRoomData = {
+			uid1 : '',
+			uid2 : '',
+		}
+		
+		for (let i = 0; i < memberCount.length; i++) {
+			$(".chatRoomBtn").eq(i).on("click", function() {
+				chatRoomData.uid1 = "${member.uid}";
+				chatRoomData.uid2 = $(this).attr("member-id");
+				
+				$.ajax({
+					url: '${contextPath}/chat/roomCreate.do',
+					type: 'post',
+					data: chatRoomData,
+					success: function(result){
+// 						window.open("${contextPath}/chat/message?roomId="); // 새탭에서 열림
+						window.open("${contextPath}/chat/room?uid=${member.uid}");
+					}
+				});
+			});
+		}
+		
+		
 		
 	</script>
 </body>

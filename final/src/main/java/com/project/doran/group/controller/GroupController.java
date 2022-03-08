@@ -100,6 +100,12 @@ public class GroupController {
 		
 		// 그룹 가입 회원 리스트
 		model.addAttribute("groupMemberList", groupService.groupMemberList(groupId));
+		
+		// 그룹원 수 (관리자)
+		model.addAttribute("groupMemberCnt", groupService.groupMemberCnt(groupId));
+		
+		// 그룹원 수 (그룹원)
+		model.addAttribute("groupMemberCntB", groupService.groupMemberCntB(groupId));
 	}
 	
 	/* 그룹 수정 페이지 */

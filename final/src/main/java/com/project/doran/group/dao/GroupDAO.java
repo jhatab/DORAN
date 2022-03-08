@@ -51,5 +51,11 @@ public interface GroupDAO{
 	/* 그룹 가입 취소, 퇴출, 탈퇴 */
 	public void groupMemberCancle(GroupVO groupVO) throws Exception;
 	
+	/* 그룹원 수 (관리자) */
+	public int groupMemberCnt(int groupId) throws Exception;
+	
+	/* 그룹원 수 (그룹원) */
+	public int groupMemberCntB(int groupId) throws Exception;
+	
 
 }

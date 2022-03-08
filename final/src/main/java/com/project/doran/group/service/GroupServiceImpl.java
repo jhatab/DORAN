@@ -147,5 +147,17 @@ public class GroupServiceImpl implements GroupService {
 	public void groupMemberCancle(GroupVO groupVO) throws Exception {
 		groupDAO.groupMemberCancle(groupVO);
 	}
+	
+	/* 그룹원 수 (관리자) */
+	@Override
+	public int groupMemberCnt(int groupId) throws Exception {
+		return groupDAO.groupMemberCnt(groupId);
+	}
+	
+	/* 그룹원 수 (그룹원) */
+	@Override
+	public int groupMemberCntB(int groupId) throws Exception {
+		return groupDAO.groupMemberCntB(groupId);
+	}
 
 }
