@@ -12,4 +12,8 @@ public class ChatRoomVO {
 	private String uid2;
 	private Date createdDate;
 	
+	/* userTbl */
+	private String nickname1;
+	private String nickname2;
+	
 }

@@ -1,0 +1,164 @@
+.chat_wrap {
+	position: relative;
+	width: 400px;
+	height: 650px;
+	box-shadow: 0px 2px 6px #00000029;
+	border-radius: 7px;
+}
+
+.chat_header {
+	width: 400px;
+	height: 72px;
+	background-color: #FFC900;
+	border-radius: 7px 7px 0px 0px;
+	box-shadow: 0px 2px 6px #00000029;
+	display: flex;
+	align-items: center;
+}
+
+.chat_header img {
+	width: 35px;
+	height: 35px;
+	margin-left: 10px;
+	margin-right: 20px;
+}
+
+.sender_wrap {
+	margin-top: 10px;
+	width: 400px;
+}
+
+.sender {
+	margin-left: 20px;
+	display: flex;
+	align-items: center;
+}
+
+.sender span {
+	color: #707070;
+}
+
+.sender img {
+	width: 30px;
+	height: 30px;
+	border: 1px solid #707070;
+	border-radius: 15px;
+	object-fit: cover;
+	margin-right: 5px;
+}
+
+.sender_right_wrap {
+	margin-top: 10px;
+	width: 400px;
+	overflow: hidden;
+}
+
+.sender_right {
+	margin-right: 20px;
+	display: flex;
+	justify-content: right;
+	align-items: center;
+}
+
+.sender_right span {
+	color: #707070;
+	margin-right: 5px;
+}
+
+.sender_right img {
+	width: 30px;
+	height: 30px;
+	border: 1px solid #707070;
+	border-radius: 15px;
+	object-fit: cover;
+}
+
+.balloon {
+	position: relative;
+	margin-left: 55px;
+	width: 250px;
+	height: 50px;
+	background: #DDDDDD;
+	border-radius: 10px;
+}
+
+.balloon:after {
+	border-top: 15px solid #DDDDDD;
+	border-left: 15px solid transparent;
+	border-right: 0px solid transparent;
+	border-bottom: 0px solid transparent;
+	content: "";
+	position: absolute;
+	top: 10px;
+	left: -8px;
+}
+
+.balloon_right {
+	position: relative;
+	float: right;
+	margin-right: 55px;
+	width: 250px;
+	height: 50px;
+	background: #DDDDDD;
+	border-radius: 10px;
+}
+
+.balloon_right:after {
+	border-top: 15px solid #DDDDDD;
+	border-left: 0px solid transparent;
+	border-right: 15px solid transparent;
+	border-bottom: 0px solid transparent;
+	content: "";
+	position: absolute;
+	top: 10px;
+	left: 242px;
+}
+
+.chat_input {
+	position: absolute;
+	bottom: 0;
+	width: 400px;
+	height: 60px;
+	text-align: center;
+}
+
+.chat_input input {
+	display: inline-block;
+	width: 350px;
+	height: 40px;
+	border: none;
+	border-top: 1px solid #707070;
+	outline: none;
+}
+
+#chatting {
+	height: 520px;
+	overflow-x: hidden;
+	overflow-y: auto;
+}
+
+/* 스크롤바 */
+#chatting::-webkit-scrollbar {
+	width: 5.2px;
+}
+/* 스크롤바 색상 */
+#chatting::-webkit-scrollbar-thumb {
+	background: #ddd;
+/* 	background: #fff; */
+	border-radius: 10px;
+}
+#chatting::-webkit-scrollbar-thumb:hover {
+	background: #808080;
+}
+/* 스크롤바 상하단 버튼 */
+#chatting::-webkit-scrollbar-button {
+	display: none;
+}
+
+
+#chatting::-webkit-scrollbar {
+    display: none; /* Chrome, Safari, Opera*/
+}
+#chatting:hover::-webkit-scrollbar {
+	display: block;
+}

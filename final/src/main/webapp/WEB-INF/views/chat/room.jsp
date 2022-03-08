@@ -17,7 +17,7 @@
 		<c:forEach items="${chatRoomList}" var="crList">
 			<li>
 				<a href="/chat/message?roomId=${crList.roomId}">
-					<span> 방번호 : ${crList.roomId} : ${crList.uid1} - ${crList.uid2}</span><br>
+					<span> 방번호 : ${crList.roomId} : ${crList.nickname1} - ${crList.nickname2}</span><br>
 				</a>
 			</li>
 		</c:forEach>

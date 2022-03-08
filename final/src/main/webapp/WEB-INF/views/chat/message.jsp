@@ -6,43 +6,65 @@
 <head>
 <meta charset="UTF-8">
 <title>채팅하기</title>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-<style>
-	.me {
-		color: green;
-	}
-</style>
+<link rel="stylesheet" href="/resources/css/chat/message.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 </head>
 <body>
-
-	<h1>채팅하기</h1>
-	<input type="hidden" id="sessionId" value="">
-
+	
 	<div>
 		<span>방번호 : ${roomInfo.roomId}</span>
 	</div>
 
-	<ul id="chating">
-		<c:forEach items="${chatMsgList}" var="cmList">
-			<c:choose>
-				<c:when test="${cmList.uid == member.uid}">
-					<li class="me">나 : ${cmList.message}</li>
-				</c:when>
-				<c:otherwise>
-					<li class="others">${cmList.nickname} : ${cmList.message}</li>
-				</c:otherwise>
-			</c:choose>
-		</c:forEach>
-	</ul>
-
 	<hr>
-
-	<div id="yourMsg">
-		<span>메시지</span>
-		<span><input id="chatting" placeholder="보내실 메시지를 입력하세요."></span>
-		<span><button onclick="send()" id="sendBtn">보내기</button></span>
+	<input type="hidden" id="sessionId" value="">	
+	<div class="chat_wrap">
+		<div class="chat_header">
+	        <a href="${contextPath}/chat/room?uid=${member.uid}"><img src="/resources/images/left.png"/></a>
+	        <c:choose>
+	        	<c:when test="${member.uid == roomInfo.uid1}">
+					<span>${roomInfo.nickname2}</span>
+	        	</c:when>
+	        	<c:otherwise>
+					<span>${roomInfo.nickname1}</span>
+	        	</c:otherwise>
+	        </c:choose>
+	    </div>
+	    
+	    <div id="chatting">
+	    	<c:forEach items="${chatMsgList}" var="cmList">
+				<c:choose>
+					<c:when test="${cmList.uid == member.uid}">
+						<div class="sender_right_wrap">
+					        <div class="sender_right">
+					            <span>${cmList.nickname}</span>
+					            <img src="/resources/images/chatbot.png"/>
+					        </div>
+					        <div class="balloon_right">
+					        	<span>${cmList.message}</span>
+					        </div>
+					    </div>
+					</c:when>
+					<c:otherwise>
+						<div class="sender_wrap">
+					        <div class="sender">
+					            <img src="/resources/images/chatbot.png"/>
+					            <span>${cmList.nickname}</span>
+					        </div>
+					        <div class="balloon">
+					        	<span>${cmList.message}</span>
+					        </div>
+					    </div>
+					</c:otherwise>
+				</c:choose>
+			</c:forEach>
+	    </div>
+	    
+	    <div class="chat_input">
+	        <input id="chatInput">
+<!-- 			<span><button onclick="send()" id="sendBtn">보내기</button></span> -->
+	    </div>
 	</div>
-
+	
 	<!-- script -->
 	<script>
 		/* 메시지 저장 */
@@ -55,14 +77,14 @@
 		function msgInsert() {
 			msgInserteData.roomId = "${roomInfo.roomId}";
 			msgInserteData.uid = "${member.uid}";
-			msgInserteData.message = $("#chatting").val();
+			msgInserteData.message = $("#chatInput").val();
 			
 			$.ajax({
 				url: '/chat/msgInsert.do',
 				type: 'post',
 				data: msgInserteData,
 				success: function(result){
-					$('#chatting').val("");
+					$('#chatInput').val("");
 				}
 			});
 		}
@@ -100,12 +122,29 @@
 						}
 					} else if (d.type == "message") {
 						if (d.sessionId == $("#sessionId").val()) {
-							$("#chating").append(
-									"<li class='me'>나 :" + d.msg + "</li>");
+							var msgMe = '<div class="sender_right_wrap">';
+							msgMe += '<div class="sender_right">';
+							msgMe += '<span>' + d.userName + '</span>';
+							msgMe += '<img src="/resources/images/chatbot.png"/>';
+							msgMe += '</div>';
+							msgMe += '<div class="balloon_right">';
+							msgMe += '<span>' + d.msg + '</span>';
+							msgMe += '</div>';
+							msgMe += '</div>';
+							$("#chatting").append(msgMe);
+							$("#chatting").scrollTop($("#chatting")[0].scrollHeight);
 						} else {
-							$("#chating").append(
-									"<li class='others'>" + d.userName + " :"
-											+ d.msg + "</li>");
+							var msgYou = '<div class="sender_wrap">';
+							msgYou += '<div class="sender">';
+							msgYou += '<img src="/resources/images/chatbot.png"/>';
+							msgYou += '<span>' + d.userName + '</span>';
+							msgYou += '</div>';
+							msgYou += '<div class="balloon">';
+							msgYou += '<span>' + d.msg + '</span>';
+							msgYou += '</div>';
+							msgYou += '</div>';
+							$("#chatting").append(msgYou);
+							$("#chatting").scrollTop($("#chatting")[0].scrollHeight);
 						}
 
 					} else {
@@ -127,7 +166,7 @@
 				type : "message",
 				sessionId : $("#sessionId").val(),
 				userName : "${member.nickname}",
-				msg : $("#chatting").val()
+				msg : $("#chatInput").val()
 			}
 			ws.send(JSON.stringify(option))
 		}

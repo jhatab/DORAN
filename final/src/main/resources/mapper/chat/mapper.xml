@@ -7,9 +7,11 @@
 	
 	<!-- 채팅방 목록 -->
 	<select id="roomList" resultType="com.project.doran.chat.vo.ChatRoomVO">
-		SELECT * 
-		FROM chatRoomTbl 
-		WHERE uid1 = #{uid1} OR uid2 = #{uid2} 
+		SELECT cr.*, u1.nickname nickname1, u2.nickname nickname2
+		FROM chatRoomTbl cr
+			LEFT OUTER JOIN userTbl u1 ON u1.uid = cr.uid1
+			LEFT OUTER JOIN userTbl u2 ON u2.uid = cr.uid2
+		WHERE uid1 = #{uid1} OR uid2 = #{uid2}
 	</select>
 	
 	<!-- 채팅방 유무 확인 -->
@@ -32,6 +34,7 @@
 		FROM chatMessageTbl cm
 			LEFT OUTER JOIN userTbl u on u.uid = cm.uid
 		WHERE roomId = #{roomId}
+		ORDER BY msgTime
 	</select>
 	
 	<!-- 채팅 메시지 저장 -->
@@ -42,8 +45,10 @@
 	
 	<!-- 채팅방 정보 -->
 	<select id="roomSelect" resultType="com.project.doran.chat.vo.ChatRoomVO">
-		SELECT *
-		FROM chatRoomTbl
+		SELECT cr.*, u1.nickname nickname1, u2.nickname nickname2
+		FROM chatRoomTbl cr
+			LEFT OUTER JOIN userTbl u1 ON u1.uid = cr.uid1
+			LEFT OUTER JOIN userTbl u2 ON u2.uid = cr.uid2
 		WHERE roomId = #{roomId}
 	</select>
 	
