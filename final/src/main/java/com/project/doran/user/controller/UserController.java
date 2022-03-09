@@ -10,6 +10,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.project.doran.group.controller.GroupController;
@@ -24,10 +26,10 @@ public class UserController {
 
 	@Autowired
 	private UserService userService;
-	
+
 	/* 로그인 페이지 */
 	@RequestMapping(value = "/login", method = RequestMethod.GET)
-	public void groupListGET() throws Exception {
+	public void loginGET() throws Exception {
 		logger.info("로그인 페이지입니다.");
 	}
 
@@ -46,7 +48,7 @@ public class UserController {
 		}
 
 		session.setAttribute("member", uvo);
-		session.setAttribute("uid", uvo.getUid());	// 그룹 페이지에서 사용 (게시물 공개 수준)
+		session.setAttribute("uid", uvo.getUid()); // 그룹 페이지에서 사용 (게시물 공개 수준)
 
 		return "redirect:/main";
 	}
@@ -55,28 +57,80 @@ public class UserController {
 	@RequestMapping(value = "logout.do", method = RequestMethod.GET)
 	public String logoutGET(HttpServletRequest request) throws Exception {
 		logger.info("로그아웃");
-        
+
 		HttpSession session = request.getSession();
-		
+
 		session.invalidate();
-	    
+
 		return "redirect:/user/login";
 	}
+
+	/* 회원가입 페이지 */
+	@RequestMapping(value = "/join", method = RequestMethod.GET)
+	public void joinGET() throws Exception {
+		logger.info("회원가입 페이지입니다.");
+	}
+
+	/* 회원가입 */
+	@RequestMapping(value = "/join.do", method = RequestMethod.POST)
+	public String joinPOST(UserVO userVO, MultipartFile file) throws Exception {
+		logger.info("회원가입");
+
+		userService.userJoin(userVO, file);
+
+		return "redirect:/main";
+	}
+
+	/* 아이디 중복 검사 */
+	@ResponseBody
+	@RequestMapping(value = "/idCheck", method = RequestMethod.POST)
+	public String idCheckPOST(String uid) throws Exception {
+		logger.info("아이디 중복 검사");
+
+		int result = userService.idCheck(uid);
+
+		logger.info("결과값 = " + result);
+
+		if (result != 0) {
+			return "fail"; // 중복 아이디가 존재
+		} else {
+			return "success"; // 중복 아이디 x
+		}
+	}
+
+	/* 닉네임 중복 검사 */
+	@ResponseBody
+	@RequestMapping(value = "/nickCheck", method = RequestMethod.POST)
+	public String nickCheckPOST(String nickname) throws Exception {
+		logger.info("닉네임 중복 검사");
+
+		int result = userService.nickCheck(nickname);
+
+		logger.info("결과값 = " + result);
+
+		if (result != 0) {
+			return "fail"; // 중복 닉네임 존재
+		} else {
+			return "success"; // 중복 닉네임 x
+		}
+	}
 	
+	/////////////////////////////////////
+
 	/* 회원정보 페이지 */
 	@RequestMapping(value = "/list.do", method = RequestMethod.GET)
 	public void userListGET(HttpSession session, Model model) throws Exception {
 		logger.info("회원정보 페이지입니다.");
-		
+
 		model.addAttribute("member", userService.userInfo((String) session.getAttribute("uid")));
-		
+
 	}
-	
+
 	@RequestMapping(value = "list.do", method = RequestMethod.POST)
 	public String userListPOST(UserVO userVO) throws Exception {
-		
+
 		userService.userUpdate(userVO);
-		
+
 		return "redirect:/user/update";
 	}
 
@@ -84,18 +138,18 @@ public class UserController {
 	@RequestMapping(value = "update.do", method = RequestMethod.GET)
 	public String userUpdateForm(HttpSession session, Model model) throws Exception {
 		logger.info("정보 수정");
-		
+
 		model.addAttribute("member", userService.userInfo((String) session.getAttribute("uid")));
-		
+
 		return "/user/update";
 	}
-	
+
 	@RequestMapping(value = "update.do", method = RequestMethod.POST)
 	public String userUpdate(UserVO userVO) throws Exception {
-		
+
 		userService.userUpdate(userVO);
-		
+
 		return "redirect:/main";
 	}
-	
+
 }

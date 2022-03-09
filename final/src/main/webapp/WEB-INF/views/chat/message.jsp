@@ -53,7 +53,7 @@
 	    </div>
 	    
 	    <div class="chat_input">
-	        <input type="text" id="chatInput" autocomplete="ofF">
+	        <input type="text" id="chatInput" autocomplete="off">
 <!-- 			<span><button onclick="send()" id="sendBtn">보내기</button></span> -->
 	    </div>
 	</div>
