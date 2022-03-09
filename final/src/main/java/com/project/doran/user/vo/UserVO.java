@@ -17,6 +17,6 @@ public class UserVO {
 	private String email;			// 계정 이메일 주소
 	private String address;			// 회원 거주지 주소
 	private int authority;			// 0-회원, 1-관리자
-	private String profileImg;			// 0-회원, 1-관리자
+	private String profileImg;		// 회원 프로필 사진 경로
 	
 }

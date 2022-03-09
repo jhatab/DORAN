@@ -30,7 +30,14 @@
 						<div class="sender_right_wrap">
 					        <div class="sender_right">
 					            <span>${cmList.nickname}</span>
-					            <img src="/resources/images/chatbot.png"/>
+					            <c:choose>
+									<c:when test="${cmList.profileImg == null or cmList.profileImg == ''}">
+										<img src="${contextPath}/resources/images/chatbot.png"/>
+									</c:when>
+									<c:otherwise>
+										<img src="${contextPath}/resources/${cmList.profileImg}">
+									</c:otherwise>
+								</c:choose>
 					        </div>
 					        <div class="balloon_right">
 					        	<span>${cmList.message}</span>
@@ -40,7 +47,14 @@
 					<c:otherwise>
 					<div class="sender_wrap">
 				        <div class="sender">
-				            <img src="/resources/images/chatbot.png"/>
+				        	<c:choose>
+									<c:when test="${cmList.profileImg == null or cmList.profileImg == ''}">
+										<img src="${contextPath}/resources/images/chatbot.png"/>
+									</c:when>
+									<c:otherwise>
+										<img src="${contextPath}/resources/${cmList.profileImg}">
+									</c:otherwise>
+								</c:choose>
 				            <span>${cmList.nickname}</span>
 				        </div>
 				        <div class="balloon">

@@ -16,5 +16,6 @@ public class ChatMessageVO {
 
 	/* userTbl */
 	private String nickname;
+	private String profileImg;
 
 }
