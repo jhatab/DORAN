@@ -1,25 +1,17 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>채팅하기</title>
-<link rel="stylesheet" href="/resources/css/chat/message.css">
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-</head>
-<body>
-	
-	<div>
-		<span>방번호 : ${roomInfo.roomId}</span>
-	</div>
 
-	<hr>
+<head>
+	<link rel="stylesheet" href="/resources/css/chat/message.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+</head>
+
+<body>
 	<input type="hidden" id="sessionId" value="">	
 	<div class="chat_wrap">
 		<div class="chat_header">
-	        <a href="${contextPath}/chat/room?uid=${member.uid}"><img src="/resources/images/left.png"/></a>
+	        <img src="/resources/images/left.png"/ class="backImg">
 	        <c:choose>
 	        	<c:when test="${member.uid == roomInfo.uid1}">
 					<span>${roomInfo.nickname2}</span>
@@ -28,6 +20,7 @@
 					<span>${roomInfo.nickname1}</span>
 	        	</c:otherwise>
 	        </c:choose>
+	        <button class="chatCloseBtn"><img src="/resources/images/close.png"></button>
 	    </div>
 	    
 	    <div id="chatting">
@@ -45,22 +38,22 @@
 					    </div>
 					</c:when>
 					<c:otherwise>
-						<div class="sender_wrap">
-					        <div class="sender">
-					            <img src="/resources/images/chatbot.png"/>
-					            <span>${cmList.nickname}</span>
-					        </div>
-					        <div class="balloon">
-					        	<span>${cmList.message}</span>
-					        </div>
-					    </div>
+					<div class="sender_wrap">
+				        <div class="sender">
+				            <img src="/resources/images/chatbot.png"/>
+				            <span>${cmList.nickname}</span>
+				        </div>
+				        <div class="balloon">
+				        	<span>${cmList.message}</span>
+				        </div>
+				    </div>
 					</c:otherwise>
 				</c:choose>
 			</c:forEach>
 	    </div>
 	    
 	    <div class="chat_input">
-	        <input id="chatInput">
+	        <input type="text" id="chatInput" autocomplete="ofF">
 <!-- 			<span><button onclick="send()" id="sendBtn">보내기</button></span> -->
 	    </div>
 	</div>
@@ -78,6 +71,11 @@
 			msgInserteData.roomId = "${roomInfo.roomId}";
 			msgInserteData.uid = "${member.uid}";
 			msgInserteData.message = $("#chatInput").val();
+			
+			if(msgInserteData.message == '') {
+				alert("메시지를 입력해주세요.");
+				return false;
+			}
 			
 			$.ajax({
 				url: '/chat/msgInsert.do',
@@ -97,6 +95,7 @@
 		var ws;
 
 		$(document).ready(function() {
+			$("#chatting").scrollTop($("#chatting")[0].scrollHeight);
 			wsOpen();
 		});
 
@@ -168,10 +167,21 @@
 				userName : "${member.nickname}",
 				msg : $("#chatInput").val()
 			}
+			
+			if(option.msg == '') {
+				return false;
+			}
+			
 			ws.send(JSON.stringify(option))
 		}
 		
+		$(".chatCloseBtn").on("click", function() {
+			parent.chatCloseFunc();
+		});
+		
+		$(".chat_header .backImg").on("click", function() {
+			$(location).attr('href','${contextPath}/chat/room?uid=${member.uid}');
+		});
 	</script>
 
 </body>
-</html>

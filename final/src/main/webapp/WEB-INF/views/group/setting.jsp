@@ -139,7 +139,10 @@
 			</div>
 		</div>
 		<!-- //Main Contents -->
+		
+		<%@ include file="/WEB-INF/views/common/chat.jsp" %>
 	</div>
+	
 	
 	<script>
 		$(document).ready(function() {
@@ -273,8 +276,8 @@
 					type: 'post',
 					data: chatRoomData,
 					success: function(result){
-// 						window.open("${contextPath}/chat/message?roomId="); // 새탭에서 열림
-						window.open("${contextPath}/chat/room?uid=${member.uid}");
+						$('#frame').attr('src', "${contextPath}/chat/room?uid=${member.uid}");
+						$(".chatting").css("display", "block");
 					}
 				});
 			});
