@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+      PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.project.doran.user.dao.UserDAO">
+
+	<sql id="search">
+		<!-- 검색어가 존재 하는 경우에만 검색을 실행 -->
+		<if test="keyword != null and keyword != ''.toString() ">
+			OR nickname LIKE CONCAT('%',#{keyword},'%') 
+			OR content LIKE CONCAT('%',#{keyword},'%') 
+			OR categoryName LIKE CONCAT('%',#{keyword},'%') 
+			OR tagName LIKE CONCAT('%',#{keyword},'%') 
+		</if>
+	</sql>
+	
+	<select id="userInfo" resultType="com.project.doran.user.vo.UserVO">
+		select *
+		from userTbl
+		where uid=#{uid}
+	</select>
+	
+	<!-- 회원 수정 -->
+	<update id="userUpdate">
+		UPDATE userTbl 
+		SET upass = #{upass}, name = #{name}, birthDate = #{birthDate}, gender = #{gender}, 
+			nickname = #{nickname}, email = #{email}, address = #{address}
+		WHERE uid = #{uid} 
+	</update>
+	
+	<!-- 로그인 -->
+	<select id="userLogin" resultType="com.project.doran.user.vo.UserVO">
+    	select uid, nickname
+    	from userTbl
+    	where uid = #{uid} and upass = #{upass}
+	</select>
+</mapper>
