@@ -34,37 +34,38 @@ input[type="file"] {
 </head>
 
 <body>
-	<h1>그룹 수정</h1>
-	<hr>
 	<form method="post" action="/group/update.do" enctype="multipart/form-data">
-		<div>
-			<c:if test="${groupInfo.groupImagePath != null and groupInfo.groupImagePath != ''}">
-				<span class="groupImage_wrap">
-					<img src="${contextPath}/resources/${groupInfo.groupImagePath}" style="width: 100px; height: 100px">
-					<input type="hidden" name="groupImagePath" class="groupImagePath" value="${groupInfo.groupImagePath}" placeholder="그룹 이미지 경로" readonly>
-					<button type="button" onClick="imageRemove()">삭제</button>
+		<div class="groupUpdate_wrap">
+			<div class="groupContent">
+				<h3>그룹 수정</h3>
+				<c:if test="${groupInfo.groupImagePath != null and groupInfo.groupImagePath != ''}">
+					<span class="groupImage_wrap">
+						<img src="${groupInfo.groupImagePath}" style="width: 100px; height: 100px">
+						<input type="hidden" name="groupImagePath" class="groupImagePath" value="${groupInfo.groupImagePath}" placeholder="그룹 이미지 경로" readonly>
+						<button type="button" onClick="imageRemove()">삭제</button>
+					</span>
+				</c:if>
+				<label for="file" class="input_file" style="display: none;">이미지 선택</label>
+				<input type="file" name="file" id="file" accept="image/*">
+				<span class="fileView_wrap" style="display: none;">
+					<img class="fileView" src="#" alt="이미지 미리보기" style="width: 100px; height: 100px;">
+					<button type="button" onClick="RemoveFile()">삭제</button>
 				</span>
-			</c:if>
-			<label for="file" class="input_file" style="display: none;">이미지 선택</label>
-			<input type="file" name="file" id="file" accept="image/*">
-			<span class="fileView_wrap" style="display: none;">
-				<img class="fileView" src="#" alt="이미지 미리보기" style="width: 100px; height: 100px;">
-				<button type="button" onClick="RemoveFile()">삭제</button>
-			</span>
-		</div>
-		<input type="hidden" name="groupId" value="${groupInfo.groupId}">
-		<select name="categoryId">
-			<option value="">카테고리</option>
-			<c:forEach items="${categoryList}" var="cList">
-				<option value="${cList.categoryId}" <c:if test="${cList.categoryId == groupInfo.categoryId}">selected</c:if>>${cList.categoryName}</option>
-			</c:forEach>
-		</select>
-		<input type="text" name="groupName" value="${groupInfo.groupName}" placeholder="그룹명" maxlength="20">
-		<input type="text" name="groupIntro" value="${groupInfo.groupIntro}" placeholder="그룹 소개글" maxlength="100">
-		<input type="hidden" name="uid" value="${groupInfo.uid}" placeholder="그룹 생성자(관리자)" readonly maxlength="10">
-		<div>
-			<button type="button" onclick="window.history.back()">취소</button>
-			<button type="submit">완료</button>
+				<input type="hidden" name="groupId" value="${groupInfo.groupId}">
+				<select name="categoryId">
+					<option value="">카테고리</option>
+					<c:forEach items="${categoryList}" var="cList">
+						<option value="${cList.categoryId}" <c:if test="${cList.categoryId == groupInfo.categoryId}">selected</c:if>>${cList.categoryName}</option>
+					</c:forEach>
+				</select>
+				<input type="text" name="groupName" value="${groupInfo.groupName}" placeholder="그룹명" maxlength="20">
+				<input type="text" name="groupIntro" value="${groupInfo.groupIntro}" placeholder="그룹 소개글" maxlength="100">
+				<input type="hidden" name="uid" value="${groupInfo.uid}" placeholder="그룹 생성자(관리자)" readonly maxlength="10">
+				<div class="groupUpdate_btn">
+					<button class="cancel_btn" type="button" onclick="window.history.back()">취소</button>
+					<button class="finish_btn" type="submit">완료</button>
+				</div>
+			</div>
 		</div>
 	</form>
 

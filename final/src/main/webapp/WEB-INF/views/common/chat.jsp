@@ -7,7 +7,7 @@
 
 <body>
 	<div class="chatbot">
-		<img src="/resources/images/chatbot.png">
+		<img src="/images/chatbot.png">
 	</div>
 	
 	<div class="chatting" style="display:none;">

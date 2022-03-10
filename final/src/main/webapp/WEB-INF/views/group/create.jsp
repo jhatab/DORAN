@@ -10,7 +10,7 @@
 <title>그룹생성</title>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <style>
-label.input_file {
+/* label.input_file {
 	display: inline-block;
 	width: 100px;
 	height: 100px;
@@ -29,34 +29,39 @@ input[type="file"] {
 	padding: 0;
 	overflow: hidden;
 	border: 0;
-}
+} */
 </style>
 </head>
 
 <body>
-	<h1>그룹 생성</h1>
-	<hr>
 	<form method="post" action="/group/create.do" enctype="multipart/form-data">
-		<div>
-			<label for="file" class="input_file">이미지 선택</label>
-			<input type="file" name="file" id="file" accept="image/*">
-			<span class="fileView_wrap" style="display: none;">
-				<img class="fileView" src="#" alt="이미지 미리보기" style="width: 100px; height: 100px;">
-				<button type="button" onClick="removeFileFunc()">삭제</button>
-			</span>
-		</div>
-		<select name="categoryId">
-			<option value="" selected>카테고리</option>
-			<c:forEach items="${categoryList}" var="cList">
-				<option value="${cList.categoryId}">${cList.categoryName}</option>
-			</c:forEach>
-		</select>
-		<input type="text" name="groupName" placeholder="그룹명" maxlength="20">
-		<input type="text" name="groupIntro" placeholder="그룹 소개글" maxlength="50">
-		<input type="hidden" name="uid" value="${member.uid}" placeholder="그룹 생성자(관리자)" maxlength="10">
-		<div>
-			<button type="button" onclick="location.href='/group/list'">취소</button>
-			<button type="submit">완료</button>
+		<div class="groupCreate_wrap">
+			<div class="groupContent">
+				<h3>그룹 생성</h3>
+				<div class="imageUpload_wrap">
+					<label for="file" class="input_file">이미지 선택</label>
+					<input type="file" name="file" id="file" accept="image/*">
+					<div class="fileView_wrap" style="display: none;">
+						<img class="fileView" src="#" alt="이미지 미리보기">
+						<span onClick="removeFileFunc()">삭제</span>
+					</div>
+				</div>
+				<div class="category_wrap">
+					<c:forEach items="${categoryList}" var="cList">
+						<label class="category_btn">
+							<input type="radio" name="categoryId" value="${cList.categoryId}">
+							<span>${cList.categoryName}</span>
+						</label>
+					</c:forEach>
+				</div>
+				<input type="text" name="groupName" placeholder="그룹 이름을 입력하세요" maxlength="20">
+				<input type="text" name="groupIntro" placeholder="그룹 소개글을 입력하세요" maxlength="50">
+				<input type="hidden" name="uid" value="${member.uid}" placeholder="그룹 생성자(관리자)" maxlength="10">
+				<div class="groupCreate_btn">
+					<button class="cancel_btn" type="button" onclick="location.href='/group/list'">취소</button>
+					<button class="finish_btn" type="submit">완료</button>
+				</div>
+			</div>
 		</div>
 	</form>
 

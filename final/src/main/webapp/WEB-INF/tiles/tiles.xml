@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE tiles-definitions PUBLIC
+"-//Apache Software Foundation//DTD Tiles Configuration 3.0//EN"
+"http://tiles.apache.org/dtds/tiles-config_3_0.dtd">
+
+<tiles-definitions>
+
+   <definition name="main-layout" template="/WEB-INF/views/common/layout.jsp">
+       <put-attribute name="title" value="" />
+       <put-attribute name="css" value="" />
+       <put-attribute name="header" value="/WEB-INF/views/common/header.jsp" />
+       <put-attribute name="body" value="" />
+       <put-attribute name="footer" value="/WEB-INF/views/common/footer.jsp" />
+       <put-attribute name="chat" value="/WEB-INF/views/common/chat.jsp" />
+   </definition>
+   
+	<!-- main -->   
+	<definition name="main" extends="main-layout">
+		<put-attribute name="title" value="도란도란"/>
+		<put-attribute name="css" value="/css/main.css"/>
+		<put-attribute name="body" value="/WEB-INF/views/main.jsp" />
+	</definition>
+	
+	<!-- login -->
+	<definition name="user/login" extends="main-layout">
+		<put-attribute name="title" value="로그인"/>
+		<put-attribute name="css" value="/css/user/login.css"/>
+		<put-attribute name="body" value="/WEB-INF/views/user/login.jsp" />
+	</definition>
+	
+	<!-- join -->
+	<definition name="user/join" extends="main-layout">
+		<put-attribute name="title" value="회원가입"/>
+		<put-attribute name="css" value="/css/user/join.css"/>
+		<put-attribute name="css2" value="/css/datepicker.css"/>
+		<put-attribute name="css3" value="/css/datepicker-custom.css"/>
+		<put-attribute name="body" value="/WEB-INF/views/user/join.jsp" />
+	</definition>
+	
+	<!-- mypage -->
+   
+	<!-- group : list -->
+   
+	<!-- group : create -->
+	<definition name="group/create" extends="main-layout">
+		<put-attribute name="title" value="도란도란"/>
+		<put-attribute name="css" value="/css/group/groupCreate.css"/>
+		<put-attribute name="body" value="/WEB-INF/views/group/create.jsp" />
+	</definition>
+   
+	<!-- group : update -->
+	<definition name="group/update" extends="main-layout">
+		<put-attribute name="title" value="도란도란"/>
+		<put-attribute name="css" value="/css/group/groupUpdate.css"/>
+		<put-attribute name="body" value="/WEB-INF/views/group/update.jsp" />
+	</definition>
+	
+	<!-- group : home -->
+	
+	
+	<!-- group : setting -->
+	<definition name="group/setting" extends="main-layout">
+		<put-attribute name="title" value="도란도란"/>
+		<put-attribute name="css" value="/css/group/setting.css"/>
+		<put-attribute name="css2" value="/css/common/reset.css"/>
+		<put-attribute name="body" value="/WEB-INF/views/group/setting.jsp" />
+	</definition>
+   
+ 
+</tiles-definitions>

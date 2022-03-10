@@ -8,7 +8,7 @@
 <head>
 <meta charset="UTF-8">
 <title>${groupInfo.groupName}</title>
-<link rel="stylesheet" href="/resources/css/common/reset.css">
+<link rel="stylesheet" href="/css/common/reset.css">
 <link rel="stylesheet" href="/resources/css/group/home.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <style>

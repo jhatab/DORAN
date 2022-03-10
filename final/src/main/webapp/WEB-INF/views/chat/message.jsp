@@ -3,7 +3,13 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 
 <head>
-	<link rel="stylesheet" href="/resources/css/chat/message.css">
+	<meta charset="UTF-8">
+	<title>채팅</title>
+	
+	<!-- css -->
+	<link rel="stylesheet" href="/css/chat/message.css">
+	
+	<!-- script -->
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 </head>
 
@@ -11,7 +17,7 @@
 	<input type="hidden" id="sessionId" value="">	
 	<div class="chat_wrap">
 		<div class="chat_header">
-	        <img src="/resources/images/left.png"/ class="backImg">
+	        <img src="/images/left.png"/ class="backImg">
 	        <c:choose>
 	        	<c:when test="${member.uid == roomInfo.uid1}">
 					<span>${roomInfo.nickname2}</span>
@@ -20,7 +26,7 @@
 					<span>${roomInfo.nickname1}</span>
 	        	</c:otherwise>
 	        </c:choose>
-	        <button class="chatCloseBtn"><img src="/resources/images/close.png"></button>
+	        <button class="chatCloseBtn"><img src="/images/close.png"></button>
 	    </div>
 	    
 	    <div id="chatting">
@@ -32,10 +38,10 @@
 					            <span>${cmList.nickname}</span>
 					            <c:choose>
 									<c:when test="${cmList.profileImg == null or cmList.profileImg == ''}">
-										<img src="${contextPath}/resources/images/chatbot.png"/>
+										<img src="${contextPath}/images/chatbot.png"/>
 									</c:when>
 									<c:otherwise>
-										<img src="${contextPath}/resources/${cmList.profileImg}">
+										<img src="${contextPath}/${cmList.profileImg}">
 									</c:otherwise>
 								</c:choose>
 					        </div>
@@ -49,10 +55,10 @@
 				        <div class="sender">
 				        	<c:choose>
 									<c:when test="${cmList.profileImg == null or cmList.profileImg == ''}">
-										<img src="${contextPath}/resources/images/chatbot.png"/>
+										<img src="${contextPath}/images/chatbot.png"/>
 									</c:when>
 									<c:otherwise>
-										<img src="${contextPath}/resources/${cmList.profileImg}">
+										<img src="${contextPath}/${cmList.profileImg}">
 									</c:otherwise>
 								</c:choose>
 				            <span>${cmList.nickname}</span>

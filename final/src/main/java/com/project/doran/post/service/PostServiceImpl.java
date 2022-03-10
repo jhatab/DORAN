@@ -41,8 +41,7 @@ public class PostServiceImpl implements PostService {
 	public void postWrite(PostVO postVO, AttchVO attchVO, List<MultipartFile> files) throws Exception {
 		postDAO.postWrite(postVO);
 
-		// 이미지 파일 등록
-		String filePath = System.getProperty("user.dir") + "\\src\\main\\webapp\\resources\\images\\post_image_file";
+		String filePath = System.getProperty("user.dir") + "\\src\\main\\resources\\static\\images\\post_image_file";
 
 		for (MultipartFile file : files) {
 

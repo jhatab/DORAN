@@ -1,0 +1,132 @@
+@charset "UTF-8";
+
+.groupCreate_wrap {
+	width: 880px;
+	height: 650px;
+	margin: 50px auto;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	background-color: white;
+	border-radius: 10px;
+	box-shadow: 0px 1px 6px #00000029;
+}
+
+.groupContent {
+	width: 600px;
+	align-items: center;
+}
+
+.groupContent h3 {
+	font-size: 20pt;
+	margin-bottom: 20px;
+}
+
+.groupContent input {
+	width: 600px;
+	height: 20px;
+	border: none;
+	outline: none;
+	border-bottom: 1px solid black;
+	margin-bottom: 30px;
+}
+
+.category_wrap {
+	margin-top: 20px;
+	margin-bottom: 20px;
+}
+
+.groupCreate_btn {
+	display: flex;
+	justify-content: center;
+}
+
+.cancel_btn {
+	background-color: white;
+	border-radius: 5em;
+	border: 1px solid #FFC900;
+	width: 100px;
+	height: 30px;
+	line-height: 28px;
+	cursor: pointer;
+	box-shadow: 0px 2px 6px #00000029;
+	margin-right: 5px;
+}
+
+.finish_btn {
+	background-color: #FFC900;
+	border-radius: 5em;
+	border: none;
+	width: 100px;
+	height: 30px;
+	line-height: 30px;
+	cursor: pointer;
+	box-shadow: 0px 2px 6px #00000029;
+}
+
+label.input_file {
+	display: inline-block;
+	width: 100px;
+	height: 100px;
+	line-height: 100px;
+	text-align: center;
+	background-color: #eee;
+	cursor: pointer;
+	background-color: #eee;
+	text-align: center;
+}
+
+input[type="file"] {
+	position: absolute;
+	width: 0;
+	height: 0;
+	padding: 0;
+	overflow: hidden;
+	border: 0;
+}
+
+.category_btn input[type="radio"] {
+	display: none;
+}
+
+.category_btn input[type="radio"]+span {
+	display: inline-block;
+	padding: 8px 20px;
+	border: 1px solid #FFC900;
+	border-radius: 5em;
+	text-align: center;
+	cursor: pointer;
+}
+
+.category_btn input[type="radio"]:checked+span {
+	background-color: #FFC900;
+}
+
+/* 이미지 미리보기 */
+.fileView_wrap {
+	position: relative;
+	height: 100px;
+}
+
+.fileView_wrap img {
+	width: 100px;
+	height: 100px;
+}
+
+.fileView_wrap span {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100px;
+	height: 100px;
+	line-height: 100px;
+	color: #fff;
+	text-align: center;
+	background: rgba(0, 0, 0, 0.5);
+	border: none;
+	display: none;
+}
+
+.fileView_wrap img.fileView:hover+span {
+	display: block;
+}
