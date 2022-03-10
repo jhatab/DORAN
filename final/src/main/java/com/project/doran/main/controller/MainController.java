@@ -40,7 +40,7 @@ public class MainController {
 		logger.info("메인 페이지입니다.");
 	}
 
-	@RequestMapping(value = "/myPage", method = RequestMethod.GET)
+	@RequestMapping(value = "/mypage", method = RequestMethod.GET)
 	public void myPageGET(HttpSession session, Model model, GroupVO groupVO,
 			HttpServletRequest request) throws Exception {
 		logger.info("마이 페이지");

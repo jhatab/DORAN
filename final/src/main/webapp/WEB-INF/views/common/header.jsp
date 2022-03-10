@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
     <%@ taglib uri="http://tiles.apache.org/tags-tiles" prefix="tiles"%>
+    <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -21,7 +23,16 @@
           <div class="menu">
             <ul class="menu_btn">
               <li ><img class="alarm_btn" src="/images/bell.png" /></li>
-             <li class="login_btn"><c:if test = "${member == null }"><a href="/user/login">로그인</a></c:if></li>
+             <c:if test="${member == null}"><li class="login_btn"><a href="/user/login">로그인</a></li></c:if>
+             <c:if test="${member != null}">
+			<li class="login_btn">
+				<span>${member.nickname}</span>
+				<a href="/myPage">마이페이지</a>
+				<a href="/user/list.do">회원 정보</a>
+				<a href="/user/update.do">정보수정</a>
+				<a href="/user/logout.do">로그아웃</a>
+			</li>
+		</c:if>
             </ul>
           </div>
         </div>

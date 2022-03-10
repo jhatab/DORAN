@@ -1,11 +1,13 @@
 @charset "UTF-8";
 
 .groupContent {
-	width:600px;
-	margin:0 auto;
+	width:650px;
+	margin:50px auto;
 }
 
 .groupList {
+	height:324px;
+	overflow:scroll; 
 	margin-top:20px;
 }
 
@@ -15,7 +17,9 @@
 }
 
 .groupList ul li {
+	float:left;
 	list-style:none;
+	margin-right:15px;
 }
 
 .groupList ul li img {
@@ -27,15 +31,14 @@
 	color:#707070;
 }
 
-.groupList h3 {
-	margin-bottom:20px;
+.groupCreate_wrap h3 {
+	margin-top:20px;
 }
 
 
 .groupCreate_wrap{
 	width:880px;
-    height:600px;
-    margin:50px auto;
+    margin:125px auto;
     display: flex;
     align-items: center;
     background-color: white;

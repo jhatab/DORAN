@@ -30,8 +30,8 @@
 		
 	</div>
 <hr>
+<h3>내 그룹</h3>
 	<div class="groupList">
-		<h3>내 그룹</h3>
 		<ul>
 			<c:forEach items="${groupList}" var="gList">
 				<li>

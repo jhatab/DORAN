@@ -6,11 +6,20 @@
 	font-family:"appleM"
 }
 
+body{
+	background:#FAFAFA;
+}
+
 .header_wrap{
 	width:100%;
 	height:65px;
 	display:flex;
 	justify-content:center;
+	z-index:999;
+	background:white;
+	position: fixed;
+	top:0;
+	box-shadow: 0px 1px 6px #00000029;
 }
 
 .original_header {
@@ -33,10 +42,9 @@
 }
 
 .header_bar {
-	position: fixed;
+	
 	width: 1320px;
 	height: 65px;
-	background:white;
 }
 
 .logo {
