@@ -32,6 +32,19 @@
 	
 	<h1>메인페이지</h1>
 	
+	<!-- script -->
+	<script>
+	$(document).ready(function() {
+		
+		/* ALERT */
+		const result = '<c:out value="${result}"/>';
+
+		if (result === "join success") {
+			alert("회원가입이 완료되었습니다.");
+		}
+		
+	});
+	</script>
 	
 </body>
 </html>

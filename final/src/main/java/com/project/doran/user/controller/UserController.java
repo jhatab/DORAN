@@ -73,10 +73,12 @@ public class UserController {
 
 	/* 회원가입 */
 	@RequestMapping(value = "/join.do", method = RequestMethod.POST)
-	public String joinPOST(UserVO userVO, MultipartFile file) throws Exception {
+	public String joinPOST(UserVO userVO, MultipartFile file, RedirectAttributes rttr) throws Exception {
 		logger.info("회원가입");
 
 		userService.userJoin(userVO, file);
+		
+		rttr.addFlashAttribute("result", "join success");
 
 		return "redirect:/main";
 	}
@@ -85,11 +87,7 @@ public class UserController {
 	@ResponseBody
 	@RequestMapping(value = "/idCheck", method = RequestMethod.POST)
 	public String idCheckPOST(String uid) throws Exception {
-		logger.info("아이디 중복 검사");
-
 		int result = userService.idCheck(uid);
-
-		logger.info("결과값 = " + result);
 
 		if (result != 0) {
 			return "fail"; // 중복 아이디가 존재
@@ -102,11 +100,7 @@ public class UserController {
 	@ResponseBody
 	@RequestMapping(value = "/nickCheck", method = RequestMethod.POST)
 	public String nickCheckPOST(String nickname) throws Exception {
-		logger.info("닉네임 중복 검사");
-
 		int result = userService.nickCheck(nickname);
-
-		logger.info("결과값 = " + result);
 
 		if (result != 0) {
 			return "fail"; // 중복 닉네임 존재

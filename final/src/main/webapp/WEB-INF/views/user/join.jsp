@@ -1,81 +1,95 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 
-<style>
-	.id_result_2, .nick_result_2, .pw_result_2, .pwck_result_2, .email_result_2 {
-		color: red;
-		display: none;
-	}
-	.id_final_ck, .pw_final_ck, .pwck_final_ck, .name_final_ck, .nick_final_ck, .email_final_ck, .birth_final_ck, .addr_final_ck {
-		color: red;
-		display: none;
-	}
-</style>
-
-<h1>회원가입</h1>
-
-<form id="join_form" method="post" enctype="multipart/form-data">
-	<label for="file" class="input_file">이미지 선택</label>
-	<input type="file" name="file" id="file" accept="image/*">
+<div class="sign_wrapper">
+	<div class="sign">
+		<div class="sign_logo">
+			<img class="sign_logo_img" src="/images/logo.png" />
+		</div>
+		<form id="join_form" method="post" enctype="multipart/form-data">
+			<div class="login_box">
+				<div class="input_box">
 	
-	<div>
-		<input type="text" name="uid" class="input_id" placeholder="아이디">
-		<span class="id_result_2">아이디가 이미 존재합니다.</span>
-		<span class="id_final_ck">아이디를 입력해주세요.</span>
+					<div class="userImg_wrap">
+						<label for="file" class="input_file">
+							<img src="/images/photo.png" alt="프로필 이미지 선택">
+						</label>
+						<input type="file" name="file" id="file" accept="image/*">
+						<div class="fileView_wrap" style="display:none;">
+							<img class="fileView" src="#" alt="이미지 미리보기">
+							<span onClick="removeFileFunc()">삭제</span>
+						</div>
+					</div>
+	
+					<h3>아이디</h3>
+					<input class="input_content input_id" type="text" name="uid" placeholder="아이디를 입력해주세요" />
+					<div class="input_result">
+						<span class="id_result_2">아이디가 이미 존재합니다.</span>
+						<span class="id_final_ck">아이디를 입력해주세요.</span>
+					</div>
+	
+					<h3>비밀번호</h3>
+					<input class="input_content input_pw" type="password" name="upass" placeholder="비밀번호를 입력해주세요" />
+					<div class="input_result">
+						<span class="pw_result_2">영문 대소문자/숫자 조합 (4자~10자 입력)</span>
+						<span class="pw_final_ck">비밀번호를 입력해주세요.</span>
+					</div>
+	
+					<h3>비밀번호 확인</h3>
+					<input class="input_content input_pwck" type="password" placeholder="비밀번호를 한번 더 입력해주세요" />
+					<div class="input_result">
+						<span class="pwck_result_2">비밀번호가 일치하지 않습니다.</span>
+						<span class="pwck_final_ck">비밀번호를 다시 입력해주세요.</span>
+					</div>
+	
+					<h3>이름</h3>
+					<input class="input_content input_name" type="text" name="name" placeholder="이름을 입력해주세요" />
+					<div class="input_result">
+						<span class="name_final_ck">이름을 입력해주세요.</span>
+					</div>
+	
+					<h3>닉네임</h3>
+					<input class="input_content input_nick" type="text" name="nickname" placeholder="닉네임을 입력해주세요" />
+					<div class="input_result">
+						<span class="nick_result_2">닉네임이 이미 존재합니다.</span>
+						<span class="nick_final_ck">닉네임을 입력해주세요.</span>
+					</div>
+	
+					<h3>생년월일</h3>
+					<input class="input_content input_birth" type="text" name="birthDate" placeholder="생년월일을 입력해주세요" readonly />
+					<div class="input_result">
+						<span class="birth_final_ck">생년월일을 입력해주세요.</span>
+					</div>
+	
+					<h3>성별</h3>
+					<select name="gender">
+						<option value="0">공개 안 함</option>
+						<option value="1">남자</option>
+						<option value="2">여자</option>
+					</select>
+	
+					<h3>이메일</h3>
+					<input class="input_content input_email" type="email" name="email" placeholder="이메일을 입력해주세요" />
+					<div class="input_result">
+						<span class="email_result_2">이메일을 형식이 올바르지 않습니다.</span>
+						<span class="email_final_ck">이메일을 입력해주세요.</span>
+					</div>
+	
+					<h3>주소</h3>
+					<input class="input_content input_address" type="text" name="address" placeholder="주소를 입력해주세요"
+						readonly="readonly" onclick="execution_daum_address()" onkeyup="if(window.event.keyCode==13){execution_daum_address()}" />
+					<div class="input_result">
+						<span class="addr_final_ck">주소를 입력해주세요.</span>
+					</div>
+	
+				</div>
+	
+				<div class="sign_btn">
+					<button type="button" class="joinBtn">가입하기</button>
+				</div>
+			</div>
+		</form>
 	</div>
-
-	<div>
-		<input type="password" name="upass" class="input_pw" placeholder="비밀번호">
-		<span class="pw_result_2">영문 대소문자/숫자 조합 (4자~10자 입력)</span>
-		<span class="pw_final_ck">비밀번호를 입력해주세요.</span>
-	</div>
-
-	<div>
-		<input type="password" class="input_pwck" placeholder="비밀번호 확인">
-		<span class="pwck_result_2">비밀번호가 일치하지 않습니다.</span>
-		<span class="pwck_final_ck">비밀번호를 다시 입력해주세요.</span>
-	</div>
-
-	<div>
-		<input type="text" name="name" class="input_name" placeholder="이름">
-		<span class="name_final_ck">이름을 입력해주세요.</span>
-	</div>
-
-	<div>
-		<input type="text" name="nickname" class="input_nick" placeholder="닉네임">
-		<span class="nick_result_2">닉네임이 이미 존재합니다.</span>
-		<span class="nick_final_ck">닉네임을 입력해주세요.</span>
-	</div>
-
-	<div>
-		<input type="email" name="email" class="input_email" placeholder="이메일">
-		<span class="email_result_2">이메일을 형식이 올바르지 않습니다.</span>
-		<span class="email_final_ck">이메일을 입력해주세요.</span>
-	</div>
-
-	<div>
-		<input type="text" name="birthDate" class="input_birth" placeholder="생년월일" readonly>
-		<span class="birth_final_ck">생년월일을 입력해주세요.</span>
-	</div>
-
-	<div>
-		<label>
-			<input type="radio" name="gender" value="0" checked="checked">공개 안 함
-		</label>
-		<label>
-			<input type="radio" name="gender" value="1">여성
-		</label>
-		<label>
-			<input type="radio" name="gender" value="2">남성
-		</label>
-	</div>
-
-	<div>
-		<input type="text" name="address" class="input_address" placeholder="주소" readonly="readonly" onclick="execution_daum_address()">
-		<span class="addr_final_ck">주소를 입력해주세요.</span>
-	</div>
-
-	<button type="button" class="joinBtn">가입하기</button>
-</form>
+</div>
 
 <!-- script -->
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
@@ -204,6 +218,19 @@
 			$('.email_final_ck').css('display','none');
 			emailFmCheck = false;
 		return false;
+		}
+	});
+	
+	/* 이름 */
+	$('.input_name').on("propertychange change keyup paste input", function() {
+		var name = $(".input_name").val();
+		
+		if(name != ''){
+			$('.name_final_ck').css("display", "none");
+		} else {
+			$('.name_final_ck').css("display", "inline-block");
+			nameCheck = false;
+			return false;
 		}
 	});
 	
@@ -362,6 +389,36 @@
 		}
 		
 		return false;
-		
     });
+	
+	/* 이미지 미리보기 */
+	function readImage(input) {
+		if (input.files && input.files[0]) {
+			const reader = new FileReader()
+
+			reader.onload = function (e) {
+				document.querySelector(".fileView").src = e.target.result;
+				document.querySelector(".fileView_wrap").style.display = '';
+				document.querySelector(".input_file").style.display = 'none';
+			}
+			reader.readAsDataURL(input.files[0])
+		}
+	}
+
+	const inputImage = document.getElementById("file")
+	inputImage.addEventListener("change", e => {
+		if (inputImage.value.length == 0) {
+			document.querySelector(".fileView_wrap").style.display = 'none';
+			document.querySelector(".input_file").style.display = '';
+		} else {
+			readImage(e.target)
+		}
+	});
+
+	/* 첨부파일 삭제 */
+	function removeFileFunc() {
+		inputImage.value = "";
+		document.querySelector(".fileView_wrap").style.display = 'none';
+		document.querySelector(".input_file").style.display = '';
+	}
 </script>
