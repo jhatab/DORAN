@@ -38,10 +38,10 @@
 					            <span>${cmList.nickname}</span>
 					            <c:choose>
 									<c:when test="${cmList.profileImg == null or cmList.profileImg == ''}">
-										<img src="${contextPath}/images/chatbot.png"/>
+										<img src="/images/chatbot.png"/>
 									</c:when>
 									<c:otherwise>
-										<img src="${contextPath}/${cmList.profileImg}">
+										<img src="${cmList.profileImg}">
 									</c:otherwise>
 								</c:choose>
 					        </div>
@@ -55,10 +55,10 @@
 				        <div class="sender">
 				        	<c:choose>
 									<c:when test="${cmList.profileImg == null or cmList.profileImg == ''}">
-										<img src="${contextPath}/images/chatbot.png"/>
+										<img src="/images/chatbot.png"/>
 									</c:when>
 									<c:otherwise>
-										<img src="${contextPath}/${cmList.profileImg}">
+										<img src="${cmList.profileImg}">
 									</c:otherwise>
 								</c:choose>
 				            <span>${cmList.nickname}</span>
@@ -144,7 +144,7 @@
 							var msgMe = '<div class="sender_right_wrap">';
 							msgMe += '<div class="sender_right">';
 							msgMe += '<span>' + d.userName + '</span>';
-							msgMe += '<img src="/resources/images/chatbot.png"/>';
+							msgMe += '<img src="/images/chatbot.png"/>';
 							msgMe += '</div>';
 							msgMe += '<div class="balloon_right">';
 							msgMe += '<span>' + d.msg + '</span>';
@@ -155,7 +155,7 @@
 						} else {
 							var msgYou = '<div class="sender_wrap">';
 							msgYou += '<div class="sender">';
-							msgYou += '<img src="/resources/images/chatbot.png"/>';
+							msgYou += '<img src="/images/chatbot.png"/>';
 							msgYou += '<span>' + d.userName + '</span>';
 							msgYou += '</div>';
 							msgYou += '<div class="balloon">';
