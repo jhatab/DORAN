@@ -23,6 +23,7 @@
 	margin-top: 55px;
 	text-align: center;
 	border-radius: 10px;
+	background: #fff;
 	box-shadow: 2px 2px 5px 1px #d2d2d2;
 }
 
@@ -30,6 +31,7 @@
 	width: 200px;
 	height: 200px;
 	margin-top: 20px;
+	border : 1px solid #ccc;
 }
 
 .contents {
@@ -70,6 +72,7 @@
 	padding: 50px 50px;
 	border-radius: 10px;
 	box-shadow: 2px 2px 5px 1px #d2d2d2;
+	background: #fff;
 	box-sizing: border-box;
 }
 

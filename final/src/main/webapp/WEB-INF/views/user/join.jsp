@@ -56,7 +56,7 @@
 					</div>
 	
 					<h3>생년월일</h3>
-					<input class="input_content input_birth" type="text" name="birthDate" placeholder="생년월일을 입력해주세요" readonly />
+					<input class="input_content input_birth" type="text" name="birthDate" placeholder="생년월일을 입력해주세요" autocomplete="off"/>
 					<div class="input_result">
 						<span class="birth_final_ck">생년월일을 입력해주세요.</span>
 					</div>

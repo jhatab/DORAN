@@ -9,46 +9,48 @@
 <meta charset="UTF-8">
 <title>그룹 목록</title>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<link rel="stylesheet" type="text/css" href="/css/groupList.css">
 </head>
 
 <body>
-	<h1>그룹 목록 페이지</h1>
+	<div class="groupCreate_wrap">
+	<div class="groupContent">
+	
 	<div>
-		<a href="/group/create">그룹생성</a>
-		<hr>
+	<div class="groupCreacte_btn">
+		<button type="button" onclick="location.href='/group/create'">그룹생성</button>
 	</div>
-	<div>
 		<h3>카테고리 목록</h3>
-		<ul>
+		
+		<div class="category_wrap">
 			<c:forEach items="${categoryList}" var="cList">
-				<li>
-					<c:out value="${cList.categoryId}" />
-					:
-					<c:out value="${cList.categoryName}" />
-				</li>
+			<label class="category_btn"><input type="radio" name="category" value="${cList.categoryId}"><span>${cList.categoryName}</span></label>
 			</c:forEach>
-		</ul>
+		</div>
+		
 	</div>
-	<hr>
+<hr>
+<h3>내 그룹</h3>
 	<div class="groupList">
-		<h3>그룹 목록</h3>
 		<ul>
 			<c:forEach items="${groupList}" var="gList">
 				<li>
 					<a href="/group/home?groupId=${gList.groupId}">
 						<c:choose>
 							<c:when test="${gList.groupImagePath == null or gList.groupImagePath == ''}">
-								<img src="/images/group_image_file/basic.png" style="width: 100px; height: 100px">
+								<img src="${contextPath}/resources/images/group_image_file/basic.png" style="width: 200px; height: 300px">
 							</c:when>
 							<c:otherwise>
-								<img src="${gList.groupImagePath}" style="width: 100px; height: 100px">
+								<img src="${contextPath}/resources/${gList.groupImagePath}" style="width: 200px; height: 300px">
 							</c:otherwise>
-						</c:choose>
-						<c:out value="${gList.categoryId}" /> : <c:out value="${gList.groupName}" />
+						</c:choose><br>
+						<c:out value="${gList.groupName}" />
 					</a>
 				</li>
 			</c:forEach>
 		</ul>
+	</div>
+	</div>
 	</div>
 	
 	<!-- script -->

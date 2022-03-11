@@ -15,15 +15,13 @@
 	
 	<!-- css -->
 	<link rel="stylesheet" type="text/css" href="${contextPath}/css/common/layout.css">
-	<link rel="stylesheet" type="text/css" href="${contextPath}/css/common/header.css" />
 	<link rel="stylesheet" type="text/css" href="${contextPath}/css/common/chat.css" />
-	<link rel="stylesheet" type="text/css" href="${contextPath}/css/common/footer.css" />
 	<link rel="stylesheet" type="text/css" href="${contextPath}<tiles:getAsString name="css2" ignore="true"/>" />
 	<link rel="stylesheet" type="text/css" href="${contextPath}<tiles:getAsString name="css3" ignore="true"/>" />
 	<link rel="stylesheet" type="text/css" href="${contextPath}<tiles:getAsString name="css" ignore="true"/>" />
 	
 	<!-- favicon -->
-<%-- 	<link rel="shortcut icon" href="${contextPath}/resources/image/favicon.ico"> --%>
+	<link rel="shortcut icon" href="${contextPath}/images/favicon.ico">
 	
 	<!-- font -->
 <!-- 	<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap" rel="stylesheet"> -->

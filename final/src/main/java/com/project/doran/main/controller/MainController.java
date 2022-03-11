@@ -1,7 +1,5 @@
 package com.project.doran.main.controller;
 
-import java.util.List;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -12,7 +10,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import com.project.doran.category.service.CategoryService;
 import com.project.doran.group.controller.GroupController;
@@ -40,12 +37,11 @@ public class MainController {
 		logger.info("메인 페이지입니다.");
 	}
 
-	@RequestMapping(value = "/myPage", method = RequestMethod.GET)
-	public void myPageGET(HttpSession session, Model model, GroupVO groupVO,
-			HttpServletRequest request) throws Exception {
+	/* 마이페이지 */
+	@RequestMapping(value = "/mypage", method = RequestMethod.GET)
+	public void myPageGET(HttpSession session, Model model, GroupVO groupVO, HttpServletRequest request) throws Exception {
 		logger.info("마이 페이지");
 		
-
 		model.addAttribute("categoryList", categoryService.categoryList());
 		
 		model.addAttribute("groupList", groupService.userGroupMappingList(groupVO, request));

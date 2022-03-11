@@ -1,0 +1,60 @@
+@charset "UTF-8";
+
+
+
+h1 {
+	margin-top:80px;
+	text-align:center;
+}
+
+.mypage_btn {
+	width:300px;
+	margin:0 auto;
+	display:flex;
+	justify-content:center;
+	margin-bottom:20px;
+}
+
+.mypage_btn input {
+	background-color:#FFC900;
+    border-radius: 5em;
+    border:none;
+
+    width: 100px;
+    height: 30px;
+    line-height: 28px;
+
+    cursor: pointer;
+    box-shadow:0px 2px 6px #00000029;
+    margin-right:5px;	
+}
+
+.mypage_wrap{
+	 width:880px;
+    height:650px;
+    margin:0 auto;
+    display: flex;
+    align-items: center;
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0px 1px 6px #00000029;
+}
+
+#categoryList {
+	margin:0 auto;
+	text-align:center;
+}
+
+.category_btn{
+background-color:#FFC900;
+    border-radius: 5em;
+    border:none;
+
+    width: 100px;
+    height: 30px;
+    line-height: 28px;
+
+    cursor: pointer;
+    box-shadow:0px 2px 6px #00000029;
+    margin-right:5px;	
+}
