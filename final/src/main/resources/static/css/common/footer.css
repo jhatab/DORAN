@@ -1,7 +1,7 @@
 @charset "UTF-8";
 
 .footer_area {
-	margin-top: 20px;
+/* 	margin-top: 20px; */
 	width: 100%;
 	background: rgb(0, 0, 0, 0.1);
 	border-top: 1px solid rgb(0, 0, 0, 0.2);

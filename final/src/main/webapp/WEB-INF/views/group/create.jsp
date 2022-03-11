@@ -14,8 +14,7 @@
 					</label>
 					<input type="file" name="file" id="file" accept="image/*">
 					<div class="fileView_wrap" style="display: none;">
-						<img class="fileView" src="#" alt="이미지 미리보기">
-						<span onClick="removeFileFunc()">삭제</span>
+						<img class="fileView" src="#" alt="이미지 미리보기"> <span onClick="removeFileFunc()">삭제</span>
 					</div>
 				</div>
 				<!-- 카테고리 선택 -->
@@ -28,8 +27,8 @@
 					</c:forEach>
 				</div>
 				<!-- 인풋 영역 -->
-				<input type="text" name="groupName" placeholder="그룹 이름을 입력하세요" maxlength="20">
-				<input type="text" name="groupIntro" placeholder="그룹 소개글을 입력하세요" maxlength="50">
+				<input type="text" name="groupName" class="groupName" placeholder="그룹 이름을 입력하세요" maxlength="20">
+				<input type="text" name="groupIntro" class="groupIntro" placeholder="그룹 소개글을 입력하세요" maxlength="50">
 				<input type="hidden" name="uid" value="${member.uid}" placeholder="그룹 생성자(관리자)" maxlength="10">
 				<!-- 버튼 영역 -->
 				<div class="groupCreate_btn">
@@ -43,6 +42,46 @@
 
 <!-- script -->
 <script>
+
+	/* 유효성 검사 */
+	$(".finish_btn").on("click", function() {
+		if (!$('input[name="categoryId"]').is(':checked')) {
+			alert('카테고리를 선택해주세요.');
+			return false;
+		}
+		
+		if ($('.groupName').val() == '') {
+			alert('그룹 이름을 입력해주세요.');
+			$('.groupName').focus();
+			return false;
+		}
+		
+		if ($('.groupIntro').val() == '') {
+			alert('그룹 소개글을 입력해주세요.');
+			$('.groupIntro').focus();
+			return false;
+		}
+	});
+	
+	/* 로그인 유효성 검사 */
+	function loginFunc(e) {
+		e.preventDefault();
+
+		if (uid.value == 'undefined' || uid.value == '') {
+			alert('아이디를 입력해주세요.');
+			uid.focus();
+			return false;
+		}
+
+		if (upass.value == 'undefined' || upass.value == '') {
+			alert('비밀번호를 입력해주세요.');
+			upass.focus();
+			return false;
+		}
+		
+		$("#loginForm").attr("action", "/user/login.do");
+        $("#loginForm").submit();
+	}
 	
 	function readImage(input) {
 		if(input.files && input.files[0]) {

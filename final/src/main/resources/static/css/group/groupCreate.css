@@ -1,26 +1,26 @@
 @charset "UTF-8";
 
 body {
-  height: 100vh;
+	height: 100vh;
 }
 
 .container {
-	margin-top: 100px;
-	 box-sizing: border-box;
+	padding: max(calc(50vh - 251.5px), 125px) 0 max(calc(50vh - 316.5px), 60px) 0;
+	box-sizing: border-box;
 }
 
 .groupCreate_wrap {
 	width: 880px;
 	/* 	height: 600px; */
 	/* 	margin: 50px auto; */
-	margin: 0 auto;
 	display: flex;
 	justify-content: center;
+	margin: 0 auto;
+	padding: 60px 80px;
 	align-items: center;
 	background-color: white;
 	border-radius: 10px;
 	box-shadow: 0px 1px 6px #00000029;
-	padding: 50px 80px;
 	box-sizing: border-box;
 }
 
@@ -81,10 +81,11 @@ label.category_btn input[type="radio"] {
 	line-height: 40px;
 	margin-right: 20px;
 	border: 1px solid #FFC900;
-	border-radius: 5em;
-	background-color: white;
-	box-shadow: 0px 2px 6px #00000029;
+	border-radius: 5em; background-color : white; box-shadow : 0px 2px 6px
+	#00000029;
 	cursor: pointer;
+	box-shadow: 0px 2px 6px #00000029;
+	background-color: white;
 }
 
 .finish_btn {
