@@ -1,10 +1,10 @@
 @charset "UTF-8";
 
 .header_wrap {
-/* 	position: fixed; */
-/* 	top: 0; */
-/* 	box-shadow: 0px 1px 6px #00000029; */
-/* 	z-index: 99; */
+	position: fixed;
+	top: 0;
+	box-shadow: 0px 1px 6px #00000029;
+	z-index: 99;
 }
 
 .original_header {

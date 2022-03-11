@@ -1,91 +1,47 @@
 @charset "UTF-8";
 
+body {
+  height: 100vh;
+}
+
+.container {
+	margin-top: 100px;
+	 box-sizing: border-box;
+}
+
 .groupCreate_wrap {
 	width: 880px;
-	height: 650px;
-	margin: 50px auto;
+	/* 	height: 600px; */
+	/* 	margin: 50px auto; */
+	margin: 0 auto;
 	display: flex;
 	justify-content: center;
 	align-items: center;
 	background-color: white;
 	border-radius: 10px;
 	box-shadow: 0px 1px 6px #00000029;
-}
-
-.groupContent {
-	width: 600px;
-	align-items: center;
+	padding: 50px 80px;
+	box-sizing: border-box;
 }
 
 .groupContent h3 {
-	font-size: 20pt;
+	font-size: 30px;
+	font-weight: normal;
 	margin-bottom: 20px;
 }
 
-.groupContent input {
-	width: 600px;
-	height: 20px;
-	border: none;
-	outline: none;
-	border-bottom: 1px solid black;
-	margin-bottom: 30px;
-}
-
+/* 카테고리 */
 .category_wrap {
-	margin-top: 20px;
 	margin-bottom: 20px;
-}
-
-.groupCreate_btn {
 	display: flex;
-	justify-content: center;
+	flex-wrap: wrap;
 }
 
-.cancel_btn {
-	background-color: white;
-	border-radius: 5em;
-	border: 1px solid #FFC900;
-	width: 100px;
-	height: 30px;
-	line-height: 28px;
-	cursor: pointer;
-	box-shadow: 0px 2px 6px #00000029;
-	margin-right: 5px;
+label.category_btn {
+	margin: 0 10px 10px 0;
 }
 
-.finish_btn {
-	background-color: #FFC900;
-	border-radius: 5em;
-	border: none;
-	width: 100px;
-	height: 30px;
-	line-height: 30px;
-	cursor: pointer;
-	box-shadow: 0px 2px 6px #00000029;
-}
-
-label.input_file {
-	display: inline-block;
-	width: 100px;
-	height: 100px;
-	line-height: 100px;
-	text-align: center;
-	background-color: #eee;
-	cursor: pointer;
-	background-color: #eee;
-	text-align: center;
-}
-
-input[type="file"] {
-	position: absolute;
-	width: 0;
-	height: 0;
-	padding: 0;
-	overflow: hidden;
-	border: 0;
-}
-
-.category_btn input[type="radio"] {
+label.category_btn input[type="radio"] {
 	display: none;
 }
 
@@ -102,7 +58,71 @@ input[type="file"] {
 	background-color: #FFC900;
 }
 
-/* 이미지 미리보기 */
+/* 인풋 영역 */
+.groupContent input {
+	width: 100%;
+	height: 30px;
+	margin-bottom: 30px;
+	border: none;
+	border-bottom: 1px solid black;
+	outline: none;
+}
+
+/* 버튼 영역 */
+.groupCreate_btn {
+	display: flex;
+	justify-content: center;
+	margin-top: 10px;
+}
+
+.cancel_btn {
+	width: 100px;
+	height: 40px;
+	line-height: 40px;
+	margin-right: 20px;
+	border: 1px solid #FFC900;
+	border-radius: 5em;
+	background-color: white;
+	box-shadow: 0px 2px 6px #00000029;
+	cursor: pointer;
+}
+
+.finish_btn {
+	width: 100px;
+	height: 40px;
+	line-height: 40px;
+	border: none;
+	border-radius: 5em;
+	background-color: #FFC900;
+	box-shadow: 0px 2px 6px #00000029;
+	cursor: pointer;
+}
+
+/* 이미지 */
+.imageUpload_wrap {
+	margin-bottom: 20px;
+}
+
+.imageUpload_wrap label {
+	position: relative;
+	display: inline-block;
+	width: 120px;
+	height: 120px;
+	text-align: center;
+	background: #eee;
+	border: 1px solid #ccc;
+	cursor: pointer;
+}
+
+.imageUpload_wrap label img {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	width: 30px;
+	height: 30px;
+}
+
 .fileView_wrap {
 	position: relative;
 	height: 100px;
@@ -111,6 +131,7 @@ input[type="file"] {
 .fileView_wrap img {
 	width: 100px;
 	height: 100px;
+	border: 1px solid #ccc;
 }
 
 .fileView_wrap span {
@@ -123,10 +144,20 @@ input[type="file"] {
 	color: #fff;
 	text-align: center;
 	background: rgba(0, 0, 0, 0.5);
-	border: none;
-	display: none;
+	border: 1px solid #ccc;
+	cursor: pointer;
+	opacity: 0;
 }
 
-.fileView_wrap img.fileView:hover+span {
-	display: block;
+.fileView_wrap span:hover {
+	opacity: 1;
+}
+
+input[type="file"] {
+	position: absolute;
+	width: 0;
+	height: 0;
+	padding: 0;
+	overflow: hidden;
+	border: 0;
 }
