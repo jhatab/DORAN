@@ -5,7 +5,8 @@ body {
 }
 
 .container {
-	padding: max(calc(50vh - 251.5px), 125px) 0 max(calc(50vh - 316.5px), 60px) 0;
+	padding: max(calc(50vh - 251px), 125px) 0 max(calc(50vh - 316px),
+		60px) 0;
 	box-sizing: border-box;
 }
 
@@ -22,12 +23,13 @@ body {
 	border-radius: 10px;
 	box-shadow: 0px 1px 6px #00000029;
 	box-sizing: border-box;
+	padding: 60px 80px;
 }
 
 .groupContent h3 {
 	font-size: 30px;
 	font-weight: normal;
-	margin-bottom: 20px;
+	margin-bottom: 25px;
 }
 
 /* 카테고리 */
@@ -47,7 +49,9 @@ label.category_btn input[type="radio"] {
 
 .category_btn input[type="radio"]+span {
 	display: inline-block;
-	padding: 8px 20px;
+	height: 38px;
+	line-height: 40px;
+	padding: 0 20px;
 	border: 1px solid #FFC900;
 	border-radius: 5em;
 	text-align: center;
@@ -81,11 +85,10 @@ label.category_btn input[type="radio"] {
 	line-height: 40px;
 	margin-right: 20px;
 	border: 1px solid #FFC900;
-	border-radius: 5em; background-color : white; box-shadow : 0px 2px 6px
-	#00000029;
-	cursor: pointer;
-	box-shadow: 0px 2px 6px #00000029;
+	border-radius: 5em;
 	background-color: white;
+	box-shadow: 0px 2px 6px #00000029;
+	cursor: pointer;
 }
 
 .finish_btn {
@@ -101,7 +104,8 @@ label.category_btn input[type="radio"] {
 
 /* 이미지 */
 .imageUpload_wrap {
-	margin-bottom: 20px;
+	height: 122px;
+	margin-bottom: 25px;
 }
 
 .imageUpload_wrap label {
@@ -130,8 +134,8 @@ label.category_btn input[type="radio"] {
 }
 
 .fileView_wrap img {
-	width: 100px;
-	height: 100px;
+	width: 120px;
+	height: 120px;
 	border: 1px solid #ccc;
 }
 
@@ -139,9 +143,9 @@ label.category_btn input[type="radio"] {
 	position: absolute;
 	top: 0;
 	left: 0;
-	width: 100px;
-	height: 100px;
-	line-height: 100px;
+	width: 120px;
+	height: 120px;
+	line-height: 120px;
 	color: #fff;
 	text-align: center;
 	background: rgba(0, 0, 0, 0.5);

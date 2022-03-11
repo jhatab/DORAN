@@ -127,7 +127,7 @@ public class GroupController {
 		
 		rttr.addFlashAttribute("result", "group update success");
 		
-		return "redirect:/group/home?groupId=" + Integer.toString(groupVO.getGroupId());
+		return "redirect:/group/setting?groupId=" + Integer.toString(groupVO.getGroupId());
 	}
 	
 	/* 그룹 삭제 */

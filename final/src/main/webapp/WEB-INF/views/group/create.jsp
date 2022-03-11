@@ -14,7 +14,8 @@
 					</label>
 					<input type="file" name="file" id="file" accept="image/*">
 					<div class="fileView_wrap" style="display: none;">
-						<img class="fileView" src="#" alt="이미지 미리보기"> <span onClick="removeFileFunc()">삭제</span>
+						<img class="fileView" src="#" alt="이미지 미리보기">
+						<span onClick="removeFileFunc()">삭제</span>
 					</div>
 				</div>
 				<!-- 카테고리 선택 -->
