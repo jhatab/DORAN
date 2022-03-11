@@ -42,8 +42,8 @@ public class UserController {
 		UserVO uvo = userService.userLogin(userVO);
 
 		if (uvo == null) {
-			int result = 0;
-			rttr.addFlashAttribute("result", result);
+			System.out.println("sdafd");
+			rttr.addFlashAttribute("result", "login fail");
 			return "redirect:/user/login";
 		}
 
@@ -62,7 +62,7 @@ public class UserController {
 
 		session.invalidate();
 
-		return "redirect:/user/login";
+		return "redirect:/main";
 	}
 
 	/* 회원가입 페이지 */

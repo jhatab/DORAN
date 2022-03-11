@@ -10,11 +10,28 @@
 	src: url("../../fonts/AppleSDGothicNeoL.ttf") format("truetype");
 }
 
+@font-face {
+    font-family: 'JHaebaragi-Light-KO';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2110@1.0/JHaebaragi-Light-KO.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'JHaebaragi-Medium-KO';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2110@1.0/JHaebaragi-Medium-KO.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+}
+
 * {
 	margin:0;
 	padding:0;
 	font-family:"appleM";
 	font-size: 16px;
+}
+
+a {
+    text-decoration: none;
 }
 
 .header_wrap{
@@ -115,22 +132,4 @@
 	font-size: 10pt;
 	background: #FFC900 0% 0% no-repeat padding-box;
 	box-shadow: 0px 2px 6px #00000029;
-}
-
-.footer_area {
-	margin-top: 20px;
-	width: 100%;
-	height: 200px;
-	background: rgb(0, 0, 0, 0.1);
-	border-top: 1px solid rgb(0, 0, 0, 0.2);
-}
-
-.footer_box {
-	width: 1320px;
-	height: 200px;
-	margin: 0 auto;
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	color: #707070;
 }

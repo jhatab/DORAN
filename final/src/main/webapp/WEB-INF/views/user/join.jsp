@@ -5,6 +5,7 @@
 		<div class="sign_logo">
 			<img class="sign_logo_img" src="/images/logo.png" />
 		</div>
+<!-- 		<h1>도란도란</h1> -->
 		<form id="join_form" method="post" enctype="multipart/form-data">
 			<div class="login_box">
 				<div class="input_box">

@@ -1,5 +1,16 @@
 @charset "UTF-8";
 
+/* h1 {
+	position: relative;
+	margin-bottom: 30px;
+	color: #333;
+	font-size: 30px;
+	font-weight: normal;
+	font-family: 'JHaebaragi-Medium-KO';
+	text-align: center;
+	cursor: default;
+} */
+
 .sign_wrapper {
 	width: 880px;
 	/* height: 1075px; */
@@ -50,11 +61,14 @@
 	margin-left: 3px;
 }
 
-.id_result_2, .nick_result_2, .pw_result_2, .pwck_result_2, .email_result_2 {
+.id_result_2, .nick_result_2, .pw_result_2, .pwck_result_2,
+	.email_result_2 {
 	color: red;
 	display: none;
 }
-.id_final_ck, .pw_final_ck, .pwck_final_ck, .name_final_ck, .nick_final_ck, .email_final_ck, .birth_final_ck, .addr_final_ck {
+
+.id_final_ck, .pw_final_ck, .pwck_final_ck, .name_final_ck,
+	.nick_final_ck, .email_final_ck, .birth_final_ck, .addr_final_ck {
 	color: red;
 	display: none;
 }

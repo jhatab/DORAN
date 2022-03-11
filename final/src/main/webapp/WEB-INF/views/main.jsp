@@ -8,6 +8,11 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 </head>
+<style>
+header {
+	margin-top : 100px;
+}
+</style>
 <body>
 	<header>
 		<h1><a href="/main">도란도란</a></h1>
