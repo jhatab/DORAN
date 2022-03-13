@@ -23,9 +23,6 @@
 	<!-- favicon -->
 	<link rel="shortcut icon" href="${contextPath}/images/favicon.ico">
 	
-	<!-- font -->
-<!-- 	<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap" rel="stylesheet"> -->
-	
 	<!-- script -->
 	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 	

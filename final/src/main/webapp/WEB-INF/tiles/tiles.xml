@@ -40,6 +40,11 @@
 	<!-- mypage -->
    
 	<!-- group : list -->
+	<definition name="group/list" extends="main-layout">
+		<put-attribute name="title" value="도란도란"/>
+		<put-attribute name="css" value="/css/group/groupList.css"/>
+		<put-attribute name="body" value="/WEB-INF/views/group/list.jsp" />
+	</definition>
    
 	<!-- group : create -->
 	<definition name="group/create" extends="main-layout">

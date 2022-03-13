@@ -2,7 +2,7 @@
 	position: relative;
 	width: 400px;
 	height: 600px;
-	/* 	box-shadow: 0px 2px 6px #00000029; */
+	box-shadow: 0px 2px 6px #00000029;
 	border-radius: 7px;
 	background: #fff;
 }
@@ -146,21 +146,32 @@
 .chat_input {
 	position: absolute;
 	bottom: 0;
-	width: 400px;
+	width: 380px;
 	height: 50px;
-	text-align: center;
+	border-top: 1px solid #707070;
+	margin: 0 10px;
 }
 
 .chat_input input {
 	display: inline-block;
-	width: 350px;
+	width: 340px;
 	height: 40px;
+	padding-top: 5px;
+	text-indent: 5px;
 	border: none;
-	border-top: 1px solid #707070;
 	outline: none;
+	font-size: 16px;
 }
 
-/* //////////////////// */
+.chat_input img {
+	position: absolute;
+	top: 10px;
+	right: 5px;
+	width: 25px;
+	height: 25px;
+	cursor: pointer;
+}
+
 #chatting {
 	height: 480px;
 	padding-bottom: 15px;

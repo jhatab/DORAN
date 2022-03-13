@@ -74,7 +74,7 @@
 	    
 	    <div class="chat_input">
 	        <input type="text" id="chatInput" autocomplete="off">
-<!-- 			<span><button onclick="send()" id="sendBtn">보내기</button></span> -->
+	        <img alt="보내기" src="/images/icon-send.png" id="sendBtn" onclick="send()">
 	    </div>
 	</div>
 	
