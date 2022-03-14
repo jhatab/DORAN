@@ -86,7 +86,7 @@
 			AND postedDate 
 			BETWEEN DATE_ADD(NOW(),INTERVAL -1 WEEK ) AND NOW()
 		ORDER BY likeCount DESC, postedDate DESC
-		LIMIT 3
+		LIMIT 5
 		]]>
 	</select>
 

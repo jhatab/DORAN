@@ -255,6 +255,11 @@ body {
 	display: none;
 }
 
+.input_id {
+	background: #f1f1f1;
+	outline: none;
+}
+
 /* 프로필 사진 */
 .userImg_wrap {
 	text-align: center;

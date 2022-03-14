@@ -79,7 +79,7 @@
 						</div>
 
 						<h3>아이디</h3>
-						<input class="input_content input_id" type="text" name="uid" value="${member.uid}" disabled/>
+						<input class="input_content input_id" type="text" name="uid" value="${member.uid}" readonly/>
 
 						<h3>비밀번호</h3>
 						<input class="input_content input_pw" type="password" name="upass" value="${member.upass}" placeholder="비밀번호를 입력해주세요"/>

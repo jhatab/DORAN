@@ -110,8 +110,10 @@ public class UserController {
 	
 	/* 회원 정보 수정 */
 	@RequestMapping(value = "/update.do", method = RequestMethod.POST)
-	public String userUpdate(UserVO userVO, MultipartFile file) throws Exception {
+	public String userUpdate(UserVO userVO, MultipartFile file, HttpSession session) throws Exception {
 		userService.userUpdate(userVO, file);
+		
+		session.invalidate();
 		
 		return "redirect:/user/login";
 	}

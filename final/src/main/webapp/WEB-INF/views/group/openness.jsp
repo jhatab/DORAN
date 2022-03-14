@@ -8,7 +8,7 @@
 <title>그룹 목록</title>
 </head>
 <body>
-	<div class="groupFeed post_info">
+	<div class="post_info">
 		<div class="middleWrapper">
 			<div class="groupFeedUpper">
 				<div class="userId">

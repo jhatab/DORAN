@@ -43,7 +43,7 @@
   	</select>
 	
 	<!-- 회원 정보 수정 -->
-	<update id="userUpdate">
+	<update id="userUpdate" parameterType="com.project.doran.user.vo.UserVO">
 		UPDATE userTbl 
 		SET upass = #{upass}, name = #{name}, birthDate = #{birthDate}, gender = #{gender}, 
 			nickname = #{nickname}, email = #{email}, address = #{address}, profileImg = #{profileImg}

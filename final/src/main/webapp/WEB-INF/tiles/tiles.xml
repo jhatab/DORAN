@@ -68,7 +68,11 @@
 	</definition>
 	
 	<!-- group : home -->
-	
+	<definition name="group/home" extends="main-layout">
+		<put-attribute name="title" value="도란도란"/>
+		<put-attribute name="css" value="/css/group/group.css"/>
+		<put-attribute name="body" value="/WEB-INF/views/group/home.jsp" />
+	</definition>
 	
 	<!-- group : setting -->
 	<definition name="group/setting" extends="main-layout">

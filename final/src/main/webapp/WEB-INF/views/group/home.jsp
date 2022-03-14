@@ -2,45 +2,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 
-<!DOCTYPE html>
-<html>
-
-<head>
-<meta charset="UTF-8">
-<title>${groupInfo.groupName}</title>
-<link rel="stylesheet" href="/css/common/reset.css">
-<link rel="stylesheet" href="/resources/css/group/home.css">
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <style>
-/* 게시물 작성 모달 */
-.postWrite_modal {
-	position: fixed;
-	top: 0;
-	left: 0;
-	width: 100%;
-	height: 100%;
-	background: rgba(0, 0, 0, 0.5);
-	z-index: 99;
-	display: none;
-}
-.postWrite_modal .postWrite_content {
-	position: absolute;
-	top: 50%;
-	left: 50%;
-	transform: translate(-50%, -50%);
-	width: 600px;
-	height: 500px;
-	padding: 30px;
-	text-align: center;
-	background: #fff;
-	vertical-align: middle;
-}
-.postWrite_modal .postWriteBtn_wrap, .postUpdate_modal .postUpdateBtn_wrap {
-	position: absolute;
-	bottom: 30px;
-	left: 50%;
-	transform: translate(-50%, 0%);
-}
 /* 게시물 수정 모달창 */
 .postUpdate_modal {
 	position: fixed;
@@ -85,54 +47,21 @@ input[type="file"] {
 	overflow: hidden;
 	border: 0;
 }
-/* 모달창 */
-.show_modal {
-	display: block
-}
-/* 인기 게시물 */
-.hotList_wrap {
-	position: absolute;
-	top: 10px;
-	right: 10px;
-	width: 250px;
-	height: 250px;
-	text-align: center;
-	background: #ddd;
-}
+
 </style>
 </head>
 
 <body>
-	<header>
-		<c:if test = "${member == null}">
-			<div class="login_button"><a href="/user/login">로그인</a></div>
-		</c:if>  
-		<c:if test = "${member != null}">
-			<div class="login_button">
-				<span>${member.nickname}</span>
-				<a href="/user/update.do">정보수정</a>
-				<a href="/user/logout.do">로그아웃</a>
-			</div>
-		</c:if>  
-	</header>
-	
-	<hr>
-	
-	<h1>그룹 페이지</h1>
-	
-	<hr>
-	
 	<div class="groupWrapper">
-	
 		<!-- Left Bar -->
 		<div class="leftWrapper">
 			<div class="groupPhoto">
 				<c:choose>
 					<c:when test="${groupInfo.groupImagePath == null or groupInfo.groupImagePath == ''}">
-						<img src="${contextPath}/resources/images/group_image_file/basic.png">
+						<img src="/images/group_image_file/basic.png">
 					</c:when>
 					<c:otherwise>
-						<img src="${contextPath}/resources/${groupInfo.groupImagePath}">
+						<img src="${groupInfo.groupImagePath}">
 					</c:otherwise>
 				</c:choose>
 			</div>
@@ -148,7 +77,7 @@ input[type="file"] {
 							</c:when>
 							<%-- 그룹원 --%>
 							<c:otherwise>
-								<a href="/group/setting?groupId=${groupInfo.groupId}" class="groupSetBtn">그룹 설정~</a>
+								<a href="/group/setting?groupId=${groupInfo.groupId}" class="groupSetBtn">그룹 정보</a>
 							</c:otherwise>
 						</c:choose>
 					</c:when>
@@ -166,38 +95,12 @@ input[type="file"] {
 					</c:otherwise>
 				</c:choose>
 			</div>
-		</div>
-		<form id="groupForm" method="get">
-			<input type="hidden" name="groupId" value="${groupInfo.groupId}">
-			<input type="hidden" name="uid" value="${member.uid}">
-		</form>
-		<!-- // Left Bar -->
-		
-		<!-- 그룹 정보 -->	
-		<%-- <div class="groip_info">
-			<c:choose>
-				<c:when test="${groupInfo.groupImagePath == null or groupInfo.groupImagePath == ''}">
-					<img src="${contextPath}/resources/images/group_image_file/basic.png" style="width: 100px; height: 100px">
-				</c:when>
-				<c:otherwise>
-					<img src="${contextPath}/resources/${groupInfo.groupImagePath}" style="width: 100px; height: 100px">
-				</c:otherwise>
-			</c:choose>
-			<span>그룹 식별자 : ${groupInfo.groupId}</span><br>
-			<span>그룹명 : ${groupInfo.groupName}</span><br>
-			<span>그룹소개 : ${groupInfo.groupIntro}</span><br>
-			<span>그룹 관리자 : ${groupInfo.uid}</span>
-			<div class="groupBtn_wrap">
-				<button type="button" class="groupUpdateBtn">그룹 수정</button>
-				<button type="button" class="groupDeleteBtn">그룹 삭제</button>
-				<button type="button" class="groupJoinBtn">그룹 가입</button>
-			</div>
 			<form id="groupForm" method="get">
 				<input type="hidden" name="groupId" value="${groupInfo.groupId}">
 				<input type="hidden" name="uid" value="${member.uid}">
 			</form>
-		</div> --%>
-		<!-- // 그룹 정보 -->
+		</div>
+		<!-- // Left Bar -->
 		
 		<!-- Middle Main -->
 		<div>
@@ -205,8 +108,8 @@ input[type="file"] {
 			<div class="search_wrap">
 				<form class="searchForm searchWrite" action="/group/home">
 					<div>
-						<img alt="search in Group" src="/resources/images/search.png" />
-						<input type="text" name="keyword" placeholder="그룹 내 게시글을 검색해보세요.">
+						<img alt="search in Group" src="/images/search.png" />
+						<input type="text" name="keyword" placeholder="그룹 내 게시글을 검색해보세요." autocomplete="off">
 						<input type="hidden" name="groupId" value="${groupInfo.groupId}">
 						<a href="/group/home?groupId=${groupInfo.groupId}" class="searchReset" style="display:none">취소</a>
 					</div>
@@ -219,17 +122,15 @@ input[type="file"] {
 			<div class="postWrite_modal">
 				<div class="postWrite_content">
 					<form id="postWriteForm" method="post" enctype="multipart/form-data">
-						<h3>게시물 작성</h3>
-						<input type="text" name="groupId" value="${groupInfo.groupId}" placeholder="그룹식별자" readonly><br>
-						<input type="text" name="uid" value="${member.uid}" placeholder="작성자"><br>
-						<textarea name="content" placeholder="내용"></textarea><br>
-						<input type="text" name="tag" placeholder="해시태그"><br>
-						<label><input type="radio" name="openness" value="0" checked="checked">전체</label>
-						<label><input type="radio" name="openness" value="1">회원</label>
-						<label><input type="radio" name="openness" value="2">그룹</label>
-						<label><input type="radio" name="openness" value="3">나만</label><br>
+						<input type="hidden" name="groupId" value="${groupInfo.groupId}" placeholder="그룹식별자" readonly><br>
+						<input type="hidden" name="uid" value="${member.uid}" placeholder="작성자"><br>
+						<label class="openness_btn"><input type="radio" name="openness" value="0" checked="checked"><span>전체공개</span></label>
+						<label class="openness_btn"><input type="radio" name="openness" value="1"><span>회원공개</span></label>
+						<label class="openness_btn"><input type="radio" name="openness" value="2"><span>그룹공개</span></label>
+						<label class="openness_btn"><input type="radio" name="openness" value="3"><span>나만보기</span></label><br>
+						<textarea name="content" placeholder="내용"></textarea>
+						<input type="text" name="tag" placeholder="해시태그">
 						<!-- 이미지 파일 업로드 -->
-						<hr>
 						<div class="attach_wrap">
 							<label for="files" class="inputFilesBtn">+</label>
 							<input type="file" name="files" id="files" multiple accept=".jpg, .png">
@@ -286,39 +187,14 @@ input[type="file"] {
 		</div>
 		<!-- //Middle Main -->
 		
-		<!-- 인기 게시물 목록 -->
-		<%-- <div class="hotList_wrap">
-			<h3>인기 게시물</h3>
-			<ul>
-				<c:forEach items="${hotList}" var="hList" varStatus="status">
-					<li class="hotPost_info">
-						<a href="#">
-							<span>${status.count}. </span>${hList.content} [${hList.likeCount}]
-						</a>
-					</li>
-				</c:forEach>
-			</ul>
-			<div class="hotPostNone" style="display: none;">
-				<span>게시물이 없습니다.</span>
-			</div>
-		</div> --%>
-		<!-- // 인기 게시물 목록 -->
-		
 		<!-- Right Bar -->
 		<div class="rightWrapper">
 			<p>인기 게시물</p>
 			<c:forEach items="${hotList}" var="hList" varStatus="status">
-				<div class="hotPost_info PopContents">
-					<p><a href="#">${status.count}.${hList.content}[${hList.likeCount}]</a></p>
+				<div class="hotPost_info">
+					<p>${status.count}.<a href="#"><span>${hList.content}</span>[${hList.likeCount}]</a></p>
 				</div>
 			</c:forEach>
-			<!-- <div class="groupPopPhoto">
-				<img alt="groupPopImg" src="/resources/images/groupImg.jpeg" />
-				<div class="PopContents">
-					<h4>날이 많이 따뜻해졌는데...</h4>
-					<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-				</div>
-			</div> -->
 			<div class="hotPostNone" style="display: none;">
 				<span>게시물이 없습니다.</span>
 			</div>
@@ -715,5 +591,3 @@ input[type="file"] {
 	}
 	
 	</script>
-</body>
-</html>

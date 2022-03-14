@@ -90,9 +90,15 @@ public class UserServiceImpl implements UserService {
 			file.transferTo(saveFile);
 
 			userVO.setProfileImg("/images/user_image_file/" + fileName);
+			System.out.println(userVO.getUid());
+			System.out.println(userVO.getUpass());
+			System.out.println(userVO.getName());
 		}
 
+		
 		userDAO.userUpdate(userVO);
+
+		System.out.println("회원정보 수정!!");
 	}
 	
 	/* 가입한 그룹 목록 */
