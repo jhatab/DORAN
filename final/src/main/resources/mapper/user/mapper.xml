@@ -15,23 +15,9 @@
 		</if>
 	</sql>
 	
-	<select id="userInfo" resultType="com.project.doran.user.vo.UserVO">
-		select *
-		from userTbl
-		where uid=#{uid}
-	</select>
-	
-	<!-- 회원 수정 -->
-	<update id="userUpdate">
-		UPDATE userTbl 
-		SET upass = #{upass}, name = #{name}, birthDate = #{birthDate}, gender = #{gender}, 
-			nickname = #{nickname}, email = #{email}, address = #{address}
-		WHERE uid = #{uid} 
-	</update>
-	
 	<!-- 로그인 -->
 	<select id="userLogin" resultType="com.project.doran.user.vo.UserVO">
-    	SELECT uid, nickname
+    	SELECT *
     	FROM userTbl
     	WHERE uid = #{uid} AND upass = #{upass}
 	</select>
@@ -55,5 +41,24 @@
   		FROM userTbl
   		WHERE nickname = #{nickname}
   	</select>
+	
+	<!-- 회원 정보 수정 -->
+	<update id="userUpdate">
+		UPDATE userTbl 
+		SET upass = #{upass}, name = #{name}, birthDate = #{birthDate}, gender = #{gender}, 
+			nickname = #{nickname}, email = #{email}, address = #{address}, profileImg = #{profileImg}
+		WHERE uid = #{uid} 
+	</update>
+	
+	<!-- 가입한 그룹 목록 -->
+	<select id="userGroupList" resultType="com.project.doran.group.vo.GroupVO">
+		SELECT ug.groupId, ug.uid, ug.joinDate, ug.isApproval, g.groupName, g.groupImagePath
+		FROM userGroupMappingTbl ug
+			LEFT OUTER JOIN groupTbl g ON g.groupId = ug.groupId
+		WHERE ug.uid = #{uid}
+			AND ug.isApproval > 0
+			AND g.isDeleted = 0
+		ORDER BY ug.joinDate ASC
+	</select>
   	
 </mapper>

@@ -34,7 +34,9 @@
 										<img src="${gList.groupImagePath}">
 									</c:otherwise>
 								</c:choose>
-								<div><c:out value="${gList.groupName}" /></div>
+								<span>
+									<c:out value="${gList.groupName}" />
+								</span>
 							</a>
 						</li>
 					</c:forEach>

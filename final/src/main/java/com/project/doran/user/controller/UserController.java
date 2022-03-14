@@ -7,7 +7,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -109,41 +108,12 @@ public class UserController {
 		}
 	}
 	
-	/////////////////////////////////////
-
-	/* 회원정보 페이지 */
-	@RequestMapping(value = "/list.do", method = RequestMethod.GET)
-	public void userListGET(HttpSession session, Model model) throws Exception {
-		logger.info("회원정보 페이지입니다.");
-
-		model.addAttribute("member", userService.userInfo((String) session.getAttribute("uid")));
-
-	}
-
-	@RequestMapping(value = "list.do", method = RequestMethod.POST)
-	public String userListPOST(UserVO userVO) throws Exception {
-
-		userService.userUpdate(userVO);
-
-		return "redirect:/user/update";
-	}
-
-	/* 정보 수정 */
-	@RequestMapping(value = "update.do", method = RequestMethod.GET)
-	public String userUpdateForm(HttpSession session, Model model) throws Exception {
-		logger.info("정보 수정");
-
-		model.addAttribute("member", userService.userInfo((String) session.getAttribute("uid")));
-
-		return "/user/update";
-	}
-
-	@RequestMapping(value = "update.do", method = RequestMethod.POST)
-	public String userUpdate(UserVO userVO) throws Exception {
-
-		userService.userUpdate(userVO);
-
-		return "redirect:/main";
+	/* 회원 정보 수정 */
+	@RequestMapping(value = "/update.do", method = RequestMethod.POST)
+	public String userUpdate(UserVO userVO, MultipartFile file) throws Exception {
+		userService.userUpdate(userVO, file);
+		
+		return "redirect:/user/login";
 	}
 
 }

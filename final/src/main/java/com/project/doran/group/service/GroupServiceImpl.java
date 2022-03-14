@@ -31,16 +31,6 @@ public class GroupServiceImpl implements GroupService {
 		return groupDAO.groupList();
 	}
 
-	@Override
-	public List<GroupVO> userGroupMappingList(GroupVO groupVO, HttpServletRequest request) throws Exception {
-		// 로그인 유저 아이디
-		HttpSession session = request.getSession();
-		String userId = (String) session.getAttribute("uid");
-		groupVO.setUid(userId);
-
-		return groupDAO.userGroupMappingList(groupVO);
-	}
-
 	/* 그룹 생성 + 생성자-그룹 매핑 */
 	@Override
 	public void groupCreate(GroupVO groupVO, MultipartFile file) throws Exception {

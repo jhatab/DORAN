@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.project.doran.group.vo.GroupVO;
 import com.project.doran.search.vo.CriteriaVO;
 import com.project.doran.search.vo.PagingVO;
 import com.project.doran.user.dao.UserDAO;
@@ -34,23 +35,12 @@ public class UserServiceImpl implements UserService {
 		return userDAO.getSearchList(pagingVO);
 	}
 
-	// 회원정보 보기
-	@Override
-	public UserVO userInfo(String uid) throws Exception {
-		return userDAO.userInfo(uid);
-	}
-
-	// 회원정보 수정
-	public void userUpdate(UserVO userVO) throws Exception {
-		userDAO.userUpdate(userVO);
-	}
-	
 	/* 로그인 */
 	@Override
 	public UserVO userLogin(UserVO userVO) throws Exception {
 		return userDAO.userLogin(userVO);
 	}
-	
+
 	/* 회원가입 */
 	@Override
 	public void userJoin(UserVO userVO, MultipartFile file) throws Exception {
@@ -65,15 +55,13 @@ public class UserServiceImpl implements UserService {
 			File saveFile = new File(userImagePath, fileName);
 
 			file.transferTo(saveFile);
-			
-			System.out.println("/images/user_image_file/" + fileName);
 
 			userVO.setProfileImg("/images/user_image_file/" + fileName);
 		}
-		
+
 		userDAO.userJoin(userVO);
 	}
-	
+
 	/* 아이디 중복 검사 */
 	@Override
 	public int idCheck(String uid) throws Exception {
@@ -84,6 +72,33 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public int nickCheck(String nickname) throws Exception {
 		return userDAO.nickCheck(nickname);
+	}
+
+	/* 회원정보 수정 */
+	@Override
+	public void userUpdate(UserVO userVO, MultipartFile file) throws Exception {
+		String userImagePath = System.getProperty("user.dir")
+				+ "\\src\\main\\resources\\static\\images\\user_image_file";
+
+		if (!file.isEmpty()) {
+			UUID uuid = UUID.randomUUID();
+
+			String fileName = uuid + "_" + file.getOriginalFilename();
+
+			File saveFile = new File(userImagePath, fileName);
+
+			file.transferTo(saveFile);
+
+			userVO.setProfileImg("/images/user_image_file/" + fileName);
+		}
+
+		userDAO.userUpdate(userVO);
+	}
+	
+	/* 가입한 그룹 목록 */
+	@Override
+	public List<GroupVO> userGroupList(String uid) throws Exception {
+		return userDAO.userGroupList(uid);
 	}
 
 }

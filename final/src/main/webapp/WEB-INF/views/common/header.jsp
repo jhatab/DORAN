@@ -23,9 +23,7 @@
 				<c:if test="${member != null}">
 					<li class="login_btn">
 						<span>${member.nickname}</span>
-						<a href="/mypage">마이페이지</a>
-						<a href="/user/list.do">회원 정보</a>
-						<a href="/user/update.do">정보수정</a>
+						<a href="/mypage/${member.uid}">마이페이지</a>
 						<a href="/user/logout.do">로그아웃</a>
 					</li>
 				</c:if>

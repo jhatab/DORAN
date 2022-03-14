@@ -38,24 +38,31 @@
 	</definition>
 	
 	<!-- mypage -->
+	<definition name="/mypage" extends="main-layout">
+		<put-attribute name="title" value="마이페이지"/>
+		<put-attribute name="css" value="/css/mypage.css"/>
+		<put-attribute name="css2" value="/css/datepicker.css"/>
+		<put-attribute name="css3" value="/css/datepicker-custom.css"/>
+		<put-attribute name="body" value="/WEB-INF/views/mypage.jsp" />
+	</definition>
    
 	<!-- group : list -->
 	<definition name="group/list" extends="main-layout">
-		<put-attribute name="title" value="도란도란"/>
+		<put-attribute name="title" value="그룹 목록"/>
 		<put-attribute name="css" value="/css/group/groupList.css"/>
 		<put-attribute name="body" value="/WEB-INF/views/group/list.jsp" />
 	</definition>
    
 	<!-- group : create -->
 	<definition name="group/create" extends="main-layout">
-		<put-attribute name="title" value="도란도란"/>
+		<put-attribute name="title" value="그룹 만들기"/>
 		<put-attribute name="css" value="/css/group/groupCreate.css"/>
 		<put-attribute name="body" value="/WEB-INF/views/group/create.jsp" />
 	</definition>
    
 	<!-- group : update -->
 	<definition name="group/update" extends="main-layout">
-		<put-attribute name="title" value="도란도란"/>
+		<put-attribute name="title" value="그룹 수정하기"/>
 		<put-attribute name="css" value="/css/group/groupUpdate.css"/>
 		<put-attribute name="body" value="/WEB-INF/views/group/update.jsp" />
 	</definition>

@@ -14,16 +14,6 @@
 		ORDER BY createdDate DESC;
 	</select>
 	
-	<!-- 가입한 그룹 목록 -->
-	<select id="userGroupMappingList" resultType="com.project.doran.group.vo.GroupVO">
-		SELECT ug.groupId, ug.uid, ug.joinDate, ug.isApproval, g.groupName
-		FROM userGroupMappingTbl ug
-			LEFT OUTER JOIN groupTbl g ON g.groupId = ug.groupId
-		WHERE ug.uid = #{uid}
-			AND ug.isApproval > 0
-		ORDER BY ug.joinDate ASC
-	</select>
-
 	<!-- 생성자-그룹 매핑 -->
 	<insert id="userGroupMapping">
 		INSERT INTO userGroupMappingTbl(groupId, uid, isApproval)

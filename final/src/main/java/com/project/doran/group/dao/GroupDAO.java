@@ -13,8 +13,6 @@ public interface GroupDAO{
 	/* 그룹 목록 */
 	public List<GroupVO> groupList() throws Exception;
 	
-	public List<GroupVO> userGroupMappingList(GroupVO groupVO) throws Exception;
-	
 	/* 그룹 생성 */
 	public void groupCreate(GroupVO groupVO) throws Exception;
 	
@@ -56,6 +54,5 @@ public interface GroupDAO{
 	
 	/* 그룹원 수 (그룹원) */
 	public int groupMemberCntB(int groupId) throws Exception;
-	
 
 }
