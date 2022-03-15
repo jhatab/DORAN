@@ -73,7 +73,7 @@
 
 	<!-- 그룹 가입 회원 리스트 -->
 	<select id="groupMemberList" resultType="com.project.doran.group.vo.GroupVO">
-		SELECT ug.*, u.nickname, postCnt, replyCnt
+		SELECT ug.*, u.nickname, u.profileImg, postCnt, replyCnt
 		FROM userGroupMappingTbl ug
 		    LEFT OUTER JOIN userTbl u on u.uid = ug.uid
 		    LEFT OUTER JOIN (

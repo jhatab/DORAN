@@ -59,11 +59,11 @@
 									<td class="num"><c:out value="${status.index + 1}" /></td>
 									<td class="user">
 										<c:choose>
-											<c:when test="${member.profileImg == null or member.profileImg == ''}">
+											<c:when test="${mList.profileImg == null or mList.profileImg == ''}">
 												<img src="/images/chatbot.png"/>
 											</c:when>
 											<c:otherwise>
-												<img src="${member.profileImg}">
+												<img src="${mList.profileImg}">
 											</c:otherwise>
 										</c:choose>
 										<span class="nickname"><c:out value="${mList.nickname}" /></span>
@@ -98,11 +98,11 @@
 										<td class="num"><c:out value="${status.index + 1}" /></td>
 										<td class="user">
 											<c:choose>
-												<c:when test="${member.profileImg == null or member.profileImg == ''}">
+												<c:when test="${mList.profileImg == null or mList.profileImg == ''}">
 													<img src="/images/chatbot.png"/>
 												</c:when>
 												<c:otherwise>
-													<img src="${member.profileImg}">
+													<img src="${mList.profileImg}">
 												</c:otherwise>
 											</c:choose>
 											<span class="nickname"><c:out value="${mList.nickname}" /></span>
