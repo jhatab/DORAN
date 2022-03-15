@@ -42,7 +42,7 @@ public class MainController {
 		
 		model.addAttribute("userGroupList", userService.userGroupList(uid));
 		
-//		model.addAttribute("member", userService.userInfo((String) session.getAttribute("uid")));
+		model.addAttribute("userCategoryList", userService.userCategoryList(uid));
 		
 		return "/mypage";
 	}

@@ -95,16 +95,29 @@ public class UserServiceImpl implements UserService {
 			System.out.println(userVO.getName());
 		}
 
-		
 		userDAO.userUpdate(userVO);
 
 		System.out.println("회원정보 수정!!");
 	}
-	
+
 	/* 가입한 그룹 목록 */
 	@Override
 	public List<GroupVO> userGroupList(String uid) throws Exception {
 		return userDAO.userGroupList(uid);
+	}
+
+	/* 관심 주제 설정 */
+	@Override
+	public void userCategoryMapping(UserVO userVO, String uid) throws Exception {
+		userDAO.userCategoryDelete(uid);
+		
+		userDAO.userCategoryMapping(userVO);
+	}
+
+	/* 관심 주제 가져오기 */
+	@Override
+	public UserVO userCategoryList(String uid) throws Exception {
+		return userDAO.userCategoryList(uid);
 	}
 
 }

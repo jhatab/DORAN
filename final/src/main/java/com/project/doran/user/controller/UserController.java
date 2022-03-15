@@ -117,5 +117,16 @@ public class UserController {
 		
 		return "redirect:/user/login";
 	}
+	
+	/* 관심 주제 설정 */
+	@RequestMapping(value = "/interest.do", method = RequestMethod.POST)
+	public String userInterestPOST(UserVO userVO, String uid, HttpServletRequest request) throws Exception {
+		logger.info("관심 주제 설정");
+		
+		userService.userCategoryMapping(userVO, uid);
 
+		String referer = request.getHeader("Referer");
+		return "redirect:" + referer;
+	}
+	
 }

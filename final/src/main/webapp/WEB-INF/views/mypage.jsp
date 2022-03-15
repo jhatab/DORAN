@@ -25,14 +25,17 @@
 		</div>
 		<!-- 관심 주제 -->
 		<div id="categoryList">
-			<span>${member.nickname}님의 관심 주제를 선택해주세요. 최대 5개까지 선택이 가능합니다.</span>
-			<div>
-				<c:forEach items="${categoryList}" var="cList">
-						<input type="checkbox" id="categoryId${cList.categoryId}" name="categoryId" value="${cList.categoryName}" />
-						<label for="categoryId${cList.categoryId}">${cList.categoryName}</label>
-				</c:forEach>
-			</div>
-			<button class="enrollBtn">확인</button>
+			<form method="post" action="/user/interest.do">
+				<span>${member.nickname}님의 관심 주제를 선택해주세요.</span>
+				<input type="hidden" name="uid" value="${member.uid}" />
+				<div>
+					<c:forEach items="${categoryList}" var="cList">
+							<input type="radio" id="categoryId${cList.categoryId}" name="categoryId" value="${cList.categoryId}" <c:if test="${cList.categoryId == userCategoryList.categoryId}">checked</c:if>/>
+							<label for="categoryId${cList.categoryId}">${cList.categoryName}</label>
+					</c:forEach>
+				</div>
+				<button class="enrollBtn">확인</button>
+			</form>
 		</div>
 		<!--가입 그룹  -->
 		<div id="groupList">

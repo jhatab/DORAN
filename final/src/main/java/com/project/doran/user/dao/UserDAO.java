@@ -40,4 +40,15 @@ public interface UserDAO {
 	
 	/* 가입한 그룹 목록 */
 	public List<GroupVO> userGroupList(String uid) throws Exception;
+	
+	/* 관심 주제 설정 */
+	public void userCategoryMapping(UserVO userVO) throws Exception;
+	
+	/* 관심 주제 삭제 */
+	public void userCategoryDelete(String uid) throws Exception;
+	
+	/* 관심 주제 가져오기 */
+	public UserVO userCategoryList(String uid) throws Exception;
+	
+	
 }
