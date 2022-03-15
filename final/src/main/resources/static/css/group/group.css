@@ -49,6 +49,7 @@
 	line-height: 35px;
 	border-radius: 5em;
 	background-color: #ffc900;
+	box-shadow: 0px 2px 6px #00000029;
 }
 
 /* Right Bar */
@@ -61,7 +62,6 @@
 	background: #fff;
 	box-shadow: 0px 2px 6px #00000029;
 	box-sizing: border-box;
-	box-shadow: 0px 2px 6px #00000029;
 }
 
 .rightWrapper>p {
@@ -85,13 +85,20 @@
 
 .hotPost_info p a span {
 	display: inline-block;
-	max-width: 160px;
+	/* 	max-width: 151px; */
+	max-width: 185px;
 	height: 100%;
-	padding-right: 7px;
+	/* 	padding-right: 5px; */
 	vertical-align: middle;
 	white-space: nowrap;
 	overflow: hidden;
 	text-overflow: ellipsis;
+}
+
+.hotPost_info p img {
+	width: 12px;
+	height: 12px;
+	padding-right: 3px;
 }
 
 /* Middle Main */
@@ -144,7 +151,11 @@
 	border-radius: 5em;
 	background-color: #ffc900;
 	box-shadow: 0px 2px 6px #00000029;
-	line-height: 37px;
+	cursor: pointer;
+}
+
+.postWriteBtn:hover {
+	transform: translateY(-3px);
 }
 
 /* 피드 작성 모달창 */
@@ -155,7 +166,7 @@
 	width: 100%;
 	height: 100%;
 	background: rgba(0, 0, 0, 0.5);
-	z-index: 99;
+	z-index: 999;
 	display: none;
 }
 
@@ -165,82 +176,146 @@
 	left: 50%;
 	transform: translate(-50%, -50%);
 	width: 600px;
-	height: 500px;
-	padding: 30px;
+	height: 600px;
+	padding: 70px 75.5px;
 	text-align: center;
 	background: #fff;
-	vertical-align: middle;
+	box-sizing: border-box;
 }
 
-.openness_btn input[type="radio"] {
+label.openness_btn input[type="radio"] {
 	display: none;
 }
 
-.openness_btn input[type="radio"]+span {
-	display: inline-block;
-	padding: 10px 20px;
+label.openness_btn span {
+	float: left;
+	width: 111px;
+	height: 40px;
+	line-height: 40px;
 	border: 1px solid #FFC900;
 	text-align: center;
 	cursor: pointer;
 }
 
-.openness_btn input[type="radio"]:checked+span {
+label.openness_btn input[type="radio"]:checked+span {
 	background-color: #FFC900;
+}
+
+label.openness_btn:nth-of-type(1) span {
+	border-radius: 10px 0 0 10px;
+}
+
+label.openness_btn:nth-of-type(2) span {
+	margin-left: -1px;
+}
+
+label.openness_btn:nth-of-type(3) span {
+	margin-left: -1px;
+}
+
+label.openness_btn:nth-of-type(4) span {
+	margin-left: -1px;
+	border-radius: 0 10px 10px 0;
 }
 
 .postWrite_content textarea {
-	width: 400px;
+	width: 100%;
 	height: 200px;
-	margin-top: 20px;
-	margin-bottom: 20px;
+	margin: 20px 0 10px 0;
+	padding: 10px;
+	border: none;
+	outline: none;
 	resize: none;
-	background: #FFF6D6;
+	background: rgba(255, 201, 0, 0.05);
+	box-sizing: border-box;
 }
 
-.postWrite_content input {
-	width: 400px;
-	height: 20px;
-	background: #FFF6D6;
+.postWrite_content input[type="text"] {
+	width: 100%;
+	height: 30px;
+	margin-bottom: 25px;
+	padding: 5px 10px;
+	outline: none;
+	background: rgba(255, 201, 0, 0.05);
+	box-sizing: border-box;
+}
+
+input[type="file"] {
+	position: absolute;
+	width: 0;
+	height: 0;
+	padding: 0;
+	overflow: hidden;
+	border: 0;
+}
+
+.postWrite_content .attach_wrap label.inputFilesBtn {
+	float: left;
+	width: 70px;
+	height: 70px;
+	line-height: 70px;
+	margin-right: 22.25px;
+	text-align: center;
+	border: 1px solid #ccc;
+	background-color: #eee;
+	cursor: pointer;
+}
+
+.postWrite_content .attach_wrap {
+	height: 72px;
 	margin-bottom: 20px;
 }
 
-.postWriteBtn_wrap button {
-	background-color: #FFC900;
+.postWrite_content .attach_wrap ul {
+	display: flex;
+}
+
+.postWrite_content .attach_wrap ul li img {
+	width: 70px;
+	height: 70px;
+	margin-right: 22.25px;
+	border: 1px solid #ccc;
+}
+
+.postWrite_content .attach_wrap ul li:last-child img {
+	margin-right: 0;
+}
+
+.postWriteBtn_wrap {
+	clear: both;
+}
+
+.postWriteBtn_wrap .postWriteCancleBtn {
+	width: 90px;
+	height: 35px;
+	line-height: 36px;
+	margin-right: 10px;
+	border: 1px solid #FFC900;
 	border-radius: 5em;
-	border: none;
-	width: 80px;
-	height: 25px;
-	line-height: 25px;
-	cursor: pointer;
+	background-color: #fff;
 	box-shadow: 0px 2px 6px #00000029;
+	border: 1px solid #FFC900;
+	height: 35px;
+	line-height: 36px;
 }
 
-.postWriteCancleBtn {
-	position: absolute;
-	top: 30px;
-	right: 30px;
-	border: none;
-	outline: none;
-	background: none;
-}
-
-.postWriteCancleBtn img {
-	border: none;
-	outline: none;
-	background: none;
-	width: 25px;
-	height: 25px;
-}
-
-.postWrite_modal .postWriteBtn_wrap, .postUpdate_modal .postUpdateBtn_wrap
-	{
-	position: absolute;
-	bottom: 30px;
-	left: 50%;
-	transform: translate(-50%, 0%);
+.postWriteBtn_wrap .postWriteFinBtn {
+	width: 90px;
+	height: 35px;
+	line-height: 36px;
+	border: 1px solid #FFC900;
+	border-radius: 5em;
+	background-color: #FFC900;
+	box-shadow: 0px 2px 6px #00000029;
+	height: 35px;
+	line-height: 36px;
 }
 
 /* 피드 */
+.post_wrap {
+	
+}
+
 .post_info {
 	width: 600px;
 	height: auto;
@@ -251,7 +326,441 @@
 	box-shadow: 2px 2px 5px 1px #d2d2d2;
 }
 
+.groupFeedUpper {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	margin-bottom: 20px;
+}
+
+.userId {
+	display: flex;
+	align-items: center;
+}
+
+.userId img {
+	width: 40px;
+	height: 40px;
+	margin-right: 10px;
+	border: 1px solid #ccc;
+	border-radius: 50%;
+}
+
+.userId p {
+	font-weight: bold;
+	font-size: 18px;
+	margin-right: 10px;
+}
+
+.userId span {
+	color: gray;
+}
+
+.groupFeedMenu {
+	overflow: hidden;
+}
+
+.groupFeedMenu img {
+	width: 25px;
+	cursor: pointer;
+}
+
+.groupFeedMenu .toggleMenu {
+	position: relative;
+	float: left;
+	margin-top: 3px;
+	margin-right: 10px;
+}
+
+.groupFeedMenu .toggleMenu::after {
+	content: "";
+	width: 4px;
+	height: 4px;
+	background-color: gray;
+	border-radius: 50%;
+	position: absolute;
+	top: 7.5px;
+	right: 39px;
+}
+
+.groupFeedMenu .toggleMenu button {
+	color: gray;
+	background: none;
+}
+
+.postUpdateBtn {
+	margin-right: 20px;
+}
+
+.middleContents {
+	margin-bottom: 15px;
+	word-break: break-all;
+	text-overflow: ellipsis;
+}
+
+.groupFeedLower {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	margin-bottom: 10px;
+}
+
+.groupHash button {
+	color: gray;
+	margin-right: 10px;
+	font-size: 16px;
+}
+
+.groupHash button:hover, .groupHash button:focus, .groupHash button:active
+	{
+	color: #ffc900;
+	cursor: pointer;
+}
+
+.groupReply {
+	margin-right: 15px;
+}
+
+.groupReply img {
+	width: 15px;
+	height: 15px;
+	margin-right: 5px;
+	vertical-align: -1.5px;
+}
+
+.groupLike img {
+	width: 15px;
+	height: 15px;
+	margin-right: 5px;
+	cursor: pointer;
+}
+
+.groupFeedImg {
+	display: flex;
+}
+
+.groupFeedImg img {
+	width: 140px;
+	height: 140px;
+	border-radius: 10px;
+	box-shadow: 1px 1px 5px 1px #d2d2d2;
+	text-align: center;
+	object-fit: cover;
+	cursor: pointer;
+	margin-right: 13px;
+}
+
+/* 댓글 */
+.reply_wrap {
+	margin-top: 10px;
+}
+
+.groupComment {
+	position: relative;
+	display: flex;
+	justify-content: flex-start;
+	align-items: flex-start;
+	margin-bottom: 15px;
+}
+
+.groupComment>img {
+	width: 25px;
+	height: 25px;
+	border: 1px solid #ccc;
+	border-radius: 50%;
+}
+
+.groupComment span {
+	width: 70px;
+	margin-top: 4px;
+	margin-left: 5px;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+
+.groupComment textarea {
+	/* 	background: pink; */
+	width: 480px;
+	margin-top: 4px;
+	color: gray;
+	border: none;
+	resize: none;
+	outline: none;
+	overflow: hidden;
+}
+
+.groupComment textarea.readonlyF {
+	/* 	padding: 5px; */
+	border: 1px solid #ccc;
+}
+
+.groupReplyMenu {
+	position: absolute;
+	top: 0;
+	right: 0;
+	margin-top: 5px;
+}
+
+.groupReplyMenu img {
+	text-align: right;
+	width: 15px;
+	cursor: pointer;
+}
+
+.groupReplyMenu .toggleMenu {
+	position: absolute;
+	top: -1.5px;
+	right: -80px;
+}
+
+.groupReplyMenu .toggleMenu::after {
+	content: "";
+	width: 4px;
+	height: 4px;
+	background-color: gray;
+	border-radius: 50%;
+	position: absolute;
+	top: 7.5px;
+	right: 35px;
+}
+
+.groupReplyMenu .toggleMenu button {
+	color: gray;
+	background: none;
+}
+
+.replyUpdateBtn {
+	margin-right: 14px;
+}
+
+.replyUpdateBtn_wrap:after {
+	content: "";
+	width: 4px;
+	height: 4px;
+	background-color: gray;
+	border-radius: 50%;
+	position: absolute;
+	top: 28.5px;
+	right: 35px;
+}
+
+.replyUpdateBtn_wrap .replyUpdateCancleBtn {
+	margin-right: 14px;
+}
+
+/* 댓글 작성 */
+.replyWrite_wrap {
+	position: relative;
+	border-radius: 5em;
+	border: 1px solid #ccc;
+}
+
+.replyWrite_wrap .replyContent {
+	width: 545px;
+	height: 30px;
+	text-indent: 10px;
+	border-radius: 5em 0 0 5em;
+	outline: none;
+}
+
+.replyWrite_wrap .replyWriteBtn {
+	position: absolute;
+	top: 0px;
+	right: 0px;
+	display: inline-block;
+	width: 60px;
+	height: 100%;
+	border-radius: 0 5em 5em 0;
+}
+
+/* 게시물 수정 모달창 */
+.postUpdate_modal {
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background: rgba(0, 0, 0, 0.5);
+	z-index: 999;
+	display: none;
+}
+
+.postUpdate_modal .postUpdate_content {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	width: 600px;
+	height: 600px;
+	padding: 70px 75.5px;
+	text-align: center;
+	background: #fff;
+	box-sizing: border-box;
+}
+
+.postUpdate_content label input[type="radio"] {
+	display: none;
+}
+
+.postUpdate_content label span {
+	float: left;
+	width: 111px;
+	height: 40px;
+	line-height: 40px;
+	border: 1px solid #FFC900;
+	text-align: center;
+	cursor: pointer;
+}
+
+.postUpdate_content label input[type="radio"]:checked+span {
+	background-color: #FFC900;
+}
+
+.postUpdate_content label:nth-of-type(1) span {
+	border-radius: 10px 0 0 10px;
+}
+
+.postUpdate_content label:nth-of-type(2) span {
+	margin-left: -1px;
+}
+
+.postUpdate_content label:nth-of-type(3) span {
+	margin-left: -1px;
+}
+
+.postUpdate_content label:nth-of-type(4) span {
+	margin-left: -1px;
+	border-radius: 0 10px 10px 0;
+}
+
+.postUpdate_content textarea {
+	width: 100%;
+	height: 200px;
+	margin: 20px 0 10px 0;
+	padding: 10px;
+	border: none;
+	outline: none;
+	resize: none;
+	background: rgba(255, 201, 0, 0.05);
+	box-sizing: border-box;
+}
+
+.postUpdate_content input[type="text"] {
+	width: 100%;
+	height: 30px;
+	margin-bottom: 25px;
+	padding: 5px 10px;
+	outline: none;
+	background: rgba(255, 201, 0, 0.05);
+	box-sizing: border-box;
+}
+
+.postUpdate_content .attach_wrap label.inputFilesBtn {
+	float: left;
+	width: 70px;
+	height: 70px;
+	line-height: 70px;
+	margin-right: 22.25px;
+	text-align: center;
+	border: 1px solid #ccc;
+	background-color: #eee;
+	cursor: pointer;
+}
+
+.postUpdate_content .attach_wrap {
+	height: 72px;
+	margin-bottom: 20px;
+}
+
+.postUpdate_content .attach_wrap ul {
+	display: flex;
+}
+
+.postUpdate_content .attach_wrap ul li img {
+	width: 70px;
+	height: 70px;
+	margin-right: 22.25px;
+	border: 1px solid #ccc;
+}
+
+.postUpdate_content .attach_wrap ul li:last-child img {
+	margin-right: 0;
+}
+
+.postUpdateBtn_wrap {
+	clear: both;
+}
+
+.postUpdateBtn_wrap .postUpdateCancleBtn {
+	width: 90px;
+	height: 35px;
+	line-height: 36px;
+	margin-right: 10px;
+	border: 1px solid #FFC900;
+	border-radius: 5em;
+	background-color: #fff;
+	box-shadow: 0px 2px 6px #00000029;
+	border: 1px solid #FFC900;
+	height: 35px;
+	line-height: 36px;
+}
+
+.postUpdateBtn_wrap .postUpdateFinBtn {
+	width: 90px;
+	height: 35px;
+	line-height: 36px;
+	border: 1px solid #FFC900;
+	border-radius: 5em;
+	background-color: #FFC900;
+	box-shadow: 0px 2px 6px #00000029;
+	height: 35px;
+	line-height: 36px;
+}
+
+/* /////////////////////////// */
+.groupReadMore {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	margin-top: 10px;
+	cursor: pointer;
+}
+
+.groupReadMore img {
+	width: 20px;
+	height: 20px;
+}
+
+/* 작은 피드 형태 */
+.groupId_small {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+}
+
+.groupFeedName {
+	display: flex;
+	align-items: center;
+	justify-content: flex-start;
+}
+
+.groupFeed_small {
+	display: flex;
+	align-items: center;
+	justify-content: flex-start;
+}
+
+.middleWrapper_small {
+	padding-left: 20px;
+}
+
 /* 모달창 */
 .show_modal {
 	display: block
+}
+
+/* 인기 게시물 */
+.hotPost {
+	transform: scale(1.1);
 }

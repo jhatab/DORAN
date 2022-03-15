@@ -44,8 +44,13 @@ ul, li, ol {
 	list-style: none;
 }
 
-input, button {
+input {
 	border: 0;
+}
+
+button {
+	border: 0;
+	cursor: pointer;
 }
 
 body {

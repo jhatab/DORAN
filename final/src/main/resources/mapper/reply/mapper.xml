@@ -7,7 +7,7 @@
 
 	<!-- 댓글 목록 -->
 	<select id="replyList" resultType="com.project.doran.reply.vo.ReplyVO">
-		SELECT r.replyId, r.postId, r.uid, r.replyContent, r.repliedDate, u.nickname
+		SELECT r.replyId, r.postId, r.uid, r.replyContent, r.repliedDate, u.nickname, u.profileImg
 		FROM replyTbl r
 			LEFT OUTER JOIN userTbl u ON r.uid = u.uid
 			LEFT OUTER JOIN postTbl p ON r.postId = p.postId

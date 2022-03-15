@@ -15,5 +15,10 @@ public class ChatRoomVO {
 	/* userTbl */
 	private String nickname1;
 	private String nickname2;
+	private String profileImg1;
+	private String profileImg2;
+	
+	private String recentMsg;	// 방 별 최근 메시지
+	private String recentTime;	// 방 별 최근 메시지 시간
 	
 }

@@ -2,55 +2,6 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 
-<style>
-/* 게시물 수정 모달창 */
-.postUpdate_modal {
-	position: fixed;
-	top: 0;
-	left: 0;
-	width: 100%;
-	height: 100%;
-	background: rgba(0, 0, 0, 0.5);
-	z-index: 99;
-	display: none;
-}
-.postUpdate_modal .postUpdate_content {
-	position: absolute;
-	top: 50%;
-	left: 50%;
-	transform: translate(-50%, -50%);
-	width: 600px;
-	height: 500px;
-	padding: 30px;
-	text-align: center;
-	background: #fff;
-	vertical-align: middle;
-}
-/* 이미지 파일 업로드 */
-label.inputFilesBtn {
-	display: inline-block;
-	width: 50px;
-	height: 50px;
-	line-height: 50px;
-	text-align: center;
-	background-color: #eee;
-	cursor: pointer;
-	background-color: #eee;
-	text-align: center;
-}
-
-input[type="file"] {
-	position: absolute;
-	width: 0;
-	height: 0;
-	padding: 0;
-	overflow: hidden;
-	border: 0;
-}
-
-</style>
-</head>
-
 <body>
 	<div class="groupWrapper">
 		<!-- Left Bar -->
@@ -122,18 +73,30 @@ input[type="file"] {
 			<div class="postWrite_modal">
 				<div class="postWrite_content">
 					<form id="postWriteForm" method="post" enctype="multipart/form-data">
-						<input type="hidden" name="groupId" value="${groupInfo.groupId}" placeholder="그룹식별자" readonly><br>
-						<input type="hidden" name="uid" value="${member.uid}" placeholder="작성자"><br>
-						<label class="openness_btn"><input type="radio" name="openness" value="0" checked="checked"><span>전체공개</span></label>
-						<label class="openness_btn"><input type="radio" name="openness" value="1"><span>회원공개</span></label>
-						<label class="openness_btn"><input type="radio" name="openness" value="2"><span>그룹공개</span></label>
-						<label class="openness_btn"><input type="radio" name="openness" value="3"><span>나만보기</span></label><br>
-						<textarea name="content" placeholder="내용"></textarea>
-						<input type="text" name="tag" placeholder="해시태그">
+						<input type="hidden" name="groupId" value="${groupInfo.groupId}" placeholder="그룹식별자" readonly>
+						<input type="hidden" name="uid" value="${member.uid}" placeholder="작성자">
+						<label class="openness_btn">
+							<input type="radio" name="openness" value="0" checked="checked">
+							<span>전체공개</span>
+						</label>
+						<label class="openness_btn">
+							<input type="radio" name="openness" value="1">
+							<span>회원공개</span>
+						</label>
+						<label class="openness_btn">
+							<input type="radio" name="openness" value="2">
+							<span>그룹공개</span>
+						</label>
+						<label class="openness_btn">
+							<input type="radio" name="openness" value="3">
+							<span>나만보기</span>
+						</label>
+						<textarea name="content" placeholder="내용을 입력하세요."></textarea>
+						<input type="text" name="tag" placeholder="해시태그를 입력하세요." autocomplete="off">
 						<!-- 이미지 파일 업로드 -->
 						<div class="attach_wrap">
-							<label for="files" class="inputFilesBtn">+</label>
 							<input type="file" name="files" id="files" multiple accept=".jpg, .png">
+							<label for="files" class="inputFilesBtn">+</label>
 							<ul class="attachView_wrap">
 							</ul>
 						</div>
@@ -192,7 +155,12 @@ input[type="file"] {
 			<p>인기 게시물</p>
 			<c:forEach items="${hotList}" var="hList" varStatus="status">
 				<div class="hotPost_info">
-					<p>${status.count}.<a href="#"><span>${hList.content}</span>[${hList.likeCount}]</a></p>
+					<p>${status.count}.
+						<a href="#" post-idx="post${hList.postId}">
+							<span>${hList.content}</span>
+						</a>
+<%-- 						(<img src="/images/like.png">${hList.likeCount}) --%>
+					</p>
 				</div>
 			</c:forEach>
 			<div class="hotPostNone" style="display: none;">
@@ -308,7 +276,7 @@ input[type="file"] {
 			reader.onload = function(e) {
 				var attach_html = '';
 				attach_html += "<li>";
-				attach_html += "<img src=\"" + e.target.result + "\" style='width: 50px; height: 50px'>";
+				attach_html += "<img src=\"" + e.target.result + "\">";
 // 				attach_html += "<button type='button'>삭제</button>";
 				attach_html += "</li>";
 				
@@ -431,6 +399,14 @@ input[type="file"] {
 	
 	/* ========== 게시물 추천 ========== */
 	
+	for (let i = 0; i < postCount.length; i++) {
+		$('.likeBtn').hover(function() {
+			$(this).attr("src", "/images/like-color.png");
+		}, function(){
+			$(this).attr("src", "/images/like.png");
+		});
+	}
+	
 	/* 좋아요 추가/취소 */
 	const likeAddData = {
 		uid : '${member.uid}',
@@ -466,14 +442,16 @@ input[type="file"] {
 		replyWriteData.uid = $(".replyWrite_wrap .uid").eq(i).val();
 		replyWriteData.postId = $(".replyWrite_wrap .postId").eq(i).val();
 		
-		$.ajax({
-			url: '/group/replyWrite.do',
-			type: 'post',
-			data: replyWriteData,
-			success: function(result){
-				window.location.reload();
-			}
-		});
+		if(replyWriteData.replyContent != '') {
+			$.ajax({
+				url: '/group/replyWrite.do',
+				type: 'post',
+				data: replyWriteData,
+				success: function(result){
+					window.location.reload();
+				}
+			});
+		}
 	}
 	
 	for (let i = 0; i < postCount.length; i++) {
@@ -523,11 +501,13 @@ input[type="file"] {
 
 	function replyUpdateBtnFunc(i) {
 		replyUpdateInput[i].readOnly = false;			// input readyOnly 해제
+		replyUpdateInput[i].classList.add("readonlyF"); // 스타일 클래스 추가
 		replyUpdateBtnWrap[i].style.display = "";		// 수정 취소, 완료 버튼 표시
 	}
 	
 	function replyUpdateCancleFunc(i) {
 		replyUpdateInput[i].readOnly = "readOnly";		// inut readOnly 설정
+		replyUpdateInput[i].classList.remove("readonlyF");	// 스타일 클래스 제거
 		replyUpdateBtnWrap[i].style.display = "none";	// 수정 취소, 완료 버튼 제거
 		window.location.reload();						// 새로고침
 	}
@@ -590,4 +570,36 @@ input[type="file"] {
 		});
 	}
 	
+	/* 댓글 textarea 높이 자동 조정 */
+	const replyTextarea = document.querySelectorAll(".replyInfo textarea");
+
+	function adjustTextarea() {
+		for (let i = 0; i < replyTextarea.length; i++) {
+			replyTextarea[i].style.height = "auto";
+			replyTextarea[i].style.height = (replyTextarea[i].scrollHeight) + 'px';
+
+			if (replyTextarea[i].value.length <= 35 && replyTextarea[i].value.split('\n').length <= 1) {
+				replyTextarea[i].style.height = 21 + "px";
+			}
+		}
+	}
+	adjustTextarea();
+	
+	/* 인기 게시물 */
+	const hotPost = document.querySelectorAll('.hotPost_info a');
+	
+	for(let i = 0; i < hotPost.length; i++) {
+		hotPost[i].addEventListener('click', function(e) {
+			var hotPostIdx = $(this).attr("post-idx");
+			var offset = $("." + hotPostIdx).offset();
+			
+			e.preventDefault();
+			$('html, body').animate({scrollTop: offset.top - 200}, 500);
+			$("." + hotPostIdx).addClass("hotPost");
+			setTimeout(function() {
+				$("." + hotPostIdx).removeClass("hotPost");
+			}, 2000)
+		});
+	}
+
 	</script>

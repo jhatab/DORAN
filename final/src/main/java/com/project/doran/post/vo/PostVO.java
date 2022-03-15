@@ -23,6 +23,7 @@ public class PostVO {
 
 	/* UserVO */
 	private String nickname;	// 게시물 작성자 닉네임
+	private String profileImg;	// 게시물 작성자 프로필사진
 	
 	/* SearchCriteriaVO */
 	private String keyword;		// 검색 키워드

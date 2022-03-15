@@ -7,7 +7,7 @@
 
 	<!-- 게시물 목록 -->
 	<select id="postList" resultType="com.project.doran.post.vo.PostVO">
-		SELECT distinct p.*, u.nickname
+		SELECT distinct p.*, u.nickname, u.profileImg
 		FROM postTbl p
 			LEFT OUTER JOIN userTbl u ON p.uid = u.uid
 		WHERE groupId = #{groupId} 
