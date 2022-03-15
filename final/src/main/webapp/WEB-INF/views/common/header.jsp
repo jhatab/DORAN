@@ -11,23 +11,47 @@
 			<input class="search_box" type="text" placeholder="Keyword Search" />
 		</div>
 		<div class="menu">
-			<ul class="menu_btn">
-				<li>
-					<img class="alarm_btn" src="/images/bell.png" />
-				</li>
-				<c:if test="${member == null}">
-					<li class="login_btn">
-						<a href="/user/login">로그인</a>
-					</li>
-				</c:if>
-				<c:if test="${member != null}">
-					<li class="login_btn">
-						<span>${member.nickname}</span>
-						<a href="/mypage/${member.uid}">마이페이지</a>
-						<a href="/user/logout.do">로그아웃</a>
-					</li>
-				</c:if>
-			</ul>
+			<c:if test="${member != null}">
+				<button class="alarm_btn"><img src="/images/bell.png" /></button>
+				<div class="alarm_list_wrap">
+					<h3>새 소식</h3>
+					<div class="alarm_list">
+						<p><a href="#">Lorem Insum</a></p>
+						<p><a href="#">Lorem Insum</a></p>
+						<p><a href="#">Lorem Insum</a></p>
+						<p><a href="#">Lorem Insum</a></p>
+						<p><a href="#">Lorem Insum</a></p>
+						<p><a href="#">Lorem Insum</a></p>
+						<p><a href="#">Lorem Insum</a></p>
+						<p><a href="#">Lorem Insum</a></p>
+						<p><a href="#">Lorem Insum</a></p>
+						<p><a href="#">Lorem Insum</a></p>
+					</div>
+				</div>
+			</c:if>
+			
+			<c:if test="${member == null}">
+				<div class="loginBtn_wrap">
+					<span class="login_btn"><a href="/user/login">로그인</a></span>
+				</div>
+			</c:if>
+			
+			<c:if test="${member != null}">
+				<div class="mypageBtn_wrap">
+					<span>${member.nickname}</span>
+					<span><a href="/mypage/${member.uid}">마이페이지</a></span>
+					<span><a href="/user/logout.do">로그아웃</a></span>
+				</div>
+			</c:if>
 		</div>
 	</div>
 </div>
+
+<!-- script -->
+<script>
+	
+	$(".alarm_btn").click(function(){
+		$(".alarm_list_wrap").slideToggle("fast");
+	});
+	
+</script>
