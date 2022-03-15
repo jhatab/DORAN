@@ -16,6 +16,7 @@ request.setCharacterEncoding("UTF-8");
 <title>게시물 목록</title>
 <script src="http://code.jquery.com/jquery-latest.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<link rel="stylesheet" type="text/css" href="/css/search.css">
 </head>
 <body>
 	<!-- 검색 form -->
@@ -62,6 +63,26 @@ request.setCharacterEncoding("UTF-8");
 			</ul>
 		</div>
 	</form>
+	
+	<div class="Search_area">
+                    <div class="Search_list">
+                        <div class="Search_result">
+                            <div class="Search_img"><img src="/images/ex1.jpg" /></div>
+                            <div class="Search_content">
+                                <div class="Content_header">
+                                    <img src="/images/chatbot.png" />
+                                    <h1>Lorem Insum</h1>
+                                    <span>2022-02-23</span>
+                                    <div class="search_like_view">
+                                        <img src="/images/like.png" />
+                                        <span>13</span>
+                                    </div>
+                                </div>
+                                <div class="Content_body"><span>{message}</span></div>
+                            </div>
+                        </div>
+                       </div>
+                       </div>
 
 </body>
 </html>

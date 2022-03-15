@@ -106,12 +106,14 @@ body{
 	color: black;
 	border-style: solid;
 	border: none;
+	width:60px;
 	padding: 6px 16px 6px 16px;
 	word-break: break-all;
 	border-radius: 15px;
 	font-size: 10pt;
 	background: #FFC900 0% 0% no-repeat padding-box;
 	box-shadow: 0px 2px 6px #00000029;
+	text-align:center;
 }
 
 .footer_area {
@@ -130,4 +132,91 @@ body{
 	justify-content: center;
 	align-items: center;
 	color: #707070;
+}
+
+.tab img {
+    width:25px;
+    height:25px;
+}
+
+ul.tab li {
+    list-style: none;
+    float:right;
+    cursor: pointer;
+    width: 25px;
+    height: 40px;
+    text-align: center;
+}
+
+.tab_con {
+    border-top: none;
+    float:right;
+    margin-right:10px;
+    width: 300px;
+    position: relative;
+}
+
+.alert_wrap {
+    width:300px;
+    
+}
+
+.tab_content {
+    display: none;
+    overflow: hidden;
+    background-color:white;
+    border:1px solid black;
+
+}
+
+.tab_content ul {
+    margin-block-start: 0;
+    margin-inline-start: 0;
+    padding-inline-start: 0;
+    background-color:white;
+}
+
+.tab_content ul li {
+    list-style:none;
+    width:300px;
+    padding:15px 0px 15px 10px;
+    display:flex;
+    align-items: center;
+    border-bottom:1px solid #D0D0D0;
+}
+
+ul.tab {
+    float:right;
+    margin: 0;
+    padding: 0;
+    font-weight: bold;
+}
+
+.login_menu {
+	display:none;
+	text-align:center;
+}
+
+
+.login_btn a {
+	text-decoration:none;
+	color:black;
+}
+
+.login_btn:hover ul {
+	display:block;
+	
+}
+
+.login_btn ul li {
+	width:60px;
+	font-size:10pt;
+	clear:left;
+	margin:0 auto;
+	margin-top:20px;
+}
+
+.login_btn ul li:hover {
+	background: orange;
+		transition: ease 1s;
 }

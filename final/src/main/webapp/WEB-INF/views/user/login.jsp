@@ -17,30 +17,38 @@
 
 <div class="container">
         <div class="login_wrapper">
-            <div class="login">
-            <div class="login_logo">
-            <img class="login_logo_img" src="/images/logo.png" />
-          </div>
-            <div class="login_box">
-                <form id="loginForm" method="post">
-                <div class="input_box"><h3>아이디</h3>
-                <input id="id_input" class="id_input" type="text" name="uid" placeholder="아이디를 입력해주세요"/>
-                <h3>비밀번호</h3>
-      <input class="pw_input" type="password" name="password" placeholder="비밀번호를 입력해주세요"/>
-                </div>
+           <div class="login">
+			<!-- 상단 로고 -->
+			<div class="login_logo">
+				<img class="login_logo_img" src="/images/logo.png" />
+			</div>
+			<!-- 로그인 폼 -->
+			<div class="login_box">
+				<form id="loginForm" method="post" action="/user/login.do">
+					<div class="input_box">
+						<h3>아이디</h3>
+						<input type="text" class="id_input" name="uid" placeholder="아이디를 입력해주세요">
+						<h3>비밀번호</h3>
+						<input type="password" class="pw_input" name="upass" placeholder="비밀번호를 입력해주세요">
+					</div>
 
-                <div class="find_btn"><span>아이디 찾기&nbsp;</span>
-                <span>/&nbsp;</span>
-                <span>비밀번호 찾기</span>
-                </div>
-                <div class="sign_btn">
-                <input class="login_button" type="submit" value="로그인" onClick={handleSubmit} />
-                </div>
-                	</form>
-                <div class="sign_up"><span>아직 계정이 없으신가요?&nbsp;</span>
-                <span>&nbsp;회원 가입</span></div>
-                </div>
-            </div>
+					<div class="find_btn">
+						<a href="#">아이디 찾기&nbsp;</a>
+						<span>/&nbsp;</span>
+						<a href="#">비밀번호 찾기</a>
+					</div>
+
+					<div class="sign_btn">
+						<input type="submit" class="login_button" value="로그인">
+					</div>
+				</form>
+				<!-- 회원가입 -->
+				<div class="sign_up">
+					<a href="${contextPath}/user/join">아직 계정이 없으신가요?&nbsp;</a>
+					<a href="${contextPath}/user/join">&nbsp;회원가입</a>
+				</div>
+			</div>
+		</div>
         </div>
         </div>
 

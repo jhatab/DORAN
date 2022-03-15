@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+	<%@ taglib uri="http://tiles.apache.org/tags-tiles" prefix="tiles"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 
@@ -11,25 +12,28 @@
 <title>그룹 목록</title>
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+	<link rel="stylesheet" type="text/css" href="/css/categoryList.css">
 </head>
 
 <body>
-	<h1>카테고리 목록 페이지</h1>
-	<div>
-		<a href="/category/create">카테고리 생성</a>
-		<hr>
-	</div>
-	<div>
+<div class="category_wrap">
+	
+	<div class="category_list">
 		<h3>카테고리 목록</h3>
 		<ul>
 
 			<c:forEach items="${categoryList}" var="cList">
-				<input type="button" value="${cList.categoryName}" onclick="categoryDeleteBtn(${cList.categoryId})"/>
+				<input class="category_btn" type="button" value="${cList.categoryName}" onclick="categoryDeleteBtn(${cList.categoryId})"/>
 			</c:forEach>
-
 		</ul>
+		<hr>
+		<div class="create_btn">
+		<button type="button" onclick="location.href='/category/create'">카테고리 생성</button>
 	</div>
-	<hr>
+	</div>
+
+	</div>
+
 
 	<!-- script -->
 	<script>

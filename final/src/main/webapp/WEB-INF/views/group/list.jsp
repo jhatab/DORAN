@@ -17,7 +17,7 @@
 	<div class="groupContent">
 	
 	<div>
-	<div class="groupCreacte_btn">
+	<div class="groupCreate_btn">
 		<button type="button" onclick="location.href='/group/create'">그룹생성</button>
 	</div>
 		<h3>카테고리 목록</h3>

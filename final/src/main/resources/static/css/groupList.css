@@ -46,11 +46,11 @@
     box-shadow: 0px 1px 6px #00000029;
 }
 
-.groupCreacte_btn{
+.groupCreate_btn{
 	float:right;
 }
 
-.groupCreacte_btn button{
+.groupCreate_btn button{
 	background-color:#FFC900;
     border-radius: 5em;
     border:none;

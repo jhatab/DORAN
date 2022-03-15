@@ -33,6 +33,14 @@
        <put-attribute name="body" value="/WEB-INF/views/mypage.jsp" />
    </definition>
    
+   <definition name="category/list" extends="main-layout">
+       <put-attribute name="body" value="/WEB-INF/views/category/list.jsp" />
+   </definition>
+   
+    <definition name="category/create" extends="main-layout">
+       <put-attribute name="body" value="/WEB-INF/views/category/create.jsp" />
+   </definition>
+   
    
  
 </tiles-definitions>
