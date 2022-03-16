@@ -106,7 +106,7 @@ ul, li {
 }
 
 .tabs li {
-	 display: inline-block;
+	display: inline-block;
     text-align: center;
     border:none;
     border-radius: 25px;
@@ -122,7 +122,7 @@ ul, li {
 }
 
 .tabs li.active {
-	 display: inline-block;
+	display: inline-block;
     text-align: center;
     border:none;
     border-radius: 25px;

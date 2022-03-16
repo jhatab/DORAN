@@ -18,10 +18,21 @@ public class PostServiceImpl implements PostService {
 	@Autowired
 	private PostDAO postDAO;
 
+	/* 메인 게시물 목록 */
+	@Override
+	public List<PostVO> mainPostList() throws Exception {
+		return postDAO.mainPostList();
+	}
+
 	/* 게시물 목록 */
 	@Override
 	public List<PostVO> postList(PostVO postVO) throws Exception {
 		return postDAO.postList(postVO);
+	}
+
+	/* 메인 이미지 파일 목록 */
+	public List<AttchVO> mainPostImageList() throws Exception {
+		return postDAO.mainPostImageList();
 	}
 
 	/* 이미지 파일 목록 */

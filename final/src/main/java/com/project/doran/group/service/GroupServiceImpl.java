@@ -30,6 +30,11 @@ public class GroupServiceImpl implements GroupService {
 	public List<GroupVO> groupList() throws Exception {
 		return groupDAO.groupList();
 	}
+	
+	/* 그룹 목록 좋아요순*/
+	public List<GroupVO> groupLikeList() throws Exception {
+		return groupDAO.groupLikeList();
+	}
 
 	/* 그룹 생성 + 생성자-그룹 매핑 */
 	@Override

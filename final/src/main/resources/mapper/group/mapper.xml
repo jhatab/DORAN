@@ -5,13 +5,20 @@
 
 <mapper namespace="com.project.doran.group.dao.GroupDAO">
 
-	<!-- 그룹 목록 -->
-	<select id="groupList"
-		resultType="com.project.doran.group.vo.GroupVO">
+	<!-- 그룹 목록 최신순 -->
+	<select id="groupList" resultType="com.project.doran.group.vo.GroupVO">
 		SELECT *
 		FROM groupTbl
 		WHERE isDeleted = 0
 		ORDER BY createdDate DESC;
+	</select>
+	
+	<!-- 그룹 목록 추천순(좋아요 수) -->
+	<select id="groupLikeList" resultType="com.project.doran.group.vo.GroupVO">
+		select DISTINCT(groupName), g.groupId, g.groupImagePath
+		from groupTbl g
+		INNER JOIN postTbl p ON g.groupId = p.groupId
+		ORDER BY p.likeCount DESC;
 	</select>
 	
 	<!-- 생성자-그룹 매핑 -->

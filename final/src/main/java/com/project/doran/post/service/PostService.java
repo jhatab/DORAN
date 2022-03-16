@@ -9,8 +9,14 @@ import com.project.doran.post.vo.PostVO;
 
 public interface PostService {
 	
+	/* 메인 게시물 목록 */
+	public List<PostVO> mainPostList() throws Exception;
+	
 	/* 게시물 목록 */
 	public List<PostVO> postList(PostVO postVO) throws Exception;
+	
+	/* 메인 이미지 파일 목록 */
+	public List<AttchVO> mainPostImageList() throws Exception;
 	
 	/* 이미지 파일 목록 */
 	public List<AttchVO> postImageList(int groupId) throws Exception;

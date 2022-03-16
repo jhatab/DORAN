@@ -10,8 +10,11 @@ import com.project.doran.group.vo.GroupVO;
 @Repository("groupDAO")
 public interface GroupDAO{
 
-	/* 그룹 목록 */
+	/* 그룹 목록 최신순*/
 	public List<GroupVO> groupList() throws Exception;
+	
+	/* 그룹 목록 좋아요순*/
+	public List<GroupVO> groupLikeList() throws Exception;
 	
 	/* 그룹 생성 */
 	public void groupCreate(GroupVO groupVO) throws Exception;
