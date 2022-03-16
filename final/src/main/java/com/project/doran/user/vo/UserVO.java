@@ -19,4 +19,7 @@ public class UserVO {
 	private int authority;			// 0-회원, 1-관리자
 	private String profileImg;		// 회원 프로필 사진 경로
 	
+	/* categoryTbl */
+	private String categoryId;
+	
 }

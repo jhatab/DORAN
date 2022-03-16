@@ -115,11 +115,11 @@ body {
 	transform: scale(1.1);
 }
 
-#categoryList input[type="checkbox"]:checked+label {
+#categoryList input[type="radio"]:checked+label {
 	background-color: #FFC900;
 }
 
-#categoryList input[type="checkbox"] {
+#categoryList input[type="radio"] {
 	display: none;
 }
 

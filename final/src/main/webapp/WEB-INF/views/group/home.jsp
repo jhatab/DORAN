@@ -49,6 +49,10 @@
 			<form id="groupForm" method="get">
 				<input type="hidden" name="groupId" value="${groupInfo.groupId}">
 				<input type="hidden" name="uid" value="${member.uid}">
+				<input type="hidden" name="toUid" value="${groupInfo.uid}">
+				<input type="hidden" name="fromUid" value="${member.uid}">
+				<input type="hidden" name="noticeType" value="join">
+				<input type="hidden" name="noticeMsg" value="${member.uid}님이 ${groupInfo.groupName}에 가입승인을 요청했습니다.">
 			</form>
 		</div>
 		<!-- // Left Bar -->
@@ -73,8 +77,9 @@
 			<div class="postWrite_modal">
 				<div class="postWrite_content">
 					<form id="postWriteForm" method="post" enctype="multipart/form-data">
-						<input type="hidden" name="groupId" value="${groupInfo.groupId}" placeholder="그룹식별자" readonly>
-						<input type="hidden" name="uid" value="${member.uid}" placeholder="작성자">
+						<input type="hidden" name="groupId" value="${groupInfo.groupId}">
+						<input type="hidden" name="uid" value="${member.uid}">
+						
 						<label class="openness_btn">
 							<input type="radio" name="openness" value="0" checked="checked">
 							<span>전체공개</span>
@@ -185,9 +190,9 @@
 		} else if (result === "feed delete success") {
 			alert("피드가 삭제되었습니다.");
 		} else if (result === "group join done") {
-			alert("이미 가입 신청");
+			alert("이미 가입 신청이 되었습니다. 승인이 있을 때까지 기다려주세요.");
 		} else if (result === "group join success") {
-			alert("그룹 가입 신청");
+			alert("그룹 가입 신청이 완료되었습니다. 승인이 있을 때까지 기다려주세요.");
 		}
 		
 	});
@@ -411,11 +416,23 @@
 	const likeAddData = {
 		uid : '${member.uid}',
 		postId : '',
+		
+		toUid : '',
+		fromUid : '',
+		noticeType : '',
+		groupId : '',
+		noticeMsg : '',
 	}
 	
 	for (let i = 0; i < postCount.length; i++) {
 		$(".likeBtn").eq(i).on("click", function() {
-			likeAddData.postId = $(this).attr("post-idx");			
+			likeAddData.postId = $(this).attr("post-idx");
+			
+			likeAddData.toUid = $(".groupFeedUpper .toUid").eq(i).val();
+			likeAddData.fromUid = "${member.uid}";
+			likeAddData.noticeType = "like";
+			likeAddData.groupId = ${groupInfo.groupId};
+			likeAddData.noticeMsg = "${member.nickname}님이 회원님의 피드를 좋아합니다.";
 			
 			$.ajax({
 				url: '/group/postLike.do',
@@ -435,12 +452,24 @@
 		replyContent : '',
 		uid : '',
 		postId : '',
+		
+		toUid : '',
+		fromUid : '',
+		noticeType : '',
+		groupId : '',
+		noticeMsg : '',
 	}
 	
 	function replyWriteFunc(i) {
 		replyWriteData.replyContent = $(".replyWrite_wrap .replyContent").eq(i).val();
 		replyWriteData.uid = $(".replyWrite_wrap .uid").eq(i).val();
 		replyWriteData.postId = $(".replyWrite_wrap .postId").eq(i).val();
+		
+		replyWriteData.toUid = $(".replyWrite_wrap .toUid").eq(i).val();
+		replyWriteData.fromUid = "${member.uid}";
+		replyWriteData.noticeType = "reply";
+		replyWriteData.groupId = ${groupInfo.groupId};
+		replyWriteData.noticeMsg = "${member.nickname}님이 댓글을 남겼습니다.";
 		
 		if(replyWriteData.replyContent != '') {
 			$.ajax({
@@ -591,13 +620,13 @@
 	for(let i = 0; i < hotPost.length; i++) {
 		hotPost[i].addEventListener('click', function(e) {
 			var hotPostIdx = $(this).attr("post-idx");
-			var offset = $("." + hotPostIdx).offset();
+			var offset = $("#" + hotPostIdx).offset();
 			
 			e.preventDefault();
 			$('html, body').animate({scrollTop: offset.top - 200}, 500);
-			$("." + hotPostIdx).addClass("hotPost");
+			$("#" + hotPostIdx).addClass("hotPost");
 			setTimeout(function() {
-				$("." + hotPostIdx).removeClass("hotPost");
+				$("#" + hotPostIdx).removeClass("hotPost");
 			}, 2000)
 		});
 	}

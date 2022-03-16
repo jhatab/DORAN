@@ -3,6 +3,8 @@ package com.project.doran.postLike.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.project.doran.notice.dao.NoticeDAO;
+import com.project.doran.notice.vo.NoticeVO;
 import com.project.doran.postLike.dao.PostLikeDAO;
 import com.project.doran.postLike.vo.PostLikeVO;
 
@@ -12,17 +14,23 @@ public class PostLikeServiceImpl implements PostLikeService {
 	@Autowired
 	private PostLikeDAO postLikeDAO;
 	
+	@Autowired
+	private NoticeDAO noticeDAO;
+	
 	/* 좋아요 체크 */
 	@Override
-	public int likeCheck(PostLikeVO postLikeVO) throws Exception {
+	public int likeCheck(PostLikeVO postLikeVO, NoticeVO noticeVO) throws Exception {
 		int likeCheck = postLikeDAO.likeCheck(postLikeVO);
 		
-		// 좋아요 추가
 		if(likeCheck == 0) {
+			// 알림 추가
+			noticeDAO.noticeAdd(noticeVO);
+			
+			// 좋아요 추가
 			return postLikeDAO.likeAdd(postLikeVO);
 		}
-		// 좋아요 취소
 		else {
+			// 좋아요 취소
 			return postLikeDAO.likeCancle(postLikeVO);
 		}
 	}

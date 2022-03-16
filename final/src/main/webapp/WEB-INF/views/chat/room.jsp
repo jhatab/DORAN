@@ -41,6 +41,9 @@
 										<span class="_recentTime" style="display: none;">${crList.recentTime}</span>
 										<span class="recentTime">${crList.recentTime}</span>
 										<span class="recentMsg">${crList.recentMsg}</span>
+										<c:if test="${crList.unMsgRead != '' and crList.unMsgRead != null}">
+											<span class="unMsgRead">${crList.unMsgRead}</span>
+										</c:if>
 									</div>
 					        	</c:when>
 					        	<c:otherwise>
@@ -57,6 +60,9 @@
 										<span class="_recentTime" style="display: none;">${crList.recentTime}</span>
 										<span class="recentTime">${crList.recentTime}</span>
 										<span class="recentMsg">${crList.recentMsg}</span>
+										<c:if test="${crList.unMsgRead != '' and crList.unMsgRead != null}">
+											<span class="unMsgRead">${crList.unMsgRead}</span>
+										</c:if>
 									</div>
 					        	</c:otherwise>
 					        </c:choose>
@@ -100,7 +106,7 @@
 			 			$(".recentTime").eq(i).text("오전 " + time3F + ":" + time4);
 	 				} else {
 	 					var time3F = (time3 * 1) - 12;
-			 			$(".recentTime").eq(i).text("오전 " + time3F + ":" + time4);
+			 			$(".recentTime").eq(i).text("오후 " + time3F + ":" + time4);
 	 				}
 	 			} else {
 		 			$(".recentTime").eq(i).text(time1 + "월 " + time2 + "일");

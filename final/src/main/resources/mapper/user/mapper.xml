@@ -60,5 +60,24 @@
 			AND g.isDeleted = 0
 		ORDER BY ug.joinDate ASC
 	</select>
-  	
+	
+	<!-- 관심 주제 설정 -->
+	<insert id="userCategoryMapping">
+		INSERT INTO userCategoryMappingTbl (uid, categoryId)
+		VALUES (#{uid}, #{categoryId})
+	</insert>
+	
+	<!-- 관심 주제 삭제 -->
+	<delete id="userCategoryDelete">
+		DELETE FROM userCategoryMappingTbl
+		WHERE uid = #{uid}
+	</delete>
+	
+	<!-- 관심 주제 가져오기 -->
+	<select id="userCategoryList" resultType="com.project.doran.user.vo.UserVO">
+		SELECT *
+		FROM userCategoryMappingTbl
+		WHERE uid = #{uid}
+	</select>
+	
 </mapper>

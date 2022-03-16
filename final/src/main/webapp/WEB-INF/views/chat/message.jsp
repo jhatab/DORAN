@@ -144,7 +144,13 @@
 							var msgMe = '<div class="sender_right_wrap">';
 							msgMe += '<div class="sender_right">';
 							msgMe += '<span>' + d.userName + '</span>';
-							msgMe += '<img src="/images/chatbot.png"/>';
+							
+							if('${member.profileImg}' == null || '${member.profileImg}' == '') {
+								msgMe += '<img src="/images/chatbot.png"/>';
+							} else {
+								msgMe += '<img src="${member.profileImg}"/>';
+							}
+							
 							msgMe += '</div>';
 							msgMe += '<div class="balloon_right">';
 							msgMe += '<span>' + d.msg + '</span>';
@@ -152,10 +158,17 @@
 							msgMe += '</div>';
 							$("#chatting").append(msgMe);
 							$("#chatting").scrollTop($("#chatting")[0].scrollHeight);
+							
 						} else {
 							var msgYou = '<div class="sender_wrap">';
 							msgYou += '<div class="sender">';
-							msgYou += '<img src="/images/chatbot.png"/>';
+							
+							if(d.profileImg == null || d.profileImg == '') {
+								msgYou += '<img src="/images/chatbot.png"/>';
+							} else {
+								msgYou += '<img src="' + d.profileImg + '"/>';
+							}
+							
 							msgYou += '<span>' + d.userName + '</span>';
 							msgYou += '</div>';
 							msgYou += '<div class="balloon">';
@@ -185,6 +198,7 @@
 				type : "message",
 				sessionId : $("#sessionId").val(),
 				userName : "${member.nickname}",
+				profileImg : "${member.profileImg}",
 				msg : $("#chatInput").val()
 			}
 			
@@ -198,8 +212,15 @@
 		$(".chatCloseBtn").on("click", function() {
 			parent.chatCloseFunc();
 		});
+
+		function sleep (ms) {
+			var start = new Date().getTime();
+			while (new Date().getTime() < start + ms);
+		}
 		
 		$(".chat_header .backImg").on("click", function() {
+			location.reload();
+			sleep(10);
 			$(location).attr('href','${contextPath}/chat/room?uid=${member.uid}');
 		});
 	</script>

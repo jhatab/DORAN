@@ -24,8 +24,8 @@
 	<div class="subnav">
 		<div class="tab">
 			<ul class="tabnav">
-				<li><a class="1" href="#tab01">추천순</a></li>
-				<li><a class="2" href="#tab02">최신순</a></li>
+				<li><a href="#tab01">추천순</a></li>
+				<li><a href="#tab02">최신순</a></li>
 			</ul>
 			
 			<script>

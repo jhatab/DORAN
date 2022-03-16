@@ -20,5 +20,6 @@ public class ChatRoomVO {
 	
 	private String recentMsg;	// 방 별 최근 메시지
 	private String recentTime;	// 방 별 최근 메시지 시간
+	private String unMsgRead;	// 유저&방 별 안 읽은 메시지 수
 	
 }

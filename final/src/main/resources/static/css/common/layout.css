@@ -136,10 +136,26 @@ body {
 	margin-top: 13px;
 }
 
+.menu .unNoticeCnt {
+	position: absolute;
+    top: -2px;
+    left: 20px;
+    width: 20px;
+    height: 20px;
+    line-height: 23px;
+    padding: 1px;
+    color: #fff;
+    font-size: 14px;
+    font-weight: bold;
+    text-align: center;
+    background: red;
+    border-radius: 50%;
+}
+
 .menu .alarm_btn {
 	float: left;
-	width:40px;
-	height:40px;
+	width: 40px;
+	height: 40px;
 	margin-right: 12px;
 	background: none;
 	border-radius: 50%;
@@ -147,7 +163,7 @@ body {
 	transition: all 0.2s;
 }
 
-.menu .alarm_btn:hover{
+.menu .alarm_btn:hover {
 	background: #eee;
 }
 
@@ -215,7 +231,7 @@ body {
 	overflow-y: auto;
 }
 
-.alarm_list p {
+.alarm_list p.notice_info {
 	padding: 10px;
 	height: 40px;
 	line-height: 40px;
@@ -223,8 +239,9 @@ body {
 	transition: all 0.2s;
 }
 
-.alarm_list p:last-child {
+.alarm_list p:nth-last-child(2) {
 	border: none;
+	border-radius: 0 0 10px 10px;
 }
 
 .alarm_list p:hover {
@@ -232,9 +249,71 @@ body {
 }
 
 .alarm_list p a {
-	display:inline-block;
+	position: relative;
+	display: inline-block;
 	width: 100%;
 	height: 100%;
+	padding-left: 25px;
+	box-sizing: border-box;
+}
+
+.alarm_list p a::before {
+	content: "";
+	width: 7px;
+	height: 7px;
+	background: #FFC900;
+	border-radius: 50%;
+	position: absolute; top : 17px;
+	left: 5px;
+	top: 17px;
+}
+
+.alarm_list p a span.msg {
+	display: block;
+	width: 235px;
+	height: 30px;
+	line-height: 30px;
+	font-size: 14px;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+
+.alarm_list p a span.date {
+	display: block;
+	height: 10px;
+	line-height: 10px;
+	color: gray;
+	font-size: 12px;
+}
+
+.alarm_list p a button {
+	position: absolute;
+	top: 11px;
+	right: 0;
+	width: 20px;
+	height: 20px;
+	border-radius: 50%;
+	z-index: 99;
+}
+
+.alarm_list p a button img {
+	width: 8px;
+	height: 8px;
+	vertical-align: 1.1px;
+}
+
+.alarm_list p a button:hover {
+	background: #bbb;
+}
+
+.alarm_list p.alarmNone {
+	height: 50px;
+	line-height: 50px;
+	padding: 10px;
+	text-align: center;
+	border-radius: 0 0 10px 10px;
+	display: none;
 }
 
 /* 푸터 */

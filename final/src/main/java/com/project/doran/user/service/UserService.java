@@ -38,4 +38,10 @@ public interface UserService {
 	/* 가입한 그룹 목록 */
 	public List<GroupVO> userGroupList(String uid) throws Exception;
 	
+	/* 관심 주제 설정 */
+	public void userCategoryMapping(UserVO userVO, String uid) throws Exception;
+	
+	/* 관심 주제 가져오기 */
+	public UserVO userCategoryList(String uid) throws Exception;
+	
 }

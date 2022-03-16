@@ -2,6 +2,9 @@ package com.project.doran.chat.service;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -52,6 +55,28 @@ public class ChatServiceImpl implements ChatService {
 	@Override
 	public ChatRoomVO roomSelect(int roomId) throws Exception {
 		return chatDAO.roomSelect(roomId);
+	}
+	
+	/* 채팅 메시지 읽음 */
+	@Override
+	public void msgRead(ChatMessageVO chatMessageVO, HttpServletRequest request) throws Exception {
+		// 로그인 유저 아이디
+		HttpSession session = request.getSession();
+		String userId = (String) session.getAttribute("uid");
+		chatMessageVO.setUid(userId);
+		
+		chatDAO.msgRead(chatMessageVO);
+	}
+	
+	/* 유저별 안 읽은 메시지 총 개수 */
+	@Override
+	public int totalUnReadMsg(String uid, HttpServletRequest request) throws Exception {
+		// 로그인 유저 아이디
+		HttpSession session = request.getSession();
+		String userId = (String) session.getAttribute("uid");
+		uid = userId;
+		
+		return chatDAO.totalUnReadMsg(uid);
 	}
 	
 }

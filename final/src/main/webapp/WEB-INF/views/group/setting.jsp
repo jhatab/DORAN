@@ -59,11 +59,11 @@
 									<td class="num"><c:out value="${status.index + 1}" /></td>
 									<td class="user">
 										<c:choose>
-											<c:when test="${member.profileImg == null or member.profileImg == ''}">
+											<c:when test="${mList.profileImg == null or mList.profileImg == ''}">
 												<img src="/images/chatbot.png"/>
 											</c:when>
 											<c:otherwise>
-												<img src="${member.profileImg}">
+												<img src="${mList.profileImg}">
 											</c:otherwise>
 										</c:choose>
 										<span class="nickname"><c:out value="${mList.nickname}" /></span>
@@ -98,11 +98,11 @@
 										<td class="num"><c:out value="${status.index + 1}" /></td>
 										<td class="user">
 											<c:choose>
-												<c:when test="${member.profileImg == null or member.profileImg == ''}">
+												<c:when test="${mList.profileImg == null or mList.profileImg == ''}">
 													<img src="/images/chatbot.png"/>
 												</c:when>
 												<c:otherwise>
-													<img src="${member.profileImg}">
+													<img src="${mList.profileImg}">
 												</c:otherwise>
 											</c:choose>
 											<span class="nickname"><c:out value="${mList.nickname}" /></span>
@@ -184,6 +184,11 @@
 	const memberJoinData = {
 		groupId : '',
 		uid : '',
+		
+		toUid : '',
+		fromUid : '',
+		noticeType : '',
+		noticeMsg : '',
 	}
 	
 	for (let i = 0; i < memberCount.length; i++) {
@@ -191,12 +196,17 @@
 			memberJoinData.groupId = ${groupInfo.groupId};
 			memberJoinData.uid = $(this).attr("member-id");
 			
+			memberJoinData.toUid = $(this).attr("member-id");
+			memberJoinData.fromUid = "${member.uid}";
+			memberJoinData.noticeType = "approval";
+			memberJoinData.noticeMsg = "${groupInfo.groupName}에 가입되었습니다.";
+			
 			$.ajax({
 				url: '/group/memberApproval.do',
 				type: 'post',
 				data: memberJoinData,
 				success: function(result){
-					alert("가입 승인되었습니다.");
+					alert("가입이 승인되었습니다.");
 					window.location.reload();
 				}
 			});
@@ -209,12 +219,17 @@
 			memberJoinData.groupId = ${groupInfo.groupId};
 			memberJoinData.uid = $(this).attr("member-id");
 			
+			memberJoinData.toUid = $(this).attr("member-id");
+			memberJoinData.fromUid = "${member.uid}";
+			memberJoinData.noticeType = "cancle";
+			memberJoinData.noticeMsg = "${groupInfo.groupName} 가입이 취소되었습니다.";
+			
 			$.ajax({
 				url: '/group/memberCancle.do',
 				type: 'post',
 				data: memberJoinData,
 				success: function(result){
-					alert("가입 취소되었습니다.");
+					alert("가입이 취소되었습니다.");
 					window.location.reload();
 				}
 			});
@@ -227,6 +242,11 @@
 			if (confirm("회원을 퇴출하시겠습니까?") == true) {
 				memberJoinData.groupId = ${groupInfo.groupId};
 				memberJoinData.uid = $(this).attr("member-id");
+				
+				memberJoinData.toUid = $(this).attr("member-id");
+				memberJoinData.fromUid = "${member.uid}";
+				memberJoinData.noticeType = "cancle";
+				memberJoinData.noticeMsg = "${groupInfo.groupName} 가입이 취소되었습니다.";
 				
 				$.ajax({
 					url: '/group/memberCancle.do',
@@ -247,6 +267,11 @@
 	$(".groupResignBtn").on("click", function() {
 		memberJoinData.groupId = ${groupInfo.groupId};
 		memberJoinData.uid = $(this).attr("member-id");
+		
+		memberJoinData.toUid = $(this).attr("member-id");
+		memberJoinData.fromUid = "${member.uid}";
+		memberJoinData.noticeType = "cancle";
+		memberJoinData.noticeMsg = "${groupInfo.groupName}을 탈퇴했습니다.";
 		
 		$.ajax({
 			url: '/group/memberCancle.do',
