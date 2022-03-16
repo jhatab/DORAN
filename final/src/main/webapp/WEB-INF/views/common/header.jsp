@@ -37,7 +37,7 @@
 										href="javascript:location.reload()"
 									</c:if>
 										notice-idx="${nList.noticeId}">
-									<span class="msg">${nList.noticeMsg}</span>
+									<span class="msg"  title="${nList.noticeMsg}">${nList.noticeMsg}</span>
 									<span class="date">${nList.noticeDate}</span>
 									<span class="_date" style="display: none;">${nList.noticeDate}</span>
 									<%-- <button type="button" class="noticeDeleteBtn" notice-idx="${nList.noticeId}">
