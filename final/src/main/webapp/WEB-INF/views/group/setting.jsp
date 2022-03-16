@@ -206,7 +206,7 @@
 				type: 'post',
 				data: memberJoinData,
 				success: function(result){
-					alert("가입 승인되었습니다.");
+					alert("가입이 승인되었습니다.");
 					window.location.reload();
 				}
 			});
@@ -229,7 +229,7 @@
 				type: 'post',
 				data: memberJoinData,
 				success: function(result){
-					alert("가입 취소되었습니다.");
+					alert("가입이 취소되었습니다.");
 					window.location.reload();
 				}
 			});

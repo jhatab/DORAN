@@ -190,9 +190,9 @@
 		} else if (result === "feed delete success") {
 			alert("피드가 삭제되었습니다.");
 		} else if (result === "group join done") {
-			alert("이미 가입 신청");
+			alert("이미 가입 신청이 되었습니다. 승인이 있을 때까지 기다려주세요.");
 		} else if (result === "group join success") {
-			alert("그룹 가입 신청");
+			alert("그룹 가입 신청이 완료되었습니다. 승인이 있을 때까지 기다려주세요.");
 		}
 		
 	});

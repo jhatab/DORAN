@@ -33,13 +33,16 @@
 									<c:if test="${nList.noticeType == 'approval'}">
 										href="${contextPath}/group/home?groupId=${nList.groupId}"
 									</c:if>
+									<c:if test="${nList.noticeType == 'cancle'}">
+										href="javascript:location.reload()"
+									</c:if>
 										notice-idx="${nList.noticeId}">
 									<span class="msg">${nList.noticeMsg}</span>
 									<span class="date">${nList.noticeDate}</span>
 									<span class="_date" style="display: none;">${nList.noticeDate}</span>
-									<button type="button" class="noticeDeleteBtn" notice-idx="${nList.noticeId}">
+									<%-- <button type="button" class="noticeDeleteBtn" notice-idx="${nList.noticeId}">
 										<img src="/images/close.png">
-									</button>
+									</button> --%>
 								</a>
 							</p>
 						</c:forEach>
@@ -68,8 +71,13 @@
 <!-- script -->
 <script>
 	
-	$(".alarm_btn").click(function(){
+	$(".alarm_btn").click(function(e){
+		 e.stopPropagation();
 		$(".alarm_list_wrap").slideToggle("fast");
+	});
+	
+	$(document).click(function(){
+	    $('.alarm_list_wrap').slideUp("fast");
 	});
 	
 	const noticeCount = document.querySelectorAll(".notice_info"); // 알림 수
@@ -83,9 +91,11 @@
 		var groupId = $(".notice_info .groupId").eq(i).val();	
 		var postId = $(".notice_info .postId").eq(i).val();
 		
-		$(".noticeDeleteBtn").eq(i).on("click", function(e) {
+		/* $(".noticeDeleteBtn").eq(i).on("click", function(e) {
 			e.preventDefault();
 			noticeReadData.noticeId = $(this).attr("notice-idx");
+			
+			alert("afsdf");
 			
 			$.ajax({
 				url: '/noticeRead.do',
@@ -94,9 +104,10 @@
 				success: function(result){
 				}
 			});
-		});
+		}); */
 		
-		$(".notice_info a").eq(i).on("click", function() {
+		$(".notice_info a").eq(i).on("click", function(e) {
+			e.preventDefault();
 			noticeReadData.noticeId = $(this).attr("notice-idx");
 			
 			$.ajax({
@@ -104,6 +115,8 @@
 				type: 'post',
 				data: noticeReadData,
 				success: function(result){
+					var tmp = $(".notice_info a").eq(i).attr("href");
+					window.location = tmp;
 				}
 			});
 		});
@@ -123,8 +136,6 @@
 	for(let i=0; i < noticeDate.length; i++){
 		let nDate = new Date(noticeDate[i].textContent);
 		let diffHour = (today.getTime() - nDate.getTime()) / (1000 * 60 * 60);
-		
-//			alert(diffHour);
 		
 		$(function() {
  			var time1 = noticeDate[i].innerText.substr(5, 2);
