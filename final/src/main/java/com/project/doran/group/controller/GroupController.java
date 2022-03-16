@@ -9,6 +9,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -18,8 +19,11 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.project.doran.attch.vo.AttchVO;
 import com.project.doran.category.service.CategoryService;
+import com.project.doran.chat.service.ChatService;
 import com.project.doran.group.service.GroupService;
 import com.project.doran.group.vo.GroupVO;
+import com.project.doran.notice.service.NoticeService;
+import com.project.doran.notice.vo.NoticeVO;
 import com.project.doran.post.service.PostService;
 import com.project.doran.post.vo.PostVO;
 import com.project.doran.postLike.service.PostLikeService;
@@ -47,6 +51,12 @@ public class GroupController {
 	
 	@Autowired
 	private PostLikeService postLikeService;
+	
+	@Autowired
+	private ChatService chatService;
+	
+	@Autowired
+	private NoticeService noticeService;
 	
 	@RequestMapping(value = "/insert", method = RequestMethod.GET)
 	public String groupInsertForm() throws Exception {
@@ -144,7 +154,7 @@ public class GroupController {
 	
 	/* 그룹 가입 신청 */
 	@RequestMapping(value = "/join.do", method = RequestMethod.POST)
-	public String groupJoinPost(GroupVO groupVO, RedirectAttributes rttr) throws Exception {
+	public String groupJoinPost(GroupVO groupVO, NoticeVO noticeVO, RedirectAttributes rttr) throws Exception {
 		logger.info("그룹 가입 신청");
 		
 		int groupJoinCheck = groupService.groupJoinCheck(groupVO);
@@ -152,6 +162,8 @@ public class GroupController {
 		if(groupJoinCheck == -1) {
 			rttr.addFlashAttribute("result", "group join done");
 		} else {
+			noticeService.noticeAdd(noticeVO);
+			
 			rttr.addFlashAttribute("result", "group join success");
 		}
 		
@@ -162,19 +174,23 @@ public class GroupController {
 	/* 그룹 가입 승인 */
 	@ResponseBody
 	@RequestMapping(value = "/memberApproval.do", method = RequestMethod.POST)
-	public void memberApprovalPost(GroupVO groupVO) throws Exception {
+	public void memberApprovalPost(GroupVO groupVO, NoticeVO noticeVO) throws Exception {
 		logger.info("그룹 가입 승인");
 		
 		groupService.groupMemberApproval(groupVO);
+		
+		noticeService.noticeAdd(noticeVO);
 	}
 	
 	/* 그룹 가입 취소, 퇴출, 탈퇴 */
 	@ResponseBody
 	@RequestMapping(value = "/memberCancle.do", method = RequestMethod.POST)
-	public void memberCanclePost(GroupVO groupVO) throws Exception {
+	public void memberCanclePost(GroupVO groupVO, NoticeVO noticeVO) throws Exception {
 		logger.info("그룹 가입 취소, 퇴출, 탈퇴");
 		
 		groupService.groupMemberCancle(groupVO);
+		
+		noticeService.noticeAdd(noticeVO);
 	}
 	
 	/* 그룹 페이지 */
@@ -244,13 +260,16 @@ public class GroupController {
 	/* 댓글 작성 */
 	@ResponseBody
 	@RequestMapping(value = "/replyWrite.do", method = RequestMethod.POST)
-	public void replyWritePost(ReplyVO replyVO, int postId) throws Exception {
+	public void replyWritePost(ReplyVO replyVO, NoticeVO noticeVO, int postId) throws Exception {
 		logger.info("댓글 작성");
 		
 		replyService.replyWrite(replyVO);
 		
 		// 댓글 수 업데이트
 		replyService.replyCountUpdate(postId);
+		
+		// 알림 추가
+		noticeService.noticeAdd(noticeVO);
 	}
 	
 	/* 댓글 수정 */
@@ -277,13 +296,31 @@ public class GroupController {
 	/* 게시물 좋아요 추가/취소 */
 	@ResponseBody
 	@RequestMapping(value = "/postLike.do", method = RequestMethod.POST)
-	public void postLikePost(PostLikeVO postLikeVO, int postId) throws Exception {
+	public void postLikePost(PostLikeVO postLikeVO, NoticeVO noticeVO, int postId) throws Exception {
 		logger.info("게시물 좋아요 추가/취소");
 		
-		postLikeService.likeCheck(postLikeVO);
+		postLikeService.likeCheck(postLikeVO, noticeVO);
 		
 		// 좋아요 수 업데이트
 		postLikeService.likeCountUpdate(postId);
+	}
+	
+	/* 유저별 안 읽은 메시지 총 개수 */
+	@ModelAttribute("unReadCnt")
+	public void unReadCnt(String uid, Model model, HttpServletRequest request) throws Exception {
+		model.addAttribute("unReadCnt", chatService.totalUnReadMsg(uid, request));
+	}
+	
+	/* 알림 목록 */
+	@ModelAttribute("noticeList")
+	public void noticeList(NoticeVO noticeVO, Model model, HttpServletRequest request) throws Exception {
+		model.addAttribute("noticeList", noticeService.noticeList(noticeVO, request));
+	}
+	
+	/* 유저별 안 읽은 알림 개수 */
+	@ModelAttribute("unNoticeCnt")
+	public void unNoticeCnt(String toUid, Model model, HttpServletRequest request) throws Exception {
+		model.addAttribute("unNoticeCnt", noticeService.noticeCnt(toUid, request));
 	}
 	
 }

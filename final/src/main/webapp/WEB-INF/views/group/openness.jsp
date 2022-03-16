@@ -2,7 +2,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 
-<div class="post_info post${pList.postId}">
+<div class="post_info" id="post${pList.postId}">
 
 	<div class="middleWrapper">
 		<div class="groupFeedUpper">
@@ -19,6 +19,7 @@
 				<p class="uid" style="display: none;">${pList.uid}</p>
 				<fmt:parseDate var="dateString" value="${pList.postedDate}" pattern="yyyy-MM-dd HH:mm:ss" />
 				<span><fmt:formatDate value="${dateString}" pattern="yyyy/MM/dd HH:mm" /></span>
+				<input type="hidden" name="toUid" class="toUid" value="${pList.uid}">
 			</div>
 			<div class="groupFeedMenu">
 				<img alt="feed menu" src="/images/dots.png" />
@@ -99,7 +100,8 @@
 		<!-- 댓글 작성 -->
 		<div class="replyWrite_wrap">
 			<input type="hidden" name="postId" class="postId" value="${pList.postId}">
-			<input type="hidden" name="uid" class="uid" value="${member.uid}" placeholder="작성자">
+			<input type="hidden" name="uid" class="uid" value="${member.uid}">
+			<input type="hidden" name="toUid" class="toUid" value="${pList.uid}">
 			<input type="text" name="replyContent" class="replyContent" placeholder="댓글을 입력해주세요.">
 			<button type="button" class="replyWriteBtn">등록</button>
 		</div>

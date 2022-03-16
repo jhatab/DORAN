@@ -184,12 +184,22 @@
 	const memberJoinData = {
 		groupId : '',
 		uid : '',
+		
+		toUid : '',
+		fromUid : '',
+		noticeType : '',
+		noticeMsg : '',
 	}
 	
 	for (let i = 0; i < memberCount.length; i++) {
 		$(".joinApprovalBtn").eq(i).on("click", function() {
 			memberJoinData.groupId = ${groupInfo.groupId};
 			memberJoinData.uid = $(this).attr("member-id");
+			
+			memberJoinData.toUid = $(this).attr("member-id");
+			memberJoinData.fromUid = "${member.uid}";
+			memberJoinData.noticeType = "approval";
+			memberJoinData.noticeMsg = "${groupInfo.groupName}에 가입되었습니다.";
 			
 			$.ajax({
 				url: '/group/memberApproval.do',
@@ -208,6 +218,11 @@
 		$(".joinCancleBtn").eq(i).on("click", function() {
 			memberJoinData.groupId = ${groupInfo.groupId};
 			memberJoinData.uid = $(this).attr("member-id");
+			
+			memberJoinData.toUid = $(this).attr("member-id");
+			memberJoinData.fromUid = "${member.uid}";
+			memberJoinData.noticeType = "cancle";
+			memberJoinData.noticeMsg = "${groupInfo.groupName} 가입이 취소되었습니다.";
 			
 			$.ajax({
 				url: '/group/memberCancle.do',
@@ -228,6 +243,11 @@
 				memberJoinData.groupId = ${groupInfo.groupId};
 				memberJoinData.uid = $(this).attr("member-id");
 				
+				memberJoinData.toUid = $(this).attr("member-id");
+				memberJoinData.fromUid = "${member.uid}";
+				memberJoinData.noticeType = "cancle";
+				memberJoinData.noticeMsg = "${groupInfo.groupName} 가입이 취소되었습니다.";
+				
 				$.ajax({
 					url: '/group/memberCancle.do',
 					type: 'post',
@@ -247,6 +267,11 @@
 	$(".groupResignBtn").on("click", function() {
 		memberJoinData.groupId = ${groupInfo.groupId};
 		memberJoinData.uid = $(this).attr("member-id");
+		
+		memberJoinData.toUid = $(this).attr("member-id");
+		memberJoinData.fromUid = "${member.uid}";
+		memberJoinData.noticeType = "cancle";
+		memberJoinData.noticeMsg = "${groupInfo.groupName}을 탈퇴했습니다.";
 		
 		$.ajax({
 			url: '/group/memberCancle.do',

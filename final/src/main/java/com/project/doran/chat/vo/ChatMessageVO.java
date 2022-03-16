@@ -10,9 +10,7 @@ public class ChatMessageVO {
 	private String uid; // 계정 아이디
 	private String message; // 채팅 메시지 내용
 	private String msgTime; // 채팅일시
-
-	private int unReadCount; // 안 읽은 메세지 수
-	private int sessionCount; // 현재 세션 수
+	private int msgRead; // 메시지 확인 여부 (0-확인X, 1-확인O)
 
 	/* userTbl */
 	private String nickname;

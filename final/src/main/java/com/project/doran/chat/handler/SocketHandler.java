@@ -20,6 +20,7 @@ public class SocketHandler extends TextWebSocketHandler {
 	@SuppressWarnings("unchecked")
 	@Override
 	public void afterConnectionEstablished(WebSocketSession session) throws Exception {
+		
 		// 소켓 연결
 		super.afterConnectionEstablished(session);
 		sessionMap.put(session.getId(), session);
@@ -27,6 +28,8 @@ public class SocketHandler extends TextWebSocketHandler {
 		obj.put("type", "getId");
 		obj.put("sessionId", session.getId());
 		session.sendMessage(new TextMessage(obj.toJSONString()));
+		
+		System.out.println(session.getPrincipal().getName());
 	}
 	
 	/* 메시지를 수신하면 실행 */

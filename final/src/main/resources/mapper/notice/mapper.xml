@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+      PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.project.doran.notice.dao.NoticeDAO">
+	
+	<!-- 알림 추가 -->
+	<insert id="noticeAdd">
+		INSERT INTO noticeTbl(toUid, fromUid, noticeType, groupId, postId, noticeMsg)
+		VALUES (#{toUid}, #{fromUid}, #{noticeType}, #{groupId}, #{postId}, #{noticeMsg})
+	</insert>
+	
+	<!-- 알림 목록 -->
+	<select id="noticeList" resultType="com.project.doran.notice.vo.NoticeVO">
+		SELECT *
+		FROM noticeTbl
+		WHERE toUid = #{toUid}
+			AND toUid != fromUid
+			AND noticeRead = 0
+		ORDER BY noticeDate DESC
+	</select>
+	
+	<!-- 알림 확인 -->
+	<update id="noticeRead">
+		UPDATE noticeTbl 
+		SET noticeRead = 1
+		WHERE noticeId = #{noticeId}
+	</update>
+	
+	<!-- 유저별 안 읽은 알림 개수 -->
+	<select id="noticeCnt" resultType="int">
+		SELECT count(*)
+		FROM noticeTbl
+		WHERE toUid = #{toUid}
+			AND toUid != fromUid
+			AND noticeRead = 0
+	</select>
+	
+</mapper>

@@ -30,4 +30,10 @@ public interface ChatDAO {
 	/* 채팅방 정보 */
 	public ChatRoomVO roomSelect(int roomId) throws Exception;
 	
+	/* 채팅 메시지 읽음 */
+	public void msgRead(ChatMessageVO chatMessageVO) throws Exception;
+	
+	/* 유저별 안 읽은 메시지 총 개수 */
+	public int totalUnReadMsg(String uid) throws Exception;
+	
 }

@@ -104,7 +104,8 @@ ul, li, ol {
 
 .chat_list ul li a span.nickname {
 	display: inline-block;
-	width: 182px; text-overflow : ellipsis;
+	width: 182px;
+	text-overflow: ellipsis;
 	white-space: nowrap;
 	overflow: hidden;
 	text-overflow: ellipsis;
@@ -121,8 +122,8 @@ ul, li, ol {
 }
 
 .chat_list ul li a span.recentMsg {
-	display: block;
-	max-width: 230px;
+	display: inline-block;
+	width: 225px;
 	height: 20px;
 	line-height: 22.5px;
 	color: gray;
@@ -130,6 +131,21 @@ ul, li, ol {
 	text-overflow: ellipsis;
 	white-space: nowrap;
 	overflow: hidden;
+}
+
+.chat_list ul li a span.unMsgRead {
+	display: inline-block;
+	width: 20px;
+	height: 20px;
+	line-height: 20px;
+	margin-left: 10px;
+	color: #fff;
+	font-size: 12px;
+	font-weight: bold;
+	text-align: center;
+	background: red;
+	border-radius: 50%;
+	vertical-align: top;
 }
 
 .chat_list ul li:hover {

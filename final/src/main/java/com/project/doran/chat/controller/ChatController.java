@@ -37,8 +37,11 @@ public class ChatController {
 
 	/* 채팅 페이지 */
 	@RequestMapping(value = "/message", method = RequestMethod.GET)
-	public void chattingGET(@RequestParam("roomId") int roomId, Model model, HttpServletRequest request) throws Exception {
+	public void chattingGET(@RequestParam("roomId") int roomId, ChatMessageVO chatMessageVO, Model model, HttpServletRequest request) throws Exception {
 		logger.info("채팅 페이지입니다. : " + roomId);
+		
+		// 채팅 메시지 읽음
+		chatService.msgRead(chatMessageVO, request);
 
 		// 채팅방 정보
 		model.addAttribute("roomInfo", chatService.roomSelect(roomId));
@@ -64,5 +67,5 @@ public class ChatController {
 
 		chatService.messageInsert(chatMessageVO);
 	}
-
+	
 }
