@@ -68,7 +68,9 @@
 						<input type="hidden" name="groupId" value="${groupInfo.groupId}">
 						<a href="/group/home?groupId=${groupInfo.groupId}" class="searchReset" style="display:none">취소</a>
 					</div>
-					<button type="button" class="postWriteBtn">피드 작성</button>
+					<c:if test="${isApproval == '1'}">
+						<button type="button" class="postWriteBtn">피드 작성</button>
+					</c:if>			
 				</form>
 			</div>
 			<!-- //Search -->
@@ -261,9 +263,11 @@
 			postWriteModal.className += " show_modal";
 		}
 	}
-
-	postWriteModal_open.addEventListener("click", postWriteModalToggle);
-	postWriteModal_close.addEventListener("click", postWriteModalToggle);
+	
+	if($(".postWriteBtn").length > 0) { // isApproval이 1이 아닐 때는 버튼이 없음 => 오류 방지
+		postWriteModal_open.addEventListener("click", postWriteModalToggle);
+		postWriteModal_close.addEventListener("click", postWriteModalToggle);
+	}
 	
 	/* 이미지 파일 미리보기 */
 	let select_files = [];
@@ -518,6 +522,14 @@
 	}
 	
 	/* ========== 댓글 ========== */
+	
+	$(document).ready(function() {
+		if(${isApproval} != '1') {
+			$(".replyWrite_wrap .replyContent").each(function() {
+				$(this).attr("disabled", "disabled");
+			});
+		}
+	});
 	
 	/* 댓글 작성 */
 	const replyWriteData = {

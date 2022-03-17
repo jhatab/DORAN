@@ -47,11 +47,16 @@
 			</div>
 			<div id="content">
 				<span class="groupReply">
-					<img alt="like" src="/images/reply.png" />
+					<img alt="reply" src="/images/reply.png" />
 					<span>${pList.replyCount}</span>
 				</span>
 				<span class="groupLike">
-					<img alt="like" src="/images/like.png" class="likeBtn" post-idx="${pList.postId}" />
+					<c:if test="${isApproval == '1'}">
+						<img alt="like" src="/images/like.png" class="likeBtn" post-idx="${pList.postId}" />
+					</c:if>
+					<c:if test="${isApproval != '1'}">
+						<img alt="like" src="/images/like.png">
+					</c:if>						
 					<span id="likeResult">${pList.likeCount}</span>
 				</span>
 			</div>

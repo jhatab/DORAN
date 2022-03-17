@@ -432,6 +432,9 @@ input[type="file"] {
 	width: 15px;
 	height: 15px;
 	margin-right: 5px;
+}
+
+.groupLike img.likeBtn {
 	cursor: pointer;
 }
 
