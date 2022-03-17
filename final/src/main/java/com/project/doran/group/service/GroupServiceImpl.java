@@ -24,6 +24,12 @@ public class GroupServiceImpl implements GroupService {
 	public void groupInsert(GroupVO groupVO) throws Exception {
 		groupDAO.groupInsert(groupVO);
 	}
+	
+	/* 메인 그룹 목록 */
+	@Override
+	public List<GroupVO> mainGroupList() throws Exception {
+		return groupDAO.mainGroupList();
+	}
 
 	/* 그룹 목록 */
 	@Override
