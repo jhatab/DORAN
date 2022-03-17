@@ -130,7 +130,7 @@
 				<span>나만보기</span>
 			</label>
 			<textarea name="content" class="content" placeholder="내용을 입력하세요.">${pList.content}</textarea>
-			<input type="text" name="tag" class="tag" value="${pList.tag}" placeholder="해시태그를 입력하세요.">
+			<input type="text" name="tag" class="tag" value="${pList.tag}" placeholder="해시태그를 입력하세요.(#태그 #태그 ...)" autocomplete="off">
 			<!-- 이미지 파일 업로드 -->
 			<div class="attach_wrap">
 				<input type="file" name="files" id="files" multiple accept=".jpg, .png">

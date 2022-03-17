@@ -36,11 +36,11 @@
 						<c:choose>
 							<%-- 일반회원 --%>
 							<c:when test="${member != null}">
-								<button class="groupJoinBtn">가입하기</button>
+								<button type="button" class="groupJoinBtn">가입하기</button>
 							</c:when>
 							<%-- 비회원 --%>
 							<c:otherwise>
-								<button class="groupNoneBtn">가입하기</button>
+								<button type="button" class="groupNoneBtn">가입하기</button>
 							</c:otherwise>
 						</c:choose>
 					</c:otherwise>
@@ -97,7 +97,7 @@
 							<span>나만보기</span>
 						</label>
 						<textarea name="content" placeholder="내용을 입력하세요."></textarea>
-						<input type="text" name="tag" placeholder="해시태그를 입력하세요." autocomplete="off">
+						<input type="text" name="tag" placeholder="해시태그를 입력하세요.(#태그 #태그 ...)" autocomplete="off">
 						<!-- 이미지 파일 업로드 -->
 						<div class="attach_wrap">
 							<input type="file" name="files" id="files" multiple accept=".jpg, .png">
@@ -152,6 +152,7 @@
 				</div>
 			</div>
 			<!-- //Post List -->
+			<a href="#" id="topBtn">Top</a>
 		</div>
 		<!-- //Middle Main -->
 		
@@ -297,8 +298,20 @@
 	const postWriteForm = $("#postWriteForm");
 		
 	$(".postWriteFinBtn").on("click", function() {
+		if (!$('.postWrite_content textarea').val()) {
+			alert('내용을 입력해주세요.');
+			return false;
+		}
+		
 		postWriteForm.attr("action", "/group/postWrite.do");
 		postWriteForm.submit();
+	});
+	
+	$('.postWrite_content input[name="tag"]').keydown(function(e) {
+	     if (e.keyCode == 13) {
+			e.preventDefault();
+	         $('.postWriteFinBtn').click();
+	     }
 	});
 	
 	/*========== 게시물 수정 및 삭제 ========== */
@@ -367,6 +380,11 @@
 			postUpdateData.tag = $(".postUpdate_content .tag").eq(i).val();
 			postUpdateData.openness = $(".postUpdate_content .openness:checked").eq(i).val();
 			
+			if (!$(".postUpdate_content .content").eq(i).val()) {
+				alert('내용을 입력해주세요.');
+				return false;
+			}
+			
 			$.ajax({
 				url: '/group/postUpdate.do',
 				type: 'post',
@@ -376,6 +394,13 @@
 					window.location.reload();
 				}
 			});
+		});
+		
+		$('.postUpdate_content .tag').eq(i).keydown(function(e) {
+			if (e.keyCode == 13) {
+				e.preventDefault();
+				$('.postUpdateFinBtn').eq(i).click();
+			}
 		});
 	}
 	
@@ -630,5 +655,25 @@
 			}, 2000)
 		});
 	}
-
+	
+	/* top 버튼 */
+	$(document).ready(function() {
+		$(backToTop).hide();
+	});
+		
+	var backToTop = document.querySelector("#topBtn");
+	
+	window.addEventListener("scroll", function() {
+		if(this.scrollY > 200) {
+			$(backToTop).fadeIn("slow");
+		} else {
+			$(backToTop).fadeOut("slow");
+		}
+	});
+	
+	backToTop.addEventListener("click", function(e) {
+		e.preventDefault();
+		window.scrollTo({top:0, behavior: 'smooth'});
+	})
+	
 	</script>

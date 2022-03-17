@@ -764,3 +764,20 @@ input[type="file"] {
 .hotPost {
 	transform: scale(1.1);
 }
+
+/* top */
+#topBtn {
+	position: fixed;
+	bottom: 38px;
+	right: 50%;
+	transform: translate(calc(-50% + 20px), 0);
+	display: inline-block;
+	width: 30px;
+	height: 30px;
+	line-height: 30px;
+	color: #fff;
+	font-size: 12px;
+	text-align: center;
+	background: rgba(0, 0, 0, 0.7);
+	border-radius: 50%;
+}

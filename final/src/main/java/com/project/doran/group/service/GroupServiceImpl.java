@@ -31,7 +31,7 @@ public class GroupServiceImpl implements GroupService {
 		return groupDAO.groupList();
 	}
 	
-	/* 그룹 목록 좋아요순*/
+	/* 그룹 목록 좋아요순 */
 	public List<GroupVO> groupLikeList() throws Exception {
 		return groupDAO.groupLikeList();
 	}

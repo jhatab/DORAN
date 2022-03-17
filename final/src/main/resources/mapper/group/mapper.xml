@@ -13,12 +13,19 @@
 		ORDER BY createdDate DESC;
 	</select>
 	
-	<!-- 그룹 목록 추천순(좋아요 수) -->
+	<!-- 그룹 목록 추천순 (인원순) -->
 	<select id="groupLikeList" resultType="com.project.doran.group.vo.GroupVO">
-		select DISTINCT(groupName), g.groupId, g.groupImagePath
-		from groupTbl g
-		INNER JOIN postTbl p ON g.groupId = p.groupId
-		ORDER BY p.likeCount DESC;
+		SELECT g.*, personCnt
+		FROM groupTbl g
+			LEFT OUTER JOIN (
+				SELECT ug.groupId, count(*) personCnt
+				FROM userGroupMappingTbl ug
+				WHERE ug.isApproval != 0
+				GROUP BY groupId
+		    ) A ON g.groupId = A.groupId
+		WHERE g.isDeleted = 0
+		ORDER BY personCnt desc, g.createdDate desc
+		LIMIT 5
 	</select>
 	
 	<!-- 생성자-그룹 매핑 -->
