@@ -81,6 +81,22 @@
 		<put-attribute name="css2" value="/css/common/reset.css"/>
 		<put-attribute name="body" value="/WEB-INF/views/group/setting.jsp" />
 	</definition>
+	
+	<!-- category : list -->
+	<definition name="category/list" extends="main-layout">
+		<put-attribute name="title" value="도란도란"/>
+		<put-attribute name="css" value="/css/category/categoryList.css"/>
+		<put-attribute name="css2" value="/css/common/reset.css"/>
+		<put-attribute name="body" value="/WEB-INF/views/category/list.jsp" />
+	</definition>
+
+	<!-- category : create -->
+	<definition name="category/create" extends="main-layout">
+		<put-attribute name="title" value="도란도란"/>
+		<put-attribute name="css" value="/css/category/categoryCreate.css"/>
+		<put-attribute name="css2" value="/css/common/reset.css"/>
+		<put-attribute name="body" value="/WEB-INF/views/category/create.jsp" />
+	</definition>
    
  
 </tiles-definitions>

@@ -59,9 +59,12 @@
 			
 			<c:if test="${member != null}">
 				<div class="mypageBtn_wrap">
-					<span>${member.nickname}</span>
-					<span><a href="/mypage/${member.uid}">마이페이지</a></span>
-					<span><a href="/user/logout.do">로그아웃</a></span>
+					<span class="nickname">${member.nickname}</span>
+					<span class="mypageBtn"><a href="/mypage/${member.uid}">마이페이지</a></span>
+					<c:if test="${member.authority == 1}">
+						<span><a href="/category/list">카테고리</a></span>
+					</c:if>
+					<span class="logoutBtn"><a href="/user/logout.do">로그아웃</a></span>
 				</div>
 			</c:if>
 		</div>

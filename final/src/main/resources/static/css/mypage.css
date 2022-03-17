@@ -98,8 +98,8 @@ body {
 
 #categoryList label {
 	display: inline-block;
-	height: 40px;
-	line-height: 42px;
+	height: 30px;
+	line-height: 30px;
 	margin: 10px 10px;
 	padding: 0 20px;
 	border: 1px solid #FFC900;
@@ -125,8 +125,8 @@ body {
 
 #categoryList .enrollBtn {
 	display: inline-block;
-	height: 40px;
-	line-height: 42px;
+	height: 30px;
+	line-height: 28px;
 	margin-top: 30px;
 	padding: 0 20px;
 	border: 1px solid #FFC900;
@@ -135,6 +135,7 @@ body {
 	text-align: center;
 	box-shadow: 0px 2px 6px #00000029;
 	cursor: pointer;
+	font-size:12pt;
 }
 
 /* 가입 그룹 */

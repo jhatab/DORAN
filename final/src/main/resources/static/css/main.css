@@ -83,7 +83,6 @@ ul, li {
 	align-items: center;
 	position: absolute;
 	bottom: 0;
-	position: absolute;
 }
 
 .content_wrap{
@@ -99,7 +98,7 @@ ul, li {
 
 .tabs {
 	margin-top:20px;
-	margin-bottom:10px;
+	margin-bottom:20px;
 	padding: 0;
 	width:910px;
 	
@@ -135,7 +134,6 @@ ul, li {
 .panel {
 	display: none;
 	background: #fff;
-	padding:10px 30px 30px 30px;
 	width:850px;
 	background:#FAFAFA;
 }
@@ -151,7 +149,7 @@ ul, li {
     display:flex;
     flex-wrap: wrap;
     justify-content: space-between;
-    
+    margin-bottom:20px;
 }
 
 .content_list {
@@ -221,4 +219,38 @@ cursor:Pointer;
     width:375px;
     color:#707070;
     font-size:9pt;
+}
+
+.comment_view span {
+	font-size:9pt;
+}
+
+.panelList {
+	display:flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+	}
+	
+	.group_more {
+	position:absolute;
+	top:65px;
+	right:185px;
+	z-index:1000;
+	
+}
+
+.group_more button {
+	margin-top:20px;
+	z-index:1000;
+	background-color:#FFC900;
+    border-radius: 5em;
+    border:none;
+
+    width: 70px;
+    height: 30px;
+    line-height: 28px;
+
+    cursor: pointer;
+    box-shadow:0px 2px 6px #00000029;
+    margin-right:5px;
 }

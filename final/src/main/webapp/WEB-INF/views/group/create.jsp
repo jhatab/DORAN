@@ -64,26 +64,6 @@
 		}
 	});
 	
-	/* 로그인 유효성 검사 */
-	function loginFunc(e) {
-		e.preventDefault();
-
-		if (uid.value == 'undefined' || uid.value == '') {
-			alert('아이디를 입력해주세요.');
-			uid.focus();
-			return false;
-		}
-
-		if (upass.value == 'undefined' || upass.value == '') {
-			alert('비밀번호를 입력해주세요.');
-			upass.focus();
-			return false;
-		}
-		
-		$("#loginForm").attr("action", "/user/login.do");
-        $("#loginForm").submit();
-	}
-	
 	function readImage(input) {
 		if(input.files && input.files[0]) {
 			const reader = new FileReader()

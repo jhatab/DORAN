@@ -23,6 +23,9 @@
 <body>
 	<div class="subnav">
 		<div class="tab">
+		<div class="group_more">
+		<button class="group_btn" type="button" onclick="location.href='/group/list'">더보기</button>
+		</div>
 			<ul class="tabnav">
 				<li><a href="#tab01">추천순</a></li>
 				<li><a href="#tab02">최신순</a></li>
@@ -52,36 +55,40 @@
 			<div class="tabcontent">
 				<div id="tab01">
 					<div class="slider">
-						<div class="tab_top">
+
 							<c:forEach items="${groupLikeList}" var="gLikeList">
-								<a href="/group/home?groupId=${gLikeList.groupId}">
+								
 									<div class="group_img">
 										<img src="${gLikeList.groupImagePath}">
 										<div class="group_name">
+										<a href="/group/home?groupId=${gLikeList.groupId}">
 											<span>${gLikeList.groupName}</span>
+											</a>
 										</div>
 									</div>
-								</a>
+								
 							</c:forEach>
-						</div>
+						
 					</div>
 				</div>
 
 				<div id="tab02">
 					<div class="slider">
-						<div class="tab_top">
+			
 							<c:forEach items="${groupList}" var="gList">
-								<a href="/group/home?groupId=${gList.groupId}">
+								
 									<div class="group_img">
 										<img src="${gList.groupImagePath}">
 										<div class="group_name">
+										<a href="/group/home?groupId=${gList.groupId}">
 											<span>${gList.groupName}</span>
+											</a>
 										</div>
 									</div>
-								</a>
+								
 							</c:forEach>
 						</div>
-					</div>
+			
 				</div>
 			</div>
 		</div>
@@ -111,12 +118,12 @@
 					});
 				});
 			</script>
-
+<div class="content_box">
 			<div class="panelList">
 				<c:forEach items="${postList}" var="pList">
 					<div class="panel category${pList.categoryId}"
-						onclick="location.href='/group/home?groupId=${pList.groupId}'">
-						<div class="content_box">
+						onclick="location.href='/group/home?groupId=${pList.groupId}'" style="width:416px;">
+						
 							<div class="content_list">
 								<div class="text_box">
 									<p>${pList.content}</p>
@@ -138,8 +145,9 @@
 								</div>
 							</div>
 						</div>
-					</div>
+					
 				</c:forEach>
+			</div>
 			</div>
 		</div>
 	</div>
