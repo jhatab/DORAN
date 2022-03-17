@@ -61,7 +61,6 @@
 											<span>${gLikeList.groupName}</span>
 										</div>
 									</div>
-									
 								</a>
 							</c:forEach>
 						</div>
