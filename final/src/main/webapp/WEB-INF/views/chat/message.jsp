@@ -14,7 +14,8 @@
 </head>
 
 <body>
-	<input type="hidden" id="sessionId" value="">	
+	<input type="hidden" id="sessionId" value="">
+	<input type="hidden" id="roomNumber" value="${roomInfo.roomId}">
 	<div class="chat_wrap">
 		<div class="chat_header">
 	        <img src="/images/left.png"/ class="backImg">
@@ -121,6 +122,7 @@
 
 		function wsOpen() {
 			ws = new WebSocket("ws://" + location.host + "/chating/${roomInfo.roomId}");
+			console.log(ws);
 			wsEvt();
 		}
 
@@ -196,6 +198,7 @@
 		function send() {
 			var option = {
 				type : "message",
+				roomNumber: $("#roomNumber").val(),
 				sessionId : $("#sessionId").val(),
 				userName : "${member.nickname}",
 				profileImg : "${member.profileImg}",
@@ -213,14 +216,14 @@
 			parent.chatCloseFunc();
 		});
 
-		function sleep (ms) {
+		function sleep(ms) {
 			var start = new Date().getTime();
 			while (new Date().getTime() < start + ms);
 		}
 		
 		$(".chat_header .backImg").on("click", function() {
 			location.reload();
-			sleep(10);
+			sleep(100);
 			$(location).attr('href','${contextPath}/chat/room?uid=${member.uid}');
 		});
 	</script>
