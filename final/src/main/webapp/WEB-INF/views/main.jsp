@@ -9,9 +9,6 @@
 <div class="container">
 	<div class="subnav">
 		<div class="tab">
-			<div class="group_more">
-				<button class="group_btn" type="button" onclick="location.href='/group/list'">더보기</button>
-			</div>
 			<ul class="tabnav">
 				<li>
 					<a href="#tab01">추천순</a>
@@ -20,6 +17,9 @@
 					<a href="#tab02">최신순</a>
 				</li>
 			</ul>
+			<div class="group_more">
+				<button class="group_btn" type="button" onclick="location.href='/group/list'">더보기</button>
+			</div>
 	
 			<script>
 				$(function($) {
@@ -59,7 +59,8 @@
 									</c:otherwise>
 								</c:choose>
 								<div class="group_name">
-									<a href="/group/home?groupId=${gLikeList.groupId}"> <span>${gLikeList.groupName}</span>
+									<a href="/group/home?groupId=${gLikeList.groupId}">
+										<span>${gLikeList.groupName}</span>
 									</a>
 								</div>
 							</div>
@@ -99,6 +100,8 @@
 	
 			<script type="text/javascript">
 				$(document).ready(function() {
+					$(".panel").show();
+					
 					$(".contents ul li").click(function(e) {
 						e.preventDefault();
 	

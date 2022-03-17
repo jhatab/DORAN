@@ -12,9 +12,10 @@
 }
 
 .tab {
+	position: relative; width : 1150px;
 	margin-top: 40px;
-	width: 1150px;
 	margin-left: 400px;
+	width: 1150px;
 }
 
 .tab_bar {
@@ -77,12 +78,15 @@
 	width: 285px;
 	height: 50px;
 	background-color: rgb(0, 0, 0, 0.5);
-	color: white;
 	display: flex;
 	justify-content: center;
 	align-items: center;
 	position: absolute;
 	bottom: 0;
+}
+
+.group_name a span {
+	color: white;
 }
 
 .content_wrap {
@@ -233,20 +237,21 @@
 
 .group_more {
 	position: absolute;
-	top: 65px;
-	right: 185px;
-	z-index: 1000;
+	top: 45px;
+	right: 291px;
 }
 
 .group_more button {
-	margin-top: 20px;
-	z-index: 1000;
 	background-color: #FFC900;
 	border-radius: 5em;
 	border: none;
-	width: 70px;
-	height: 30px;
+	padding: 5px 18px;
 	cursor: pointer;
 	box-shadow: 0px 2px 6px #00000029;
 	margin-right: 5px;
+	transition: all .3s;
+}
+
+.group_more button:hover {
+	transform: scale(1.1);
 }
