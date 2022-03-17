@@ -6,10 +6,15 @@
 		<div class="logo">
 			<a href="/main"><img class="logo_img" src="/images/logo.png" /></a>
 		</div>
-		<div class="search_bar">
-			<img class="search_icon" src="/images/search.png" />
-			<input class="search_box" type="text" placeholder="Keyword Search" />
-		</div>
+		
+		<form class="searchForm" action="/search/result">
+			<div class="search_bar">
+				<img class="search_icon" src="/images/search.png" />
+				<input class="search_box" type="text" name="keyword" placeholder="Keyword Search" autocomplete="off"/>
+				<button>검색</button>
+			</div>
+		</form>
+		
 		<div class="menu">
 			<c:if test="${member != null}">
 				<c:if test="${unNoticeCnt > 0}">

@@ -33,4 +33,7 @@ public class GroupVO {
 	private int postCnt;		// 유저별 게시물 수
 	private int replyCnt;		// 유저별 댓글 수
 	
+	/* 검색 */
+	private String keyword;
+	
 }

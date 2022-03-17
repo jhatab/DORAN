@@ -97,6 +97,13 @@
 		<put-attribute name="css2" value="/css/common/reset.css"/>
 		<put-attribute name="body" value="/WEB-INF/views/category/create.jsp" />
 	</definition>
+	
+	<!-- search -->
+	<definition name="search" extends="main-layout">
+		<put-attribute name="title" value="도란도란"/>
+		<put-attribute name="css" value="/css/search.css"/>
+		<put-attribute name="body" value="/WEB-INF/views/search.jsp" />
+	</definition>
    
  
 </tiles-definitions>
