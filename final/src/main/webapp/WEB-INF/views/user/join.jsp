@@ -1,203 +1,112 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 
-<div class="container">
-
-	<div class="mypage_btn">
-		<input type="button" id="category" class="category" value="관심 주제" />
-		<input type="button" id="group" class="group" value="가입 그룹" />
-		<input type="button" id="user" class="user" value="회원 정보" />
-	</div>
-
-	<div class="mypage_wrap">
-		<!-- 유저 정보 -->
-		<div id="userInfo">
-			<c:choose>
-				<c:when test="${member.profileImg == null or member.profileImg == ''}">
-					<img src="/images/chatbot.png" />
-				</c:when>
-				<c:otherwise>
-					<img src="${member.profileImg}">
-				</c:otherwise>
-			</c:choose>
-			<span>${member.nickname}님 환영합니다.</span>
+<div class="sign_wrapper">
+	<div class="sign">
+		<div class="sign_logo">
+			<img class="sign_logo_img" src="/images/logo.png" />
 		</div>
-		<!-- 관심 주제 -->
-		<div id="categoryList">
-			<form method="post" action="/user/interest.do">
-				<span>${member.nickname}님의 관심 주제를 선택해주세요.</span>
-				<input type="hidden" name="uid" value="${member.uid}" />
-				<div>
-					<c:forEach items="${categoryList}" var="cList">
-							<input type="radio" id="categoryId${cList.categoryId}" name="categoryId" value="${cList.categoryId}" <c:if test="${cList.categoryId == userCategoryList.categoryId}">checked</c:if>/>
-							<label for="categoryId${cList.categoryId}">${cList.categoryName}</label>
-					</c:forEach>
-				</div>
-				<button class="enrollBtn">확인</button>
-			</form>
-		</div>
-		<!--가입 그룹  -->
-		<div id="groupList">
-			<ul>
-				<c:forEach items="${userGroupList}" var="gList">
-					<li>
-						<c:choose>
-							<c:when test="${gList.groupImagePath == null or gList.groupImagePath == ''}">
-								<img src="/images/group_image_file/basic.png">
-							</c:when>
-							<c:otherwise>
-								<img src="${gList.groupImagePath}">
-							</c:otherwise>
-						</c:choose>
-						<span class="groupName">${gList.groupName}</span>
-						<span class="groupEnter">
-							<a href="/group/home?groupId=${gList.groupId}">방문하기</a>
-						</span>
-					</li>
-				</c:forEach>
-			</ul>
-		</div>
-		<!-- 회원 정보 수정 -->
-		<div id="userList">
-			<form id="user_form" method="post" enctype="multipart/form-data">
-				<div class="login_box">
-					<div class="input_box">
-						<div class="userImg_wrap">
-							<c:if test="${member.profileImg!= null and member.profileImg != ''}">
-								<div class="userImage">
-									<img src="${member.profileImg}">
-									<input type="hidden" name="profileImg" class="profileImg" value="${member.profileImg}" readonly>
-									<span onClick="imageRemove()">삭제</span>
-								</div>
-							</c:if>
-							<label for="file" class="input_file" style="display: none;">
-								<img src="/images/photo.png" alt="프로필 이미지 선택">
-							</label>
-							<input type="file" name="file" id="file" accept="image/*">
-							<div class="fileView_wrap" style="display: none;">
-								<img class="fileView" src="#" alt="이미지 미리보기">
-								<span onClick="removeFileFunc()">삭제</span>
-							</div>
+		<form id="join_form" method="post" enctype="multipart/form-data">
+			<div class="login_box">
+				<div class="input_box">
+	
+					<div class="userImg_wrap">
+						<label for="file" class="input_file">
+							<img src="/images/photo.png" alt="프로필 이미지 선택">
+						</label>
+						<input type="file" name="file" id="file" accept="image/*">
+						<div class="fileView_wrap" style="display:none;">
+							<img class="fileView" src="#" alt="이미지 미리보기">
+							<span onClick="removeFileFunc()">삭제</span>
 						</div>
-
-						<h3>아이디</h3>
-						<input class="input_content input_id" type="text" name="uid" value="${member.uid}" readonly/>
-
-						<h3>비밀번호</h3>
-						<input class="input_content input_pw" type="password" name="upass" value="${member.upass}" placeholder="비밀번호를 입력해주세요"/>
-						<div class="input_result">
-							<span class="pw_result_2">영문 대소문자/숫자 조합 (4자~10자 입력)</span> <span class="pw_final_ck">비밀번호를 입력해주세요.</span>
-						</div>
-
-						<h3>비밀번호 확인</h3>
-						<input class="input_content input_pwck" type="password" placeholder="비밀번호를 한번 더 입력해주세요" />
-						<div class="input_result">
-							<span class="pwck_result_2">비밀번호가 일치하지 않습니다.</span> <span class="pwck_final_ck">비밀번호를 다시 입력해주세요.</span>
-						</div>
-
-						<h3>이름</h3>
-						<input class="input_content input_name" type="text" name="name" value="${member.name}" placeholder="이름을 입력해주세요" />
-						<div class="input_result">
-							<span class="name_final_ck">이름을 입력해주세요.</span>
-						</div>
-
-						<h3>닉네임</h3>
-						<input class="input_content input_nick" type="text" name="nickname" value="${member.nickname}" placeholder="닉네임을 입력해주세요" />
-						<div class="input_result">
-							<span class="nick_result_2">닉네임이 이미 존재합니다.</span> <span class="nick_final_ck">닉네임을 입력해주세요.</span>
-						</div>
-
-						<h3>생년월일</h3>
-						<input class="input_content input_birth" type="text" name="birthDate" value="${member.birthDate}" placeholder="생년월일을 입력해주세요" autocomplete="off" />
-						<div class="input_result">
-							<span class="birth_final_ck">생년월일을 입력해주세요.</span>
-						</div>
-
-						<h3>성별</h3>
-						<select name="gender">
-							<option value="0" <c:if test="${member.gender == 0}">selected</c:if>>공개 안 함</option>
-							<option value="1" <c:if test="${member.gender == 1}">selected</c:if>>남자</option>
-							<option value="2" <c:if test="${member.gender == 2}">selected</c:if>>여자</option>
-						</select>
-
-						<h3>이메일</h3>
-						<input class="input_content input_email" type="email" name="email" value="${member.email}" placeholder="이메일을 입력해주세요" />
-						<div class="input_result">
-							<span class="email_result_2">이메일을 형식이 올바르지 않습니다.</span> <span class="email_final_ck">이메일을 입력해주세요.</span>
-						</div>
-
-						<h3>주소</h3>
-						<input class="input_content input_address" type="text" name="address" value="${member.address}" placeholder="주소를 입력해주세요" readonly="readonly" onclick="execution_daum_address()" onkeyup="if(window.event.keyCode==13){execution_daum_address()}" />
 					</div>
-
-					<div class="sign_btn">
-						<button type="button" class="updateBtn">수정하기</button>
+	
+					<h3>아이디</h3>
+					<input class="input_content input_id" type="text" name="uid" placeholder="아이디를 입력해주세요" />
+					<div class="input_result">
+						<span class="id_result_2">아이디가 이미 존재합니다.</span>
+						<span class="id_final_ck">아이디를 입력해주세요.</span>
 					</div>
+	
+					<h3>비밀번호</h3>
+					<input class="input_content input_pw" type="password" name="upass" placeholder="비밀번호를 입력해주세요" />
+					<div class="input_result">
+						<span class="pw_result_2">영문 대소문자/숫자 조합 (4자~10자 입력)</span>
+						<span class="pw_final_ck">비밀번호를 입력해주세요.</span>
+					</div>
+	
+					<h3>비밀번호 확인</h3>
+					<input class="input_content input_pwck" type="password" placeholder="비밀번호를 한번 더 입력해주세요" />
+					<div class="input_result">
+						<span class="pwck_result_2">비밀번호가 일치하지 않습니다.</span>
+						<span class="pwck_final_ck">비밀번호를 다시 입력해주세요.</span>
+					</div>
+	
+					<h3>이름</h3>
+					<input class="input_content input_name" type="text" name="name" placeholder="이름을 입력해주세요" />
+					<div class="input_result">
+						<span class="name_final_ck">이름을 입력해주세요.</span>
+					</div>
+	
+					<h3>닉네임</h3>
+					<input class="input_content input_nick" type="text" name="nickname" placeholder="닉네임을 입력해주세요" />
+					<div class="input_result">
+						<span class="nick_result_2">닉네임이 이미 존재합니다.</span>
+						<span class="nick_final_ck">닉네임을 입력해주세요.</span>
+					</div>
+	
+					<h3>생년월일</h3>
+					<input class="input_content input_birth" type="text" name="birthDate" placeholder="생년월일을 입력해주세요" autocomplete="off"/>
+					<div class="input_result">
+						<span class="birth_final_ck">생년월일을 입력해주세요.</span>
+					</div>
+	
+					<h3>성별</h3>
+					<select name="gender">
+						<option value="0">공개 안 함</option>
+						<option value="1">남자</option>
+						<option value="2">여자</option>
+					</select>
+	
+					<h3>이메일</h3>
+					<input class="input_content input_email" type="email" name="email" placeholder="이메일을 입력해주세요" />
+					<div class="input_result">
+						<span class="email_result_2">이메일을 형식이 올바르지 않습니다.</span>
+						<span class="email_final_ck">이메일을 입력해주세요.</span>
+					</div>
+	
+					<h3>주소</h3>
+					<input class="input_content input_address" type="text" name="address" placeholder="주소를 입력해주세요"
+						readonly="readonly" onclick="execution_daum_address()" onkeyup="if(window.event.keyCode==13){execution_daum_address()}" />
+					<div class="input_result">
+						<span class="addr_final_ck">주소를 입력해주세요.</span>
+					</div>
+	
 				</div>
-			</form>
-		</div>
+	
+				<div class="sign_btn">
+					<button type="button" class="joinBtn">가입하기</button>
+				</div>
+			</div>
+		</form>
 	</div>
-
 </div>
 
 <!-- script -->
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <script>
-	/* 탭 메뉴 */
-	$(document).ready(function() {
-		$("#userInfo").show();
-		$("#categoryList").hide();
-		$("#groupList").hide();
-		$("#userList").hide();
-
-		$("#category").click(function() {
-			$("#userInfo").hide();
-			$("#categoryList").show();
-			$("#groupList").hide();
-			$("#userList").hide();
-
-			$(".category").addClass("active");
-			$(".group").removeClass("active");
-			$(".user").removeClass("active");
-		});
-
-		$("#group").click(function() {
-			$("#userInfo").hide();
-			$("#categoryList").hide();
-			$("#groupList").show();
-			$("#userList").hide();
-
-			$(".category").removeClass("active");
-			$(".group").addClass("active");
-			$(".user").removeClass("active");
-		});
-
-		$("#user").click(function() {
-			$("#userInfo").hide();
-			$("#categoryList").hide();
-			$("#groupList").hide();
-			$("#userList").show();
-
-			$(".category").removeClass("active");
-			$(".group").removeClass("active");
-			$(".user").addClass("active");
-		});
-	});
-	
-	/* ========== 회원정보 수정 ========== */
-	
 	/* 유효성 검사 */
+	var idCheck = false;		// 아이디
+	var idCkCheck = false;		// 아이디 중복 검사
 	var pwCheck = false;		// 비밀번호
-	var pwFmCheck = true;		// 비밀번호 형식 확인
+	var pwFmCheck = false;		// 비밀번호 형식 확인
 	var pwckCheck = false;		// 비밀번호 확인
 	var pwckcorCheck = false	// 비밀번호 확인 일치 확인
 	var nameCheck = false;		// 이름
 	var nickCheck = false;		// 닉네임
-	var nickCkCheck = true;		// 닉네임 중복 검사
+	var nickCkCheck = false;	// 닉네임 중복 검사
 	var emailCheck = false;		// 이메일
-	var emailFmCheck = true;	// 이메일 형식 확인
+	var emailFmCheck = false;	// 이메일 형식 확인
 	var birthCheck = false;		// 생년월일
 	var addressCheck = false;	// 주소
 	
@@ -249,11 +158,9 @@
 					$('.nick_final_ck').css("display", "none");
 					nickCkCheck = true;
 				} else {
-					if(nickname != '${member.nickname}') {
-						$('.nick_result_2').css("display", "inline-block");
-						$('.nick_final_ck').css("display", "none");
-						nickCkCheck = false;
-					}
+					$('.nick_result_2').css("display", "inline-block");
+					$('.nick_final_ck').css("display", "none");
+					nickCkCheck = false;
 				}
 			}
 		});
@@ -386,9 +293,10 @@
 		}).open();
 	}
 	
-	/* ========== 회원정보 수정 버튼 ========== */
+	/* ========== 회원가입 버튼 ========== */
 	
-	$(".updateBtn").click(function(){
+	$(".joinBtn").click(function(){
+		var id = $('.input_id').val();			// 아이디 입력란
 		var pw = $('.input_pw').val();			// 비밀번호 입력란
 		var pwck = $('.input_pwck').val();		// 비밀번호 확인 입력란
         var name = $('.input_name').val();		// 이름 입력란
@@ -396,6 +304,16 @@
         var email = $('.input_email').val();	// 이메일 입력란
         var birth = $('.input_birth').val();	// 생년월일 입력란
         var addr = $('.input_address').val();	// 주소 입력란
+        
+        /* 아이디 유효성 검사 */
+		if(id == "") {
+			$('.id_final_ck').css('display','inline-block');
+			$('.id_result_2').css('display', 'none');
+			idCheck = false;
+		} else {
+			$('.id_final_ck').css('display', 'none');
+			idCheck = true;
+		}
         
 		/* 비밀번호 유효성 검사 */
 		if(pw == "") {
@@ -465,22 +383,15 @@
 		}
 		
 		/* 최종 유효성 검사 */
-		if(pwCheck && pwFmCheck && pwckCheck && pwckcorCheck && nameCheck && nickCheck && nickCkCheck && emailCheck && emailFmCheck && birthCheck && addressCheck ){
-			alert("수정이 완료되었습니다. 다시 로그인 해주세요.");
- 			$("#user_form").attr("action", "/user/update.do");
-	 		$("#user_form").submit();
+		if(idCheck && idCkCheck && pwCheck && pwFmCheck && pwckCheck && pwckcorCheck && nameCheck && nickCheck && nickCkCheck && emailCheck && emailFmCheck && birthCheck && addressCheck ){
+ 			$("#join_form").attr("action", "/user/join.do");
+	 		$("#join_form").submit();
 		}
 		
 		return false;
     });
 	
-	/* ========== 이미지 미리보기 ========== */
-	$(document).ready(function() {
-		if("${member.profileImg}" == "") {
-			document.querySelector(".input_file").style.display = '';
-		}
-	});
-	
+	/* 이미지 미리보기 */
 	function readImage(input) {
 		if (input.files && input.files[0]) {
 			const reader = new FileReader()
@@ -509,11 +420,5 @@
 		inputImage.value = "";
 		document.querySelector(".fileView_wrap").style.display = 'none';
 		document.querySelector(".input_file").style.display = '';
-	}
-	
-	function imageRemove() {
-		document.querySelector(".input_file").style.display = '';
-		document.querySelector(".userImage").style.display = 'none';
-		document.querySelector(".profileImg").value = '';
 	}
 </script>

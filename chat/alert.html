@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+  <link href="alert.css" type="text/css" rel="stylesheet" />
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+</head>
+<body>
+<div class="container">
+  <ul class="tab">
+    <li rel="content1"><img src="bell.png"/></li>
+  </ul>
+  <div class="tab_con">
+    <div id="content1" class="tab_content">
+      <ul>
+       <h3>새 소식</h3>
+        <li><span>Lorem Insum</span></li>
+        <li><span>Lorem Insum</span></li>
+        <li><span>Lorem Insum</span></li>
+        <li><span>Lorem Insum</span></li>
+        <li><span>Lorem Insum</span></li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<script>
+  $(document).ready(function(){
+    $(".tab_content").hide();
+    $(".tab li").hover(function(){
+      $("ul.tab li").removeClass("active");
+      $(this).addClass("active");
+      $(".tab_content").hide();
+      var activeTab = $(this).attr("rel");
+      $("#"+activeTab).fadeIn();
+
+    },function(){
+      var activeTab = $(this).attr("rel");
+      $("#"+activeTab).hide();
+      $("#"+activeTab).hover(function(){
+        $("#"+activeTab).show();
+      }, function(){
+        $("#"+activeTab).hide();
+      });
+
+    });
+  });
+
+</script>
+
+</body>
+</html>

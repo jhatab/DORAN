@@ -1,23 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
-<%@ taglib uri="http://tiles.apache.org/tags-tiles" prefix="tiles"%>
-
-<!DOCTYPE html>
-<html>
-
-<head>
-<meta charset="UTF-8">
-<title>로그인</title>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-<link rel="stylesheet" type="text/css" href="/css/login.css?after">
-</head>
-
-<body>
 
 <div class="container">
-        <div class="login_wrapper">
-           <div class="login">
+	<div class="login_wrapper">
+		<div class="login">
 			<!-- 상단 로고 -->
 			<div class="login_logo">
 				<img class="login_logo_img" src="/images/logo.png" />
@@ -49,16 +35,46 @@
 				</div>
 			</div>
 		</div>
-        </div>
-        </div>
+	</div>
+</div>
 
+<!-- script -->
+<script>
 
-	<script>
-		/* 로그인 버튼 클릭 메서드 */
-		$(".login_button").click(function(){
-			$("#loginForm").attr("action", "/user/login.do");
-			$("#loginForm").submit();
-		});
-	</script>
-</body>
-</html>
+	$(document).ready(function() {
+		
+		/* ALERT */
+		const result = '<c:out value="${result}"/>';
+		
+		if (result === "login fail") {
+			alert("아이디 혹은 비밀번호가 잘못되었습니다.");
+		}
+		
+	});
+	
+	const uid = document.querySelector(".id_input");
+	const upass = document.querySelector(".pw_input");
+	const loginButton = document.querySelector(".login_button");
+	
+	/* 로그인 유효성 검사 */
+	function loginFunc(e) {
+		e.preventDefault();
+
+		if (uid.value == 'undefined' || uid.value == '') {
+			alert('아이디를 입력해주세요.');
+			uid.focus();
+			return false;
+		}
+
+		if (upass.value == 'undefined' || upass.value == '') {
+			alert('비밀번호를 입력해주세요.');
+			upass.focus();
+			return false;
+		}
+		
+		$("#loginForm").attr("action", "/user/login.do");
+        $("#loginForm").submit();
+	}
+	loginButton.addEventListener("click", loginFunc);
+	
+</script>

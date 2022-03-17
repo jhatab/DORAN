@@ -11,7 +11,6 @@ import org.springframework.web.multipart.MultipartFile;
 import com.project.doran.attch.vo.AttchVO;
 import com.project.doran.post.dao.PostDAO;
 import com.project.doran.post.vo.PostVO;
-import com.project.doran.tag.vo.TagVO;
 
 @Service("postService")
 public class PostServiceImpl implements PostService {
@@ -19,10 +18,21 @@ public class PostServiceImpl implements PostService {
 	@Autowired
 	private PostDAO postDAO;
 
+	/* 메인 게시물 목록 */
+	@Override
+	public List<PostVO> mainPostList() throws Exception {
+		return postDAO.mainPostList();
+	}
+
 	/* 게시물 목록 */
 	@Override
 	public List<PostVO> postList(PostVO postVO) throws Exception {
 		return postDAO.postList(postVO);
+	}
+
+	/* 메인 이미지 파일 목록 */
+	public List<AttchVO> mainPostImageList() throws Exception {
+		return postDAO.mainPostImageList();
 	}
 
 	/* 이미지 파일 목록 */
@@ -33,17 +43,16 @@ public class PostServiceImpl implements PostService {
 
 	/* 태그 목록 */
 	@Override
-	public List<TagVO> tagList(int groupId) throws Exception {
+	public List<PostVO> tagList(int groupId) throws Exception {
 		return postDAO.tagList(groupId);
 	}
 
-	/* 게시물 작성 + 이미지 파일 등록 + 태그 등록 + 게시물-태그 매핑 */
+	/* 게시물 작성 + 이미지 파일 등록 */
 	@Override
 	public void postWrite(PostVO postVO, AttchVO attchVO, List<MultipartFile> files) throws Exception {
 		postDAO.postWrite(postVO);
 
-		// 이미지 파일 등록
-		String filePath = System.getProperty("user.dir") + "\\src\\main\\webapp\\resources\\images\\post_image_file";
+		String filePath = System.getProperty("user.dir") + "/src/main/resources/static/images/post_image_file";
 
 		for (MultipartFile file : files) {
 
@@ -63,25 +72,7 @@ public class PostServiceImpl implements PostService {
 				postDAO.postImageUpload(attchVO);
 			}
 		}
-
-		// 태그 중복 체크
-		Integer tagCheck = postDAO.tagCheck(postVO);
-
-		if (tagCheck == null) { 						// 태그가 없으면
-			// 태그 등록
-			postDAO.tagUpload(postVO);
-			// 게시물-태그 매핑
-			postVO.getPostId();
-			postVO.getTagId();
-			postDAO.postTagMapping(postVO);
-		} else { 										// 태그가 있으면
-			// 게시물-태그 매핑
-			postVO.setPostId(postVO.getPostId());
-			postVO.setTagId(tagCheck);
-			postDAO.postTagMapping(postVO);
-		}
 	}
-
 
 	/* 게시물 수정 */
 	@Override

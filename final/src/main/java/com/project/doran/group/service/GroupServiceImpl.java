@@ -30,22 +30,17 @@ public class GroupServiceImpl implements GroupService {
 	public List<GroupVO> groupList() throws Exception {
 		return groupDAO.groupList();
 	}
-
-	@Override
-	public List<GroupVO> userGroupMappingList(GroupVO groupVO, HttpServletRequest request) throws Exception {
-		// 로그인 유저 아이디
-		HttpSession session = request.getSession();
-		String userId = (String) session.getAttribute("uid");
-		groupVO.setUid(userId);
-
-		return groupDAO.userGroupMappingList(groupVO);
+	
+	/* 그룹 목록 좋아요순*/
+	public List<GroupVO> groupLikeList() throws Exception {
+		return groupDAO.groupLikeList();
 	}
 
 	/* 그룹 생성 + 생성자-그룹 매핑 */
 	@Override
 	public void groupCreate(GroupVO groupVO, MultipartFile file) throws Exception {
 		String groupImagePath = System.getProperty("user.dir")
-				+ "\\src\\main\\webapp\\resources\\images\\group_image_file";
+				+ "/src/main/resources/static/images/group_image_file";
 
 		if (!file.isEmpty()) {
 			UUID uuid = UUID.randomUUID();
@@ -75,7 +70,7 @@ public class GroupServiceImpl implements GroupService {
 	@Override
 	public void groupUpdate(GroupVO groupVO, MultipartFile file) throws Exception {
 		String groupImagePath = System.getProperty("user.dir")
-				+ "\\src\\main\\webapp\\resources\\images\\group_image_file";
+				+ "/src/main/resources/static/images/group_image_file";
 
 		if (!file.isEmpty()) {
 			UUID uuid = UUID.randomUUID();
@@ -146,6 +141,18 @@ public class GroupServiceImpl implements GroupService {
 	/* 그룹 가입 취소, 퇴출, 탈퇴 */
 	public void groupMemberCancle(GroupVO groupVO) throws Exception {
 		groupDAO.groupMemberCancle(groupVO);
+	}
+	
+	/* 그룹원 수 (관리자) */
+	@Override
+	public int groupMemberCnt(int groupId) throws Exception {
+		return groupDAO.groupMemberCnt(groupId);
+	}
+	
+	/* 그룹원 수 (그룹원) */
+	@Override
+	public int groupMemberCntB(int groupId) throws Exception {
+		return groupDAO.groupMemberCntB(groupId);
 	}
 
 }
