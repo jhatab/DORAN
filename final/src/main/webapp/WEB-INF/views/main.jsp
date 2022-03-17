@@ -29,15 +29,15 @@
 			</ul>
 			
 			<script>
-				$(function() {
+				$(function($) {
 					$('.tabcontent > div').hide();
-					$('.tabnav .1').click(function() {
-						$('.tabcontent > div').hide().filter(this.hash).fadeIn();
-						$('.tabnav a').removeClass('active');
-						$(this).addClass('active');
-						return false;
-					}).filter(':eq(0)').click();
-
+					$('.tabnav a').click(
+						function() {
+							$('.tabcontent > div').hide().filter(this.hash).fadeIn();
+							$('.tabnav a').removeClass('active');
+							$(this).addClass('active');
+							return false;
+						}).filter(':eq(0)').click();
 				});
 
 				$(document).ready(function() {
@@ -52,31 +52,36 @@
 			<div class="tabcontent">
 				<div id="tab01">
 					<div class="slider">
-						<c:forEach items="${groupLikeList}" var="gLikeList">
-							<a href="/group/home?groupId=${gLikeList.groupId}">
-								<div class="group_img">
-									<img src="${gLikeList.groupImagePath}">
-									<div class="group_name">
-										<span>${gLikeList.groupName}</span>
+						<div class="tab_top">
+							<c:forEach items="${groupLikeList}" var="gLikeList">
+								<a href="/group/home?groupId=${gLikeList.groupId}">
+									<div class="group_img">
+										<img src="${gLikeList.groupImagePath}">
+										<div class="group_name">
+											<span>${gLikeList.groupName}</span>
+										</div>
 									</div>
-								</div>
-							</a>
-						</c:forEach>
+									
+								</a>
+							</c:forEach>
+						</div>
 					</div>
 				</div>
 
 				<div id="tab02">
 					<div class="slider">
-						<c:forEach items="${groupList}" var="gList">
-							<a href="/group/home?groupId=${gList.groupId}">
-								<div class="group_img">
-									<img src="${gList.groupImagePath}">
-									<div class="group_name">
-										<span>${gList.groupName}</span>
+						<div class="tab_top">
+							<c:forEach items="${groupList}" var="gList">
+								<a href="/group/home?groupId=${gList.groupId}">
+									<div class="group_img">
+										<img src="${gList.groupImagePath}">
+										<div class="group_name">
+											<span>${gList.groupName}</span>
+										</div>
 									</div>
-								</div>
-							</a>
-						</c:forEach>
+								</a>
+							</c:forEach>
+						</div>
 					</div>
 				</div>
 			</div>
