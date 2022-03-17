@@ -275,6 +275,12 @@
 		var files = e.target.files;
 		var filesArr = Array.prototype.slice.call(files);
 		
+		if ($("#files")[0].files.length > 4) {
+	        alert("이미지는 최대 4장까지 선택가능합니다.");
+	        $("#files").val("");
+	        return false;
+	    }
+		
 		filesArr.forEach(function(f) {
 			select_files.push(f);
 			
@@ -290,6 +296,7 @@
 			}
 			reader.readAsDataURL(f);
 		});
+		
 	}
 	
 	$("#files").on("change", handleImgsFilesSelect);
@@ -300,7 +307,28 @@
 	$(".postWriteFinBtn").on("click", function() {
 		if (!$('.postWrite_content textarea').val()) {
 			alert('내용을 입력해주세요.');
+			$('.postWrite_content textarea').focus();
 			return false;
+		}
+		
+		var tagVal = $('.postWrite_content input[name="tag"]').val();
+		var substring = "#";
+		var tagArr = tagVal.split(substring);
+		
+		if(tagVal != '') {
+			if(tagVal.indexOf(substring) == -1) {
+				alert('태그를 다시 입력해주세요.');
+				$('.postWrite_content input[name="tag"]').focus();
+				return false;
+			}
+			
+			for(let j = 1; j < tagArr.length; j++) {
+				if(tagArr[j].length == 0) {
+					alert("태그를 다시 입력해주세요.");
+					$('.postWrite_content input[name="tag"]').focus();
+					return false;
+				}
+			}
 		}
 		
 		postWriteForm.attr("action", "/group/postWrite.do");
@@ -383,6 +411,25 @@
 			if (!$(".postUpdate_content .content").eq(i).val()) {
 				alert('내용을 입력해주세요.');
 				return false;
+			}
+			
+			var substring = "#";
+			var tagArr = postUpdateData.tag.split(substring);
+			
+			if(postUpdateData.tag != '') {
+				if(postUpdateData.tag.indexOf(substring) == -1) {
+					alert('태그를 다시 입력해주세요.');
+					$(".postUpdate_content .tag").focus();
+					return false;
+				}
+				
+				for(let j = 1; j < tagArr.length; j++) {
+					if(tagArr[j].length == 0) {
+						alert("태그를 다시 입력해주세요.");
+						$(".postUpdate_content .tag").focus();
+						return false;
+					}
+				}
 			}
 			
 			$.ajax({
