@@ -5,12 +5,21 @@
 
 <mapper namespace="com.project.doran.group.dao.GroupDAO">
 
+	<!-- 메인 그룹 목록 최신순 -->
+	<select id="mainGroupList" resultType="com.project.doran.group.vo.GroupVO">
+		SELECT *
+		FROM groupTbl
+		WHERE isDeleted = 0
+		ORDER BY createdDate DESC
+		LIMIT 5
+	</select>
+
 	<!-- 그룹 목록 최신순 -->
 	<select id="groupList" resultType="com.project.doran.group.vo.GroupVO">
 		SELECT *
 		FROM groupTbl
 		WHERE isDeleted = 0
-		ORDER BY createdDate DESC;
+		ORDER BY createdDate DESC
 	</select>
 	
 	<!-- 그룹 목록 추천순 (인원순) -->

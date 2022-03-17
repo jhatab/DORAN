@@ -9,6 +9,9 @@ import org.springframework.web.multipart.MultipartFile;
 import com.project.doran.group.vo.GroupVO;
 
 public interface GroupService {
+	
+	/* 메인 그룹 목록 */
+	public List<GroupVO> mainGroupList() throws Exception;
 
 	/* 그룹 목록 */
 	public List<GroupVO> groupList() throws Exception;

@@ -52,7 +52,7 @@ public class MainController {
 
 		model.addAttribute("categoryList", categoryService.categoryList());
 
-		model.addAttribute("groupList", groupService.groupList());
+		model.addAttribute("groupList", groupService.mainGroupList());
 
 		model.addAttribute("groupLikeList", groupService.groupLikeList());
 

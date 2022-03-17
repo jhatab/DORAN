@@ -9,6 +9,9 @@ import com.project.doran.group.vo.GroupVO;
 @Mapper
 @Repository("groupDAO")
 public interface GroupDAO{
+	
+	/* 메인 그룹 목록 */
+	public List<GroupVO> mainGroupList() throws Exception;
 
 	/* 그룹 목록 최신순*/
 	public List<GroupVO> groupList() throws Exception;
