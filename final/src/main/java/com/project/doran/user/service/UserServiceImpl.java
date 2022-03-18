@@ -96,7 +96,7 @@ public class UserServiceImpl implements UserService {
 
 			file.transferTo(saveFile); 
 
-			userVO.setProfileImg("http://101.101.216.127:8090/upload/images/user_image_file/" + fileName);
+			userVO.setProfileImg("http://101.101.216.127:8090/resource/upload/images/user_image_file/" + fileName);
 			logger.info(userVO.getUid());
 			logger.info(userVO.getUpass());
 			logger.info(userVO.getName());
