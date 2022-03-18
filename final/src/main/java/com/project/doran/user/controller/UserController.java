@@ -33,7 +33,7 @@ public class UserController {
 	}
 
 	/* 로그인 */
-	@RequestMapping(value = "/login.do", method = RequestMethod.POST)
+	@RequestMapping(value = "/login", method = RequestMethod.POST)
 	public String loginPOST(HttpServletRequest request, UserVO userVO, RedirectAttributes rttr) throws Exception {
 		logger.info("로그인");
 
