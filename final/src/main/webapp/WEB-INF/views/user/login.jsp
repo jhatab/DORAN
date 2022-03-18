@@ -10,7 +10,7 @@
 			</div>
 			<!-- 로그인 폼 -->
 			<div class="login_box">
-				<form id="loginForm" method="post" action="/user/login.do">
+				<form id="loginForm" method="post" action="/user/login">
 					<div class="input_box">
 						<h3>아이디</h3>
 						<input type="text" class="id_input" name="uid" placeholder="아이디를 입력해주세요">

@@ -111,6 +111,9 @@ public class UserController {
 	/* 회원 정보 수정 */
 	@RequestMapping(value = "/update.do", method = RequestMethod.POST)
 	public String userUpdate(UserVO userVO, MultipartFile file, HttpSession session) throws Exception {
+		
+		System.out.println("이미지 업로드!!");
+		
 		userService.userUpdate(userVO, file);
 		
 		session.invalidate();

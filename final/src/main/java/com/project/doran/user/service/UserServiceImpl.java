@@ -79,11 +79,15 @@ public class UserServiceImpl implements UserService {
 	public void userUpdate(UserVO userVO, MultipartFile file) throws Exception {
 		String userImagePath = System.getProperty("user.dir")
 				+ "/resources/main/static/images/user_image_file";
-
+		
 		if (!file.isEmpty()) {
 			UUID uuid = UUID.randomUUID();
 
 			String fileName = uuid + "_" + file.getOriginalFilename();
+			
+			System.out.println(userImagePath);
+			
+			System.out.println(fileName);
 
 			File saveFile = new File(userImagePath, fileName);
 
