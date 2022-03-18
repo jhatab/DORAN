@@ -484,7 +484,7 @@
 		/* 최종 유효성 검사 */
 		if(pwCheck && pwFmCheck && pwckCheck && pwckcorCheck && nameCheck && nickCheck && nickCkCheck && emailCheck && emailFmCheck && birthCheck && addressCheck ){
 			alert("수정이 완료되었습니다. 다시 로그인 해주세요.");
- 			$("#user_form").attr("action", "/user/update.do");
+ 			$("#user_form").attr("action", "/user/update");
 	 		$("#user_form").submit();
 		}
 		
