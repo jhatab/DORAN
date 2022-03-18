@@ -189,7 +189,7 @@ body {
 }
 
 .menu .mypageBtn_wrap:hover {
-	height: 140px;
+	height: auto;
 }
 
 .menu .mypageBtn_wrap span:hover a {

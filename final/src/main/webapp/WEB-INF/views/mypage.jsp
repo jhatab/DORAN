@@ -41,7 +41,7 @@
 		<div id="groupList">
 			<ul>
 				<c:forEach items="${userGroupList}" var="gList">
-					<li>
+					<li class="group_info">
 						<c:choose>
 							<c:when test="${gList.groupImagePath == null or gList.groupImagePath == ''}">
 								<img src="/images/group_image_file/basic.png">
@@ -57,6 +57,9 @@
 					</li>
 				</c:forEach>
 			</ul>
+			<div class="groupNone" style="display: none;">
+				가입된 그룹이 없습니다.
+			</div>
 		</div>
 		<!-- 회원 정보 수정 -->
 		<div id="userList">
@@ -185,6 +188,20 @@
 			$(".user").addClass("active");
 		});
 	});
+	
+	/* ========== 유효성 체크 ========== */
+	$("#categoryList .enrollBtn").on("click", function() {
+		if (!$('#categoryList input[name="categoryId"]').is(':checked')) {
+			alert('관심 주제를 선택해주세요.');
+			return false;
+		}
+	});
+	
+	const isGroupInfo = document.querySelectorAll('.group_info');
+
+	if(isGroupInfo.length <= 0) {
+		document.querySelector(".groupNone").style.display = '';
+	}
 	
 	/* ========== 회원정보 수정 ========== */
 	

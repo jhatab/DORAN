@@ -24,6 +24,7 @@
 	height: 200px;
 	margin-top: 20px;
 	border: 1px solid #ccc;
+	object-fit: cover;
 }
 
 .contents {

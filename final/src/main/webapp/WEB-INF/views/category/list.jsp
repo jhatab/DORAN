@@ -12,7 +12,6 @@
 				<input class="category_btn" type="button" value="${cList.categoryName}" onclick="categoryDeleteBtn(${cList.categoryId})" />
 			</c:forEach>
 		</ul>
-		<hr>
 		<div class="create_btn">
 			<button type="button" onclick="location.href='/category/create'">카테고리 생성</button>
 		</div>
