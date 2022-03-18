@@ -785,3 +785,15 @@ input[type="file"] {
 	background: rgba(0, 0, 0, 0.7);
 	border-radius: 50%;
 }
+
+/* 게시물 X */
+.postSearchNone, .postNone {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	height: 460px;
+}
+
+.postSearchNone span, .postNone span {
+	font-size: 16px;
+}
