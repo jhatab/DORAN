@@ -19,6 +19,5 @@ public class SearchCriteriaVO extends CriteriaVO {
 		this.keyword = keyword;
 	}
 	
-
 	
 }
