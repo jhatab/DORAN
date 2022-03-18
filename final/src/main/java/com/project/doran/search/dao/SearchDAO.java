@@ -17,6 +17,12 @@ public interface SearchDAO{
 	
 	/* 검색 게시물 목록 */
 	public List<PostVO> searchPostList(PostVO postVO) throws Exception;
+	
+	/* 검색 태그 목록 */
+	public List<PostVO> searchTagList(PostVO postVO) throws Exception;
+	
+	/* 태그 목록 */
+	public List<PostVO> tagList(PostVO postVO) throws Exception;
 
 
 }

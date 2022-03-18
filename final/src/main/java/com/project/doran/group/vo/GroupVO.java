@@ -34,6 +34,6 @@ public class GroupVO {
 	private int replyCnt;		// 유저별 댓글 수
 	
 	/* 검색 */
-	private String keyword;
+	private String search;
 	
 }

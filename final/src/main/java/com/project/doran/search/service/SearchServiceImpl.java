@@ -27,4 +27,16 @@ public class SearchServiceImpl implements SearchService {
 		return searchDAO.searchPostList(postVO);
 	}
 	
+	/* 검색 태그 목록 */
+	@Override
+	public List<PostVO> searchTagList(PostVO postVO) throws Exception {
+		return searchDAO.searchTagList(postVO);
+	}
+	
+	/* 태그 목록 */
+	@Override
+	public List<PostVO> tagList(PostVO postVO) throws Exception {
+		return searchDAO.tagList(postVO);
+	}
+	
 }
