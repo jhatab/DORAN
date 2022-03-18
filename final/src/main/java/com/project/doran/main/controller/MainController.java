@@ -20,6 +20,8 @@ import com.project.doran.group.vo.GroupVO;
 import com.project.doran.notice.service.NoticeService;
 import com.project.doran.notice.vo.NoticeVO;
 import com.project.doran.post.service.PostService;
+import com.project.doran.post.vo.PostVO;
+import com.project.doran.search.service.SearchService;
 import com.project.doran.user.service.UserService;
 
 @Controller("MainController")
@@ -44,6 +46,9 @@ public class MainController {
 	
 	@Autowired
 	private NoticeService noticeService;
+	
+	@Autowired
+	private SearchService searchService;
 
 	/* 메인 페이지 */
 	@RequestMapping(value = "/main", method = RequestMethod.GET)
@@ -77,7 +82,22 @@ public class MainController {
 
 		return "/mypage";
 	}
-
+	
+	/* 검색 결과 페이지 */
+	@RequestMapping(value = "/search", method = RequestMethod.GET)
+	public void searchGET(Model model, GroupVO groupVO, PostVO postVO) throws Exception {
+		logger.info("검색 결과 페이지입니다.");
+		
+		model.addAttribute("searchGroupList", searchService.searchGroupList(groupVO));
+		
+		model.addAttribute("searchPostList", searchService.searchPostList(postVO));
+		
+		model.addAttribute("searchPostImageList", postService.mainPostImageList());
+		
+		model.addAttribute("searchTagList", searchService.searchTagList(postVO));
+		
+		model.addAttribute("tagList", searchService.tagList(postVO));
+	}
 	
 	/* 유저별 안 읽은 메시지 총 개수 */
 	@ModelAttribute("unReadCnt")

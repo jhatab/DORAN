@@ -31,10 +31,8 @@
 	</select>
 
 	<!-- 메인 이미지 파일 목록 -->
-	<select id="mainPostImageList"
-		resultType="com.project.doran.attch.vo.AttchVO">
-		SELECT *
-		FROM attchTbl
+	<select id="mainPostImageList" resultType="com.project.doran.attch.vo.AttchVO">
+		SELECT * FROM attchTbl
 	</select>
 
 	<!-- 이미지 파일 목록 -->
@@ -50,19 +48,16 @@
 	</select>
 
 	<!-- 태그 목록 -->
-	<select id="tagList"
-		resultType="com.project.doran.post.vo.PostVO">
-		SELECT p.groupId, p.postId, REPLACE(SUBSTRING_INDEX
-		(SUBSTRING_INDEX(p.tag,'#',numbers.n),'#',-1), ' ', '') tag
+	<select id="tagList" resultType="com.project.doran.post.vo.PostVO">
+		SELECT p.groupId, p.postId, REPLACE(SUBSTRING_INDEX (SUBSTRING_INDEX(p.tag,'#',numbers.n),'#',-1), ' ', '') tag
 		FROM (
-		SELECT 2 n UNION ALL SELECT 3
-		UNION ALL SELECT 4
-		UNION ALL SELECT 5
-		UNION ALL SELECT 6 ) numbers INNER JOIN postTbl p
-		ON CHAR_LENGTH( p.tag ) -
-		CHAR_LENGTH(REPLACE(p.tag , '#' , ''))>= numbers.n - 1
-		WHERE p.groupId
-		= #{groupId} AND p.isDeleted = 0
+			SELECT 2 n UNION ALL SELECT 3
+			UNION ALL SELECT 4
+			UNION ALL SELECT 5
+			UNION ALL SELECT 6 ) numbers INNER JOIN postTbl p
+			ON CHAR_LENGTH( p.tag ) -
+			CHAR_LENGTH(REPLACE(p.tag , '#' , ''))>= numbers.n - 1
+		WHERE p.groupId = #{groupId} AND p.isDeleted = 0
 		ORDER BY p.tag
 	</select>
 

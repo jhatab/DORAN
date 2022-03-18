@@ -6,10 +6,14 @@
 		<div class="logo">
 			<a href="/main"><img class="logo_img" src="/images/logo.png" /></a>
 		</div>
-		<div class="search_bar">
-			<img class="search_icon" src="/images/search.png" />
-			<input class="search_box" type="text" placeholder="Keyword Search" />
-		</div>
+		
+		<form class="searchForm" action="/search">
+			<div class="search_bar">
+				<img class="search_icon" src="/images/search.png" />
+				<input class="search_box" type="text" name="search" placeholder="Keyword Search" autocomplete="off"/>
+			</div>
+		</form>
+		
 		<div class="menu">
 			<c:if test="${member != null}">
 				<c:if test="${unNoticeCnt > 0}">
@@ -128,8 +132,10 @@
 	/* 알림이 없을 경우 */
 	const isNoticeInfo = document.querySelectorAll('.notice_info');
 	
-	if(isNoticeInfo.length <= 0) {
-		document.querySelector(".alarmNone").style.display = 'block';
+	if($(".alarmNone").length > 0) { // 오류 방지
+		if(isNoticeInfo.length <= 0) {
+			document.querySelector(".alarmNone").style.display = 'block';
+		}
 	}
 	
 	/* 알림 시간 포맷 */
@@ -164,4 +170,9 @@
  			}
  		});
 	}
+	
+	/* 검색값 유지 */
+	let params = new URLSearchParams(location.search);
+	let getParams = params.get('search');
+	$(".searchForm").find("input[name='search']").val(getParams);
 </script>

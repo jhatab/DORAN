@@ -1,5 +1,9 @@
 @charset "UTF-8";
 
+h3 {
+	font-size: 30px;
+}
+
 .category_wrap {
 	width: 880px;
 	height: 660px;

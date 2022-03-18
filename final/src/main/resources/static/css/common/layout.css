@@ -115,7 +115,7 @@ body {
 
 .search_icon {
 	position: absolute;
-	top: 5px;
+	top: 2px;
 	width: 19px;
 	height: 19px;
 }
@@ -124,7 +124,7 @@ body {
 	padding-left: 27px;
 	width: 250px;
 	height: 25px;
-	font-size: 12px;
+	font-size: 14px;
 	border: none;
 	outline: none;
 	border-bottom: 1px solid #707070;
@@ -189,7 +189,7 @@ body {
 }
 
 .menu .mypageBtn_wrap:hover {
-	height: 140px;
+	height: auto;
 }
 
 .menu .mypageBtn_wrap span:hover a {

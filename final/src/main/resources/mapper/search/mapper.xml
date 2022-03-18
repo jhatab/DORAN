@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+      PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.project.doran.search.dao.SearchDAO">
+
+	<!-- 검색 그룹 목록 -->
+	<select id="searchGroupList" resultType="com.project.doran.group.vo.GroupVO">
+		SELECT *
+		FROM groupTbl g
+			LEFT OUTER JOIN userTbl u ON u.uid = g.uid
+		WHERE g.isDeleted = 0
+			AND (g.groupName LIKE CONCAT('%',#{search},'%'))
+		ORDER BY g.createdDate DESC
+	</select>
+	
+	<!-- 검색 게시물 목록 -->
+	<select id="searchPostList" resultType="com.project.doran.post.vo.PostVO">
+		SELECT *
+		FROM postTbl p
+			LEFT OUTER JOIN userTbl u ON p.uid = u.uid
+			LEFT OUTER JOIN groupTbl g ON g.groupId = p.groupId
+		WHERE p.isDeleted = 0
+			AND g.isDeleted = 0
+			AND (p.content LIKE CONCAT('%',#{search},'%'))
+		ORDER BY p.postedDate DESC
+	</select>
+	
+	<!-- 검색 태그 목록 -->
+	<select id="searchTagList" resultType="com.project.doran.post.vo.PostVO">
+		SELECT *
+		FROM postTbl p
+			LEFT OUTER JOIN userTbl u ON p.uid = u.uid
+			LEFT OUTER JOIN groupTbl g ON g.groupId = p.groupId
+		WHERE p.isDeleted = 0
+			AND g.isDeleted = 0
+			AND p.tag LIKE CONCAT('%',#{search},'%')
+		ORDER BY p.postedDate DESC
+	</select>
+	
+	<!-- 태그 목록 -->
+	<select id="tagList" resultType="com.project.doran.post.vo.PostVO">
+		SELECT p.groupId, p.postId, REPLACE(SUBSTRING_INDEX (SUBSTRING_INDEX(p.tag,'#',numbers.n),'#',-1), ' ', '') tag
+		FROM (
+			SELECT 2 n UNION ALL SELECT 3
+			UNION ALL SELECT 4
+			UNION ALL SELECT 5
+			UNION ALL SELECT 6 ) numbers INNER JOIN postTbl p
+			ON CHAR_LENGTH( p.tag ) -
+			CHAR_LENGTH(REPLACE(p.tag , '#' , ''))>= numbers.n - 1
+		ORDER BY p.postId desc
+	</select>
+	
+</mapper>

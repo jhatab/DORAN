@@ -52,7 +52,7 @@
 				<input type="hidden" name="toUid" value="${groupInfo.uid}">
 				<input type="hidden" name="fromUid" value="${member.uid}">
 				<input type="hidden" name="noticeType" value="join">
-				<input type="hidden" name="noticeMsg" value="${member.uid}님이 ${groupInfo.groupName}에 가입승인을 요청했습니다.">
+				<input type="hidden" name="noticeMsg" value="${member.nickname}님이 ${groupInfo.groupName}에 가입승인을 요청했습니다.">
 			</form>
 		</div>
 		<!-- // Left Bar -->

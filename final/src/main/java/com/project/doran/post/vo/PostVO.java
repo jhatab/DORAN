@@ -27,6 +27,7 @@ public class PostVO {
 
 	/* SearchCriteriaVO */
 	private String keyword; // 검색 키워드
+	private String search; // 전체 검색 키워드
 
 	// category
 	private int categoryId;			// 카테고리 식별자
