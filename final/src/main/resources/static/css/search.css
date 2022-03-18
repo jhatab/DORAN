@@ -49,6 +49,7 @@ h1 {
 .searchNone {
 	display: none;
 	width: 100%;
+	font-size: 20px;
 	text-align: center;
 }
 
