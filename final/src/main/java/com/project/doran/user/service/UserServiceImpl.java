@@ -45,7 +45,7 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public void userJoin(UserVO userVO, MultipartFile file) throws Exception {
 		String userImagePath = System.getProperty("user.dir")
-				+ "\\src\\main\\resources\\static\\images\\user_image_file";
+				+ "/resources/main/static/images/user_image_file";
 
 		if (!file.isEmpty()) {
 			UUID uuid = UUID.randomUUID();
@@ -78,7 +78,7 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public void userUpdate(UserVO userVO, MultipartFile file) throws Exception {
 		String userImagePath = System.getProperty("user.dir")
-				+ "\\src\\main\\resources\\static\\images\\user_image_file";
+				+ "/resources/main/static/images/user_image_file";
 
 		if (!file.isEmpty()) {
 			UUID uuid = UUID.randomUUID();

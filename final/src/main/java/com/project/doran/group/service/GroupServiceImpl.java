@@ -46,7 +46,7 @@ public class GroupServiceImpl implements GroupService {
 	@Override
 	public void groupCreate(GroupVO groupVO, MultipartFile file) throws Exception {
 		String groupImagePath = System.getProperty("user.dir")
-				+ "\\src\\main\\resources\\static\\images\\group_image_file";
+				+ "/resources/main/static/images/group_image_file";
 
 		if (!file.isEmpty()) {
 			UUID uuid = UUID.randomUUID();
@@ -76,7 +76,7 @@ public class GroupServiceImpl implements GroupService {
 	@Override
 	public void groupUpdate(GroupVO groupVO, MultipartFile file) throws Exception {
 		String groupImagePath = System.getProperty("user.dir")
-				+ "\\src\\main\\resources\\static\\images\\group_image_file";
+				+ "/resources/main/static/images/group_image_file";
 
 		if (!file.isEmpty()) {
 			UUID uuid = UUID.randomUUID();

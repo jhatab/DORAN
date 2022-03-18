@@ -52,7 +52,7 @@ public class PostServiceImpl implements PostService {
 	public void postWrite(PostVO postVO, AttchVO attchVO, List<MultipartFile> files) throws Exception {
 		postDAO.postWrite(postVO);
 
-		String filePath = System.getProperty("user.dir") + "\\src\\main\\resources\\static\\images\\post_image_file";
+		String filePath = System.getProperty("user.dir") + "/resources/main/static/images/post_image_file";
 
 		for (MultipartFile file : files) {
 
