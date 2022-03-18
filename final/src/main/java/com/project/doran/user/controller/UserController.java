@@ -21,7 +21,7 @@ import com.project.doran.user.vo.UserVO;
 @RequestMapping(value = "/user")
 public class UserController {
 
-	private static final Logger logger = LoggerFactory.getLogger(GroupController.class);
+	private static final Logger logger = LoggerFactory.getLogger(UserController.class);
 
 	@Autowired
 	private UserService userService;
@@ -112,7 +112,7 @@ public class UserController {
 	@RequestMapping(value = "/update.do", method = RequestMethod.POST)
 	public String userUpdate(UserVO userVO, MultipartFile file, HttpSession session) throws Exception {
 		
-		System.out.println("이미지 업로드!!");
+		logger.info("이미지 업로드");
 		
 		userService.userUpdate(userVO, file);
 		

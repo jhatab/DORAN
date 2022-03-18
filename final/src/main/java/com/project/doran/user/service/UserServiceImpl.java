@@ -4,6 +4,8 @@ import java.io.File;
 import java.util.List;
 import java.util.UUID;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -11,11 +13,14 @@ import org.springframework.web.multipart.MultipartFile;
 import com.project.doran.group.vo.GroupVO;
 import com.project.doran.search.vo.CriteriaVO;
 import com.project.doran.search.vo.PagingVO;
+import com.project.doran.user.controller.UserController;
 import com.project.doran.user.dao.UserDAO;
 import com.project.doran.user.vo.UserVO;
 
 @Service("userService")
 public class UserServiceImpl implements UserService {
+	
+	private static final Logger logger = LoggerFactory.getLogger(UserController.class);
 
 	@Autowired
 	private UserDAO userDAO;
@@ -85,23 +90,23 @@ public class UserServiceImpl implements UserService {
 
 			String fileName = uuid + "_" + file.getOriginalFilename();
 			
-			System.out.println(userImagePath);
+			logger.info(userImagePath);
 			
-			System.out.println(fileName);
-
+			logger.info(fileName);
+			
 			File saveFile = new File(userImagePath, fileName);
 
 			file.transferTo(saveFile);
 
 			userVO.setProfileImg("/resources/main/static/images/user_image_file/" + fileName);
-			System.out.println(userVO.getUid());
-			System.out.println(userVO.getUpass());
-			System.out.println(userVO.getName());
+			logger.info(userVO.getUid());
+			logger.info(userVO.getUpass());
+			logger.info(userVO.getName());
 		}
 
 		userDAO.userUpdate(userVO);
 
-		System.out.println("회원정보 수정!!");
+		logger.info("회원 정보 수정");
 	}
 
 	/* 가입한 그룹 목록 */
