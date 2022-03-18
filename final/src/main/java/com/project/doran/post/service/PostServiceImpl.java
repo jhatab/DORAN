@@ -52,7 +52,7 @@ public class PostServiceImpl implements PostService {
 	public void postWrite(PostVO postVO, AttchVO attchVO, List<MultipartFile> files) throws Exception {
 		postDAO.postWrite(postVO);
 
-		String filePath = System.getProperty("user.dir") + "/resources/main/static/images/post_image_file";
+		String filePath = "/usr/local/tomcat/apache-tomcat-8.5.76/webapps/upload/images/post_image_file";
 
 		for (MultipartFile file : files) {
 
@@ -66,7 +66,7 @@ public class PostServiceImpl implements PostService {
 
 				attchVO.setSrvFileName(fileName);
 				attchVO.setLocalFileName(file.getOriginalFilename());
-				attchVO.setFilePath("/resources/main/static/images/post_image_file/" + fileName);
+				attchVO.setFilePath("http://101.101.216.127:8090/upload/images/post_image_file/" + fileName);
 				attchVO.setPostId(postVO.getPostId());
 
 				postDAO.postImageUpload(attchVO);
