@@ -107,7 +107,7 @@
 		    ) A on ug.uid = A.uid
 		    LEFT OUTER JOIN (
 				SELECT p.groupId, r.*, count(*) replyCnt
-				FROM replytbl r
+				FROM replyTbl r
 					LEFT OUTER JOIN postTbl p on p.postId = r.postId
 				WHERE p.groupId = #{groupId} AND p.isDeleted = 0 AND r.isDeleted = 0
 				GROUP BY uid
