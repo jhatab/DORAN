@@ -49,8 +49,7 @@ public class UserServiceImpl implements UserService {
 	/* 회원가입 */
 	@Override
 	public void userJoin(UserVO userVO, MultipartFile file) throws Exception {
-		String userImagePath = System.getProperty("user.dir")
-				+ "/resources/main/static/images/user_image_file";
+		String userImagePath = "/var/webapps/upload/images/user_image_file";
 
 		if (!file.isEmpty()) {
 			UUID uuid = UUID.randomUUID();
@@ -61,7 +60,7 @@ public class UserServiceImpl implements UserService {
 
 			file.transferTo(saveFile);
 
-			userVO.setProfileImg("/resources/main/static/images/user_image_file/" + fileName);
+			userVO.setProfileImg("/var/webapps/upload/images/user_image_file/" + fileName);
 		}
 
 		userDAO.userJoin(userVO);
@@ -82,8 +81,7 @@ public class UserServiceImpl implements UserService {
 	/* 회원정보 수정 */
 	@Override
 	public void userUpdate(UserVO userVO, MultipartFile file) throws Exception {
-		String userImagePath = System.getProperty("user.dir")
-				+ "src/main/resources/static/images/user_image_file";
+		String userImagePath = "/var/webapps/upload/images/user_image_file";
 		
 		if (!file.isEmpty()) {
 			UUID uuid = UUID.randomUUID();
@@ -96,9 +94,9 @@ public class UserServiceImpl implements UserService {
 			
 			File saveFile = new File(userImagePath, fileName);
 
-			file.transferTo(saveFile);
+			file.transferTo(saveFile); 
 
-			userVO.setProfileImg("/images/user_image_file/" + fileName);
+			userVO.setProfileImg("/resource/upload/images/user_image_file/" + fileName);
 			logger.info(userVO.getUid());
 			logger.info(userVO.getUpass());
 			logger.info(userVO.getName());
