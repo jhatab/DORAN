@@ -9,9 +9,14 @@ public class LoginConfig implements WebMvcConfigurer {
 
 	@Override
 	public void addInterceptors(InterceptorRegistry registry) {
-		registry.addInterceptor(new LoginInterceptor())
-				.addPathPatterns("/group/setting", "/mypage/**", "/chat/**")
+		registry.addInterceptor(new MemberInterceptor())
+				.addPathPatterns("/group/setting", "/mypage/**", "/chat/**", "/category/**")
 				.excludePathPatterns("/css/**", "/fonts/**", "/images/**", "/js/**");
+		
+		registry.addInterceptor(new AdminInterceptor())
+		.addPathPatterns("/category/**")
+		.excludePathPatterns("/css/**", "/fonts/**", "/images/**", "/js/**");
 	}
+	
 
 }
