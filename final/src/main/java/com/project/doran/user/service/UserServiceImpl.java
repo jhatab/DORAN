@@ -56,7 +56,7 @@ public class UserServiceImpl implements UserService {
 
 			file.transferTo(saveFile);
 
-			userVO.setProfileImg("/images/user_image_file/" + fileName);
+			userVO.setProfileImg("/resources/main/static/images/user_image_file/" + fileName);
 		}
 
 		userDAO.userJoin(userVO);
@@ -89,7 +89,7 @@ public class UserServiceImpl implements UserService {
 
 			file.transferTo(saveFile);
 
-			userVO.setProfileImg("/images/user_image_file/" + fileName);
+			userVO.setProfileImg("/resources/main/static/images/user_image_file/" + fileName);
 			System.out.println(userVO.getUid());
 			System.out.println(userVO.getUpass());
 			System.out.println(userVO.getName());

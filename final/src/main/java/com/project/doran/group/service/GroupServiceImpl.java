@@ -57,7 +57,7 @@ public class GroupServiceImpl implements GroupService {
 
 			file.transferTo(saveFile);
 
-			groupVO.setGroupImagePath("/images/group_image_file/" + fileName);
+			groupVO.setGroupImagePath("/resources/main/static/images/group_image_file/" + fileName);
 		}
 
 		groupDAO.groupCreate(groupVO);
@@ -87,7 +87,7 @@ public class GroupServiceImpl implements GroupService {
 
 			file.transferTo(saveFile);
 
-			groupVO.setGroupImagePath("/images/group_image_file/" + fileName);
+			groupVO.setGroupImagePath("/resources/main/static/images/group_image_file/" + fileName);
 		}
 
 		groupDAO.groupUpdate(groupVO);

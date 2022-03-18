@@ -66,7 +66,7 @@ public class PostServiceImpl implements PostService {
 
 				attchVO.setSrvFileName(fileName);
 				attchVO.setLocalFileName(file.getOriginalFilename());
-				attchVO.setFilePath("/images/post_image_file/" + fileName);
+				attchVO.setFilePath("/resources/main/static/images/post_image_file/" + fileName);
 				attchVO.setPostId(postVO.getPostId());
 
 				postDAO.postImageUpload(attchVO);
