@@ -24,7 +24,6 @@ body {
 .mypage_btn input[type="button"] {
 	display: inline-block;
 	height: 40px;
-	line-height: 40px;
 	margin: 0 10px;
 	padding: 0 20px;
 	border: 1px solid #FFC900;
@@ -70,6 +69,7 @@ body {
 	height: 200px;
 	border: 1px solid #ccc;
 	border-radius: 50%;
+	object-fit:cover;
 }
 
 #userInfo span {
@@ -99,7 +99,7 @@ body {
 #categoryList label {
 	display: inline-block;
 	height: 30px;
-	line-height: 30px;
+	line-height: 28px;
 	margin: 10px 10px;
 	padding: 0 20px;
 	border: 1px solid #FFC900;
@@ -126,7 +126,6 @@ body {
 #categoryList .enrollBtn {
 	display: inline-block;
 	height: 30px;
-	line-height: 28px;
 	margin-top: 30px;
 	padding: 0 20px;
 	border: 1px solid #FFC900;
@@ -136,7 +135,14 @@ body {
 	box-shadow: 0px 2px 6px #00000029;
 	cursor: pointer;
 	font-size:12pt;
+	transition: transform .3s;
 }
+
+#categoryList .enrollBtn:hover {
+	transform: translateY(-3px);
+	
+}
+
 
 /* 가입 그룹 */
 #groupList ul {
@@ -149,15 +155,16 @@ body {
 #groupList ul li {
 	position: relative;
 	width: 202px;
-	height: 262px;
+	height: 302px;
 	margin: 10px 19px;
 }
 
 #groupList ul li img {
 	width: 200px;
-	height: 260px;
+	height: 300px;
+	/* 	height: 200px; */
 	border: 1px solid #ccc;
-	object-fit: cover;
+	object-fit:cover;
 }
 
 #groupList ul li span.groupName {
@@ -374,13 +381,9 @@ input[type="file"] {
 	box-shadow: 0px 2px 6px #00000029;
 	font-weight: bold;
 	cursor: pointer;
+	transition: transform .3s;
 }
 
-/* 그룹X */
-#groupList .groupNone {
-	width: 100%;
-	height: 420px;
-	line-height: 420px;
-	font-size: 20px;
-	text-align: center;
+.updateBtn:hover{
+	transform: translateY(-3px);
 }
