@@ -33,4 +33,5 @@ mybatis:
 
 spring.servlet.multipart.maxFileSize : 10MB
 spring.servlet.multipart.maxRequestSize : 10MB
+
   
