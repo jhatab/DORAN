@@ -118,16 +118,20 @@
 				});
 			</script>
 			<div class="content_box">
-				<div class="panelList">
-					<c:forEach items="${postList}" var="pList">
-						<div class="panel category${pList.categoryId}" onclick="location.href='/group/home?groupId=${pList.groupId}'" style="width: 416px;">
-	
+			<div class="panelList">
+				<c:forEach items="${postList}" var="pList" begin="0" step="2">
+					<div class="panel category${pList.categoryId}"
+						onclick="location.href='/group/home?groupId=${pList.groupId}#post${pList.postId}'" style="width:416px;">
+						
 							<div class="content_list">
+							<div class="uid">
+							<p>${pList.nickname}</p></div>
 								<div class="text_box">
 									<p>${pList.content}</p>
 								</div>
 								<div class="like_view">
-									<img src="${gList.filePath}"> <img alt="like" src="/images/like.png"> <span>${pList.likeCount}</span>
+									<img src="${gList.filePath}"> <img alt="like"
+										src="/images/like.png"> <span>${pList.likeCount}</span>
 								</div>
 								<div class="content_img">
 									<c:forEach items="${mainPostImageList}" var="mPIList">
@@ -137,13 +141,45 @@
 									</c:forEach>
 								</div>
 								<div class="comment_view">
-									<span>${pList.postedDate}&nbsp;</span> <span>&nbsp;Comment ${pList.replyCount}</span>
+									<span>${pList.postedDate}&nbsp;</span> <span>&nbsp;Comment
+										${pList.replyCount}</span>
 								</div>
 							</div>
 						</div>
-	
-					</c:forEach>
-				</div>
+					
+				</c:forEach>
+			</div>
+			
+			<div class="panelList">
+				<c:forEach items="${postList}" var="pList" begin="1" step="2">
+					<div class="panel category${pList.categoryId}"
+						onclick="location.href='/group/home?groupId=${pList.groupId}#post${pList.postId}'" style="width:416px;">
+							<div class="content_list">
+							<div class="uid">
+							<p>${pList.nickname}</p></div>
+								<div class="text_box">
+									<p>${pList.content}</p>
+									
+								</div>
+								<div class="like_view">
+									<img src="${gList.filePath}"> <img alt="like"
+										src="/images/like.png"> <span>${pList.likeCount}</span>
+								</div>
+								<div class="content_img">
+									<c:forEach items="${mainPostImageList}" var="mPIList">
+										<c:if test="${mPIList.postId == pList.postId}">
+											<img src="${mPIList.filePath}">
+										</c:if>
+									</c:forEach>
+								</div>
+								<div class="comment_view">
+									<span>${pList.postedDate}&nbsp;</span> <span>&nbsp;Comment
+										${pList.replyCount}</span>
+								</div>
+							</div>
+						</div>
+				</c:forEach>
+			</div>
 			</div>
 		</div>
 	</div>

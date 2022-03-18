@@ -10,6 +10,7 @@
 		resultType="com.project.doran.post.vo.PostVO">
 		select *
 		from postTbl p
+		LEFT OUTER JOIN userTbl u ON p.uid = u.uid
 		INNER JOIN groupTbl g ON p.groupId = g.groupId
 		INNER JOIN categoryTbl c ON c.categoryId = g.categoryId;
 	</select>
