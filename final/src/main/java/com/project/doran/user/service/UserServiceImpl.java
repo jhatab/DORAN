@@ -83,7 +83,7 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public void userUpdate(UserVO userVO, MultipartFile file) throws Exception {
 		String userImagePath = System.getProperty("user.dir")
-				+ "/resources/main/static/images/user_image_file";
+				+ "src/main/resources/static/images/user_image_file";
 		
 		if (!file.isEmpty()) {
 			UUID uuid = UUID.randomUUID();
@@ -98,7 +98,7 @@ public class UserServiceImpl implements UserService {
 
 			file.transferTo(saveFile);
 
-			userVO.setProfileImg("/resources/main/static/images/user_image_file/" + fileName);
+			userVO.setProfileImg("/images/user_image_file/" + fileName);
 			logger.info(userVO.getUid());
 			logger.info(userVO.getUpass());
 			logger.info(userVO.getName());
