@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+      PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.project.doran.reply.dao.ReplyDAO">
+
+	<!-- 댓글 목록 -->
+	<select id="replyList" resultType="com.project.doran.reply.vo.ReplyVO">
+		SELECT r.replyId, r.postId, r.uid, r.replyContent, r.repliedDate, u.nickname, u.profileImg
+		FROM replyTbl r
+			LEFT OUTER JOIN userTbl u ON r.uid = u.uid
+			LEFT OUTER JOIN postTbl p ON r.postId = p.postId
+			LEFT OUTER JOIN groupTbl g ON p.groupId = g.groupId
+		WHERE p.groupId = #{groupId} 
+			AND r.isDeleted = 0
+		ORDER BY r.repliedDate;
+	</select>
+	
+	<!-- 댓글 작성 -->
+	<insert id="replyWrite">
+		INSERT INTO replyTbl(postId, uid, replyContent) 
+		VALUES (#{postId}, #{uid}, #{replyContent})
+	</insert>
+	
+	<!-- 댓글 수정 -->
+	<update id="replyUpdate">
+		UPDATE replyTbl
+		SET replyContent = #{replyContent}, isRevised = 1, revisedDate = now()
+		WHERE replyId = #{replyId}
+	</update>
+	
+	<!-- 댓글 삭제 -->
+	<update id="replyDelete">
+		UPDATE replyTbl 
+		SET isDeleted = 1, deletedDate = now()
+		WHERE replyId = #{replyId}
+	</update>
+	
+	<!-- 댓글 수 업데이트 -->
+	<update id="replyCountUpdate">
+		UPDATE postTbl
+		SET postTbl.replyCount = (SELECT count(replyId)
+									FROM replyTbl
+									WHERE postId = #{postId} AND isDeleted = 0)
+		WHERE postTbl.postId = #{postId};
+	</update>
+	
+</mapper>

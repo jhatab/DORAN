@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+      PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.project.doran.chat.dao.ChatDAO">
+	
+	<!-- 채팅방 목록 -->
+	<select id="roomList" resultType="com.project.doran.chat.vo.ChatRoomVO">
+		SELECT cr.*, u1.nickname nickname1, u2.nickname nickname2, u1.profileImg profileImg1, u2.profileImg profileImg2, recentMsg, recentTime, unMsgRead
+		FROM chatRoomTbl cr
+			LEFT OUTER JOIN userTbl u1 ON u1.uid = cr.uid1
+			LEFT OUTER JOIN userTbl u2 ON u2.uid = cr.uid2
+			LEFT OUTER JOIN (
+				SELECT roomId, message as recentMsg, msgTime as recentTime
+				FROM chatMessageTbl
+				WHERE msgTime IN ( 
+					SELECT MAX(msgTime) FROM chatMessageTbl GROUP BY roomId
+				)
+		    ) A on cr.roomId = A.roomId
+		    LEFT OUTER JOIN (
+				SELECT cm.roomId, count(*) AS unMsgRead
+				FROM chatMessageTbl cm
+				WHERE cm.msgRead = 0 AND cm.uid != #{uid}
+				GROUP BY roomId
+			) B on cr.roomId = B.roomId
+		WHERE uid1 = #{uid1} OR uid2 = #{uid2}
+		ORDER BY recentTime desc
+	</select>
+	
+	<!-- 채팅방 유무 확인 -->
+	<select id="roomCheck" resultType="int">
+		SELECT count(*) 
+		FROM chatRoomTbl 
+		WHERE (uid1 = #{uid1} AND uid2 = #{uid2}) 
+			OR (uid1 = #{uid2} AND uid2 = #{uid1})
+	</select>
+	
+	<!-- 채팅방 생성 -->
+	<insert id="roomCreate">
+		INSERT INTO chatRoomTbl(uid1, uid2)
+		VALUES (#{uid1}, #{uid2})
+	</insert>
+	
+	<!-- 채팅 메시지 목록 -->
+	<select id="messageList" resultType="com.project.doran.chat.vo.ChatMessageVO">
+		SELECT *
+		FROM chatMessageTbl cm
+			LEFT OUTER JOIN userTbl u on u.uid = cm.uid
+		WHERE roomId = #{roomId}
+		ORDER BY msgTime
+	</select>
+	
+	<!-- 채팅 메시지 저장 -->
+	<insert id="messageInsert">
+		INSERT INTO chatMessageTbl(roomId, uid, message)
+		VALUES(#{roomId}, #{uid}, #{message})
+	</insert>
+	
+	<!-- 채팅방 정보 -->
+	<select id="roomSelect" resultType="com.project.doran.chat.vo.ChatRoomVO">
+		SELECT cr.*, u1.nickname nickname1, u2.nickname nickname2
+		FROM chatRoomTbl cr
+			LEFT OUTER JOIN userTbl u1 ON u1.uid = cr.uid1
+			LEFT OUTER JOIN userTbl u2 ON u2.uid = cr.uid2
+		WHERE roomId = #{roomId}
+	</select>
+	
+	<!-- 채팅 메시지 읽음 -->
+	<update id="msgRead">
+		UPDATE chatMessageTbl
+		SET msgRead = 1
+		WHERE roomId = #{roomId} AND uid != #{uid}
+	</update>
+	
+	<!-- 유저별 안 읽은 메시지 총 개수 -->
+	<select id="totalUnReadMsg" resultType="int">
+		SELECT count(*)
+		FROM chatMessageTbl cm
+			LEFT OUTER JOIN chatRoomTbl cr ON cm.roomId = cr.RoomId
+		WHERE (cr.uid1 = #{uid} OR cr.uid2 = #{uid}) AND cm.uid != #{uid} AND msgRead = 0;
+	</select>
+	
+</mapper>

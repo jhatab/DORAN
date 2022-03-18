@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+      PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.project.doran.postLike.dao.PostLikeDAO">
+
+	<!-- 좋아요 체크 -->
+	<select id="likeCheck" resultType="int">
+		SELECT count(*) 
+		FROM postLikeTbl 
+		WHERE uid = #{uid} 
+			AND postId = #{postId}
+	</select>
+	
+	<!-- 좋아요 추가 -->
+	<insert id="likeAdd">
+		INSERT INTO postLikeTbl(postId, uid) 
+		VALUES (#{postId}, #{uid}) 
+	</insert>
+	
+	<!-- 좋아요 취소 -->
+	<delete id="likeCancle">
+		DELETE FROM postLikeTbl 
+		WHERE postId = #{postId} 
+			AND uid = #{uid}
+	</delete>
+	
+	<!-- 좋아요 수 업데이트 -->
+	<update id="likeCountUpdate">
+		UPDATE postTbl
+		SET postTbl.likeCount = (SELECT count(postId)
+									FROM postLikeTbl
+									WHERE postId = #{postId})
+		WHERE postTbl.postId = #{postId};
+	</update>
+	
+</mapper>

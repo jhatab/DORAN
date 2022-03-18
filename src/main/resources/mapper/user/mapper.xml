@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+      PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.project.doran.user.dao.UserDAO">
+
+	<sql id="search">
+		<!-- 검색어가 존재 하는 경우에만 검색을 실행 -->
+		<if test="keyword != null and keyword != ''.toString() ">
+			OR nickname LIKE CONCAT('%',#{keyword},'%') 
+			OR content LIKE CONCAT('%',#{keyword},'%') 
+			OR categoryName LIKE CONCAT('%',#{keyword},'%') 
+			OR tagName LIKE CONCAT('%',#{keyword},'%') 
+		</if>
+	</sql>
+	
+	<!-- 로그인 -->
+	<select id="userLogin" resultType="com.project.doran.user.vo.UserVO">
+    	SELECT *
+    	FROM userTbl
+    	WHERE uid = #{uid} AND upass = #{upass}
+	</select>
+	
+	<!-- 회원가입 -->
+  	<insert id="userJoin">
+		INSERT INTO userTbl
+		VALUES (#{uid}, #{upass}, #{name}, #{birthDate}, #{gender}, #{nickname}, #{email}, #{address}, 0, #{profileImg})
+	</insert>
+	
+	<!-- 아이디 중복검사 -->
+  	<select id="idCheck" resultType="int">
+  		SELECT count(*)
+  		FROM userTbl
+  		WHERE uid = #{uid}
+  	</select>
+  	
+  	<!-- 닉네임 중복검사 -->
+  	<select id="nickCheck" resultType="int">
+  		SELECT count(*)
+  		FROM userTbl
+  		WHERE nickname = #{nickname}
+  	</select>
+	
+	<!-- 회원 정보 수정 -->
+	<update id="userUpdate" parameterType="com.project.doran.user.vo.UserVO">
+		UPDATE userTbl 
+		SET upass = #{upass}, name = #{name}, birthDate = #{birthDate}, gender = #{gender}, 
+			nickname = #{nickname}, email = #{email}, address = #{address}, profileImg = #{profileImg}
+		WHERE uid = #{uid} 
+	</update>
+	
+	<!-- 가입한 그룹 목록 -->
+	<select id="userGroupList" resultType="com.project.doran.group.vo.GroupVO">
+		SELECT ug.groupId, ug.uid, ug.joinDate, ug.isApproval, g.groupName, g.groupImagePath
+		FROM userGroupMappingTbl ug
+			LEFT OUTER JOIN groupTbl g ON g.groupId = ug.groupId
+		WHERE ug.uid = #{uid}
+			AND ug.isApproval > 0
+			AND g.isDeleted = 0
+		ORDER BY ug.joinDate ASC
+	</select>
+	
+	<!-- 관심 주제 설정 -->
+	<insert id="userCategoryMapping">
+		INSERT INTO userCategoryMappingTbl (uid, categoryId)
+		VALUES (#{uid}, #{categoryId})
+	</insert>
+	
+	<!-- 관심 주제 삭제 -->
+	<delete id="userCategoryDelete">
+		DELETE FROM userCategoryMappingTbl
+		WHERE uid = #{uid}
+	</delete>
+	
+	<!-- 관심 주제 가져오기 -->
+	<select id="userCategoryList" resultType="com.project.doran.user.vo.UserVO">
+		SELECT *
+		FROM userCategoryMappingTbl
+		WHERE uid = #{uid}
+	</select>
+	
+</mapper>

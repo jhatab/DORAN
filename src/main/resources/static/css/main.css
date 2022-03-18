@@ -1,0 +1,282 @@
+@charset "UTF-8";
+
+.container {
+	min-height: 100vh;
+}
+
+ul, li {
+	list-style: none;
+}
+
+/*tab css*/
+.subnav {
+	width: 100%;
+	display: flex;
+	justify-content: center;
+}
+
+.tab {
+	margin-top:40px;
+	width: 1150px;
+	margin-left: 400px;
+}
+
+.tab_bar{
+	width:100%;
+	background:white;
+}
+
+.tabnav {
+	height: 80px;
+	font-size: 0;
+	position: relative;
+}
+
+.tabnav li {
+	display: inline-block;
+	height: 46px;
+	text-align: center;
+	margin-top: 34px;
+}
+
+.tabnav li a:before {
+	content: "";
+	position: absolute;
+	left: 0;
+	bottom: 0px;
+	width: 100%;
+	height: 3px;
+}
+
+.tabnav li a.active:before {
+	background: #FFC900;
+}
+
+.tabnav li a {
+	position: relative;
+	display: block;
+	color: #000;
+	padding: 0 10px;
+	line-height: 46px;
+	text-decoration: none;
+	font-size: 16px;
+}
+
+.tabcontent {
+	padding-top: 20px;
+	border-top: none;
+}
+
+.group_img {
+	position: relative;
+}
+
+.group_img img {
+	width: 285px;
+	height: 380px;
+	object-fit: cover;
+}
+
+.group_name {
+	width: 285px;
+	height: 50px;
+	background-color: rgb(0, 0, 0, 0.5);
+	color: white;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	position: absolute;
+	bottom: 0;
+}
+
+.content_wrap{
+	width:100%;
+	display:flex;
+	justify-content:center;
+	margin-left:50px;
+}
+
+.slider{
+	z-index:1;
+}
+
+.tabs {
+	margin-top:20px;
+	margin-bottom:20px;
+	padding: 0;
+	width:910px;
+	
+}
+
+.tabs li {
+	display: inline-block;
+    text-align: center;
+    border:none;
+    border-radius: 25px;
+    background: white;
+    padding:7px 21px 7px 21px;
+    box-shadow: 0px 2px 6px #00000029;
+    margin-right:12px;
+    cursor:pointer;
+}
+
+.tabs li:hover {
+	background: #FFC900;
+}
+
+.tabs li.active {
+	display: inline-block;
+    text-align: center;
+    border:none;
+    border-radius: 25px;
+    background: #FFC900;
+    padding:7px 21px 7px 21px;
+    box-shadow: 0px 2px 6px #00000029;
+    margin-right:12px;
+}
+
+.panel {
+	display: none;
+	background: #fff;
+	width:416px;
+	background:#FAFAFA;
+}
+
+.panel.active {
+	display: block;
+}
+
+.content_box {
+    width:850px;
+    margin:0 auto;
+    border-top:1px solid rgb(0,0,0,0.5);
+    display:flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    margin-bottom:20px;
+}
+
+.content_list {
+    position:relative;
+    width:416px;
+    box-shadow: 0px 1px 6px #00000029;
+    border-radius: 10px;
+    margin-top:18px;
+    text-align: left;
+    transform: translateY(0em);
+    transition-duration: 1s;
+}
+
+.content_list:hover {
+    transform: translateY(-0.5em);
+transition-duration: 1s;
+cursor:Pointer;
+}
+
+.uid {
+	width:375px;
+	padding:15px 20px 0 20px;
+}
+
+
+
+.text_box {
+    padding:15px 20px 0 20px;
+    width:375px;
+    color:#707070;
+}
+
+.text_box h1{
+    font-size:12pt;
+}
+
+.text_box p {
+    font-family:'appleL';
+    font-size:10pt;
+}
+
+.like_view {
+    position:absolute;
+    top:15px;
+    right:20px;
+    color:#707070;
+}
+.like_view img{
+    width:12px;
+    height:12px;
+}
+
+.like_view span{
+    margin-left:5px;
+    font-size:10pt;
+}
+
+.content_img {
+    margin-top:5px;
+    width:100%;
+    text-align: center;
+    
+}
+
+.content_img img {
+    display:inline-block;
+    object-fit: cover;
+    width:375px;
+    height:137px;
+}
+.comment_view {
+    padding:5px 20px 10px;
+    width:375px;
+    color:#707070;
+    font-size:9pt;
+}
+
+.comment_view span {
+	font-size:9pt;
+}
+
+.panelList {
+	display:flex;
+	width:416px;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-content:flex-start;
+	}
+	
+	.panelList {
+	display:flex;
+	width:416px;
+    flex-wrap: wrap;
+    justify-content: space-between;
+	}
+	
+	
+	
+	.group_more {
+	position:absolute;
+	top:65px;
+	right:185px;
+	z-index:1000;
+	
+}
+
+.group_more button {
+	margin-top:20px;
+	z-index:1000;
+	background-color:#FFC900;
+    border-radius: 5em;
+    border:none;
+
+    width: 70px;
+    height: 30px;
+    line-height: 28px;
+
+    cursor: pointer;
+    box-shadow:0px 2px 6px #00000029;
+    margin-right:5px;
+    transition: transform .3s;
+}
+
+.group_more button:hover {
+	transform: scale(1.1);
+}

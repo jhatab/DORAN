@@ -1,0 +1,215 @@
+@charset "UTF-8";
+
+.container {
+	padding: max(calc(50vh - 315px), 125px) 0 60px 0;
+	box-sizing: border-box;
+	min-height: 100vh;
+}
+
+.groupWrapper {
+	width: 1320px;
+	margin: 0 auto;
+	display: flex;
+	justify-content: space-between;
+}
+
+/* Left Bar */
+.leftWrapper {
+	position: relative;
+	width: 230px;
+	height: 470px;
+	margin-top: 55px;
+	text-align: center;
+	border-radius: 10px;
+	background: #fff;
+	box-shadow: 0px 2px 6px #00000029;
+}
+
+.groupPhoto img {
+	width: 200px;
+	height: 200px;
+	margin-top: 20px;
+	border: 1px solid #ccc;
+}
+
+.contents {
+	padding: 15px 30px;
+}
+
+.contents h3 {
+	margin-bottom: 15px;
+	font-size: 18px;
+	font-weight: bold;
+}
+
+.contents p {
+	text-align: left;
+}
+
+#groupBtn {
+	position: absolute;
+	bottom: 35px;
+	left: 50%;
+	transform: translate(-50%, 0);
+	width: 120px;
+	height: 35px;
+	line-height: 35px;
+	border-radius: 5em;
+	background-color: #ffc900;
+	box-shadow: 0px 2px 6px #00000029;
+}
+
+/* Main */
+.btnWrap {
+	float: right;
+}
+
+.memberWrap {
+	width: 1000px;
+	margin-top: 55px;
+	padding: 50px 50px;
+	border-radius: 10px;
+	box-shadow: 0px 2px 6px #00000029;
+	background: #fff;
+	box-sizing: border-box;
+}
+
+.upperWrap {
+	overflow: hidden;
+	width: 820px;
+	margin: 0 auto;
+	margin-bottom: 10px;
+}
+
+.upperWrap span {
+	margin-left: 10px;
+	font-size: 18px;
+}
+
+.btnWrap .groupUpdateBtn, .btnWrap .groupDeleteBtn {
+	width: 100px;
+	height: 40px;
+	line-height: 42px;
+	border: none;
+	border-radius: 5em;
+	background-color: #FFC900;
+	box-shadow: 0px 2px 6px #00000029;
+}
+
+/* 표 */
+table {
+	width: 820px;
+	margin: 0 auto;
+	border-collapse: collapse;
+}
+
+table tr th {
+	padding: 20px 15px;
+	font-weight: normal;
+}
+
+table tr td {
+	padding: 20px 15px;
+	text-align: center;
+}
+
+td.num {
+	width: 30px;
+}
+
+td.user {
+	width: 145px;
+}
+
+td.user img {
+	width: 40px;
+	height: 40px;
+	border: 1px solid #ccc;
+	border-radius: 50%;
+	vertical-align: -9.5px;
+}
+
+td.user span {
+	display: inline-block;
+	width: 90px;
+	height: 100%;
+	padding-left: 5px;
+	text-align: left;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	overflow: hidden;
+}
+
+td.activity span {
+	padding-right: 15px;
+}
+
+td.activity span:last-child {
+	padding: 0;
+}
+
+td.activity span em {
+	padding-left: 5px;
+}
+
+td.chat {
+	width: 86px;
+	padding-right: 10px;
+	box-sizing: border-box;
+}
+
+td.chat img {
+	width: 20px;
+	height: 20px;
+	padding-right: 5px;
+	vertical-align: -3px;
+}
+
+td.action {
+	width: 176px;
+	text-align: left;
+	box-sizing: border-box;
+}
+
+td.action .joinApprovalBtn {
+	margin-right: 20px;
+}
+
+td.action img {
+	width: 20px;
+	height: 20px;
+	padding-right: 5px;
+	vertical-align: -4.5px;
+}
+
+tr {
+	position: relative;
+}
+
+tr::after {
+	content: "";
+	width: 100%;
+	height: 1px;
+	background-color: #ddd;
+	position: absolute;
+	bottom: 0;
+	left: 0;
+}
+
+tr:last-child:after {
+	width: 0;
+	height: 0;
+}
+
+.groupResignBtn {
+	display: block;
+	width: 100px;
+	height: 40px;
+	line-height: 42px;
+	margin: 0 auto;
+	margin-top: 10px;
+	border: none;
+	border-radius: 5em;
+	background-color: #FFC900;
+	box-shadow: 0px 2px 6px #00000029;
+}

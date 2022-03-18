@@ -1,0 +1,179 @@
+@charset "UTF-8";
+
+* {
+	margin: 0;
+	padding: 0;
+	font-size: 16px;
+}
+
+a {
+	color: #000;
+	text-decoration: none;
+}
+
+ul, li, ol {
+	list-style: none;
+}
+
+.chat_wrap {
+	position: relative;
+	width: 400px;
+	height: 600px;
+	box-shadow: 0px 2px 6px #00000029;
+	border-radius: 7px;
+	background: #fff;
+	background: #fafafa;
+}
+
+.chat_header {
+	width: 400px;
+	height: 72px;
+	line-height: 72px;
+	text-align: center;
+	background-color: #FFC900;
+	border-radius: 7px 7px 0px 0px;
+	box-shadow: 0px 2px 6px #00000029;
+}
+
+.chat_header span {
+	font-size: 18px;
+	font-weight: bold;
+}
+
+.chat_header .backImg {
+	width: 35px;
+	height: 35px;
+	margin-left: 10px;
+	margin-right: 20px;
+	cursor: pointer;
+}
+
+.chat_header .chatCloseBtn {
+	position: absolute;
+	top: 25px;
+	right: 15px;
+	margin-right: 10px;
+	border: 0;
+	background: none;
+	cursor: pointer;
+	border: 0;
+	outline: none;
+}
+
+.chat_header .chatCloseBtn img {
+	width: 20px;
+	height: 20px;
+}
+
+.chat_list {
+	height: 528px;
+	box-sizing: border-box;
+	overflow-x: hidden;
+	overflow-y: auto;
+	padding: 17px 15px;
+}
+
+.chat_list ul li {
+	width: 100%;
+	height: 90px;
+	margin-bottom: 10px;
+	padding: 0 20px;
+	border-radius: 10px;
+	background: #fff;
+	box-shadow: 0px 2px 6px #00000029;
+	box-sizing: border-box;
+	transition: all 0.2s;
+}
+
+.chat_list ul li a {
+	display: flex;
+	align-items: center;
+	width: 100%;
+	height: 100%;
+	width: 100%;
+}
+
+.chat_list ul li a img {
+	width: 50px;
+	height: 50px;
+	margin-right: 10px;
+	border: 1px solid #707070;
+	border-radius: 50%;
+	vertical-align: middle;
+}
+
+.chat_list ul li a span.nickname {
+	display: inline-block;
+	width: 182px;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+
+.chat_list ul li a span.recentTime {
+	display: inline-block;
+	width: 75px;
+	line-height: 22.5px;
+	color: gray;
+	font-size: 12px;
+	text-align: right;
+	vertical-align: top;
+}
+
+.chat_list ul li a span.recentMsg {
+	display: inline-block;
+	width: 225px;
+	height: 20px;
+	line-height: 22.5px;
+	color: gray;
+	font-size: 14px;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	overflow: hidden;
+}
+
+.chat_list ul li a span.unMsgRead {
+	display: inline-block;
+	width: 20px;
+	height: 20px;
+	line-height: 20px;
+	margin-left: 10px;
+	color: #fff;
+	font-size: 12px;
+	font-weight: bold;
+	text-align: center;
+	background: red;
+	border-radius: 50%;
+	vertical-align: top;
+}
+
+.chat_list ul li:hover {
+	background: #eee;
+}
+
+/* 스크롤바 */
+.chat_list::-webkit-scrollbar {
+	width: 5.2px;
+}
+/* 스크롤바 색상 */
+.chat_list::-webkit-scrollbar-thumb {
+	background: #ddd;
+	border-radius: 10px;
+}
+
+.chat_list::-webkit-scrollbar-thumb:hover {
+	background: #808080;
+}
+/* 스크롤바 상하단 버튼 */
+.chat_list::-webkit-scrollbar-button {
+	display: none;
+}
+
+.chat_list::-webkit-scrollbar {
+	display: none;
+}
+
+.chat_list:hover::-webkit-scrollbar {
+	display: block;
+}

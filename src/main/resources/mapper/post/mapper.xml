@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+      PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.project.doran.post.dao.PostDAO">
+
+	<!-- 메인 게시물 목록 -->
+	<select id="mainPostList"
+		resultType="com.project.doran.post.vo.PostVO">
+		select *
+		from postTbl p
+		LEFT OUTER JOIN userTbl u ON p.uid = u.uid
+		INNER JOIN groupTbl g ON p.groupId = g.groupId
+		INNER JOIN categoryTbl c ON c.categoryId = g.categoryId;
+		
+	</select>
+
+	<!-- 게시물 목록 -->
+	<select id="postList"
+		resultType="com.project.doran.post.vo.PostVO">
+		SELECT distinct p.*, u.nickname, u.profileImg
+		FROM postTbl p
+		LEFT OUTER JOIN userTbl u ON p.uid = u.uid
+		WHERE groupId = #{groupId}
+		AND p.isDeleted = 0
+		<if test="keyword != null and keyword != ''">
+			AND (p.content LIKE CONCAT('%',#{keyword},'%')
+			OR u.nickname LIKE CONCAT('%',#{keyword},'%')
+			OR p.tag LIKE CONCAT('%',#{keyword},'%'))
+		</if>
+		ORDER BY postedDate DESC;
+	</select>
+
+	<!-- 메인 이미지 파일 목록 -->
+	<select id="mainPostImageList"
+		resultType="com.project.doran.attch.vo.AttchVO">
+		SELECT *
+		FROM attchTbl
+	</select>
+
+	<!-- 이미지 파일 목록 -->
+	<select id="postImageList"
+		resultType="com.project.doran.attch.vo.AttchVO">
+		SELECT a.*
+		FROM attchTbl a
+		LEFT OUTER JOIN postTbl p ON a.postId = p.postId
+		LEFT OUTER JOIN groupTbl g ON p.groupId = g.groupId
+		WHERE p.groupId =
+		#{groupId}
+		AND p.isDeleted = 0
+	</select>
+
+	<!-- 태그 목록 -->
+	<select id="tagList"
+		resultType="com.project.doran.post.vo.PostVO">
+		SELECT p.groupId, p.postId, REPLACE(SUBSTRING_INDEX
+		(SUBSTRING_INDEX(p.tag,'#',numbers.n),'#',-1), ' ', '') tag
+		FROM (
+		SELECT 2 n UNION ALL SELECT 3
+		UNION ALL SELECT 4
+		UNION ALL SELECT 5
+		UNION ALL SELECT 6 ) numbers INNER JOIN postTbl p
+		ON CHAR_LENGTH( p.tag ) -
+		CHAR_LENGTH(REPLACE(p.tag , '#' , ''))>= numbers.n - 1
+		WHERE p.groupId
+		= #{groupId} AND p.isDeleted = 0
+		ORDER BY p.tag
+	</select>
+
+	<!-- 게시물 작성 -->
+	<insert id="postWrite" useGeneratedKeys="true"
+		keyProperty="postId">
+		INSERT INTO postTbl(groupId, uid, content, tag, openness)
+		VALUES (#{groupId}, #{uid}, #{content}, #{tag}, #{openness})
+	</insert>
+
+	<!-- 이미지 파일 등록 -->
+	<insert id="postImageUpload">
+		INSERT INTO attchTbl(attchId, postId, srvFileName,
+		localFileName, filePath)
+		VALUES (#{attchId}, #{postId}, #{srvFileName},
+		#{localFileName}, #{filePath})
+	</insert>
+
+	<!-- 게시물 수정 -->
+	<update id="postUpdate">
+		UPDATE postTbl
+		SET content = #{content}, tag = #{tag}, openness = #{openness}, isRevised
+		= 1, revisedDate = now()
+		WHERE postId = #{postId}
+	</update>
+
+	<!-- 이미지 파일 수정 : 기존 이미지 파일 삭제 후 이미지 파일 등록 -->
+	<delete id="postImageDelete">
+		DELETE attchTbl
+		WHERE postId = #{postId}
+	</delete>
+
+	<!-- 게시물 삭제 -->
+	<update id="postDelete">
+		UPDATE postTbl
+		SET isDeleted = 1, deletedDate = now()
+		WHERE postId = #{postId}
+	</update>
+
+	<!-- 인기 게시물 목록 -->
+	<select id="hotPostList"
+		resultType="com.project.doran.post.vo.PostVO">
+		<![CDATA[
+		SELECT * 
+		FROM postTbl
+		WHERE groupId = #{groupId} 
+			AND openness != 3 
+			AND isDeleted = 0 
+			AND postedDate 
+			BETWEEN DATE_ADD(NOW(),INTERVAL -1 WEEK ) AND NOW()
+		ORDER BY likeCount DESC, postedDate DESC
+		LIMIT 5
+		]]>
+	</select>
+
+</mapper>
