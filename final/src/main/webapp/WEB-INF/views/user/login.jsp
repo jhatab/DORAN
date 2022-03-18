@@ -72,7 +72,7 @@
 			return false;
 		}
 		
-		$("#loginForm").attr("action", "/user/login.do");
+		$("#loginForm").attr("action", "/user/login");
         $("#loginForm").submit();
 	}
 	loginButton.addEventListener("click", loginFunc);
