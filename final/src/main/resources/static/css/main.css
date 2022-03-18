@@ -256,13 +256,11 @@ cursor:Pointer;
 	position:absolute;
 	top:65px;
 	right:185px;
-	z-index:1000;
 	
 }
 
 .group_more button {
 	margin-top:20px;
-	z-index:1000;
 	background-color:#FFC900;
     border-radius: 5em;
     border:none;
