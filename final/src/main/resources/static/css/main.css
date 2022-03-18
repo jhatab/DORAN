@@ -88,6 +88,9 @@ ul, li {
 	position: absolute;
 	bottom: 0;
 }
+.group_name span {
+	color:white;
+}
 
 .content_wrap{
 	width:100%;
