@@ -71,7 +71,7 @@ public class UserController {
 	}
 
 	/* 회원가입 */
-	@RequestMapping(value = "/join.do", method = RequestMethod.POST)
+	@RequestMapping(value = "/join", method = RequestMethod.POST)
 	public String joinPOST(UserVO userVO, MultipartFile file, RedirectAttributes rttr) throws Exception {
 		logger.info("회원가입");
 

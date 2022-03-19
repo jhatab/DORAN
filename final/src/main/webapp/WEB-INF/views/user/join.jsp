@@ -384,7 +384,7 @@
 		
 		/* 최종 유효성 검사 */
 		if(idCheck && idCkCheck && pwCheck && pwFmCheck && pwckCheck && pwckcorCheck && nameCheck && nickCheck && nickCkCheck && emailCheck && emailFmCheck && birthCheck && addressCheck ){
- 			$("#join_form").attr("action", "/user/join.do");
+ 			$("#join_form").attr("action", "/user/join");
 	 		$("#join_form").submit();
 		}
 		
