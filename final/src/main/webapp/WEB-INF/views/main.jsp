@@ -130,7 +130,7 @@
 									<p>${pList.content}</p>
 								</div>
 								<div class="like_view">
-									<img src="${gList.filePath}"> <img alt="like"
+									<img alt="like"
 										src="/images/like.png"> <span>${pList.likeCount}</span>
 								</div>
 								<div class="content_img">
@@ -162,7 +162,7 @@
 									
 								</div>
 								<div class="like_view">
-									<img src="${gList.filePath}"> <img alt="like"
+									<img alt="like"
 										src="/images/like.png"> <span>${pList.likeCount}</span>
 								</div>
 								<div class="content_img">
