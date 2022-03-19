@@ -119,7 +119,7 @@
 			</script>
 			<div class="content_box">
 			<div class="panelList">
-				<c:forEach items="${postList}" var="pList" begin="0" step="2">
+				<c:forEach items="${postList}" var="pList" begin="1" step="2">
 					<div class="panel category${pList.categoryId}"
 						onclick="location.href='/group/home?groupId=${pList.groupId}#post${pList.postId}'" style="width:416px;">
 						
@@ -130,7 +130,7 @@
 									<p>${pList.content}</p>
 								</div>
 								<div class="like_view">
-									<img src="${gList.filePath}"> <img alt="like"
+									<img alt="like"
 										src="/images/like.png"> <span>${pList.likeCount}</span>
 								</div>
 								<div class="content_img">
@@ -151,7 +151,7 @@
 			</div>
 			
 			<div class="panelList">
-				<c:forEach items="${postList}" var="pList" begin="1" step="2">
+				<c:forEach items="${postList}" var="pList" begin="0" step="2">
 					<div class="panel category${pList.categoryId}"
 						onclick="location.href='/group/home?groupId=${pList.groupId}#post${pList.postId}'" style="width:416px;">
 							<div class="content_list">
@@ -162,7 +162,7 @@
 									
 								</div>
 								<div class="like_view">
-									<img src="${gList.filePath}"> <img alt="like"
+									<img alt="like"
 										src="/images/like.png"> <span>${pList.likeCount}</span>
 								</div>
 								<div class="content_img">

@@ -400,6 +400,15 @@ input[type="file"] {
 	text-overflow: ellipsis;
 }
 
+.middleContents textarea {
+	width: 100%;
+	border: none;
+	outline: none;
+	resize: none;
+	overflow: hidden;
+	box-sizing: border-box;
+}
+
 .groupFeedLower {
 	display: flex;
 	justify-content: space-between;

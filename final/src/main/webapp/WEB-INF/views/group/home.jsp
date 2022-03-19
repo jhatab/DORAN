@@ -718,6 +718,14 @@
 		});
 	}
 	
+	/* 내용 textarea 높이 자동 조정 */
+	const contentTextarea = document.querySelectorAll(".middleContents textarea");
+	
+	for (let i = 0; i < postCount.length; i++) {
+		contentTextarea[i].style.height = "auto";
+		contentTextarea[i].style.height = (contentTextarea[i].scrollHeight) + 'px';
+	}
+	
 	/* top 버튼 */
 	$(document).ready(function() {
 		$(backToTop).hide();
