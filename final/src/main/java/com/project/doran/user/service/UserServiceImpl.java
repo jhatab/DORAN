@@ -49,7 +49,7 @@ public class UserServiceImpl implements UserService {
 	/* 회원가입 */
 	@Override
 	public void userJoin(UserVO userVO, MultipartFile file) throws Exception {
-		String userImagePath = "/var/webapps/upload/images/user_image_file";
+		String userImagePath = "/usr/local/tomcat/apache-tomcat-8.5.76/webapps/upload/images/user_image_file";
 
 		if (!file.isEmpty()) {
 			UUID uuid = UUID.randomUUID();
@@ -60,7 +60,7 @@ public class UserServiceImpl implements UserService {
 
 			file.transferTo(saveFile);
 
-			userVO.setProfileImg("/var/webapps/upload/images/user_image_file/" + fileName);
+			userVO.setProfileImg("http://101.101.216.127:8090/upload/images/user_image_file/" + fileName);
 		}
 
 		userDAO.userJoin(userVO);
