@@ -29,7 +29,7 @@ h1 {
 	cursor: pointer;
 }
 
-.search_filter_wrap li:hover{
+.search_filter_wrap li:hover {
 	border-bottom: 3px solid #FFC900;
 }
 
@@ -170,7 +170,14 @@ h1 {
 }
 
 .middle_wrap span {
-	
+	overflow: hidden;
+	display: inline-block;
+	white-space: normal;
+	text-overflow: ellipsis;
+	word-wrap: break-word;
+	display: -webkit-box;
+	-webkit-line-clamp: 5;
+	-webkit-box-orient: vertical;
 }
 
 .bottom_wrap img {
