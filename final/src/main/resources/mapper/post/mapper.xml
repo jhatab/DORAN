@@ -27,7 +27,7 @@
 		<if test="keyword != null and keyword != ''">
 			AND (p.content LIKE CONCAT('%',#{keyword},'%')
 			OR u.nickname LIKE CONCAT('%',#{keyword},'%')
-			OR p.tag LIKE CONCAT('%',#{keyword},'%'))
+			OR REPLACE(p.tag, ' ', '') LIKE CONCAT('%',#{keyword},'%'))
 		</if>
 		ORDER BY postedDate DESC;
 	</select>

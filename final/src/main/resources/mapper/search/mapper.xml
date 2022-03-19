@@ -35,7 +35,7 @@
 			LEFT OUTER JOIN groupTbl g ON g.groupId = p.groupId
 		WHERE p.isDeleted = 0
 			AND g.isDeleted = 0
-			AND p.tag LIKE CONCAT('%',#{search},'%')
+			AND REPLACE(p.tag, ' ', '') LIKE CONCAT('%',#{search},'%')
 		ORDER BY p.postedDate DESC
 	</select>
 	

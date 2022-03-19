@@ -43,7 +43,7 @@
 		<div class="feed_wrap">
 			<div>
 				<c:forEach items="${searchPostList}" var="pList" begin="0" step="2">
-					<a href="/group/home?groupId=${pList.groupId}">
+					<a href="/group/home?groupId=${pList.groupId}#post${pList.postId}">
 						<div class="feed_info">
 							<div class="top_wrap">
 								<c:choose>
@@ -132,7 +132,7 @@
 		<div class="tag_wrap">
 			<div>
 				<c:forEach items="${searchTagList}" var="tList" begin="0" step="2">
-					<a href="/group/home?groupId=${tList.groupId}">
+					<a href="/group/home?groupId=${tList.groupId}#post${tList.postId}">
 						<div class="tag_info">
 							<div class="top_wrap">
 								<c:choose>
