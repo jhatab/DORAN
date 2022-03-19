@@ -16,6 +16,7 @@ ul, li {
 }
 
 .tab {
+	position: relative;
 	margin-top:40px;
 	width: 1150px;
 	margin-left: 400px;
@@ -257,8 +258,8 @@ cursor:Pointer;
 	
 	.group_more {
 	position:absolute;
-	top:65px;
-	right:185px;
+	top:28px;
+	right:277px;
 	
 }
 
@@ -270,7 +271,7 @@ cursor:Pointer;
 
     width: 70px;
     height: 30px;
-    line-height: 28px;
+    line-height: 32px;
 
     cursor: pointer;
     box-shadow:0px 2px 6px #00000029;

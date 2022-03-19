@@ -4,6 +4,7 @@
 	display: flex;
 	justify-content: space-between;
 	width: 1320px;
+	min-height: calc(100vh - 285px);
 	margin: 125px auto 60px;
 }
 
