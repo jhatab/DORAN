@@ -63,7 +63,7 @@ public class UserServiceImpl implements UserService {
 			userVO.setProfileImg("http://101.101.216.127:8090/upload/images/user_image_file/" + fileName);
 		} 
 
-		userDAO.userUpdate(userVO);
+		userDAO.userJoin(userVO); 
 	}
 
 	/* 아이디 중복 검사 */
