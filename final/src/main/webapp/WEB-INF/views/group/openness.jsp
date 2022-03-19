@@ -31,7 +31,7 @@
 		</div>
 
 		<div class="middleContents">
-			<p>${pList.content}</p>
+			<textarea>${pList.content}</textarea>
 		</div>
 
 		<div class="groupFeedLower">
