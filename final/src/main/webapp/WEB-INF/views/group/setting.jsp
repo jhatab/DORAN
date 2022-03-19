@@ -26,13 +26,15 @@
 		
 		<!-- Main Contents -->
 		<div class="mainWrap">
-			<div class="btnWrap">
-				<button type="button" class="groupUpdateBtn">수정하기</button>
-				<button type="button" class="groupDeleteBtn">삭제하기</button>
-			</div>
-			<form id="groupForm" method="get">
-				<input type="hidden" name="groupId" value="${groupInfo.groupId}">
-			</form>
+			<c:if test="${member.uid == groupInfo.uid}">
+				<div class="btnWrap">
+					<button type="button" class="groupUpdateBtn">수정하기</button>
+					<button type="button" class="groupDeleteBtn">삭제하기</button>
+				</div>
+				<form id="groupForm" method="get">
+					<input type="hidden" name="groupId" value="${groupInfo.groupId}">
+				</form>
+			</c:if>
 			
 			<div class="memberWrap">
 				<div class="upperWrap">
