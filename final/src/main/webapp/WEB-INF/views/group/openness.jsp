@@ -65,7 +65,7 @@
 		<div class="groupFeedImg">
 			<c:forEach items="${postImageList}" var="pIList">
 				<c:if test="${pIList.postId == pList.postId}">
-					<img src="${pIList.filePath}">
+					<a href="${pIList.filePath}" data-fancybox="postImg${pIList.postId}"><img src="${pIList.filePath}"></a>
 				</c:if>
 			</c:forEach>
 		</div>
