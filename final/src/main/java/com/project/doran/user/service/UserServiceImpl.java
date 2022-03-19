@@ -50,20 +50,20 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public void userJoin(UserVO userVO, MultipartFile file) throws Exception {
 		String userImagePath = "/usr/local/tomcat/apache-tomcat-8.5.76/webapps/upload/images/user_image_file";
-
+		
 		if (!file.isEmpty()) {
 			UUID uuid = UUID.randomUUID();
 
 			String fileName = uuid + "_" + file.getOriginalFilename();
-
+			
 			File saveFile = new File(userImagePath, fileName);
 
-			file.transferTo(saveFile);
+			file.transferTo(saveFile); 
 
 			userVO.setProfileImg("http://101.101.216.127:8090/upload/images/user_image_file/" + fileName);
-		}
+		} 
 
-		userDAO.userJoin(userVO);
+		userDAO.userUpdate(userVO);
 	}
 
 	/* 아이디 중복 검사 */
@@ -88,23 +88,15 @@ public class UserServiceImpl implements UserService {
 
 			String fileName = uuid + "_" + file.getOriginalFilename();
 			
-			logger.info(userImagePath);
-			
-			logger.info(fileName);
-			
 			File saveFile = new File(userImagePath, fileName);
 
 			file.transferTo(saveFile); 
 
 			userVO.setProfileImg("http://101.101.216.127:8090/upload/images/user_image_file/" + fileName);
-			logger.info(userVO.getUid());
-			logger.info(userVO.getUpass());
-			logger.info(userVO.getName());
 		} 
 
 		userDAO.userUpdate(userVO);
 
-		logger.info("회원 정보 수정");
 	}
 
 	/* 가입한 그룹 목록 */
