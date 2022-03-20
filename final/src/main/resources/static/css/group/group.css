@@ -277,6 +277,7 @@ input[type="file"] {
 	height: 70px;
 	margin-right: 22.25px;
 	border: 1px solid #ccc;
+	object-fit:cover;
 }
 
 .postWrite_content .attach_wrap ul li:last-child img {
@@ -696,6 +697,8 @@ input[type="file"] {
 	height: 70px;
 	margin-right: 22.25px;
 	border: 1px solid #ccc;
+	object-fit:cover;
+	
 }
 
 .postUpdate_content .attach_wrap ul li:last-child img {
