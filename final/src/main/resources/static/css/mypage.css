@@ -339,6 +339,7 @@ body {
 	border: 1px solid #ccc;
 	border-radius: 50%;
 	cursor: pointer;
+	object-fit:contain;
 }
 
 .fileView_wrap span {
