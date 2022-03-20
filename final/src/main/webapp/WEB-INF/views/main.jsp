@@ -75,9 +75,17 @@
 					<div class="slider">
 
 						<c:forEach items="${groupList}" var="gList">
+			
 
 							<div class="group_img">
-								<img src="${gList.groupImagePath}">
+								<c:choose>
+									<c:when test="${gList.groupImagePath == null or gList.groupImagePath == ''}">
+										<img src="/images/group_image_file/basic.png">
+									</c:when>
+									<c:otherwise>
+										<img src="${gList.groupImagePath}">
+									</c:otherwise>
+								</c:choose>
 								<div class="group_name">
 									<a href="/group/home?groupId=${gList.groupId}"> <span>${gList.groupName}</span>
 									</a>
