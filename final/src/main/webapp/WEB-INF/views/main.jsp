@@ -54,7 +54,7 @@
 								<c:choose>
 									<c:when
 										test="${gLikeList.groupImagePath == null or gLikeList.groupImagePath == ''}">
-										<img src="/images/group_image_file/basic.png">
+										<img src="/images/group_image_file/basic.png" style="object-fit:contain;">
 									</c:when>
 									<c:otherwise>
 										<img src="${gLikeList.groupImagePath}">
@@ -80,7 +80,7 @@
 							<div class="group_img">
 								<c:choose>
 									<c:when test="${gList.groupImagePath == null or gList.groupImagePath == ''}">
-										<img src="/images/group_image_file/basic.png">
+										<img src="/images/group_image_file/basic.png" style="object-fit:contain;">
 									</c:when>
 									<c:otherwise>
 										<img src="${gList.groupImagePath}">
