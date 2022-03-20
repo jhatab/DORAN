@@ -347,6 +347,7 @@ input[type="file"] {
 	margin-right: 10px;
 	border: 1px solid #ccc;
 	border-radius: 50%;
+	object-fit:cover;
 }
 
 .userId p {
