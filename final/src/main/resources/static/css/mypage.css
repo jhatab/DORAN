@@ -285,6 +285,7 @@ body {
 	border: 1px solid #ccc;
 	border-radius: 50%;
 	cursor: pointer;
+	object-fit:contain;
 }
 
 .userImg_wrap .userImage span {
