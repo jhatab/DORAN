@@ -14,7 +14,6 @@
 			INNER JOIN groupTbl g ON p.groupId = g.groupId
 			INNER JOIN categoryTbl c ON c.categoryId = g.categoryId
 		WHERE g.isDeleted = 0 AND p.isDeleted = 0 AND p.openness = 0
-		ORDER BY postedDate DESC
 		ORDER BY p.likeCount DESC
 	</select>
 
